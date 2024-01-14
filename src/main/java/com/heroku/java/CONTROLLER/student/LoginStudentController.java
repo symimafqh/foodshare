@@ -32,13 +32,14 @@ public class LoginStudentController {
     }
 
     @GetMapping("/signin")
-    public String signin(){
+    public String signin() {
         return "student/sign-in/signin";
     }
 
     @PostMapping("/signin")
-    public String LoginStudent(@RequestParam(name = "success", required = false) Boolean success,HttpSession session, String studentIC, String studentPassword, StudentBean s){
-        
+    public String LoginStudent(@RequestParam(name = "success", required = false) Boolean success, HttpSession session,
+    @RequestParam("studentIC") String studentIC, @RequestParam("studentPassword") String studentPassword, StudentBean s) {
+
         try {
             // String returnPage = null;
             Connection connection = dataSource.getConnection();
@@ -69,8 +70,8 @@ public class LoginStudentController {
 
                     session.setAttribute("studentic", studentIC);
                     session.setAttribute("studentpassword", studentPassword);
-                    
-                    return "redirect:/dashboardStudent?success=true";
+
+                    return "redirect:/dashboardStudent";
                 }
             }
 
@@ -90,5 +91,21 @@ public class LoginStudentController {
             System.out.println("E message : " + e.getMessage());
             return "redirect:/signin?error";
         }
+    }
+
+    @GetMapping("/dashboardStudent")
+    public String dashboardStudent(StudentBean s, Model model, HttpSession session) {
+
+        //String studentIC = (String) 
+        session.getAttribute("studentIC");
+        //String studentPassword = (String) 
+        session.getAttribute("studentPassword");
+
+        // or access directly from model
+
+        // model.addAttribute("studentIC", studentIC);
+        // model.addAttribute("studentPassword", studentPassword);
+
+        return "dashboardStudent";
     }
 }
