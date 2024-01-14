@@ -47,15 +47,15 @@ public class SignUpStudentController {
             String address=s.getStudentAddress();
             String password =s.getStudentPassword();
     
-            s.setString(1,studIC);
-            s.setString(2,name);
-            s.setString(3,email);
-            s.setString(4,phone);
+            statement.setString(1,studIC);
+            statement.setString(2,name);
+            statement.setString(3,email);
+            statement.setString(4,phone);
             // s.setString(5,dob);
-            s.setString(5,gender);
-            s.setString(6,kelas);
-            s.setString(7,address);
-            s.setString(8,password);
+            statement.setString(5,gender);
+            statement.setString(6,kelas);
+            statement.setString(7,address);
+            statement.setString(8,password);
             
             statement.executeUpdate();
             

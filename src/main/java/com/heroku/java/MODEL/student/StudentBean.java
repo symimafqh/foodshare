@@ -141,10 +141,10 @@ public class StudentBean {
         this.studentAddress = studentAddress;
     }
 
-    public void setString(int i, Object studIC) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setString'");
-    }
+    // public void setString(int i, Object studIC) {
+    //     // TODO Auto-generated method stub
+    //     throw new UnsupportedOperationException("Unimplemented method 'setString'");
+    // }
 
     
 
