@@ -69,6 +69,6 @@ public class SignUpStudentController {
                     e.printStackTrace();
                     return "redirect:/signup.html";
                 }
-            return "redirect:/sign.html";
+            return "redirect:/signin.html";
     }
 }
