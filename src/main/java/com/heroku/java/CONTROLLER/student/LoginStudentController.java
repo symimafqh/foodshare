@@ -37,38 +37,38 @@ public class LoginStudentController {
     }
 
     @PostMapping("/signin")
-    public String LoginStudent(@RequestParam(name = "success", required = false) Boolean success,HttpSession session, String teacherusername, String teacherpassword, StudentBean s){
+    public String LoginStudent(@RequestParam(name = "success", required = false) Boolean success,HttpSession session, String studentUsername, String studentPassword, StudentBean s){
         
         try {
             // String returnPage = null;
             Connection connection = dataSource.getConnection();
 
-            String sql = "SELECT * FROM public.teacher WHERE teacherusername=? AND teacherpassword=?";
+            String sql = "SELECT * FROM public.student WHERE studentusername=? AND studentpassword=?";
             final var statement = connection.prepareStatement(sql);
-            statement.setString(1, teacherusername);
-            statement.setString(2, teacherpassword);
+            statement.setString(1, studentUsername);
+            statement.setString(2, studentPassword);
 
             final var resultSet = statement.executeQuery();
 
-            System.out.println("teacher username : " + teacherusername);
-            System.out.println("teacher pass : " + teacherpassword);
+            System.out.println("teacher username : " + studentUsername);
+            System.out.println("teacher pass : " + studentPassword);
 
             if (resultSet.next()) {
 
                 // String guestICNumber = resultSet.getString("guestICNumber");
                 // String teacherName = resultSet.getString("guestname");
-                String teacherUsername = resultSet.getString("teacherusername");
-                String teacherPassword = resultSet.getString("teacherpasswword");
+                String username = resultSet.getString("studentUsername");
+                String password = resultSet.getString("studentPassword");
 
-                System.out.println(teacherusername);
+                System.out.println(studentUsername);
                 // if they're admin
                 // System.out.println("Email : " + guestEmail.equals(email) + " | " + email);
                 // System.out.println("Password status : " + guestPassword.equals(password));
 
-                if (teacherusername.equals(teacherusername) && teacherpassword.equals(teacherpassword)) {
+                if (username.equals(studentUsername) && password.equals(studentPassword)) {
 
-                    session.setAttribute("teacherusername", teacherUsername);
-                    session.setAttribute("teacherpassword", teacherPassword);
+                    session.setAttribute("teacherusername", studentUsername);
+                    session.setAttribute("teacherpassword", studentPassword);
                     
                     return "redirect:/dashboardStudent?success=true";
                 }
