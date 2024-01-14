@@ -105,6 +105,6 @@ public class LoginStudentController {
         s.setStudentIC(studentIC);  
         s.setStudentPassword(studentPassword);
 
-        return "dashboardStudent";
+        return "student/dashboardStudent";
     }
 }
