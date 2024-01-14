@@ -74,7 +74,7 @@ public class LoginStudentController {
                     s.setStudentIC(studentIC);
                 s.setStudentPassword(resultSet.getString("studentPassword"));
 
-                    return "redirect:/dashboardStudent?success=true";
+                    return "redirect:/dashboardStudent";
                 }
             }
 
