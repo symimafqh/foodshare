@@ -126,14 +126,14 @@
                 <!-- Sign Up Form -->
                 <!-- jQuery Validation functionality is initialized with .js-validation-signup class in js/pages/op_auth_signup.min.js which was auto compiled from _js/pages/op_auth_signup.js -->
                 <!-- For more examples you can check out https://github.com/jzaefferer/jquery-validation -->
-                <form  th:action="@{/signup}"
-                modelAttribute="signup"
-                th:object="(${signup})"
+                <form  th:action="@{/teacherRegister}"
+                modelAttribute="teacherRegister"
+                th:object="(${teacherRegister})"
                 enctype="multipart/form-data"method="post">
                   <div class="form-group row">
                     <div class="col-12">
                       <div class="form-material">
-                        <input type="text" class="form-control" id="signup-ic" name="teacherIC" maxlength="12" pattern="[0-9]*" required>
+                        <input type="text" class="form-control" id="signup-ic" name="teacherUsername" maxlength="12" pattern="[0-9]*" required>
                         <label for="signup-username">Nombor Kad Pengenalan</label>
                         <small style="color:red;">tanpa (-) atau space(' '). cth:010203054477</small>
                       </div>

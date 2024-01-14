@@ -26,10 +26,17 @@ public class GettingStartedApplication {
         return "index";
     }
 
-    @GetMapping("/AdminSignIn")
-    public String adminsignin() {
-        return "sign-in/AdminSignIn";
+    //student 
+    @GetMapping("/signin")
+    public String studentsignin() {
+        return "student/sign-in/signin";
     }
+
+    @GetMapping("/signup")
+    public String signup() {
+        return "student/sign-in/signup";
+    }
+    
 
      @GetMapping("/adminSignin")
     public String coorsignin() {
@@ -40,17 +47,13 @@ public class GettingStartedApplication {
     public String teacherRegister(){
         return "teacher/sign-in/teacherRegister";
     }
+
+    @GetMapping("/teachersignin")
+    public String teacherSignin(){
+        return "teacher/sign-in/teachersignin";
+    }
+
     
-
-     @GetMapping("/signin")
-    public String studentsignin() {
-        return "student/sign-in/signin";
-    }
-
-    @GetMapping("/signup")
-    public String signup() {
-        return "student/sign-in/signup";
-    }
 
     //  @GetMapping("/reminder")
     // public String reminder() {
