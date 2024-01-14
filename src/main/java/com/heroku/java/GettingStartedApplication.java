@@ -31,9 +31,9 @@ public class GettingStartedApplication {
         return "sign-in/AdminSignIn";
     }
 
-     @GetMapping("/signInCoordinator")
+     @GetMapping("/adminSignin")
     public String coorsignin() {
-        return "sign-in/signInCoordinator";
+        return "teacher/sign-in/adminSignin";
     }
 
      @GetMapping("/signin")

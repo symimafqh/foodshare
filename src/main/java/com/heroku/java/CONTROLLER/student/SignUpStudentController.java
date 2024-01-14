@@ -67,8 +67,8 @@ public class SignUpStudentController {
                 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    return "redirect:/signup.html";
+                    return "redirect:/signup";
                 }
-            return "redirect:/signin.html";
+            return "redirect:/signin";
     }
 }
