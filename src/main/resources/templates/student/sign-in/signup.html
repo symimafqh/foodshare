@@ -126,7 +126,10 @@
                 <!-- Sign Up Form -->
                 <!-- jQuery Validation functionality is initialized with .js-validation-signup class in js/pages/op_auth_signup.min.js which was auto compiled from _js/pages/op_auth_signup.js -->
                 <!-- For more examples you can check out https://github.com/jzaefferer/jquery-validation -->
-                <form action="SignUpStudentController" method="post">
+                <form  th:action="@{/signup}"
+                modelAttribute="signup"
+                th:object="(${signup})"
+                enctype="multipart/form-data"method="post">
                   <div class="form-group row">
                     <div class="col-12">
                       <div class="form-material">
