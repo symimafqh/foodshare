@@ -130,7 +130,7 @@
                   <div class="form-group row">
                     <div class="col-12">
                       <div class="form-material">
-                        <input type="text" class="form-control" id="signup-ic" name="signup-ic" maxlength="12" pattern="[0-9]*" required>
+                        <input type="text" class="form-control" id="signup-ic" name="studentIC" maxlength="12" pattern="[0-9]*" required>
                         <label for="signup-username">Nombor Kad Pengenalan</label>
                         <small style="color:red;">tanpa (-) atau space(' '). cth:010203054477</small>
                       </div>
@@ -139,7 +139,7 @@
                   <div class="form-group row">
                     <div class="col-12">
                       <div class="form-material">
-                        <input type="text" class="form-control" id="signup-nama" name="signup-nama" oninput="this.value = this.value.toUpperCase()" required>
+                        <input type="text" class="form-control" id="signup-nama" name="studentName" oninput="this.value = this.value.toUpperCase()" required>
                         <label for="signup-nama">Nama</label>
                       </div>
                     </div>
@@ -147,7 +147,7 @@
                   <div class="form-group row">
                     <div class="col-12">
                       <div class="form-material">
-                        <input type="text" class="form-control" id="signup-notel" name="signup-notel" maxlength="12" pattern="[0-9]*" required>
+                        <input type="text" class="form-control" id="signup-notel" name="studentPhone" maxlength="12" pattern="[0-9]*" required>
                         <label for="signup-notel">Nombor Telefon</label>
                       </div>
                     </div>
@@ -155,7 +155,7 @@
                    <div class="form-group row">
                     <div class="col-12">
                       <div class="form-material">
-                       <select class="form-control" id="signup-jantina" name="signup-kelas" required>
+                       <select class="form-control" id="signup-jantina" name="studentClass" required>
                           <option></option><!-- Empty value for demostrating material select box -->
                           <option value="Mukhriz">MUKHRIZ</option>
                           <option value="Durah">DURAH</option>
@@ -173,13 +173,13 @@
                   <div class="form-group row">
                     <div class="col-12">
                       <label for="profile-settings-email">Tarikh Lahir</label>
-                      <input type="date" class="js-datepicker form-control form-control-lg" id="signup-tarikhlahir" name="dob" data-week-start="1" data-autoclose="true" data-today-highlight="true" data-date-format="dd-mm-yyyy" value="24-Jun-1973" required >
+                      <input type="date" class="js-datepicker form-control form-control-lg" id="signup-tarikhlahir" name="studentDOB" data-week-start="1" data-autoclose="true" data-today-highlight="true" data-date-format="dd-mm-yyyy" value="24-Jun-1973" required >
                     </div>
                   </div>
                   <div class="form-group row">
                     <div class="col-md-9">
                       <div class="form-material">
-                        <select class="form-control" id="signup-jantina" name="signup-jantina" required>
+                        <select class="form-control" id="signup-jantina" name="studentGender" required>
                           <option></option><!-- Empty value for demostrating material select box -->
                           <option value="Lelaki">Lelaki</option>
                           <option value="Perempuan">Perempuan</option>
@@ -191,7 +191,7 @@
                   <div class="form-group row">
                     <div class="col-12">
                       <div class="form-material">
-                        <input type="email" class="form-control" id="signup-email" name="signup-email" required>
+                        <input type="email" class="form-control" id="signup-email" name="studentEmail" required>
                         <label for="signup-email">Email</label>
                       </div>
                     </div>
@@ -199,7 +199,7 @@
                   <div class="form-group row">
                     <div class="col-12">
                       <div class="form-material">
-                        <textarea class="form-control" id="signup-alamat" name="signup-alamat" rows="3" oninput="this.value = this.value.toUpperCase()" required></textarea>
+                        <textarea class="form-control" id="signup-alamat" name="studentAddress" rows="3" oninput="this.value = this.value.toUpperCase()" required></textarea>
                         <label for="material-textarea-alamat">Alamat</label>
                       </div>
                     </div>
@@ -207,7 +207,7 @@
                   <div class="form-group row">
                     <div class="col-12">
                       <div class="form-material">
-                        <input type="password" class="form-control" id="signup-password" name="signup-password" required>
+                        <input type="password" class="form-control" id="studentPassword" name="studentPassword" required>
                         <label for="signup-password">Kata Laluan</label>
                       </div>
                     </div>
@@ -215,7 +215,7 @@
                   <div class="form-group row">
                     <div class="col-12">
                       <div class="form-material">
-                        <input type="password" class="form-control" id="signup-password-confirm" name="signup-password-confirm" required>
+                        <input type="password" class="form-control" id="studentPasswordConfirmation" name="studentPasswordConfirmation" required>
                         <label for="signup-password-confirm">Sahkan Kata Laluan</label>
                       </div>
                     </div>

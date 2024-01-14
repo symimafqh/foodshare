@@ -1,0 +1,10 @@
+@font-face {
+  font-family: "basmala";
+  src: url(assets/fonts/basmalafont/Basmala.ttff);
+  font-weight: normal;
+  font-style: normal;
+}
+
+.basmala{
+	font-family: basmala;
+}
