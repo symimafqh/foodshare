@@ -71,7 +71,10 @@ public class LoginStudentController {
                     session.setAttribute("studentic", studentIC);
                     session.setAttribute("studentpassword", studentPassword);
 
-                    return "redirect:/dashboardStudent";
+                    s.setStudentIC(studentIC);
+                s.setStudentPassword(resultSet.getString("studentPassword"));
+
+                    return "redirect:/dashboardStudent?success=true";
                 }
             }
 
@@ -93,17 +96,17 @@ public class LoginStudentController {
         }
     }
 
-    @GetMapping("/dashboardStudent")
-    public String dashboardStudent(StudentBean s, Model model, HttpSession session) {
+    // @GetMapping("/dashboardStudent")
+    // public String dashboardStudent(StudentBean s, Model model, HttpSession session) {
 
-        String studentIC = (String) session.getAttribute("studentIC");
-        String studentPassword = (String) session.getAttribute("studentPassword");
+    //     String studentIC = (String) session.getAttribute("studentIC");
+    //     String studentPassword = (String) session.getAttribute("studentPassword");
 
-        // or access directly from model
+    //     // or access directly from model
 
-        model.addAttribute("studentIC", studentIC);
-        model.addAttribute("studentPassword", studentPassword);
+    //     model.addAttribute("studentIC", studentIC);
+    //     model.addAttribute("studentPassword", studentPassword);
 
-        return "dashboardStudent";
-    }
+    //     return "dashboardStudent";
+    // }
 }

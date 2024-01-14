@@ -38,10 +38,10 @@ public class GettingStartedApplication {
         return "student/sign-in/signup";
     }
 
-    // @GetMapping("/dashboard")
-    // public String dashboard(@RequestParam(name = "success", required = false) Boolean success) {
-    //     return "student/dashboard";
-    // }
+    @GetMapping("/dashboard")
+    public String dashboard(@RequestParam(name = "success", required = false) Boolean success) {
+        return "student/dashboard";
+    }
     
 
      @GetMapping("/adminSignin")
