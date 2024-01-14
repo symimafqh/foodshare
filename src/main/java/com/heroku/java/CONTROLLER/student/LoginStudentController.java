@@ -57,7 +57,7 @@ public class LoginStudentController {
 
                 // String guestICNumber = resultSet.getString("guestICNumber");
                 // String teacherName = resultSet.getString("guestname");
-                String username = resultSet.getString("studentUsername");
+                String username = resultSet.getString("studentIC");
                 String password = resultSet.getString("studentPassword");
 
                 System.out.println(studentIC);
@@ -67,8 +67,8 @@ public class LoginStudentController {
 
                 if (username.equals(studentIC) && password.equals(studentPassword)) {
 
-                    session.setAttribute("teacherusername", studentIC);
-                    session.setAttribute("teacherpassword", studentPassword);
+                    session.setAttribute("studentic", studentIC);
+                    session.setAttribute("studentpassword", studentPassword);
                     
                     return "redirect:/dashboardStudent?success=true";
                 }
