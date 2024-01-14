@@ -36,6 +36,12 @@ public class GettingStartedApplication {
         return "teacher/sign-in/adminSignin";
     }
 
+    @GetMapping("/teacherRegister")
+    public String teacherRegister(){
+        return "teacher/sign-in/teacherRegister";
+    }
+    
+
      @GetMapping("/signin")
     public String studentsignin() {
         return "student/sign-in/signin";
