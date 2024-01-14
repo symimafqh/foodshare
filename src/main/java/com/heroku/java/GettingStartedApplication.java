@@ -5,6 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -27,14 +28,19 @@ public class GettingStartedApplication {
     }
 
     //student 
-    @GetMapping("/signin")
-    public String studentsignin() {
-        return "student/sign-in/signin";
-    }
+    // @GetMapping("/signin")
+    // public String studentsignin() {
+    //     return "student/sign-in/signin";
+    // }
 
     @GetMapping("/signup")
     public String signup() {
         return "student/sign-in/signup";
+    }
+
+    @GetMapping("/dashboard")
+    public String dashboard(@RequestParam(name = "success", required = false) Boolean success) {
+        return "student/dashboard";
     }
     
 
