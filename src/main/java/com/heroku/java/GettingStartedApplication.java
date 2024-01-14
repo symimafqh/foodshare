@@ -26,6 +26,91 @@ public class GettingStartedApplication {
         return "index";
     }
 
+    @GetMapping("/AdminSignIn")
+    public String adminsignin() {
+        return "sign-in/AdminSignIn";
+    }
+
+     @GetMapping("/signInCoordinator")
+    public String coorsignin() {
+        return "sign-in/signInCoordinator";
+    }
+
+     @GetMapping("/signin")
+    public String studentsignin() {
+        return "student/sign-in/signin";
+    }
+
+    @GetMapping("/signup")
+    public String signup() {
+        return "student/sign-in/signup";
+    }
+
+    //  @GetMapping("/reminder")
+    // public String reminder() {
+    //     return "sign-in/reminder";
+    // }
+
+    // @GetMapping("/dashboardStudent")
+    // public String dashboardstudent(){
+    //     return "dashboard/dashboardStudent";
+    // }
+
+    //  @GetMapping("/edit_profile")
+    // public String profileStudent(){
+    //     return "profileStud/edit_profile";
+    // }
+
+    //    @GetMapping("/semasa")
+    // public String semasa(){
+    //     return "kokurikulum/semasa";
+    // }
+
+    //     @GetMapping("/pendaftaran")
+    // public String registration(){
+    //     return "kokurikulum/pendaftaran";
+    // }
+
+    //      @GetMapping("/semakan")
+    // public String resultcheck(){
+    //     return "kokurikulum/semakan";
+    // }
+
+    //       @GetMapping("/info_kelab")
+    // public String info_kelab(){
+    //     return "info_cat/info_kelab";
+    // }
+
+    //        @GetMapping("/info_sukan")
+    // public String info_sukan(){
+    //     return "info_cat/info_sukan";
+    // }
+
+    //        @GetMapping("/info_unit")
+    // public String info_unit(){
+    //     return "info_cat/info_unit";
+    // }
+
+    //         @GetMapping("/dashboardCoor")
+    // public String dashboardCoor(){
+    //     return "dashboard/dashboardCoor";
+    // }
+
+    //         @GetMapping("/info_unitCoor")
+    // public String info_unitCoor(){
+    //     return "info_cat/info_unitCoor";
+    // }
+
+    //         @GetMapping("/info_sukanCoor")
+    // public String info_sukanCoor(){
+    //     return "info_cat/info_sukanCoor";
+    // }
+
+    //         @GetMapping("/info_kelabCoor")
+    // public String info_kelabCoor(){
+    //     return "info_cat/info_kelabCoor";
+    // }
+
     @GetMapping("/database")
     String database(Map<String, Object> model) {
         try (Connection connection = dataSource.getConnection()) {

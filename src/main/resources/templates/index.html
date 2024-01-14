@@ -1,94 +1,285 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'index')}">
-<body>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
-<div class="jumbotron text-center">
-    <div class="container">
-        <a href="/" class="lang-logo">
-            <img alt="" src="/lang-logo.png">
-        </a>
-        <h1>Getting Started with Java on Heroku</h1>
-        <p>This is a sample Java application deployed to Heroku. It's a reasonably simple app - but a good foundation
-            for understanding how to get the most out of the Heroku platform.</p>
-        <a type="button" class="btn btn-lg btn-default"
-           href="https://devcenter.heroku.com/articles/getting-started-with-java"><span
-                class="glyphicon glyphicon-flash"></span> Getting Started with Java</a>
-        <a type="button" class="btn btn-lg btn-primary" href="https://github.com/heroku/java-getting-started"><span
-                class="glyphicon glyphicon-download"></span> Source on GitHub</a>
-    </div>
-</div>
+    <title>Codebase - Bootstrap 4 Admin Template &amp; UI Framework</title>
 
-<div class="container">
-    <div class="alert alert-info text-center" role="alert">
-        To deploy your own copy, and learn the fundamentals of the Heroku platform, head over to the <a
-            href="https://devcenter.heroku.com/articles/getting-started-with-java" class="alert-link">Getting Started
-        with Java on Heroku</a> tutorial.
-    </div>
-    <hr>
-    <div class="row">
-        <div class="col-md-6">
-            <h3><span class="glyphicon glyphicon-info-sign"></span> How this sample app works</h3>
-            <ul>
-                <li>This app was deployed to Heroku, either using Git or by using <a
-                        href="https://github.com/heroku/java-getting-started">Heroku Button</a> on the repository.
-                </li>
+    <meta name="description" content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
+    <meta name="author" content="pixelcave">
+    <meta name="robots" content="noindex, nofollow">
 
-                <li>When Heroku received the source code, it fetched all the dependencies in the <a
-                        href="https://github.com/heroku/java-getting-started/blob/main/pom.xml">pom.xml</a>, creating a
-                    slug.
-                </li>
-                <li>The platform then spins up a dyno, a lightweight container that provides an isolated environment in
-                    which the slug can be mounted and executed.
-                </li>
-                <li>You can scale your app, manage it, and deploy over <a href="https://addons.heroku.com/">150 add-on
-                    services</a>, from the Dashboard or CLI.
-                </li>
-            </ul>
+    <!-- Open Graph Meta -->
+    <meta property="og:title" content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework">
+    <meta property="og:site_name" content="Codebase">
+    <meta property="og:description" content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+
+     <!-- Icons -->
+    <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
+    <link rel="shortcut icon" th:href="@{stylesheets/assets/media/favicons/favicon.png}">
+    <link rel="icon" type="image/png" sizes="192x192" th:href="@{stylesheets/assets/media/favicons/favicon-192x192.png}">
+    <link rel="apple-touch-icon" sizes="180x180" th:href="@{stylesheets/assets/media/favicons/apple-touch-icon-180x180.png}">
+    <!-- END Icons -->
+    
+    <!-- stylesheets -->
+    
+    <!-- Fonts and Codebase framework -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,400i,600,700&display=swap">
+    <link rel="stylesheet" id="css-main" th:href="@{stylesheets/assets/css/codebase.min.css}">
+    
+        <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
+    <!-- <link rel="stylesheet" id="css-theme" th:href="../assets/css/themes/corporate.min.css"> -->
+    <link rel="stylesheet" id="css-theme" th:href="@{stylesheets/assets/css/themes/flat.min.css}"> 
+    <!-- <link rel="stylesheet" id="css-theme" th:href="../assets/css/themes/earth.min.css"> 
+    <!-- <link rel="stylesheet" id="css-theme" th:href="../assets/css/themes/elegance.min.css">
+    <link rel="stylesheet" id="css-theme" th:href="../assets/css/themes/pulse.min.css"> -->
+    
+    <!-- <link rel="stylesheet" id="css-theme" th:href="../assets/css/themes/elegance.min.css"> -->
+    
+    <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
+    <!-- <link rel="stylesheet" id="css-theme" th:href="assets/css/themes/flat.min.css"> -->
+    <!-- END stylesheets -->
+  </head>
+  <body>
+    <!-- Page Container -->
+    <!--
+        Available classes for #page-container:
+
+    GENERIC
+
+        'enable-cookies'                            Remembers active color theme between pages (when set through color theme helper Template._uiHandleTheme())
+
+    SIDEBAR & SIDE OVERLAY
+
+        'sidebar-r'                                 Right Sidebar and left Side Overlay (default is left Sidebar and right Side Overlay)
+        'sidebar-mini'                              Mini hoverable Sidebar (screen width > 991px)
+        'sidebar-o'                                 Visible Sidebar by default (screen width > 991px)
+        'sidebar-o-xs'                              Visible Sidebar by default (screen width < 992px)
+        'sidebar-inverse'                           Dark themed sidebar
+
+        'side-overlay-hover'                        Hoverable Side Overlay (screen width > 991px)
+        'side-overlay-o'                            Visible Side Overlay by default
+
+        'enable-page-overlay'                       Enables a visible clickable Page Overlay (closes Side Overlay on click) when Side Overlay opens
+
+        'side-scroll'                               Enables custom scrolling on Sidebar and Side Overlay instead of native scrolling (screen width > 991px)
+
+    HEADER
+
+        ''                                          Static Header if no class is added
+        'page-header-fixed'                         Fixed Header
+
+    HEADER STYLE
+
+        ''                                          Classic Header style if no class is added
+        'page-header-modern'                        Modern Header style
+        'page-header-inverse'                       Dark themed Header (works only with classic Header style)
+        'page-header-glass'                         Light themed Header with transparency by default
+                                                    (absolute position, perfect for light images underneath - solid light background on scroll if the Header is also set as fixed)
+        'page-header-glass page-header-inverse'     Dark themed Header with transparency by default
+                                                    (absolute position, perfect for dark images underneath - solid dark background on scroll if the Header is also set as fixed)
+
+    MAIN CONTENT LAYOUT
+
+        ''                                          Full width Main Content if no class is added
+        'main-content-boxed'                        Full width Main Content with a specific maximum width (screen width > 1200px)
+        'main-content-narrow'                       Full width Main Content with a percentage width (screen width > 1200px)
+    -->
+
+      <!-- Side Overlay-->
+      <aside id="side-overlay">
+       
+      </aside>
+      <!-- END Side Overlay -->
+
+      <!-- Sidebar -->
+      <!--
+          Helper classes
+
+          Adding .sidebar-mini-hide to an element will make it invisible (opacity: 0) when the sidebar is in mini mode
+          Adding .sidebar-mini-show to an element will make it visible (opacity: 1) when the sidebar is in mini mode
+              If you would like to disable the transition, just add the .sidebar-mini-notrans along with one of the previous 2 classes
+
+          Adding .sidebar-mini-hidden to an element will hide it when the sidebar is in mini mode
+          Adding .sidebar-mini-visible to an element will show it only when the sidebar is in mini mode
+              - use .sidebar-mini-visible-b if you would like to be a block when visible (display: block)
+      -->
+  
+
+      <!-- Header -->
+      <header id="page-header">
+        <!-- Header Content -->
+        <div class="content-header">
+            <center>
+                <div><h1 class="h2 font-w700 mt-30 mb-10 ml-20">SISTEM E-CURRICULAR SMKTAD</h1></div>
+            </center>
         </div>
-        <div class="col-md-6">
-            <h3><span class="glyphicon glyphicon-link"></span> Next Steps</h3>
-            <ul>
-                <li>If you are following the <a href="https://devcenter.heroku.com/articles/getting-started-with-java">Getting
-                    Started</a> guide, then please head back to the tutorial and follow the next steps!
-                </li>
-                <li>If you deployed this app by deploying the Heroku Button, then in a command line shell, run:</li>
-                <li>
-                    <ul>
-                        <li><code>git clone https://github.com/heroku/java-getting-started.git</code> - this will create
-                            a
-                            local copy of the source code for the app
-                        </li>
-                        <li><code>cd java-getting-started</code> - change directory into the local source code
-                            repository
-                        </li>
-                        <li><code>heroku git:remote -a &lt;your-app-name></code> - associate the Heroku app with the
-                            repository
-                        </li>
-                        <li>You'll now be set up to run the app locally, or <a
-                                href="https://devcenter.heroku.com/articles/getting-started-with-java#push-local-changes">deploy
-                            changes</a> to Heroku
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <h3><span class="glyphicon glyphicon-link"></span> Helpful Links</h3>
-            <ul>
-                <li><a href="https://www.heroku.com/home">Heroku</a></li>
-                <li><a href="https://devcenter.heroku.com/">Heroku Dev Center</a></li>
-                <li><a href="https://devcenter.heroku.com/articles/getting-started-with-java">Getting Started with Java
-                    on Heroku</a></li>
-                <li><a href="https://devcenter.heroku.com/articles/deploying-java">Deploying Java Apps on Heroku</a>
-                </li>
-            </ul>
+        <!-- END Header Content -->
+
+
+
+        <!-- Header Loader -->
+        <div id="page-header-search" class="overlay-header">
+          <div class="content-header content-header-fullrow">
+            <form action="be_pages_generic_search.html" method="post">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <!-- Close Search Section -->
+                  <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
+                  <button type="button" class="btn btn-secondary" data-toggle="layout" data-action="header_search_off">
+                    <i class="fa fa-times"></i>
+                  </button>
+                  <!-- END Close Search Section -->
+                </div>
+                <input type="text" class="form-control" placeholder="Search or hit ESC.." id="page-header-search-input" name="page-header-search-input">
+                <div class="input-group-append">
+                  <button type="submit" class="btn btn-secondary">
+                    <i class="fa fa-search"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
-    </div>
+        <!-- END Header Search -->
 
-    <div class="alert alert-info text-center" role="alert">
-        Please do work through the Getting Started guide, even if you do know how to build such an application. The
-        guide covers the basics of working with Heroku, and will familiarize you with all the concepts you need in order
-        to build and deploy your own apps.
-    </div>
-</div>
+        <!-- Header Loader -->
+        <!-- Please check out the Activity page under Elements category to see examples of showing/hiding it -->
+        <div id="page-header-loader" class="overlay-header bg-primary">
+          <div class="content-header content-header-fullrow text-center">
+            <div class="content-header-item">
+              <i class="fa fa-sun-o fa-spin text-white"></i>
+            </div>
+          </div>
+        </div>
+        <!-- END Header Loader -->
+      </header>
+      <!-- END Header -->
 
-</body>
+      <!-- Main Container -->
+      <main id="main-container">
+        <!-- Page Content -->
+        <div class="center" data-toggle="appear">
+            <center><div><h2 class="h4 font-w700 mt-30 mb-10 ml-20 mt-100">PILIH PENGGUNA</h2></div></center>
+        </div>
+        <div class="content">
+          <div class="row invisible" data-toggle="appear">
+            
+          </div>
+          <div class="row invisible" data-toggle="appear">
+           
+          </div>
+          <div class="row invisible" data-toggle="appear">
+            <!-- Row #3 -->
+            <div class="col-sm-2.2 ml-auto">
+              <div class="block">
+                <div class="block-content block-content-full">
+                  <div class="py-20 text-center">
+                    <div class="mb-20">
+                        <a class="img-link" href="be_pages_generic_profile.html">
+                            <img class="img-avatar" th:src="@{stylesheets/assets/media/avatars/avatar15.jpg}" alt="">
+                          </a>
+                    </div>
+                    <div class="pt-20">
+                      <a class="btn btn-rounded btn-alt-primary" th:href="@{/AdminSignIn}">
+                        <i class="fa fa-user mr-5"></i> ADMINISTRATOR
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-2.2 ml-10">
+              <div class="block">
+                <div class="block-content block-content-full">
+                  <div class="py-20 text-center">
+                    <div class="mb-20">
+                        <a class="img-link" href="be_pages_generic_profile.html">
+                            <img class="img-avatar" th:src="@{stylesheets/assets/media/avatars/avatar15.jpg}" alt="">
+                          </a>
+                    </div>
+                    <div class="pt-20">
+                      <a class="btn btn-rounded btn-alt-info" th:href="@{/signInCoordinator}">
+                        <i class="fa fa-users mr-5"></i> KOORDINATOR <br>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-2.2 ml-10 mr-auto">
+              <div class="block">
+                <div class="block-content block-content-full">
+                  <div class="py-20 text-center">
+                    <div class="mb-20">
+                        <a class="img-link" href="be_pages_generic_profile.html">
+                            <img class="img-avatar" th:src="@{stylesheets/assets/media/avatars/avatar15.jpg}" alt="">
+                          </a>
+                    </div>
+                    <div class="pt-20">
+                      <a class="btn btn-rounded btn-alt-success" th:href="@{/signin}">
+                        <i class="fa fa-graduation-cap mr-5"></i> PELAJAR
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- END Row #3 -->
+          <!-- END User Profile -->
+
+          <!-- Connections -->
+          <!-- END Connections -->
+
+       
+
+          <!-- Billing Information -->
+          <!-- END Billing Information -->
+        </div>
+        <!-- END Main Content -->
+        <!-- END Page Content -->
+      </main>
+      <!-- END Main Container -->
+
+
+    </div>
+    <!-- END Page Container -->
+
+    <!--
+        Codebase JS Core
+
+        Vital libraries and plugins used in all pages. You can choose to not include this file if you would like
+        to handle those dependencies through webpack. Please check out assets/_js/main/bootstrap.js for more info.
+
+        If you like, you could also include them separately directly from the assets/js/core folder in the following
+        order. That can come in handy if you would like to include a few of them (eg jQuery) from a CDN.
+
+        assets/js/core/jquery.min.js
+        assets/js/core/bootstrap.bundle.min.js
+        assets/js/core/simplebar.min.js
+        assets/js/core/jquery-scrollLock.min.js
+        assets/js/core/jquery.appear.min.js
+        assets/js/core/jquery.countTo.min.js
+        assets/js/core/js.cookie.min.js
+    -->
+<script th:src="@{stylesheets/assets/js/codebase.core.min.js}"></script>
+
+<!--
+    Codebase JS
+
+    Custom functionality including Blocks/Layout API as well as other vital and optional helpers
+    webpack is putting everything together at assets/_js/main/app.js
+-->
+<script th:src="@{stylesheets/assets/js/codebase.app.min.js}"></script>
+
+<!-- Page JS Plugins -->
+<script th:src="@{stylesheets/assets/js/plugins/jquery-validation/jquery.validate.min.js}"></script>
+
+<!-- Page JS Code -->
+<script th:src="@{stylesheets/assets/js/pages/op_auth_signin.min.js}"></script>
+  </body>
 </html>
