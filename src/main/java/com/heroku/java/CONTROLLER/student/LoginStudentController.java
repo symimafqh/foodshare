@@ -37,7 +37,7 @@ public class LoginStudentController {
     }
 
     @PostMapping("/signin")
-    public String LoginStudent(@RequestParam(name = "success", required = false) Boolean success,HttpSession session, String studentUsername, String studentPassword, StudentBean s){
+    public String LoginStudent(@RequestParam(name = "success", required = false) Boolean success,HttpSession session, String studentIC, String studentPassword, StudentBean s){
         
         try {
             // String returnPage = null;
@@ -45,13 +45,13 @@ public class LoginStudentController {
 
             String sql = "SELECT * FROM public.student WHERE studentic=? AND studentpassword=?";
             final var statement = connection.prepareStatement(sql);
-            statement.setString(1, studentUsername);
+            statement.setString(1, studentIC);
             statement.setString(2, studentPassword);
 
             final var resultSet = statement.executeQuery();
 
-            System.out.println("teacher username : " + studentUsername);
-            System.out.println("teacher pass : " + studentPassword);
+            System.out.println("student username : " + studentIC);
+            System.out.println("student pass : " + studentPassword);
 
             if (resultSet.next()) {
 
@@ -60,14 +60,14 @@ public class LoginStudentController {
                 String username = resultSet.getString("studentUsername");
                 String password = resultSet.getString("studentPassword");
 
-                System.out.println(studentUsername);
+                System.out.println(studentIC);
                 // if they're admin
                 // System.out.println("Email : " + guestEmail.equals(email) + " | " + email);
                 // System.out.println("Password status : " + guestPassword.equals(password));
 
-                if (username.equals(studentUsername) && password.equals(studentPassword)) {
+                if (username.equals(studentIC) && password.equals(studentPassword)) {
 
-                    session.setAttribute("teacherusername", studentUsername);
+                    session.setAttribute("teacherusername", studentIC);
                     session.setAttribute("teacherpassword", studentPassword);
                     
                     return "redirect:/dashboardStudent?success=true";
