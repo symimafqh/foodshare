@@ -96,15 +96,13 @@ public class LoginStudentController {
     @GetMapping("/dashboardStudent")
     public String dashboardStudent(StudentBean s, Model model, HttpSession session) {
 
-        //String studentIC = (String) 
-        session.getAttribute("studentIC");
-        //String studentPassword = (String) 
-        session.getAttribute("studentPassword");
+        String studentIC = (String) session.getAttribute("studentIC");
+        String studentPassword = (String) session.getAttribute("studentPassword");
 
         // or access directly from model
 
-        // model.addAttribute("studentIC", studentIC);
-        // model.addAttribute("studentPassword", studentPassword);
+        model.addAttribute("studentIC", studentIC);
+        model.addAttribute("studentPassword", studentPassword);
 
         return "dashboardStudent";
     }
