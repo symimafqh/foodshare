@@ -34,7 +34,7 @@ public class ListStudentAccountController {
     public String studentAccountList(Model model) {
 
         List<StudentBean> student = new ArrayList<StudentBean>();
-        
+
         try (Connection connection = dataSource.getConnection()) {
             String sql = "SELECT studentic,studentname,studentemail, studentphone, studentgender FROM public.student order by studentname";
             final var statement = connection.prepareStatement(sql);
@@ -43,26 +43,26 @@ public class ListStudentAccountController {
            
 
             while (resultSet.next()) {
-                String studentic = resultSet.getString("studentIC");
-                String studentname = resultSet.getString("studentName");
-                String studentemail = resultSet.getString("studentEmail");
-                String studentphone = resultSet.getString("studentPhone");
-                String studentdob = resultSet.getString("studentDOB");
-                String studentgender = resultSet.getString("studentGender");
-                String studentclass = resultSet.getString("studentClass");
-                String studentaddress = resultSet.getString("studentAddress");
-                String studentpassword = resultSet.getString("studentPassword");
+                String studentIC = resultSet.getString("studentIC");
+                String studentName = resultSet.getString("studentName");
+                String studentEmail = resultSet.getString("studentEmail");
+                String studentPhone = resultSet.getString("studentPhone");
+                String studentDOB = resultSet.getString("studentDOB");
+                String studentGender = resultSet.getString("studentGender");
+                String studentClass = resultSet.getString("studentClass");
+                String studentAddress = resultSet.getString("studentAddress");
+                String studentPassword = resultSet.getString("studentPassword");
                 
                 StudentBean s = new StudentBean();
-                s.setStudentIC(studentic);
-                s.setStudentName(studentname);
-                s.setStudentEmail(studentemail);
-                s.setStudentPhone(studentphone);
-                s.setStudentDOB(studentdob);
-                s.setStudentGender(studentgender);
-                s.setStudentClass(studentclass);  
-                s.setStudentAddress(studentaddress);
-                s.setStudentPassword(studentpassword);              
+                s.setStudentIC(studentIC);
+                s.setStudentName(studentName);
+                s.setStudentEmail(studentEmail);
+                s.setStudentPhone(studentPhone);
+                s.setStudentDOB(studentDOB);
+                s.setStudentGender(studentGender);
+                s.setStudentClass(studentClass);  
+                s.setStudentAddress(studentAddress);
+                s.setStudentPassword(studentPassword);              
 
                 student.add(s);
                 model.addAttribute("student", student);
