@@ -67,7 +67,7 @@ public class ListStudentAccountController {
                 s.setStudentPassword(studentpassword);              
 
                 student.add(s);
-                model.addAttribute("students", student);
+                model.addAttribute("student", student);
                 //model.addAttribute("isAdmin", staffsrole != null && staffsrole.equals("admin")); // Add isAdmin flag to the modelF (syahir punya gak)
 
             }
