@@ -49,9 +49,9 @@ public class ListStudentAccountController {
                 String studentPhone = resultSet.getString("studentPhone");
                 // String studentDOB = resultSet.getString("studentDOB");
                 String studentGender = resultSet.getString("studentGender");
-                String studentClass = resultSet.getString("studentClass");
-                String studentAddress = resultSet.getString("studentAddress");
-                String studentPassword = resultSet.getString("studentPassword");
+               // String studentClass = resultSet.getString("studentClass");
+               // String studentAddress = resultSet.getString("studentAddress");
+               // String studentPassword = resultSet.getString("studentPassword");
                 
                 StudentBean s = new StudentBean();
                 s.setStudentIC(studentIC);
@@ -60,9 +60,9 @@ public class ListStudentAccountController {
                 s.setStudentPhone(studentPhone);
                 // s.setStudentDOB(studentDOB);
                 s.setStudentGender(studentGender);
-                s.setStudentClass(studentClass);  
-                s.setStudentAddress(studentAddress);
-                s.setStudentPassword(studentPassword);              
+                //s.setStudentClass(studentClass);  
+                //s.setStudentAddress(studentAddress);
+                //s.setStudentPassword(studentPassword);              
 
                 student.add(s);
                 model.addAttribute("student", student);
