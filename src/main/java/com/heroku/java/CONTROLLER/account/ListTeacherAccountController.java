@@ -30,7 +30,7 @@ public class ListTeacherAccountController {
         this.dataSource = dataSource;
     }
 
-    @GetMapping("/ListAccountStudent")
+    @GetMapping("/ListAccountTeacher")
     public String studentAccountList(Model model) {
 
         List<TeacherBean> teacher = new ArrayList<TeacherBean>();
