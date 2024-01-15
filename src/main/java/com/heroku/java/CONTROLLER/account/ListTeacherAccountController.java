@@ -43,28 +43,28 @@ public class ListTeacherAccountController {
            
 
             while (resultSet.next()) {
-                String teacherid = resultSet.getString("teacherID");
-                String teacherusername = resultSet.getString("teacherUsername");
-                String teachername = resultSet.getString("teacherName");
-                String teacheremail = resultSet.getString("teacherEmail");
-                String teacherphone = resultSet.getString("teacherPhone");
-                String teacherdob = resultSet.getString("teacherDOB");
-                String teachergender = resultSet.getString("teacherGender");
-               String teacherrole = resultSet.getString("teacherRole");
-               String teacheraddress = resultSet.getString("teacherAddress");
-               String teacherpassword = resultSet.getString("teacherPassword");
+                String teacherID = resultSet.getString("teacherID");
+                String teacherUsername = resultSet.getString("teacherUsername");
+                String teacherName = resultSet.getString("teacherName");
+                String teacherEmail = resultSet.getString("teacherEmail");
+                String teacherPhone = resultSet.getString("teacherPhone");
+                String teacherDOB = resultSet.getString("teacherDOB");
+                String teacherGender = resultSet.getString("teacherGender");
+               String teacherRole = resultSet.getString("teacherRole");
+               String teacherAddress = resultSet.getString("teacherAddress");
+               String teacherPassword = resultSet.getString("teacherPassword");
                 
                 TeacherBean t = new TeacherBean();
-                t.setTeacherID(teacherid);
-                t.setTeacherUsername(teacherusername);
-                t.setTeacherName(teachername);
-                t.setTeacherEmail(teacheremail);
-                t.setTeacherPhone(teacherphone);
-                t.setTeacherDOB(teacherdob);
-                t.setTeacherGender(teachergender);  
-                t.setTeacherRole(teacherrole);
-                t.setTeacherAddress(teacheraddress);
-                t.setTeacherPassword(teacherpassword);              
+                t.setTeacherID(teacherID);
+                t.setTeacherUsername(teacherUsername);
+                t.setTeacherName(teacherName);
+                t.setTeacherEmail(teacherEmail);
+                t.setTeacherPhone(teacherPhone);
+                t.setTeacherGender(teacherGender);  
+                t.setTeacherRole(teacherRole);
+                t.setTeacherAddress(teacherAddress);
+                t.setTeacherPassword(teacherPassword); 
+                t.setTeacherDOB(teacherDOB);             
 
                 teacher.add(t);
                 model.addAttribute("teacher", teacher);
