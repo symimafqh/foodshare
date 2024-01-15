@@ -625,12 +625,12 @@
                 <tr th:each="student: ${student}"">
                   <input type="hidden" class="form-control" name="id_lkp_profile_status">
                   <td class="text-center"></td>
-                  <td class="d-none d-sm-table-cell"></td>
-                  <td class="d-none d-sm-table-cell"></td>
-                  <td class="d-none d-sm-table-cell"></td>
-                  <td class="text-center"></td>
-                  <td class="text-center"></td>
-                  <td class="text-center">
+                  <td class="d-none d-sm-table-cell" th:text="${s.studentIC}"></td>
+                  <td class="d-none d-sm-table-cell" th:text="${s.studentNama}"></td>
+                  <td class="d-none d-sm-table-cell" th:text="${s.studentEmail}"></td>
+                  <td class="text-center" th:text="${s.studentPhone}"></td>
+                  <td class="text-center" th:text="${s.studentGender}"></td>
+                  <td class="text-center" >
                     <a type="button" class="btn btn-sm btn-primary" title="Kemaskini Profil" data-toggle="modal"
                       data-target="#view_teacher_account">
                       <i class="fa fa-user"></i>
