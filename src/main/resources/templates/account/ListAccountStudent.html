@@ -311,7 +311,7 @@
 
             <!-- Logo -->
             <div class="content-header-item">
-              <img th:src="@{stylesheets/pictures/logo lain.png}" style="width: 200px; height:45px;">                
+              <img th:src="@{stylesheets/assets/pictures/logo lain.png}" style="width: 200px; height:45px;">                
 
             </div>
             <!-- END Logo -->
@@ -622,62 +622,19 @@
               </thead>
 
               <tbody class="bg-white">
-                <tr>
+                <tr th:each="student : ${student}">
                   <input type="hidden" class="form-control" name="id_lkp_profile_status">
-                  <td class="text-center">1</td>
-                  <td class="d-none d-sm-table-cell">091008033881</td>
-                  <td class="d-none d-sm-table-cell">HADI ARAFF</td>
-                  <td class="d-none d-sm-table-cell">hadi.araff@gmail.com</td>
-                  <td class="text-center">0128387465</td>
-                  <td class="text-center">L</td>
+                  <td class="text-center" >1</td>
+                  <td class="d-none d-sm-table-cell" th:text="${student.studentic}"></td>
+                  <td class="d-none d-sm-table-cell" th:text="${student.studentname}"></td>
+                  <td class="d-none d-sm-table-cell"th:text="${student.studentemail}"></td>
+                  <td class="text-center" th:text="${student.studentphone}"></td>
+                  <td class="text-center" th:text="${student.studentgender}"></td>
                   <td class="text-center">
-                    <a type="button" class="btn btn-sm btn-primary" title="Kemaskini Profil" data-toggle="modal"
+                    <!--<a type="button" class="btn btn-sm btn-primary" title="Kemaskini Profil" data-toggle="modal"
                       data-target="#view_teacher_account">
                       <i class="fa fa-user"></i>
-                    </a>
-                  </td>
-                  <td class="text-center">
-                    <a type="button" class="btn btn-sm btn-danger" title="Kemaskini Profil" data-toggle="modal"
-                      data-target="#delete_account" href="">
-                      <i class="fa fa-trash"></i>
-                    </a>
-                  </td>
-                </tr>
-
-                <tr>
-                  <input type="hidden" class="form-control" name="id_lkp_profile_status">
-                  <td class="text-center">2</td>
-                  <td class="d-none d-sm-table-cell">050927058266</td>
-                  <td class="d-none d-sm-table-cell">HANIS ZALIKHA</td>
-                  <td class="d-none d-sm-table-cell">hanis.zalikha@gmail.com</td>
-                  <td class="text-center">0179778652</td>
-                  <td class="text-center">P</td>
-                  <td class="text-center">
-                    <a type="button" class="btn btn-sm btn-primary" title="Kemaskini Profil" data-toggle="modal"
-                      data-target="#view_teacher_account">
-                      <i class="fa fa-user"></i>
-                    </a>
-                  </td>
-                  <td class="text-center">
-                    <a type="button" class="btn btn-sm btn-danger" title="Kemaskini Profil" data-toggle="modal"
-                      data-target="#delete_account" href="">
-                      <i class="fa fa-trash"></i>
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <input type="hidden" class="form-control" name="id_lkp_profile_status">
-                  <td class="text-center">3</td>
-                  <td class="d-none d-sm-table-cell">080617078264</td>
-                  <td class="d-none d-sm-table-cell">KAMALIA YASARAH</td>
-                  <td class="d-none d-sm-table-cell">kamalia.yasarah@gmail.com</td>
-                  <td class="text-center">0129398674</td>
-                  <td class="text-center">P</td>
-                  <td class="text-center">
-                    <a type="button" class="btn btn-sm btn-primary" title="Kemaskini Profil" data-toggle="modal"
-                      data-target="#view_teacher_account">
-                      <i class="fa fa-user"></i>
-                    </a>
+                    </a>-->
                   </td>
                   <td class="text-center">
                     <a type="button" class="btn btn-sm btn-danger" title="Kemaskini Profil" data-toggle="modal"
