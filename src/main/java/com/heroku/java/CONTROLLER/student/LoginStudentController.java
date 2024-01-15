@@ -99,12 +99,14 @@ public class LoginStudentController {
 
         String studentIC = (String) session.getAttribute("studentIC");
         String studentPassword = (String) session.getAttribute("studentPassword");
-
-        // or access directly from model
-
-        s.setStudentIC(studentIC);  
+    
+        // Set values in the StudentBean object
+        s.setStudentIC(studentIC);
         s.setStudentPassword(studentPassword);
-
+    
+        // Add the StudentBean object to the model
+        model.addAttribute("student", s);
+    
         return "student/dashboardStudent";
     }
 }
