@@ -59,7 +59,10 @@ public class GettingStartedApplication {
         return "teacher/sign-in/teachersignin";
     }
 
-    
+    @GetMapping("/AddNewSukan")
+    public String addnewsukan(){
+        return "teacher/activty/AddNewSukan";
+    }
 
     //  @GetMapping("/reminder")
     // public String reminder() {
