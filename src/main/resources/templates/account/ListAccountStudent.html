@@ -622,10 +622,10 @@
               </thead>
 
               <tbody class="bg-white">
-                <tr th:each="student: ${student}"">
+                <tr th:each="s: ${student}"">
                   <input type="hidden" class="form-control" name="id_lkp_profile_status">
                   <td class="text-center" th:text="${s.studentIC}"></td>
-                  <td class="d-none d-sm-table-cell" th:text="${s.studentNama}"></td>
+                  <td class="d-none d-sm-table-cell" th:text="${s.studentName}"></td>
                   <td class="d-none d-sm-table-cell" th:text="${s.studentEmail}"></td>
                   <td class="d-none d-sm-table-cell" th:text="${s.studentPhone}" ></td>
                   <td class="text-center" th:text="${s.studentGender}"></td>
