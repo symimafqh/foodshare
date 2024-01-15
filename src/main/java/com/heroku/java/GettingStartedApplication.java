@@ -61,7 +61,7 @@ public class GettingStartedApplication {
 
     @GetMapping("/AddNewSukan")
     public String addnewsukan(){
-        return "teacher/activty/AddNewSukan";
+        return "teacher/activity/AddNewSukan";
     }
 
     //  @GetMapping("/reminder")
