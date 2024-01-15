@@ -36,7 +36,7 @@ public class ListStudentAccountController {
         List<StudentBean> student = new ArrayList<StudentBean>();
 
         try (Connection connection = dataSource.getConnection()) {
-            String sql = "SELECT * FROM public.student order by studentname";
+            String sql = "SELECT * FROM student order by studentname";
             final var statement = connection.prepareStatement(sql);
             //statement.setString(1, "baker"); (syahir punya nih)
             final var resultSet = statement.executeQuery();
