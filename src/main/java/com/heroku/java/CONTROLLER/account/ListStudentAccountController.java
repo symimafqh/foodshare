@@ -34,11 +34,9 @@ public class ListStudentAccountController {
     public String studentAccountList(Model model) {
 
         List<StudentBean> student = new ArrayList<StudentBean>();
-        // Retrieve the logged-in room's role from the session (syahir punya nih)
-        //String staffsrole = (String) session.getAttribute("staffsrole");
-        //System.out.println("staffrole managerRoomList : " + staffsrole);
+        
         try (Connection connection = dataSource.getConnection()) {
-            String sql = "SELECT * FROM public.student order by studentname";
+            String sql = "SELECT studentic,studentname,studentemail, studentphone, studentgender FROM public.student order by studentname";
             final var statement = connection.prepareStatement(sql);
             //statement.setString(1, "baker"); (syahir punya nih)
             final var resultSet = statement.executeQuery();
