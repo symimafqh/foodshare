@@ -47,7 +47,7 @@ public class ListStudentAccountController {
                 String studentName = resultSet.getString("studentName");
                 String studentEmail = resultSet.getString("studentEmail");
                 String studentPhone = resultSet.getString("studentPhone");
-                String studentDOB = resultSet.getString("studentDOB");
+                // String studentDOB = resultSet.getString("studentDOB");
                 String studentGender = resultSet.getString("studentGender");
                 String studentClass = resultSet.getString("studentClass");
                 String studentAddress = resultSet.getString("studentAddress");
@@ -58,7 +58,7 @@ public class ListStudentAccountController {
                 s.setStudentName(studentName);
                 s.setStudentEmail(studentEmail);
                 s.setStudentPhone(studentPhone);
-                s.setStudentDOB(studentDOB);
+                // s.setStudentDOB(studentDOB);
                 s.setStudentGender(studentGender);
                 s.setStudentClass(studentClass);  
                 s.setStudentAddress(studentAddress);
