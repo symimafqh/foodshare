@@ -64,6 +64,11 @@ public class GettingStartedApplication {
         return "teacher/activity/AddNewSukan";
     }
 
+    @GetMapping("/ListAccountStudent")
+    public String listaccountstudent(){
+        return "account/ListAccountStudent";
+    }
+
     //  @GetMapping("/reminder")
     // public String reminder() {
     //     return "sign-in/reminder";
