@@ -622,7 +622,7 @@
               </thead>
 
               <tbody class="bg-white">
-                <tr>
+                <tr th:each="student: ${student}"">
                   <input type="hidden" class="form-control" name="id_lkp_profile_status">
                   <td class="text-center"></td>
                   <td class="d-none d-sm-table-cell"></td>
