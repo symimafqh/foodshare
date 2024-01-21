@@ -61,11 +61,7 @@ public class GettingStartedApplication {
         return "teacher/activity/AddNewSukan";
     }
 
-    @GetMapping("/dashboardStudent")
-      public String index1(@RequestParam(name = "success", required = false) Boolean success, HttpSession session) {
-        String studentIC = (String) session.getAttribute("studentIC");
-        return "student/dashboardStudent";
-    }
+   
     // @GetMapping("/ListAccountStudent")
     // public String listaccountstudent(){
     //     return "account/ListAccountStudent";
@@ -81,11 +77,11 @@ public class GettingStartedApplication {
     //     return "dashboard/dashboardStudent";
     // }
 
-     @GetMapping("/edit_profile")
-    public String profileStudent(HttpSession session){
-        String studentIC = (String) session.getAttribute("studentIC");
-        return "student/profile/edit_profile";
-    }
+    //  @GetMapping("/edit_profile")
+    // public String profileStudent(HttpSession session){
+    //     String studentIC = (String) session.getAttribute("studentIC");
+    //     return "student/profile/edit_profile";
+    // }
 
     //    @GetMapping("/semasa")
     // public String semasa(){
