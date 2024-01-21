@@ -37,8 +37,7 @@ public class LoginStudentController {
     }
 
     @PostMapping("/signin")
-    public String LoginStudent(@RequestParam(name = "success", required = false) Boolean success, HttpSession session,
-    @RequestParam("studentIC") String studentIC, @RequestParam("studentPassword") String studentPassword, StudentBean s) {
+    public String LoginStudent(HttpSession session, @RequestParam("studentIC") String studentIC, @RequestParam("studentPassword") String studentPassword, StudentBean s, Model model) {
 
         try {
             // String returnPage = null;
@@ -51,7 +50,7 @@ public class LoginStudentController {
 
             final var resultSet = statement.executeQuery();
 
-            System.out.println("student username : " + studentIC);
+            System.out.println("student ic : " + studentIC);
             System.out.println("student pass : " + studentPassword);
 
             if (resultSet.next()) {
@@ -61,7 +60,7 @@ public class LoginStudentController {
                 String username = resultSet.getString("studentIC");
                 String password = resultSet.getString("studentPassword");
 
-                System.out.println(studentIC);
+                System.out.println(username);
                 // if they're admin
                 // System.out.println("Email : " + guestEmail.equals(email) + " | " + email);
                 // System.out.println("Password status : " + guestPassword.equals(password));
