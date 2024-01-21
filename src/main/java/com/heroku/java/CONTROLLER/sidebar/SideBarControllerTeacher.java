@@ -16,6 +16,6 @@ public class SideBarControllerTeacher {
     @GetMapping("/profileTeacher_edit")
     public String editProfileTeacher(HttpSession session) {
         String teacherUsername = (String) session.getAttribute("teacherUsername");
-        return "teacher/profile/profileTeacher_edit";
+        return "teacher/teacher_profile/profileTeacher_edit";
     }
 }
