@@ -38,7 +38,7 @@ public class LoginAdminController {
         return "teacher/sign-in/adminsignin";
     }
 
-    @PostMapping("/teachersignin")
+    @PostMapping("/adminsignin")
     public String LoginAdmin(HttpSession session,@RequestParam(name = "success", required = false) Boolean success, String teacherUsername, String teacherPassword, TeacherBean t, Model model) {
 
         try {
