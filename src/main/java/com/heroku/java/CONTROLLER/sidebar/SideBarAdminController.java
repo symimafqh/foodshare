@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpSession;
 public class SideBarAdminController {
 
     @GetMapping("/dashboardAdmin")
-    public String dashboardTeacher(@RequestParam(name = "success", required = false) Boolean success, HttpSession session) {
+    public String dashboardAdmin(@RequestParam(name = "success", required = false) Boolean success, HttpSession session) {
       String teacherUsername = (String) session.getAttribute("teacherUsername");
       return "teacher/dashboardAdmin";
   }
