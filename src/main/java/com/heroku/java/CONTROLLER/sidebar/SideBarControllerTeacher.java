@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpSession;
 public class SideBarControllerTeacher {
 
     @GetMapping("/dashboardTeacher")
-      public String index1(@RequestParam(name = "success", required = false) Boolean success, HttpSession session) {
+      public String dashboardTeacher(@RequestParam(name = "success", required = false) Boolean success, HttpSession session) {
         String teacherUsername = (String) session.getAttribute("teacherUsername");
         return "teacher/dashboardTeacher";
     }
