@@ -39,7 +39,7 @@ public class LoginTeacherController {
     }
 
     @PostMapping("/teachersignin")
-    public String LoginStudent(HttpSession session,@RequestParam(name = "success", required = false) Boolean success, String teacherUsername, String teacherPassword, TeacherBean t, Model model) {
+    public String LoginTeacher(HttpSession session,@RequestParam(name = "success", required = false) Boolean success, String teacherUsername, String teacherPassword, TeacherBean t, Model model) {
 
         try {
             // String returnPage = null;
