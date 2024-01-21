@@ -81,10 +81,11 @@ public class GettingStartedApplication {
     //     return "dashboard/dashboardStudent";
     // }
 
-    //  @GetMapping("/edit_profile")
-    // public String profileStudent(){
-    //     return "profileStud/edit_profile";
-    // }
+     @GetMapping("/edit_profile")
+    public String profileStudent(HttpSession session){
+        String studentIC = (String) session.getAttribute("studentIC");
+        return "student/profile/edit_profile";
+    }
 
     //    @GetMapping("/semasa")
     // public String semasa(){
