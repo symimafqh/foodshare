@@ -209,7 +209,7 @@
                     </a>
                   </li>
                   <li class="list-inline-item">
-                    <a class="link-effect text-dual-primary-dark" th:href="@{/teachersignin}">
+                    <a class="link-effect text-dual-primary-dark" th:href="@{/signin}">
                       <i class="si si-logout"></i>
                     </a>
                   </li>
@@ -221,29 +221,30 @@
 
             <!-- Side Navigation -->
             
-            	 <!-- Side Navigation -->
-						<div class="content-side content-side-full">
-							<ul class="nav-main">
-								<li><a class="active"
-									th:href="@{/dashboardTeacher}"><i
-										class="si si-cup"></i><span class="sidebar-mini-hide">DASHBOARD</span></a></li>
-								<li><a class="active" th:href="@{/profileTeacher_edit}"><i
-										class="si si-user"></i><span class="sidebar-mini-hide">PROFIL</span></a>
-								</li>
-								<li><a class="nav-submenu" data-toggle="nav-submenu"
-									><i class="si si-layers"></i><span
-										class="sidebar-mini-hide">KATEGORI</span></a>
-									<ul>
-										<li><a>Unit
-											Beruniform</a></li>
-										<li><a>Sukan
-											dan Permainan</a></li>
-										<li><a>Kelab
-											dan Persatuan</a></li>
-									</ul></li>
-							</ul>
-						</div>
-						<!-- END Sidebar Scrolling -->
+            <div class="content-side content-side-full">
+            	<ul class="nav-main">
+                    <li><a class="active"
+                        th:href="@{/dashboardTeacher}"><i
+                            class="si si-cup"></i><span class="sidebar-mini-hide">DASHBOARD</span></a></li>
+                    <li><a class="active" th:href="@{/profileTeacher_edit}"><i
+                            class="si si-user"></i><span class="sidebar-mini-hide">PROFIL</span></a>
+                    </li>
+                    <li><a class="nav-submenu" data-toggle="nav-submenu"
+                        ><i class="si si-layers"></i><span
+                            class="sidebar-mini-hide">KATEGORI</span></a>
+                        <ul>
+                            <li><a>Unit
+                                Beruniform</a></li>
+                            <li><a>Sukan
+                                dan Permainan</a></li>
+                            <li><a>Kelab
+                                dan Persatuan</a></li>
+                        </ul></li>
+                </ul>
+            </div>
+            <!-- END Side Navigation -->
+          </div>
+          <!-- END Sidebar Scrolling -->
         </div>
         <!-- Sidebar Content -->
       </nav>
@@ -290,7 +291,7 @@
                 <!-- END Side Overlay -->
 
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" th:href="@{/teachersignin}">
+                <a class="dropdown-item" th:href="@{/signin}">
                   <i class="si si-logout mr-5"></i> Sign Out
                 </a>
               </div>
@@ -339,73 +340,182 @@
       </header>
       <!-- END Header -->
 
-      <main id="main-container">
-        <!-- Page Content -->
-        <div class="content">
-            <div class="row invisible" data-toggle="appear">
-                <!-- Row #1 -->
-                <div class="col-6 col-xl-4">
-                    <a class="block block-link-shadow text-right"
-                        href="javascript:void(0)">
-                        <div class="block-content block-content-full clearfix">
-                            <div class="float-left mt-10 d-none d-sm-block">
-                                <i class="fa fa-fw fa-home fa-3x text-body-bg-dark"></i>
-                            </div>
-                            <div class="font-size-h3 font-w600" data-toggle="countTo"
-                                data-speed="1000" data-to="8">0</div>
-                            <div class="font-size-sm font-w600 text-uppercase text-muted">Unit
-                                Uniform</div>
-                        </div>
+         <!-- Main Container -->
+         <main id="main-container">
+            <!-- Page Content -->
+            <!-- User Info -->
+            <div class="bg-image bg-image-bottom" style="background-image: url('stylesheets/assets/media/photos/photo13@2x.jpg');">
+              <div class="bg-black-op-75 py-30">
+                <div class="content content-full text-center">
+                  <!-- Avatar -->
+                  <div class="mb-15">
+                    <a class="img-link" href="">
+                      <img class="img-avatar img-avatar96 img-avatar-thumb" th:src="@{stylesheets/assets/media/avatars/avatar15.jpg}" alt="">
                     </a>
+                  </div>
+                  <!-- END Avatar -->
+    
+                  <!-- Personal -->
+                  <h1 class="h3 text-white font-w700 mb-10"><span class="d-none d-sm-inline-block" th:text="${session.teacherName}"></span></h1>
+                  <!-- <h2 class="h5 text-white-op">
+                    Kelas 
+                  </h2> -->
+                  <!-- END Personal -->
+    
+                  <!-- Actions -->
+                  <a th:href="@{/dashboardStudent}" class="btn btn-rounded btn-hero btn-sm btn-alt-secondary mb-5">
+                    <i class="fa fa-arrow-left mr-5"></i> Kembali
+                  </a>
+                  <!-- END Actions -->
                 </div>
-                <div class="col-6 col-xl-4">
-                    <a class="block block-link-shadow text-right"
-                        href="javascript:void(0)">
-                        <div class="block-content block-content-full clearfix">
-                            <div class="float-left mt-10 d-none d-sm-block">
-                                <i class="fa fa-fw fa-user fa-3x text-body-bg-dark"></i>
-                            </div>
-                            <div class="font-size-h3 font-w600">
-                                <span data-toggle="countTo" data-speed="1000" data-to="21">0</span>
-                            </div>
-                            <div class="font-size-sm font-w600 text-uppercase text-muted">Kelab
-                                dan Persatuan</div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-6 col-xl-4">
-                    <a class="block block-link-shadow text-right"
-                        href="javascript:void(0)">
-                        <div class="block-content block-content-full clearfix">
-                            <div class="float-left mt-10 d-none d-sm-block">
-                                <i class="fa fa-cubes fa-3x text-body-bg-dark"></i>
-                            </div>
-                            <div class="font-size-h3 font-w600" data-toggle="countTo"
-                                data-speed="1000" data-to="12">0</div>
-                            <div class="font-size-sm font-w600 text-uppercase text-muted">Sukan
-                                dan Permainan</div>
-                        </div>
-                    </a>
-                </div>
-                <!-- END Row #1 -->
-
-                <div class="col-md-12">
-                    <div class="block block-themed">
-                        <div class="block-header ">
-                            <h3 class="block-title">SISTEM E-CURRICULAR</h3>
-                        </div>
-                        <img
-                            src="@{stylesheets/assets/pictures/organisasi chart.png}"
-                            style="width: 1050px; height: 800px;">
-                    </div>
-                </div>
-                <!-- end row two-->
+              </div>
             </div>
-        </div>
-</div>
-<!-- END Page Content -->
-</main>
-<!-- END Main Container -->
+            <!-- END User Info -->
+    
+            <!-- Main Content -->
+            <div class="content">
+              <!-- User Profile -->
+              <div class="block">
+                <div class="block-header block-header-default">
+                  <h3 class="block-title">
+                    <i class="fa fa-user-circle mr-5 text-muted"></i> Profile Pengguna
+                  </h3>
+                </div>
+                <div class="block-content">
+                  <form action="" method="POST" enctype="multipart/form-data" onsubmit="return false;">
+                    <div class="row items-push">
+                      <div class="col-lg-3">
+                        <p class="text-muted">
+                          Maklumat akaun profil anda. Nama pengguna akan dipaparkan kepada umum.
+                        </p>
+                      </div>
+                      <div class="col-lg-7 offset-lg-1">
+                        <!--<div class="form-group row">
+                            <div class="col-md-10 col-xl-6">
+                              <div class="push">
+                                <img class="img-avatar" th:src="@{stylesheets/assets/media/avatars/avatar15.jpg}" alt="">
+                              </div>
+                              <div class="custom-file">
+                                <!-- Populating custom file input label with the selected filename (data-toggle="custom-file-input" is initialized in Helpers.coreBootstrapCustomFileInput()) --
+                                <input type="file" class="custom-file-input" id="profile-settings-avatar" name="profile-settings-avatar" data-toggle="custom-file-input">
+                                <label class="custom-file-label" for="profile-settings-avatar">Choose new avatar</label>
+                              </div>
+                            </div>
+                          </div>-->
+                        <div class="form-group row">
+                          <div class="col-12">
+                            <label for="profile-settings-username">Username</label>
+                            <input type="text" class="form-control form-control-lg" id="profile-settings-username" name="studentIC" th:value="${session.teacherUsername}">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <div class="col-12">
+                            <label for="profile-settings-name">Nama</label>
+                            <input type="text" class="form-control form-control-lg" id="profile-settings-name" name="studentName" th:value="${session.teacherName}">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <div class="col-12">
+                            <label for="profile-settings-email">Email</label>
+                            <input type="email" class="form-control form-control-lg" id="profile-settings-email" name="studentEmail"  th:value="${session.teacherEmail}">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-12">
+                              <label for="profile-settings-name">Nombor Telefon</label>
+                              <input type="text" class="form-control form-control-lg" id="profile-settings-name" name="studentPhone" th:value="${session.teacherPhone}">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <div class="col-12">
+                              <label for="profile-settings-email">Tarikh Lahir</label>
+                              <input type="date" class="js-datepicker form-control form-control-lg" id="example-datepicker6" name="studentDOB" data-week-start="1" data-autoclose="true" data-today-highlight="true" data-date-format="dd-mm-yyyy" >
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-12">Jantina</label>
+                            <div class="col-12">
+                              <div class="custom-control custom-radio custom-control-inline mb-5">
+                                <input class="custom-control-input" type="radio" name="studentGender" id="example-inline-radio1" value="Lelaki" ${session.teacherGender == 'Lelaki' ? 'checked' : ''}>
+                                <label class="custom-control-label" for="example-inline-radio1">Lelaki</label>
+                              </div>
+                              <div class="custom-control custom-radio custom-control-inline mb-5">
+                                <input class="custom-control-input" type="radio" name="studentGender" id="example-inline-radio2" value="Perempuan" ${session.teacherGender == 'Perempuan' ? 'checked' : ''}>
+                                <label class="custom-control-label" for="example-inline-radio2">Perempuan</label>
+                              </div>
+                            </div>
+                          </div>
+                        <div class="form-group row">
+                          <div class="col-12">
+                            <button type="submit" class="btn btn-alt-primary">Kemaskini</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <!-- END User Profile -->
+    
+              <!-- Connections -->
+              <!-- END Connections -->
+    
+              <!-- Change Password -->
+              <div class="block">
+                <div class="block-header block-header-default">
+                  <h3 class="block-title">
+                    <i class="fa fa-asterisk mr-5 text-muted"></i> Tukar Kata Laluan
+                  </h3>
+                </div>
+                <div class="block-content">
+                  <form action="be_pages_generic_profile.edit.html" method="post" onsubmit="return false;">
+                    <div class="row items-push">
+                      <div class="col-lg-3">
+                        <p class="text-muted">
+                          Tukar kata laluan semasa.
+                        </p>
+                      </div>
+                      <div class="col-lg-7 offset-lg-1">
+                        <div class="form-group row">
+                          <div class="col-12">
+                            <label for="profile-settings-password">Kata Laluan Semasa</label>
+                            <input type="password" class="form-control form-control-lg" id="password" name="studentPassword" th:value="${session.teacherPassword}">
+                            <span class="eye" onclick="togglePassword()">
+                                <i id="eye-icon" class="fa fa-eye"></i> 
+                              </span>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <div class="col-12">
+                            <label for="profile-settings-password-new">Kata Laluan Baru</label>
+                            <input type="password" class="form-control form-control-lg" id="profile-settings-password-new" name="profile-settings-password-new">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <div class="col-12">
+                            <label for="profile-settings-password-new-confirm">Sahkan Kata Laluan Baru</label>
+                            <input type="password" class="form-control form-control-lg" id="profile-settings-password-new-confirm" name="profile-settings-password-new-confirm">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <div class="col-12">
+                            <button type="submit" class="btn btn-alt-primary">Kemaskini</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <!-- END Change Password -->
+    
+              <!-- Billing Information -->
+              <!-- END Billing Information -->
+            </div>
+            <!-- END Main Content -->
+            <!-- END Page Content -->
+          </main>
+          <!-- END Main Container -->
 
       <!-- Footer -->
       <footer id="page-footer">
@@ -422,7 +532,23 @@
     </div>
     <!-- END Page Container -->
 
-    
+    <script>
+        function togglePassword() {
+        
+          var x = document.getElementById("password");
+          var icon = document.getElementById("eye-icon");
+        
+          if (x.type === "password") {
+            x.type = "text";
+            icon.classList.add("fa-eye-slash");
+            icon.classList.remove("fa-eye");
+          } else {
+            x.type = "password";
+            icon.classList.remove("fa-eye-slash");       
+            icon.classList.add("fa-eye");
+          }
+        }  
+        </script>
 
 
     <!--
