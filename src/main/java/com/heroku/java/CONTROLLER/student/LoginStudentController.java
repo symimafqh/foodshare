@@ -92,22 +92,22 @@ public class LoginStudentController {
         }
     }
 
-    // @GetMapping("/dashboardStudent/{studentIC}")
-    // public String dashboardStudent(StudentBean s, Model model, HttpSession session) {
+    @GetMapping("/dashboardStudent/{studentIC}")
+    public String dashboardStudent(StudentBean s, Model model, HttpSession session) {
 
-    //     String studentIC = (String) session.getAttribute("studentIC");
-    //     String studentPassword = (String) session.getAttribute("studentPassword");
-    //     String studentname = (String) session.getAttribute("studentName");
+        String studentIC = (String) session.getAttribute("studentIC");
+        String studentPassword = (String) session.getAttribute("studentPassword");
+        String studentname = (String) session.getAttribute("studentName");
     
-    //     // Set values in the StudentBean object
-    //     s.setStudentIC(studentIC);
-    //     s.setStudentPassword(studentPassword);
-    //     s.setStudentName(studentname);
+        // Set values in the StudentBean object
+        s.setStudentIC(studentIC);
+        s.setStudentPassword(studentPassword);
+        s.setStudentName(studentname);
 
     
-    //     // Add the StudentBean object to the model
-    //     model.addAttribute("student", s);
+        // Add the StudentBean object to the model
+        model.addAttribute("student", s);
     
-    //     return "student/dashboardStudent";
-    // }
+        return "student/dashboardStudent";
+    }
 }
