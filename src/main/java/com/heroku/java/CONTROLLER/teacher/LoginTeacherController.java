@@ -45,7 +45,7 @@ public class LoginTeacherController {
             // String returnPage = null;
             Connection connection = dataSource.getConnection();
 
-            String sql = "SELECT * FROM public.teacher WHERE teacherusername=? AND studentpassword=?";
+            String sql = "SELECT * FROM public.teacher WHERE teacherusername=? AND teacherpassword=?";
             final var statement = connection.prepareStatement(sql);
             statement.setString(1, teacherUsername);
             statement.setString(2, teacherPassword);
