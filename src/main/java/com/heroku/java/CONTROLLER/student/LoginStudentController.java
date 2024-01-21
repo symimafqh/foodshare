@@ -37,7 +37,7 @@ public class LoginStudentController {
     }
 
     @PostMapping("/signin")
-    public String LoginStudent(HttpSession session, @RequestParam("studentIC") String studentIC, @RequestParam("studentPassword") String studentPassword, StudentBean s, Model model) {
+    public String LoginStudent(HttpSession session,@RequestParam(name = "success", required = false) Boolean success, String studentIC, String studentPassword, StudentBean s, Model model) {
 
         try {
             // String returnPage = null;
@@ -59,6 +59,13 @@ public class LoginStudentController {
                 // String teacherName = resultSet.getString("guestname");
                 String username = resultSet.getString("studentIC");
                 String password = resultSet.getString("studentPassword");
+                String studentName = resultSet.getString("studentName");
+                String studentEmail = resultSet.getString("studentEmail");
+                String studentPhone = resultSet.getString("studentPhone");
+                String studentDOB = resultSet.getString("studentDOB");
+                String studentGender = resultSet.getString("studentGender");
+               String studentClass = resultSet.getString("studentClass");
+               String studentAddress = resultSet.getString("studentAddress");
 
                 System.out.println(username);
                 // if they're admin
@@ -69,8 +76,16 @@ public class LoginStudentController {
 
                     session.setAttribute("studentIC", studentIC);
                     session.setAttribute("studentPassword", studentPassword);
+                    session.setAttribute("studentName", studentName);
+                    session.setAttribute("studentEmail", studentEmail);
+                    session.setAttribute("studentPhone", studentPhone);
+                    session.setAttribute("studentDOB", studentDOB);
+                    session.setAttribute("studentGender", studentGender);
+                    session.setAttribute("studentClass", studentClass);
+                    session.setAttribute("studentAddress", studentAddress);
 
-                    return "redirect:/dashboardStudent" ;
+
+                    return "redirect:/dashboardStudent?success=true" ;
                 }
             }
 
@@ -92,22 +107,5 @@ public class LoginStudentController {
         }
     }
 
-    // @GetMapping("/dashboardStudent")
-    // public String dashboardStudent(StudentBean s, Model model, HttpSession session) {
-
-    //     String studentIC = (String) session.getAttribute("studentIC");
-    //     String studentPassword = (String) session.getAttribute("studentPassword");
-    //     String studentname = (String) session.getAttribute("studentName");
     
-    //     // Set values in the StudentBean object
-    //     s.setStudentIC(studentIC);
-    //     s.setStudentPassword(studentPassword);
-    //     s.setStudentName(studentname);
-
-    
-    //     // Add the StudentBean object to the model
-    //     model.addAttribute("student", s);
-    
-    //     return "student/dashboardStudent";
-    // }
 }

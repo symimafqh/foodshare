@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.servlet.http.HttpSession;
+
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -64,6 +66,11 @@ public class GettingStartedApplication {
         return "teacher/activity/AddNewSukan";
     }
 
+    @GetMapping("/dashboardStudent")
+      public String index1(@RequestParam(name = "success", required = false) Boolean success, HttpSession session) {
+        String studentIC = (String) session.getAttribute("studentIC");
+        return "student/dashboardStudent";
+    }
     // @GetMapping("/ListAccountStudent")
     // public String listaccountstudent(){
     //     return "account/ListAccountStudent";
