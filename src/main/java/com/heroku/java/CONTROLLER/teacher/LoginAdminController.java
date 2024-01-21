@@ -33,12 +33,12 @@ public class LoginAdminController {
         this.dataSource = dataSource;
     }
 
-    @GetMapping("/adminsignin")
+    @GetMapping("/adminSignin")
     public String adminsignin() {
-        return "teacher/sign-in/adminsignin";
+        return "teacher/sign-in/adminSignin";
     }
 
-    @PostMapping("/adminsignin")
+    @PostMapping("/adminSignin")
     public String LoginAdmin(HttpSession session,@RequestParam(name = "success", required = false) Boolean success, String teacherUsername, String teacherPassword, TeacherBean t, Model model) {
 
         try {
