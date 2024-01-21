@@ -52,8 +52,8 @@ public class LoginTeacherController {
 
             final var resultSet = statement.executeQuery();
 
-            System.out.println("student ic : " + teacherUsername);
-            System.out.println("student pass : " + teacherPassword);
+            System.out.println("teacher ic : " + teacherUsername);
+            System.out.println("teacher pass : " + teacherPassword);
 
             if (resultSet.next()) {
 
