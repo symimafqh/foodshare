@@ -34,7 +34,7 @@ public class LoginTeacherController {
     }
 
     @GetMapping("/teachersignin")
-    public String signin() {
+    public String teachersignin() {
         return "teacher/sign-in/teachersignin";
     }
 

@@ -41,20 +41,20 @@ public class GettingStartedApplication {
     }
     
 
-     @GetMapping("/adminSignin")
-    public String coorsignin() {
-        return "teacher/sign-in/adminSignin";
-    }
+    //  @GetMapping("/adminSignin")
+    // public String coorsignin() {
+    //     return "teacher/sign-in/adminSignin";
+    // }
 
     @GetMapping("/teacherRegister")
     public String teacherRegister(){
         return "teacher/sign-in/teacherRegister";
     }
 
-    @GetMapping("/teachersignin")
-    public String teacherSignin(){
-        return "teacher/sign-in/teachersignin";
-    }
+    // @GetMapping("/teachersignin")
+    // public String teacherSignin(){
+    //     return "teacher/sign-in/teachersignin";
+    // }
 
     @GetMapping("/AddNewSukan")
     public String addnewsukan(){
