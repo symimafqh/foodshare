@@ -15,4 +15,10 @@ public class SideBarAdminController {
       return "teacher/dashboardAdmin";
   }
 
+  @GetMapping("/profileAdmin")
+  public String editProfileAdmin(HttpSession session) {
+      String teacherUsername = (String) session.getAttribute("teacherUsername");
+      return "teacher/profileTeacher/profileAdmin";
+  }
+
 }
