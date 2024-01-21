@@ -33,8 +33,8 @@ public class dashboardStudent {
     }
 
     @GetMapping("/dashboardStudent")
-    public String getStudentById(@RequestParam("studentic") String studentic, Model model, HttpSession session) {
-		String student_ic = (String) session.getAttribute("studentic") ;
+    public String getStudentById(@RequestParam("studentIC") String studentIC, Model model, HttpSession session) {
+		String studentic = (String) session.getAttribute("studentIC") ;
            System.out.println("Student IC : " + studentic);
         try {
             Connection connection = dataSource.getConnection();
@@ -44,7 +44,6 @@ public class dashboardStudent {
             final var resultSet = statement.executeQuery();
         
             if (resultSet.next()) {
-                String studentIC = resultSet.getString("studentIC");
                 String studentName = resultSet.getString("studentName");
                 String studentEmail = resultSet.getString("studentEmail");
                 String studentPhone = resultSet.getString("studentPhone");
