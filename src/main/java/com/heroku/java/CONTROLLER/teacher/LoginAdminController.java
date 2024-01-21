@@ -93,7 +93,7 @@ public class LoginAdminController {
             }
 
             connection.close();
-            return "redirect:/adminsignin?invalidUsername&Password";
+            return "redirect:/adminSignin?invalidUsername&Password";
 
         } catch (SQLException sqe) {
             System.out.println("Error Code = " + sqe.getErrorCode());
