@@ -82,9 +82,9 @@ public class ListStudentAccountController {
     }
 
     @GetMapping("/viewStudentDetails")
-    public String viewStudentDetails(@RequestParam("viewStudentDetails") String studentIC, HttpSession session, Model model) {
+    public String viewStudentDetails(@RequestParam("studentIC") String studentIC, HttpSession session, Model model) {
         String teacherUsername = (String) session.getAttribute("teacherUsername");
-        System.out.println("IC Number : " + teacherUsername);
+        System.out.println("IC Number : " + studentIC);
         try {
             Connection connection = dataSource.getConnection();
             String sql = "SELECT * FROM public.student where studentic=?";
