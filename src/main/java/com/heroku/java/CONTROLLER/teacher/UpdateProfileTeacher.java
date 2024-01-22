@@ -68,4 +68,27 @@ public class UpdateProfileTeacher {
         }
         return "redirect:/profileTeacher_edit?success=true";
     }
+
+    @PostMapping("/password_teacher")
+    public String updatepasswordstudent(TeacherBean t, HttpSession session, Model model) {
+        String teacherUsername = (String) session.getAttribute("teacherUsername");
+        System.out.println("IC Number : " + teacherUsername);
+
+        try {
+            Connection connection = dataSource.getConnection();
+            String sql = "UPDATE public.teacher SET teacherpassword=? WHERE teacherusername=?";
+            final var statement = connection.prepareStatement(sql);
+
+            String teacherPassword = t.getTeacherPassword();
+
+            statement.setString(1, teacherUsername);
+            statement.setString(2, teacherPassword);
+            statement.executeUpdate();
+
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "redirect:/edit_profile?success=true";
+    }
 }

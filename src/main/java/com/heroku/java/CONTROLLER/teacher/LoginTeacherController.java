@@ -109,4 +109,10 @@ public class LoginTeacherController {
             return "redirect:/signin?error";
         }
     }
+
+    @GetMapping("/logoutteacher")
+    public String logoutTeacher(HttpSession session) {
+        session.invalidate();
+        return "index";
+    }
 }
