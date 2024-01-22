@@ -109,4 +109,10 @@ public class LoginAdminController {
             return "redirect:/adminsignin?error";
         }
     }
+
+    @GetMapping("/logoutadmin")
+    public String logoutAdmin(HttpSession session) {
+        session.invalidate();
+        return "index";
+    }
 }

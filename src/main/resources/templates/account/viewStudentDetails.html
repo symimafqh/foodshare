@@ -29,29 +29,29 @@
 
   <!-- Icons -->
   <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
-  <link rel="shortcut icon" href="../assets/media/favicons/favicon.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="../assets/media/favicons/favicon-192x192.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="../assets/media/favicons/apple-touch-icon-180x180.png">
+  <link rel="shortcut icon" th:href="@{stylesheets/assets/media/favicons/favicon.png}">
+  <link rel="icon" type="image/png" sizes="192x192" th:href="@{stylesheets/assets/media/favicons/favicon-192x192.png}">
+  <link rel="apple-touch-icon" sizes="180x180" th:href="@{stylesheets/assets/media/favicons/apple-touch-icon-180x180.png}">
   <!-- END Icons -->
 
   <!-- Stylesheets -->
 
 <!-- Page JS Plugins CSS -->
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/assets/js/plugins/slick/slick.css">
+	th:href="@{stylesheets/assets/js/plugins/slick/slick.css}">
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/assets/js/plugins/slick/slick-theme.css">
+	th:href="@{stylesheets/assets/js/plugins/slick/slick-theme.css}">
 
 <!-- Fonts and Codebase framework -->
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,400i,600,700&display=swap">
 <link rel="stylesheet" id="css-main"
-	href="${pageContext.request.contextPath}/assets/css/codebase.min.css">
+	th:href="@{stylesheets/assets/css/codebase.min.css}">
 
 <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
 <!-- <link rel="stylesheet" id="css-theme" href="../assets/css/themes/corporate.min.css"> -->
 <link rel="stylesheet" id="css-theme"
-	href="${pageContext.request.contextPath}/assets/css/themes/flat.min.css">
+	th:href="@{stylesheets/assets/css/themes/flat.min.css}">
   <!-- <link rel="stylesheet" id="css-theme" href="../assets/css/themes/earth.min.css"> 
     <!-- <link rel="stylesheet" id="css-theme" href="../assets/css/themes/elegance.min.css">
     <link rel="stylesheet" id="css-theme" href="../assets/css/themes/pulse.min.css"> -->
@@ -125,7 +125,7 @@
           <!-- User Info -->
           <div class="content-header-item">
             <a class="img-link mr-5" href="be_pages_generic_profile.html">
-              <img class="img-avatar img-avatar32" src="assets/media/avatars/avatar15.jpg" alt="">
+              <img class="img-avatar img-avatar32" th:src="@{stylesheets/assets/media/avatars/avatar15.jpg}" alt="">
             </a>
             <a class="align-middle link-effect text-primary-dark font-w600" href="be_pages_generic_profile.html">John
               Smith</a>
@@ -200,7 +200,7 @@
             <!-- Logo -->
 							<div class="content-header-item">
 								<img
-									src="${pageContext.request.contextPath}/assets/pictures/logo lain.png"
+									th:src="@{stylesheets/assets/pictures/logo lain.png}"
 									style="width: 200px; height: 45px;">
 							</div>
             <!-- END Logo -->
@@ -215,14 +215,14 @@
           <div class="content-side content-side-full content-side-user px-10 align-parent">
             <!-- Visible only in mini mode -->
             <div class="sidebar-mini-visible-b align-v animated fadeIn">
-              <img class="img-avatar img-avatar32" src="../assets/media/avatars/avatar15.jpg" alt="">
+              <img class="img-avatar img-avatar32" th:src="../assets/media/avatars/avatar15.jpg" alt="">
             </div>
             <!-- END Visible only in mini mode -->
 
             <!-- Visible only in normal mode -->
             <div class="sidebar-mini-hidden-b text-center">
               <a class="img-link" href=""> <img class="img-avatar"
-									src="${pageContext.request.contextPath}/assets/media/avatars/avatar15.jpg"
+									th:src="@{stylesheets/assets/media/avatars/avatar15.jpg}"
 									alt="">
 								</a>
               <ul class="list-inline mt-10">
@@ -238,7 +238,7 @@
                   </a>
                 </li>
                 <li class="list-inline-item">
-                  <a class="link-effect text-dual-primary-dark" href="signIn.html">
+                  <a class="link-effect text-dual-primary-dark" th:href="@{/signin}">
                     <i class="si si-logout"></i>
                   </a>
                 </li>
@@ -251,11 +251,11 @@
 						<div class="content-side content-side-full">
 							<ul class="nav-main">
 								<li><a class="active"
-									href="SideBarAdminController?action=dashboardAdmin&user=teacher&teacherUsername=<c:out value="${teacherUsername}"/>"><i
+									th:href="@{/dashboardStudent}"><i
 										class="si si-cup"></i><span class="sidebar-mini-hide">DASHBOARD</span></a>
 								</li>
 								<li><a class="active"
-									href="SideBarAdminController?action=profileAdmin&user=teacher&teacherUsername=<c:out value="${teacherUsername}"/>"><i
+									th:href="@{/edit_profile}"><i
 										class="si si-user"></i><span class="sidebar-mini-hide">PROFIL</span></a>
 								</li>
 								<li>
@@ -263,19 +263,19 @@
 											href="#"><i class="si si-layers"></i><span
 												class="sidebar-mini-hide">AKAUN</span></a>
 											<ul>
-												<li><a href="ListAccountCoordinator">KOORDINATOR</a></li>
-												<li><a href="ListAccountStudent">PELAJAR</a></li>
+												<li><a th:href="@{/ListAccountTeacher}">KOORDINATOR</a></li>
+												<li><a th:href="@{/ListAccountStudent}">PELAJAR</a></li>
 											</ul></li>
 								</li>
 								<li><a class="nav-submenu" data-toggle="nav-submenu"
 									href="#"><i class="si si-layers"></i><span
 										class="sidebar-mini-hide">KATEGORI</span></a>
 									<ul>
-										<li><a href="ListUnitController?teacherIC=${teacherIC}">Unit
+										<li><a th:href="@{/AddNewUnit}">Unit
 												Beruniform</a></li>
-										<li><a href="ListClubController?teacherIC=${teacherIC}">Kelab
+										<li><a th:href="@{/AddNewKelab}">Kelab
 												dan Persatuan</a></li>
-										<li><a href="ListSukanController?teacherIC=${teacherIC}">Sukan
+										<li><a th:href="@{/AddNewSukan}">Sukan
 												dan Permainan</a></li>
 									</ul></li>
 
@@ -416,7 +416,7 @@
             </button>
             <div class="dropdown-menu dropdown-menu-right min-width-200" aria-labelledby="page-header-user-dropdown">
               <h5 class="h6 text-center py-10 mb-5 border-b text-uppercase">User</h5>
-              <a class="dropdown-item" href="../profile/adminProfile.html">
+              <a class="dropdown-item" th:href="@{/logoutadmin}">
                 <i class="si si-user mr-5"></i> Profile
               </a>
               <div class="dropdown-divider"></div>
@@ -424,7 +424,7 @@
               <!-- END Side Overlay -->
 
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="signinTeacher.jsp">
+              <a class="dropdown-item" th:href="@{/teachersignin}">
                 <i class="si si-logout mr-5"></i> Sign Out
               </a>
             </div>
@@ -716,7 +716,7 @@
         assets/js/core/js.cookie.min.js
     -->
 	<script
-		src="${pageContext.request.contextPath}/assets/js/codebase.core.min.js"></script>
+		th:src="@{stylesheets/assets/js/codebase.core.min.js}"></script>
 
   <!--
         Codebase JS
@@ -725,17 +725,17 @@
         webpack is putting everything together at assets/_js/main/app.js
     -->
 <script
-		src="${pageContext.request.contextPath}/assets/js/codebase.app.min.js"></script>
+		th:src="@{stylesheets/assets/js/codebase.app.min.js}"></script>
 
 	<!-- Page JS Plugins -->
 	<script
-		src="${pageContext.request.contextPath}/assets/js/plugins/chartjs/Chart.min.js"></script>
+		th:src="@{stylesheets/assets/js/plugins/chartjs/Chart.min.js}"></script>
 	<script
-		src="${pageContext.request.contextPath}/assets/js/plugins/slick/slick.min.js"></script>
+		th:src="@{stylesheets/assets/js/plugins/slick/slick.min.js}"></script>
 
 	<!-- Page JS Code -->
 	<script
-		src="${pageContext.request.contextPath}/assets/js/pages/be_pages_dashboard.min.js"></script>
+		th:src="@{stylesheets/assets/js/pages/be_pages_dashboard.min.js}"></script>
 
 </body>
 
