@@ -15,7 +15,7 @@ public class SideBarStudentController {
     }
 
     @GetMapping("/edit_profile")
-    public String editProfile(HttpSession session) {
+    public String editProfile(@RequestParam(name = "success", required = false) Boolean success, HttpSession session) {
         String studentIC = (String) session.getAttribute("studentIC");
         return "student/profile/edit_profile";
     }
