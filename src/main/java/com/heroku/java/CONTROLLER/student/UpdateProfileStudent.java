@@ -83,8 +83,8 @@ public class UpdateProfileStudent {
 
             String studentPassword = s.getStudentPassword();
 
-            statement.setString(1, studentIC);
-            statement.setString(2, studentPassword);
+            statement.setString(1, studentPassword);
+            statement.setString(2, studentIC);
             statement.executeUpdate();
 
             connection.close();
