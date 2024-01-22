@@ -82,8 +82,8 @@ public class ListStudentAccountController {
     }
 
     @GetMapping("/viewStudentDetails")
-    public String viewStudentDetails(HttpSession session, Model model) {
-        String studentIC = (String) session.getAttribute("studentIC");
+    public String viewStudentDetails(@RequestParam("viewstudentdetail") String studentIC, HttpSession session, Model model) {
+        studentIC = (String) session.getAttribute("studentIC");
         System.out.println("IC Number : " + studentIC);
         try {
             Connection connection = dataSource.getConnection();
