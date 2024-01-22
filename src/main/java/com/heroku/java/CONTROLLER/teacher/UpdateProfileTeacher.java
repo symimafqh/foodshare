@@ -127,7 +127,7 @@ public class UpdateProfileTeacher {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "redirect:/profileTeacher_edit?success=true";
+        return "redirect:/profileAdmin?success=true";
     }
 
     @PostMapping("/password_admin")
@@ -150,6 +150,6 @@ public class UpdateProfileTeacher {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "redirect:/profileTeacher_edit?success=true";
+        return "redirect:/profileAdmin?success=true";
     }
 }
