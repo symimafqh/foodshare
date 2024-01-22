@@ -455,7 +455,7 @@
                           </div>
                           <div class="form-group row">
                             <label class="col-12">Jantina</label>
-                            <div th:if="${session.teacherGender == 'Lelaki'}">
+                            <div th:if="${session.studentGender == 'Lelaki'}">
                                 <div class="col-12">
                                     <div class="custom-control custom-radio custom-control-inline mb-5">
                                         <input class="custom-control-input" type="radio"
@@ -473,7 +473,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div th:if="${session.teacherGender == 'Perempuan'}">
+                            <div th:if="${session.studentGender == 'Perempuan'}">
                                 <div class="col-12">
                                     <div class="custom-control custom-radio custom-control-inline mb-5">
                                         <input class="custom-control-input" type="radio"
@@ -489,6 +489,14 @@
                                             for="example-inline-radio2">Perempuan</label>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="col-12">
+                                <div class="form-material">
+                                  <textarea class="form-control" id="studentAddress" name="studentAddress" rows="3" oninput="this.value = this.value.toUpperCase()" required></textarea>
+                                  <label for="material-textarea-alamat"><span th:text="${session.studentAddress}"></span></label>
+                                </div>
+                              </div>
                             </div>
                         </div>
                         <div class="form-group row">
