@@ -42,7 +42,7 @@ public class SideBarStudentController {
         System.out.println("IC Number : " + studentIC);
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "SELECT guesticnumber, guestname, guestphonenumber, guestgender, guestreligion, guestrace, guestaddress, guestemail, guestpassword FROM public.guest WHERE guesticnumber LIKE ?";
+            String sql = "SELECT * FROM public.student WHERE studentIC=?";
             final var statement = connection.prepareStatement(sql);
             statement.setString(1, studentIC);
             final var resultSet = statement.executeQuery();
