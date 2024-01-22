@@ -92,7 +92,7 @@ public class UpdateProfileStudent {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "redirect:/edit_profile";
+        return "redirect:/edit_profile?success=true";
     }
 
 }
