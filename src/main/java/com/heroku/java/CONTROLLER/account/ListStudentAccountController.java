@@ -81,4 +81,11 @@ public class ListStudentAccountController {
         
     }
 
+    @GetMapping("/viewStudentDetails")
+    public String viewStudentDetails() {
+        return "viewStudentDetails";
+    }
+    
+
+
 }
