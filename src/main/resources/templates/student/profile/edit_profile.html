@@ -209,7 +209,7 @@
                     </a>
                   </li>
                   <li class="list-inline-item">
-                    <a class="link-effect text-dual-primary-dark" th:href="@{/signin}">
+                    <a class="link-effect text-dual-primary-dark" th:href="@{/logoutstudent}">
                       <i class="si si-logout"></i>
                     </a>
                   </li>
@@ -310,7 +310,7 @@
                 <!-- END Side Overlay -->
 
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" th:href="@{/signin}">
+                <a class="dropdown-item" th:href="@{/logoutstudent}">
                   <i class="si si-logout mr-5"></i> Sign Out
                 </a>
               </div>
@@ -382,9 +382,7 @@
                   <!-- END Personal -->
     
                   <!-- Actions -->
-                  <a th:href="@{/dashboardStudent}" class="btn btn-rounded btn-hero btn-sm btn-alt-secondary mb-5">
-                    <i class="fa fa-arrow-left mr-5"></i> Kembali
-                  </a>
+                  <h2 class="h3 text-white font-w500 mb-10"><span class="d-none d-sm-inline-block" th:text="${session.studentClass}"></span></h2>
                   <!-- END Actions -->
                 </div>
               </div>
@@ -403,7 +401,7 @@
                 <div class="block-content">
                   <form  th:action="@{/edit_profile}"
                   modelAttribute="edit_profile"
-                  th:object="(${edit_profile})" method="POST" enctype="multipart/form-data" onsubmit="return false;">
+                  th:object="(${edit_profile})" method="POST" enctype="multipart/form-data">
                     <div class="row items-push">
                       <div class="col-lg-3">
                         <p class="text-muted">
@@ -524,7 +522,7 @@
                 <div class="block-content">
                   <form  th:action="@{/edit_password}"
                   modelAttribute="edit_password"
-                  th:object="(${edit_password})" method="post" onsubmit="return false;">
+                  th:object="(${edit_password})" method="post">
                     <div class="row items-push">
                       <div class="col-lg-3">
                         <p class="text-muted">
