@@ -82,7 +82,7 @@ public class ListStudentAccountController {
     }
 
     @GetMapping("/viewStudentDetails")
-    public String viewStudentDetails(@RequestParam("viewstudentdetail") String studentIC, HttpSession session, Model model) {
+    public String viewStudentDetails(@RequestParam("viewStudentDetails") String studentIC, HttpSession session, Model model) {
         studentIC = (String) session.getAttribute("studentIC");
         System.out.println("IC Number : " + studentIC);
         try {
