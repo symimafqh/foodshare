@@ -493,7 +493,7 @@
                         <div class="form-group row">
                           <label class="col-lg-3 col-form-label" for="title">IC<span class="text-danger"></span></label>
                           <div class="col-lg-9">
-                            <input type="text" class="form-control" id="title" name="studentIC" th:value="${student.studentIC}" disabled>
+                            <input type="text" class="form-control" id="title" name="studentIC" th:value="${student.studentIC}" readonly>
                           </div>
                         </div>
 
@@ -502,7 +502,7 @@
                               class="text-danger"></span></label>
                           <div class="col-lg-9">
                             <input type="text" class="form-control" id="title" name="studentName"
-                            th:value="${student.studentName}" disabled>
+                            th:value="${student.studentName}" readonly>
                           </div>
                         </div>
                         
@@ -511,7 +511,7 @@
                               class="text-danger"></span></label>
                           <div class="col-lg-9">
                             <input type="text" class="form-control" id="title" name="alamat"
-                            th:value="${student.studentClass}" disabled>
+                            th:value="${student.studentClass}" readonly>
                           </div>
                         </div>
 
@@ -520,7 +520,7 @@
                               class="text-danger"></span></label>
                           <div class="col-lg-9">
                             <input type="text" class="form-control" id="title" name="alamat"
-                              th:value="${student.studentEmail}" disabled>
+                              th:value="${student.studentEmail}" readonly>
                           </div>
                         </div>
 
@@ -529,7 +529,7 @@
                               class="text-danger"></span></label>
                           <div class="col-lg-9">
                             <input type="text" class="form-control" id="title" name="alamat" th:value="${student.studentPhone}"
-                              disabled>
+                            readonly>
                           </div>
                         </div>
 
@@ -539,7 +539,7 @@
                           <div class="col-lg-9">
                             <!-- <input type="text" class="form-control" id="title" name="poskod" maxlength="5" pattern="[0-9]{5}" placeholder="" required> -->
                             <input type="text" class="form-control" id="title" name="poskod" maxlength="5"
-                              pattern="[0-9]{5}" onkeypress="return isNumberKey(event)" th:value="${student.studentDOB}" disabled />
+                              pattern="[0-9]{5}" onkeypress="return isNumberKey(event)" th:value="${student.studentDOB}" readonly />
 
                           </div>
                         </div>
@@ -627,7 +627,7 @@
                               class="text-danger"></span></label>
                           <div class="col-lg-9">
                             <input type="text" class="form-control" id="title" name="alamat"
-                              th:value="${student.studentAddress}" disabled>
+                              th:value="${student.studentAddress}" readonly>
                           </div>
                         </div>
 
