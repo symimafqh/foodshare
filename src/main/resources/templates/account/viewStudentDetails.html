@@ -493,7 +493,7 @@
                         <div class="form-group row">
                           <label class="col-lg-3 col-form-label" for="title">IC<span class="text-danger"></span></label>
                           <div class="col-lg-9">
-                            <input type="text" class="form-control" id="title" name="studentIC" th:value="${student.studentIC}" readonly>
+                            <input type="text" class="form-control" id="title" name="studentIC" th:value="${session.studentIC}" readonly>
                           </div>
                         </div>
 
@@ -502,7 +502,7 @@
                               class="text-danger"></span></label>
                           <div class="col-lg-9">
                             <input type="text" class="form-control" id="title" name="studentName"
-                            th:value="${student.studentName}" readonly>
+                            th:value="${session.studentName}" readonly>
                           </div>
                         </div>
                         
@@ -511,7 +511,7 @@
                               class="text-danger"></span></label>
                           <div class="col-lg-9">
                             <input type="text" class="form-control" id="title" name="alamat"
-                            th:value="${student.studentClass}" readonly>
+                            th:value="${session.studentClass}" readonly>
                           </div>
                         </div>
 
@@ -520,7 +520,7 @@
                               class="text-danger"></span></label>
                           <div class="col-lg-9">
                             <input type="text" class="form-control" id="title" name="alamat"
-                              th:value="${student.studentEmail}" readonly>
+                              th:value="${session.studentEmail}" readonly>
                           </div>
                         </div>
 
@@ -528,7 +528,7 @@
                           <label class="col-lg-3 col-form-label" for="title">No. Telefon<span
                               class="text-danger"></span></label>
                           <div class="col-lg-9">
-                            <input type="text" class="form-control" id="title" name="alamat" th:value="${student.studentPhone}"
+                            <input type="text" class="form-control" id="title" name="alamat" th:value="${session.studentPhone}"
                             readonly>
                           </div>
                         </div>
@@ -539,14 +539,14 @@
                           <div class="col-lg-9">
                             <!-- <input type="text" class="form-control" id="title" name="poskod" maxlength="5" pattern="[0-9]{5}" placeholder="" required> -->
                             <input type="text" class="form-control" id="title" name="poskod" maxlength="5"
-                              pattern="[0-9]{5}" onkeypress="return isNumberKey(event)" th:value="${student.studentDOB}" readonly />
+                              pattern="[0-9]{5}" onkeypress="return isNumberKey(event)" th:value="${session.studentDOB}" readonly />
 
                           </div>
                         </div>
 
                         <div class="form-group row">
                           <label class="col-lg-3 col-form-label" for="title">Jantina</label>
-                          <div th:if="${s.studentGender == 'Lelaki'}">
+                          <div th:if="${session.studentGender == 'Lelaki'}">
                               <div class="col-lg-3 col-form-label">
                                   <div class="custom-control custom-radio custom-control-inline mb-5">
                                       <input class="custom-control-input" type="radio"
@@ -564,7 +564,7 @@
                                   </div>
                               </div>
                           </div>
-                          <div th:if="${s.studentGender == 'Perempuan'}">
+                          <div th:if="${session.studentGender == 'Perempuan'}">
                               <div class="col-lg-3 col-form-label">
                                   <div class="custom-control custom-radio custom-control-inline mb-5">
                                       <input class="custom-control-input" type="radio"
@@ -627,7 +627,7 @@
                               class="text-danger"></span></label>
                           <div class="col-lg-9">
                             <input type="text" class="form-control" id="title" name="alamat"
-                              th:value="${student.studentAddress}" readonly>
+                              th:value="${session.studentAddress}" readonly>
                           </div>
                         </div>
 

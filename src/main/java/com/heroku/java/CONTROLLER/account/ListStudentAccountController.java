@@ -82,7 +82,9 @@ public class ListStudentAccountController {
     }
 
     @GetMapping("/viewStudentDetails")
-    public String viewStudentDetails() {
+    public String viewStudentDetails(HttpSession session, Model model) {
+        String studentIC = (String) session.getAttribute("studentIC");
+        System.out.println("IC Number : " + studentIC);
         return "account/viewStudentDetails";
     }
     
