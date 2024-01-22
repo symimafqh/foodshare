@@ -434,7 +434,7 @@
                                             <label for="profile-settings-username">Username</label>
                                             <input type="text" class="form-control form-control-lg"
                                                 id="profile-settings-username" name="teacherUsername"
-                                                th:value="${session.teacherUsername}">
+                                                th:value="${t.teacherUsername}">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -442,7 +442,7 @@
                                             <label for="profile-settings-name">Nama</label>
                                             <input type="text" class="form-control form-control-lg"
                                                 id="profile-settings-name" name="teacherName"
-                                                th:value="${session.teacherName}">
+                                                th:value="${t.teacherName}">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -450,7 +450,7 @@
                                             <label for="profile-settings-email">Email</label>
                                             <input type="email" class="form-control form-control-lg"
                                                 id="profile-settings-email" name="teacherEmail"
-                                                th:value="${session.teacherEmail}">
+                                                th:value="${t.teacherEmail}">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -458,7 +458,7 @@
                                             <label for="profile-settings-name">Nombor Telefon</label>
                                             <input type="text" class="form-control form-control-lg"
                                                 id="profile-settings-name" name="teacherPhone"
-                                                th:value="${session.teacherPhone}">
+                                                th:value="${t.teacherPhone}">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -472,7 +472,7 @@
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-12">Jantina</label>
-                                        <div th:if="${session.teacherGender == 'Lelaki'}">
+                                        <div th:if="${t.teacherGender == 'Lelaki'}">
                                             <div class="col-12">
                                                 <div class="custom-control custom-radio custom-control-inline mb-5">
                                                     <input class="custom-control-input" type="radio"
@@ -490,7 +490,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div th:if="${session.teacherGender == 'Perempuan'}">
+                                        <div th:if="${t.teacherGender == 'Perempuan'}">
                                             <div class="col-12">
                                                 <div class="custom-control custom-radio custom-control-inline mb-5">
                                                     <input class="custom-control-input" type="radio"
@@ -543,7 +543,7 @@
                                         <div class="col-12">
                                             <label for="profile-settings-password">Kata Laluan Semasa</label>
                                             <input type="password" class="form-control form-control-lg" id="password"
-                                                name="studentPassword" th:value="${session.teacherPassword}">
+                                                name="studentPassword" th:value="${t.teacherPassword}">
                                             <span class="eye" onclick="togglePassword()">
                                                 <i id="eye-icon" class="fa fa-eye"></i>
                                             </span>
