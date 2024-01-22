@@ -42,7 +42,7 @@ public class SideBarControllerTeacher {
         String teacherUsername = (String) session.getAttribute("teacherUsername");
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "SELECT * FROM public.teacher where teacaherusername=?";
+            String sql = "SELECT * FROM public.teacher where teacherusername=?";
             final var statement = connection.prepareStatement(sql);
             statement.setString(1, teacherUsername);
             final var resultSet = statement.executeQuery();

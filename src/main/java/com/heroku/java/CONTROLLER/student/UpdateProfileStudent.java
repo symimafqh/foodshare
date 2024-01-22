@@ -34,8 +34,7 @@ public class UpdateProfileStudent {
     }
 
     @PostMapping("/edit_profile")
-    public String updateprofilestudent(@ModelAttribute("edit_profile") StudentBean s, HttpSession session,
-            Model model) {
+    public String updateprofilestudent(@ModelAttribute("edit_profile") StudentBean s, HttpSession session, Model model) {
         String studentIC = (String) session.getAttribute("studentIC");
         System.out.println("IC Number : " + studentIC);
 
