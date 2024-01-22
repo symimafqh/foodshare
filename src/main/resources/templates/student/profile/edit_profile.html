@@ -424,25 +424,25 @@
                         <div class="form-group row">
                           <div class="col-12">
                             <label for="profile-settings-username">Username</label>
-                            <input type="text" class="form-control form-control-lg" id="profile-settings-username" name="studentIC" th:value="${session.studentIC}">
+                            <input type="text" class="form-control form-control-lg" id="profile-settings-username" name="studentIC" th:value="${s.studentIC}">
                           </div>
                         </div>
                         <div class="form-group row">
                           <div class="col-12">
                             <label for="profile-settings-name">Nama</label>
-                            <input type="text" class="form-control form-control-lg" id="profile-settings-name" name="studentName" th:value="${session.studentName}">
+                            <input type="text" class="form-control form-control-lg" id="profile-settings-name" name="studentName" th:value="${s.studentName}">
                           </div>
                         </div>
                         <div class="form-group row">
                           <div class="col-12">
                             <label for="profile-settings-email">Email</label>
-                            <input type="email" class="form-control form-control-lg" id="profile-settings-email" name="studentEmail"  th:value="${session.studentEmail}">
+                            <input type="email" class="form-control form-control-lg" id="profile-settings-email" name="studentEmail"  th:value="${s.studentEmail}">
                           </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-12">
                               <label for="profile-settings-name">Nombor Telefon</label>
-                              <input type="text" class="form-control form-control-lg" id="profile-settings-name" name="studentPhone" th:value="${session.studentPhone}">
+                              <input type="text" class="form-control form-control-lg" id="profile-settings-name" name="studentPhone" th:value="${s.studentPhone}">
                             </div>
                           </div>
                           <div class="form-group row">
@@ -453,7 +453,7 @@
                           </div>
                           <div class="form-group row">
                             <label class="col-12">Jantina</label>
-                            <div th:if="${session.studentGender == 'Lelaki'}">
+                            <div th:if="${s.studentGender == 'Lelaki'}">
                                 <div class="col-12">
                                     <div class="custom-control custom-radio custom-control-inline mb-5">
                                         <input class="custom-control-input" type="radio"
@@ -471,7 +471,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div th:if="${session.studentGender == 'Perempuan'}">
+                            <div th:if="${s.studentGender == 'Perempuan'}">
                                 <div class="col-12">
                                     <div class="custom-control custom-radio custom-control-inline mb-5">
                                         <input class="custom-control-input" type="radio"
