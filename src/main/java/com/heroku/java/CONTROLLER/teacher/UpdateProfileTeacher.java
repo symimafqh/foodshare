@@ -81,8 +81,8 @@ public class UpdateProfileTeacher {
 
             String teacherPassword = t.getTeacherPassword();
 
-            statement.setString(1, teacherUsername);
-            statement.setString(2, teacherPassword);
+            statement.setString(1, teacherPassword);
+            statement.setString(2, teacherUsername);
             statement.executeUpdate();
 
             connection.close();
