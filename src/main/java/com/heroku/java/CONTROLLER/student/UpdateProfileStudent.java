@@ -51,13 +51,14 @@ public class UpdateProfileStudent {
             String studentGender = s.getStudentGender();
             String studentAddress = s.getStudentAddress();
 
-            statement.setString(1, studentIC);
-            statement.setString(2, studentName);
-            statement.setString(3, studentEmail);
-            statement.setString(4, studentPhone);
-            statement.setString(5, studentDOB);
-            statement.setString(6, studentGender);
-            statement.setString(7, studentAddress);
+            
+            statement.setString(1, studentName);
+            statement.setString(2, studentEmail);
+            statement.setString(3, studentPhone);
+            statement.setString(4, studentDOB);
+            statement.setString(5, studentGender);
+            statement.setString(6, studentAddress);
+            statement.setString(7, studentIC);
 
             System.out.println("Name: " + studentName);
             System.out.println("Email: " + studentEmail);
