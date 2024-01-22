@@ -71,6 +71,7 @@ public class SignUpTeacher {
                     e.printStackTrace();
                     return "redirect:/teacherRegister";
                 }
+                
             return "redirect:/teachersignin";
     }
 }
