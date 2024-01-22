@@ -381,13 +381,15 @@
                         <!-- Personal -->
                         <h1 class="h3 text-white font-w700 mb-10"><span class="d-none d-sm-inline-block"
                                 th:text="${session.teacherName}"></span></h1>
+                                <h2 class="h3 text-white font-w700 mb-10"><span class="d-none d-sm-inline-block"
+                                    th:text="${session.teacherRole}"></span></h2>
                         <!-- <h2 class="h5 text-white-op">
                     Kelas 
                   </h2> -->
                         <!-- END Personal -->
 
                         <!-- Actions -->
-                        <a th:href="@{/dashboardStudent}"
+                        <a th:href="@{/dashboardTeacher}"
                             class="btn btn-rounded btn-hero btn-sm btn-alt-secondary mb-5">
                             <i class="fa fa-arrow-left mr-5"></i> Kembali
                         </a>

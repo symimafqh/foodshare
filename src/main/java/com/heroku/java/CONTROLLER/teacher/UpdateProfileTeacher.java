@@ -70,7 +70,68 @@ public class UpdateProfileTeacher {
     }
 
     @PostMapping("/password_teacher")
-    public String updatepasswordstudent(TeacherBean t, HttpSession session, Model model) {
+    public String updatepasswordteacher(TeacherBean t, HttpSession session, Model model) {
+        String teacherUsername = (String) session.getAttribute("teacherUsername");
+        System.out.println("IC Number : " + teacherUsername);
+
+        try {
+            Connection connection = dataSource.getConnection();
+            String sql = "UPDATE public.teacher SET teacherpassword=? WHERE teacherusername=?";
+            final var statement = connection.prepareStatement(sql);
+
+            String teacherPassword = t.getTeacherPassword();
+
+            statement.setString(1, teacherPassword);
+            statement.setString(2, teacherUsername);
+            statement.executeUpdate();
+
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "redirect:/profileTeacher_edit?success=true";
+    }
+
+    //update profile admin
+    @PostMapping("/profileAdmin")
+    public String updateProfileAdmin(@ModelAttribute("profileAdmin") TeacherBean s, HttpSession session, Model model){
+        String teacherUsername = (String) session.getAttribute("teacherUsername");
+        System.out.println("IC Number : " + teacherUsername);
+        try {
+            Connection connection = dataSource.getConnection();
+            String sql = "UPDATE public.teacher SET teachername=?, teacheremail=?,teacherphone=?,teacherdob=?,teachergender=?,teacheraddress=? WHERE teacherusername=?";
+            final var statement = connection.prepareStatement(sql);
+
+            String teacherName = s.getTeacherName();
+            String teacherEmail = s.getTeacherEmail();
+            String teacherPhone = s.getTeacherPhone();
+            String teacherDOB = s.getTeacherDOB();
+            String teacherGender = s.getTeacherGender();
+            String teacherAddress = s.getTeacherAddress();
+
+            
+            statement.setString(1, teacherName);
+            statement.setString(2, teacherEmail);
+            statement.setString(3, teacherPhone);
+            statement.setString(4, teacherDOB);
+            statement.setString(5, teacherGender);
+            statement.setString(6, teacherAddress);
+            statement.setString(7, teacherUsername);
+
+            System.out.println("Name: " + teacherUsername);
+            System.out.println("Email: " + teacherEmail);
+            System.out.println("IC: " + teacherUsername);
+            statement.executeUpdate();
+
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "redirect:/profileTeacher_edit?success=true";
+    }
+
+    @PostMapping("/password_admin")
+    public String updatepasswordadmin(TeacherBean t, HttpSession session, Model model) {
         String teacherUsername = (String) session.getAttribute("teacherUsername");
         System.out.println("IC Number : " + teacherUsername);
 

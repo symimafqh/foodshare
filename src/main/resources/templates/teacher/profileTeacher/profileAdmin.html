@@ -215,7 +215,7 @@
                                 <li class="list-inline-item">
                                     <a class="link-effect text-dual-primary-dark font-size-sm font-w600 text-uppercase"
                                         href=""><span class="d-none d-sm-inline-block"
-                                            th:text="${session.teacherName}"></span></a>
+                                            th:text="${t.teacherName}"></span></a>
                                 </li>
                                 <li class="list-inline-item">
                                     <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
@@ -314,7 +314,7 @@
                         <div class="dropdown-menu dropdown-menu-right min-width-200"
                             aria-labelledby="page-header-user-dropdown">
                             <h5 class="h6 text-center py-10 mb-5 border-b text-uppercase">User</h5>
-                            <a class="dropdown-item" th:href="@{/edit_profile}">
+                            <a class="dropdown-item" th:href="@{/profileTeacher_edit}">
                                 <i class="si si-user mr-5"></i> Profile
                             </a>
                             <div class="dropdown-divider"></div>
@@ -322,7 +322,7 @@
                             <!-- END Side Overlay -->
 
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" th:href="@{/signin}">
+                            <a class="dropdown-item" th:href="@{/logoutadmin}">
                                 <i class="si si-logout mr-5"></i> Sign Out
                             </a>
                         </div>
@@ -393,6 +393,8 @@
                         <!-- Personal -->
                         <h1 class="h3 text-white font-w700 mb-10"><span class="d-none d-sm-inline-block"
                                 th:text="${session.teacherName}"></span></h1>
+                                <h2 class="h3 text-white font-w700 mb-10"><span class="d-none d-sm-inline-block"
+                                    th:text="${session.teacherRole}"></span></h2>
                         <!-- <h2 class="h5 text-white-op">
                     Kelas 
                   </h2> -->
@@ -419,7 +421,9 @@
                         </h3>
                     </div>
                     <div class="block-content">
-                        <form action="" method="POST" enctype="multipart/form-data" onsubmit="return false;">
+                        <form th:action="@{/profileAdmin}"
+                        modelAttribute="profileAdmin"
+                        th:object="(${profileAdmin})" method="POST" enctype="multipart/form-data" >
                             <div class="row items-push">
                                 <div class="col-lg-3">
                                     <p class="text-muted">
@@ -443,32 +447,32 @@
                                         <div class="col-12">
                                             <label for="profile-settings-username">Username</label>
                                             <input type="text" class="form-control form-control-lg"
-                                                id="profile-settings-username" name="studentIC"
-                                                th:value="${session.teacherUsername}">
+                                                id="profile-settings-username" name="teacherUsername"
+                                                th:value="${t.teacherUsername}">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-12">
                                             <label for="profile-settings-name">Nama</label>
                                             <input type="text" class="form-control form-control-lg"
-                                                id="profile-settings-name" name="studentName"
-                                                th:value="${session.teacherName}">
+                                                id="profile-settings-name" name="teacherName"
+                                                th:value="${t.teacherName}">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-12">
                                             <label for="profile-settings-email">Email</label>
                                             <input type="email" class="form-control form-control-lg"
-                                                id="profile-settings-email" name="studentEmail"
-                                                th:value="${session.teacherEmail}">
+                                                id="profile-settings-email" name="teacherEmail"
+                                                th:value="${t.teacherEmail}">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-12">
                                             <label for="profile-settings-name">Nombor Telefon</label>
                                             <input type="text" class="form-control form-control-lg"
-                                                id="profile-settings-name" name="studentPhone"
-                                                th:value="${session.teacherPhone}">
+                                                id="profile-settings-name" name="teacherPhone"
+                                                th:value="${t.teacherPhone}">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -482,35 +486,35 @@
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-12">Jantina</label>
-                                        <div th:if="${session.teacherGender == 'Lelaki'}">
+                                        <div th:if="${t.teacherGender == 'Lelaki'}">
                                             <div class="col-12">
                                                 <div class="custom-control custom-radio custom-control-inline mb-5">
                                                     <input class="custom-control-input" type="radio"
-                                                        name="studentGender" id="example-inline-radio1" value="Lelaki"
+                                                        name="teacherGender" id="example-inline-radio1" value="Lelaki"
                                                         checked>
                                                     <label class="custom-control-label"
                                                         for="example-inline-radio1">Lelaki</label>
                                                 </div>
                                                 <div class="custom-control custom-radio custom-control-inline mb-5">
                                                     <input class="custom-control-input" type="radio"
-                                                        name="studentGender" id="example-inline-radio2"
+                                                        name="teacherGender" id="example-inline-radio2"
                                                         value="Perempuan">
                                                     <label class="custom-control-label"
                                                         for="example-inline-radio2">Perempuan</label>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div th:if="${session.teacherGender == 'Perempuan'}">
+                                        <div th:if="${t.teacherGender == 'Perempuan'}">
                                             <div class="col-12">
                                                 <div class="custom-control custom-radio custom-control-inline mb-5">
                                                     <input class="custom-control-input" type="radio"
-                                                        name="studentGender" id="example-inline-radio1" value="Lelaki">
+                                                        name="teacherGender" id="example-inline-radio1" value="Lelaki">
                                                     <label class="custom-control-label"
                                                         for="example-inline-radio1">Lelaki</label>
                                                 </div>
                                                 <div class="custom-control custom-radio custom-control-inline mb-5">
                                                     <input class="custom-control-input" type="radio"
-                                                        name="studentGender" id="example-inline-radio2"
+                                                        name="teacherGender" id="example-inline-radio2"
                                                         value="Perempuan" checked>
                                                     <label class="custom-control-label"
                                                         for="example-inline-radio2">Perempuan</label>
@@ -541,7 +545,9 @@
                         </h3>
                     </div>
                     <div class="block-content">
-                        <form action="be_pages_generic_profile.edit.html" method="post" onsubmit="return false;">
+                        <form th:action="@{/password_admin}"
+                        modelAttribute="password_admin"
+                        th:object="(${password_admin})" method="post">
                             <div class="row items-push">
                                 <div class="col-lg-3">
                                     <p class="text-muted">
@@ -553,7 +559,7 @@
                                         <div class="col-12">
                                             <label for="profile-settings-password">Kata Laluan Semasa</label>
                                             <input type="password" class="form-control form-control-lg" id="password"
-                                                name="studentPassword" th:value="${session.teacherPassword}">
+                                                name="password" th:value="${t.teacherPassword}">
                                             <span class="eye" onclick="togglePassword()">
                                                 <i id="eye-icon" class="fa fa-eye"></i>
                                             </span>
@@ -563,7 +569,7 @@
                                         <div class="col-12">
                                             <label for="profile-settings-password-new">Kata Laluan Baru</label>
                                             <input type="password" class="form-control form-control-lg"
-                                                id="profile-settings-password-new" name="profile-settings-password-new">
+                                                id="profile-settings-password-new" name="teacherPassword">
                                         </div>
                                     </div>
                                     <div class="form-group row">
