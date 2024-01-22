@@ -498,7 +498,7 @@
                         <div class="form-group row">
                           <label class="col-lg-3 col-form-label" for="title">IC<span class="text-danger"></span></label>
                           <div class="col-lg-9">
-                            <input type="text" class="form-control" id="title" name="studentIC" value="<c:out value="${student.studentIC}"/>" disabled>
+                            <input type="text" class="form-control" id="title" name="studentIC" th:value="${student.studentIC}" disabled>
                           </div>
                         </div>
 
@@ -507,7 +507,7 @@
                               class="text-danger"></span></label>
                           <div class="col-lg-9">
                             <input type="text" class="form-control" id="title" name="studentName"
-                              value="<c:out value="${student.studentName}"/>" disabled>
+                            th:value="${student.studentName}" disabled>
                           </div>
                         </div>
                         
@@ -516,7 +516,7 @@
                               class="text-danger"></span></label>
                           <div class="col-lg-9">
                             <input type="text" class="form-control" id="title" name="alamat"
-                              value="<c:out value="${student.studentClass}"/>" disabled>
+                            th:value="${student.studentClass}" disabled>
                           </div>
                         </div>
 
@@ -525,7 +525,7 @@
                               class="text-danger"></span></label>
                           <div class="col-lg-9">
                             <input type="text" class="form-control" id="title" name="alamat"
-                              value="<c:out value="${student.studentEmail}"/>" disabled>
+                              th:value="${student.studentEmail}" disabled>
                           </div>
                         </div>
 
@@ -533,7 +533,7 @@
                           <label class="col-lg-3 col-form-label" for="title">No. Telefon<span
                               class="text-danger"></span></label>
                           <div class="col-lg-9">
-                            <input type="text" class="form-control" id="title" name="alamat" value="<c:out value="${student.studentPhone}"/>"
+                            <input type="text" class="form-control" id="title" name="alamat" th:value="${student.studentPhone}"
                               disabled>
                           </div>
                         </div>
@@ -544,13 +544,58 @@
                           <div class="col-lg-9">
                             <!-- <input type="text" class="form-control" id="title" name="poskod" maxlength="5" pattern="[0-9]{5}" placeholder="" required> -->
                             <input type="text" class="form-control" id="title" name="poskod" maxlength="5"
-                              pattern="[0-9]{5}" onkeypress="return isNumberKey(event)" value="<c:out value="${student.studentDOB}"/>" disabled />
+                              pattern="[0-9]{5}" onkeypress="return isNumberKey(event)" th:value="${student.studentDOB}" disabled />
 
                           </div>
                         </div>
 
-
-<div class="form-group row">
+                        <div class="form-group row">
+                          <label class="col-lg-3 col-form-label" for="title">Jantina</label>
+                          <div th:if="${s.studentGender == 'Lelaki'}">
+                              <div class="col-lg-3 col-form-label">
+                                  <div class="custom-control custom-radio custom-control-inline mb-5">
+                                      <input class="custom-control-input" type="radio"
+                                          name="studentGender" id="example-inline-radio1" value="Lelaki"
+                                          checked>
+                                      <label class="custom-control-label"
+                                          for="example-inline-radio1">Lelaki</label>
+                                  </div>
+                                  <div class="custom-control custom-radio custom-control-inline mb-5">
+                                      <input class="custom-control-input" type="radio"
+                                          name="studentGender" id="example-inline-radio2"
+                                          value="Perempuan">
+                                      <label class="custom-control-label"
+                                          for="example-inline-radio2">Perempuan</label>
+                                  </div>
+                              </div>
+                          </div>
+                          <div th:if="${s.studentGender == 'Perempuan'}">
+                              <div class="col-lg-3 col-form-label">
+                                  <div class="custom-control custom-radio custom-control-inline mb-5">
+                                      <input class="custom-control-input" type="radio"
+                                          name="studentGender" id="example-inline-radio1" value="Lelaki">
+                                      <label class="custom-control-label"
+                                          for="example-inline-radio1">Lelaki</label>
+                                  </div>
+                                  <div class="custom-control custom-radio custom-control-inline mb-5">
+                                      <input class="custom-control-input" type="radio"
+                                          name="studentGender" id="example-inline-radio2"
+                                          value="Perempuan" checked>
+                                      <label class="custom-control-label"
+                                          for="example-inline-radio2">Perempuan</label>
+                                  </div>
+                              </div>
+                          </div>
+                         <!-- <div class="form-group row">
+                            <div class="col-12">
+                              <div class="form-material">
+                                <textarea class="form-control" id="studentAddress" name="studentAddress" rows="3" oninput="this.value = this.value.toUpperCase()" required></textarea>
+                                <label for="material-textarea-alamat"><span th:text="${session.studentAddress}"></span></label>
+                              </div>
+                            </div>
+                          </div>-->
+                      </div>
+<!--<div class="form-group row">
                         <label class="col-lg-3 col-form-label" for="title">Jantina<span
                               class="text-danger"></span></label>
                               
@@ -580,14 +625,14 @@
                         </div>
                         </c:otherwise>
                         </c:choose>
-                      </div>
+                      </div>-->
 
                         <div class="form-group row">
                           <label class="col-lg-3 col-form-label" for="title">Alamat<span
                               class="text-danger"></span></label>
                           <div class="col-lg-9">
                             <input type="text" class="form-control" id="title" name="alamat"
-                              value="<c:out value="${student.studentAddress}"/>" disabled>
+                              th:value="${student.studentAddress}" disabled>
                           </div>
                         </div>
 
