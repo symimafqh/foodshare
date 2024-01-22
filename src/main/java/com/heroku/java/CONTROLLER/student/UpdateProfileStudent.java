@@ -39,7 +39,7 @@ public class UpdateProfileStudent {
 
         try{
             Connection connection = dataSource.getConnection();
-            String sql = "UPDATE public.student SET studentic=?, studentname=?, studentemail=?,studentphone=?,studentdob=?,studentgender=?,studentaddress=? WHERE studentic=?";
+            String sql = "UPDATE public.student SET studentname=?, studentemail=?,studentphone=?,studentdob=?,studentgender=?,studentaddress=? WHERE studentic=?";
             final var statement = connection.prepareStatement(sql);
 
             String studentName = s.getStudentName();
