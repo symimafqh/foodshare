@@ -89,6 +89,6 @@ public class UpdateProfileTeacher {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "redirect:/edit_profile?success=true";
+        return "redirect:/profileTeacher_edit?success=true";
     }
 }
