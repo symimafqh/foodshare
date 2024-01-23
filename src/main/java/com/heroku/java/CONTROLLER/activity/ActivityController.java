@@ -152,28 +152,21 @@ public String clubList(Model model) {
 
 //---------------------------ADD SUKAN------------------------------//
 @PostMapping("/AddSukan")
-public void addSukan(@ModelAttribute("sukanForm") SukanBean sukanBean, Model model, Bean bean, HttpServletResponse response)  {
+public String addSukan(@ModelAttribute("sukanForm") Bean bean, Model model) {
     try {
         Connection connection = dataSource.getConnection();
 
         if (bean instanceof ActivityBean) {
-            // Handle ActivityBean
             ActivityBean activityBean = (ActivityBean) bean;
             String activityName = activityBean.getActivityName();
             String teacherID = activityBean.getTeacherID();
 
-            System.out.println("teacherID" + teacherID);
-            System.out.println("activity name" + activityName);
-
-            final var prepareStatement = connection.prepareStatement("INSERT INTO ACTIVITY(activityName, teacherID) VALUES (?, ?)");
+            final var prepareStatement = connection.prepareStatement(
+                "INSERT INTO ACTIVITY(activityName, teacherID) VALUES (?, ?)");
             prepareStatement.setString(1, activityName);
             prepareStatement.setString(2, teacherID);
-            
             prepareStatement.executeUpdate();
-
-            System.out.println("activity dah insert");
         } else if (bean instanceof SukanBean) {
-            // Handle SukanBean
             SukanBean sb = (SukanBean) bean;
             String sportsInfo = sb.getInfoSukan();
             Integer sportsQuota = sb.getQuotaSukan();
@@ -181,42 +174,32 @@ public void addSukan(@ModelAttribute("sukanForm") SukanBean sukanBean, Model mod
             ActivityBean parent = new ActivityBean();
             Integer parentActivity = parent.getMaxActivityID();
 
-            final var prepareStatement = connection.prepareStatement("INSERT INTO SPORT (activityid, sportinformation, sportquota) VALUES (?, ?, ?)");
+            final var prepareStatement = connection.prepareStatement(
+                "INSERT INTO SPORT (activityid, sportinformation, sportquota) VALUES (?, ?, ?)");
             prepareStatement.setInt(1, parentActivity);
             prepareStatement.setString(2, sportsInfo);
             prepareStatement.setInt(3, sportsQuota);
             prepareStatement.executeUpdate();
-
-            System.out.println("sport dah insert");
         }
 
         System.out.println("Successfully inserted");
 
-        // Use the Model object to pass the list to the view
+        // Use the Model object to pass the success flag to the view
         model.addAttribute("success", true);
         connection.close();
 
-        // Set the redirect response
-        response.sendRedirect("teacher/activity/AddNewSukan?success=true");
+        // Return the view name for redirection
+        return "redirect:/teacher/activity/AddNewSukan?success=true";
 
     } catch (Exception e) {
         e.printStackTrace();
-        try {
-            // Set the redirect response
-            response.sendRedirect("teacher/activity/AddNewSukan?success=false");
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-        }
+
+        // Set the error flag and return the view name for redirection
+        model.addAttribute("success", false);
+        return "redirect:/teacher/activity/AddNewSukan?success=false";
     }
 }
 
-// @GetMapping("/AddSukan")
-// public String addSukan(HttpSession session, Model model) {
-//     String guestICNumber = (String) session.getAttribute("guestICNumber");
-//     int reservationID = (int) session.getAttribute("reservationID");
-//     double totalPayment = (double) session.getAttribute("totalPayment");
-//     return new SomeData();
-// }
 
 
 
