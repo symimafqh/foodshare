@@ -65,7 +65,7 @@ public class ActivityController {
             // Use the Model object to pass the list to the view
             model.addAttribute("sukanList", sukanList);
     
-            return "activity/AddNewSukan"; // Return the view name as a String
+            return "teacher/activity/AddNewSukan"; // Return the view name as a String
         } catch (SQLException e) {
             e.printStackTrace(); // Consider logging or throwing a custom exception
             return "error"; // Replace with an appropriate error view name
@@ -73,7 +73,7 @@ public class ActivityController {
     }
     
 //---------------------------LIST UNIT------------------------------//
-@GetMapping("/AddNewUnit")
+@GetMapping("/addNewUnit")
 public String unitList(Model model) {
     List<UnitBean> unitList = new ArrayList<>();
 
@@ -102,7 +102,7 @@ public String unitList(Model model) {
         // Use the Model object to pass the list to the view
         model.addAttribute("unitList", unitList);
 
-        return "activity/AddNewUnit";
+        return "teacher/activity/addNewUnit";
     } catch (SQLException e) {
         // Log the exception using a logging framework like SLF4J
         e.printStackTrace(); // Consider logging or throwing a custom exception
@@ -140,7 +140,7 @@ public String clubList(Model model) {
         // Use the Model object to pass the list to the view
         model.addAttribute("clubList", clubList);
 
-        return "activity/AddNewClub";
+        return "teacher/activity/AddNewClub";
     } catch (SQLException e) {
         // Log the exception using a logging framework like SLF4J
         e.printStackTrace(); // Consider logging or throwing a custom exception
