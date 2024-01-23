@@ -152,7 +152,7 @@ public String clubList(Model model) {
 
 //---------------------------ADD SUKAN------------------------------//
 @GetMapping("/addSukan")
-    public String managerAddService() {
+    public String AddNewSukan() {
         return "teacher/activity/AddNewSukan";
     }
 
