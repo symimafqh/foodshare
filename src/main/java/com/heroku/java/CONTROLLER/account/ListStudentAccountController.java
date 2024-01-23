@@ -128,11 +128,40 @@ public class ListStudentAccountController {
 public String DeleteStudentAccount(@RequestParam("studentIC") String studentIC, HttpSession session, Model model) {
     String teacherUsername = (String) session.getAttribute("teacherUsername");
         System.out.println("IC Number : " + studentIC);
-    try (Connection connection = dataSource.getConnection()) {
+    try {
         // Delete student from the students account list
-        final var DeleteStudentAccount = connection.prepareStatement("DELETE FROM student WHERE studentic = ?");
-        DeleteStudentAccount.setString(1, studentIC);
-        DeleteStudentAccount.executeUpdate();
+        Connection connection = dataSource.getConnection();
+        String sql = "DELETE FROM public.student WHERE studentic=?";
+        final var statement = connection.prepareStatement(sql);
+        statement.setString(1, studentIC);
+        final var resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                String studentName = resultSet.getString("studentName");
+                String studentEmail = resultSet.getString("studentEmail");
+                String studentPhone = resultSet.getString("studentPhone");
+                String studentDOB = resultSet.getString("studentDOB");
+                String studentGender = resultSet.getString("studentGender");
+                String studentClass = resultSet.getString("studentClass");
+                String studentAddress = resultSet.getString("studentAddress");
+                String studentPassword = resultSet.getString("studentPassword");
+
+                StudentBean s = new StudentBean();
+
+                s.setStudentIC(studentIC);
+                s.setStudentName(studentName);
+                s.setStudentEmail(studentEmail);
+                s.setStudentPhone(studentPhone);
+                s.setStudentDOB(studentDOB);
+                s.setStudentGender(studentGender);
+                s.setStudentClass(studentClass);
+                s.setStudentAddress(studentAddress);
+                s.setStudentPassword(studentPassword);
+
+                model.addAttribute("s", s);
+
+                connection.close();
+            }
+
 
         System.out.println("Student account successfully deleted");
     } catch (Exception e) {
@@ -140,7 +169,7 @@ public String DeleteStudentAccount(@RequestParam("studentIC") String studentIC, 
         e.printStackTrace();
     }
 
-    return "account/ListAccountStudent";
+    return "redirect:/account/ListAccountStudent";
 }
 
 // public String deleteStudentAccount(@RequestParam("studentIC") String studentIC) {
