@@ -185,11 +185,13 @@ public String clubList(Model model) {
 
             System.out.println("activityID from PARENT: " + parentActivity);
                 
-                    String child = "INSERT INTO sport (activityid, sportinformation, sportquota) VALUES (?, ?, ?)";
+                    String child = "INSERT INTO sport (activityid, activityname, teacherid, sportinformation, sportquota) VALUES (?, ?, ?, ?, ?)";
                     final var sportStatement = connection.prepareStatement(child);
                     sportStatement.setInt(1, parentActivity);
-                    sportStatement.setString(2, sportsInfo);
-                    sportStatement.setInt(3, sportsQuota);
+                    sportStatement.setString(2, activity);
+                    sportStatement.setString(3, teacherID);
+                    sportStatement.setString(4, sportsInfo);
+                    sportStatement.setInt(5, sportsQuota);
 
                     sportStatement.executeUpdate();
                
