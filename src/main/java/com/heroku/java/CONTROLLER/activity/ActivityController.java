@@ -217,6 +217,9 @@ public String addSukan(@ModelAttribute("sukanForm") Bean bean, Model model) {
         private String infoSukan;
         private int quotaSukan;
         private int activityID;
+
+        public SukanBean() {
+        }
         
         @Override
         public int getActivityID() {
@@ -390,6 +393,9 @@ public class ClubBean {
         private String activityName;
         private String TeacherID;
         private  int activityID;
+
+        public ActivityBean() {
+        }
         
         @Override
         public int getActivityID() {
