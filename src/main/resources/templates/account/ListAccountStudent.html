@@ -637,10 +637,12 @@
                   </td>
                   <td class="text-center">
                     <button type="submit" class="btn btn-sm btn-danger" title="Delete Profile"
-                            id="${s.studentIC}" th:onclick="'setStudentICToDelete(\'' + ${s.studentIC} + '\')'">
+                            th:id="${'button-' + s.studentIC}" th:data-studentIC="${s.studentIC}"
+                            onclick="setStudentICToDelete(this)">
                         <i class="fa fa-trash"></i>
                     </button>
                 </td>
+                
                 
                 </tr>
 
@@ -911,16 +913,18 @@
         assets/js/core/js.cookie.min.js
     -->
     <script>
-      function setStudentICToDelete(studentIC) {
-        console.log(studentIC);
-        var r = confirm("Are you sure you want to delete this student's account?");
-        if (r == true) {				 		  
-          location.href = 'DeleteAccountStudent?studentIC=' + studentIC;
-          alert("Account successfully deleted");			
-        } else {				  
-            return false;	
-        }
+      function setStudentICToDelete(button) {
+    var studentIC = button.getAttribute('data-studentIC');
+    var confirmed = confirm("Are you sure you want to delete this student's account?");
+    
+    if (confirmed) {
+        location.href = 'DeleteAccountStudent?studentIC=' + studentIC;
+        alert("Account successfully deleted");
+    } else {
+        return false;
     }
+}
+
   </script>
   
   <script th:src="@{stylesheets/assets/js/codebase.core.min.js}"></script>
