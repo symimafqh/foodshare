@@ -237,7 +237,7 @@
                       <a th:href="@{/semasa}">Kokurikulum Semasa</a>
                     </li>
                     <li>
-                      <a th:href="@{/registration}">Pendaftaran Kokurikulum</a>
+                      <a th:href="@{/pendaftaran}">Pendaftaran Kokurikulum</a>
                     </li>
                     <li>
                       <a th:href="@{/semakan}">Semakan Pendaftaran</a>
@@ -359,32 +359,120 @@
       </header>
       <!-- END Header -->
 
-      <!-- Main Container -->
       <main id="main-container">
         <!-- Page Content -->
+        <!-- User Info -->
+        <!-- END User Info -->
+
+        <!-- Main Content -->
         <div class="content">
-          <div class="block" >
-            <!-- Row #1 -->
+          <!-- Register Koku -->
+          <div class="block">
             <div class="block-header block-header-default">
               <h3 class="block-title">
-                <b> SELAMAT DATANG KE E-CURRICULAR ! </b>
+                <i class="fa fa-group mr-5 text-muted"></i> PENDAFTARAN KOKURIKULUM
               </h3>
             </div>
-            <div class="block-content mb-10">
-            <img th:src="@{stylesheets/assets/pictures/organisasi chart.png}" style="width: 1025px; height:700px;">
+            <div class="block-content">
+                    <input type="hidden" >
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="js-wizard-simple block">
+                                    <div class="block-content tab-content overflow-hidden">
+                                        <div class="tab-pane fade show active" id="btabs-animated-unit" role="tabpanel">
+                                            <div class="block-content">
+                                                <form action="" method="post">
+                                             
+                                                    <p class="font-italic" style="color:red "> Ruang bertanda * wajib diisi<br>
+                                                    Sebarang pertukaran maklumat sila lakukan pada ruangan 'PROFILE
+                                                    <br>Pendaftaran akan kekal setelah butang 'Hantar' di klik. Sila pastikan aktiviti yang dipilih adalah muktamad</p>
+                                                    <div class="form-group row">
+                                                        <label class="col-lg-3 col-form-label"
+                                                            for="example-hf-email">Nama</label><span style="color:white">*</span>
+                                                        <div class="col-md-7">
+                                                            <input type="text" class="form-control" id="example-hf-email"
+                                                                name="studentName" placeholder="" th:value="${s.studentName}" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-lg-3 col-form-label" for="example-hf-email">No.Kad
+                                                            Pengenalan</label><span style="color:white">*</span>
+                                                        <div class="col-md-7">
+                                                            <input type="text" class="form-control" id="studentIC"
+                                                                name="studentIC" placeholder="" th:value="${s.studentIC}" readonly>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-lg-3 col-form-label"
+                                                            for="example-hf-password">Kelas</label>
+                                                        <div class="col-md-7">
+                                                            <input type="text" class="form-control" id="example-hf-password"
+                                                                name="studentClass" placeholder="" th:value="${s.studentClass}" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-lg-3 col-form-label" for="example-select">Unit
+                                                            Beruniform</label><span style="color:red">*</span>
+                                                        <div class="col-md-7">
+                                                            <select class="form-control" id="unitReg" name="unitReg">
+                                                                <option value="0">Sila Pilih Unit Beruniform</option>
+                                                                <option value="161">Kadet Polis</option>
+                                                                <option value="162">Kadet Bomba</option>
+                                                                <option value="164">Kadet Remaja Sekolah</option>
+                                                                <option value="163">Puteri Islam</option>
+                                                                <option value="165">Persatuan Bulan Sabit Merah</option>
+                                                            
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                      <label class="col-lg-3 col-form-label" for="example-select">Kelab dan Persatuan</label><span style="color:red">*</span>
+                                                      <div class="col-md-7">
+                                                          <select class="form-control" id="clubReg" name="clubReg">
+                                                              <option value="">Sila Pilih  Kelab dan Persatuan</option>
+                                                              <option value="171">Kelab Pencinta Alam</option>
+                                                              <option value="172">Persatuan Bahasa Melayu</option>
+                                                              <option value="170">Kelab SPBT</option>
+                                                              <option value="173">Persatuan Bahasa Inggeris</option>
+                                                              
+                                                          </select>
+                                                      </div>
+                                                  </div>
+                                                  <div class="form-group row">
+                                                    <label class="col-lg-3 col-form-label" for="example-select">Sukan dan Permainan</label><span style="color:red">*</span>
+                                                    <div class="col-md-7">
+                                                        <select class="form-control" id="sportReg" name="sportReg">
+                                                            <option value="0">Sila Pilih Sukan dan Permainan</option>
+                                                            <option value="169">Bola Sepak</option>
+                                                            <option value="167">Bola Jaring</option>
+                                                            <option value="168">Bola Keranjang</option>
+                                                            <option value="166">Bola Baling</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                    <div class="form-group row">
+                                                    
+                                                        <div class="col-lg ml-auto mr-auto">
+                                                            <button type="submit" class="btn btn-alt-primary float-center"
+                                                              >Hantar</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+            </div>
+            
           </div>
-            <!-- END Row #1 -->
-          </div>
-          <div class="row invisible" data-toggle="appear">
-            <!-- Row #2 -->
-            <!-- END Row #2 -->
-          </div>
-          
-          <div class="row invisible" data-toggle="appear">
-            <!-- Row #4 -->
-            <!-- END Row #4 -->
-          </div>
+          <!-- END Register KOku -->
         </div>
+        <!-- END Main Content -->
+      
         <!-- END Page Content -->
       </main>
       <!-- END Main Container -->
