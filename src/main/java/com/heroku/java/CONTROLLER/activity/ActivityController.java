@@ -162,10 +162,16 @@ public void addSukan(@ModelAttribute("sukanForm") SukanBean sukanBean, Model mod
             String activityName = activityBean.getActivityName();
             String teacherID = activityBean.getTeacherID();
 
+            System.out.println("teacherID" + teacherID);
+            System.out.println("activity name" + activityName);
+
             final var prepareStatement = connection.prepareStatement("INSERT INTO ACTIVITY(activityName, teacherID) VALUES (?, ?)");
             prepareStatement.setString(1, activityName);
             prepareStatement.setString(2, teacherID);
+            
             prepareStatement.executeUpdate();
+
+            System.out.println("activity dah insert");
         } else if (bean instanceof SukanBean) {
             // Handle SukanBean
             SukanBean sb = (SukanBean) bean;
@@ -180,6 +186,8 @@ public void addSukan(@ModelAttribute("sukanForm") SukanBean sukanBean, Model mod
             prepareStatement.setString(2, sportsInfo);
             prepareStatement.setInt(3, sportsQuota);
             prepareStatement.executeUpdate();
+
+            System.out.println("sport dah insert");
         }
 
         System.out.println("Successfully inserted");
@@ -189,13 +197,13 @@ public void addSukan(@ModelAttribute("sukanForm") SukanBean sukanBean, Model mod
         connection.close();
 
         // Set the redirect response
-        response.sendRedirect("/AddNewSukan?success=true");
+        response.sendRedirect("teacher/activity/AddNewSukan?success=true");
 
     } catch (Exception e) {
         e.printStackTrace();
         try {
             // Set the redirect response
-            response.sendRedirect("/AddNewSukan?success=false");
+            response.sendRedirect("teacher/activity/AddNewSukan?success=false");
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
