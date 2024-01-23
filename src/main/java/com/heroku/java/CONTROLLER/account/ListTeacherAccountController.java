@@ -83,4 +83,31 @@ public class ListTeacherAccountController {
         
     }
 
+    @GetMapping("/DeleteTeacherAccount")
+    public String DeleteTeacherAccount(HttpSession session, Model model, @RequestParam("teacherID") String teacherID) {
+
+        String teacherUsername = (String) session.getAttribute("teacherUsername");
+        String teacherName = (String) session.getAttribute("teacherName");
+        String teacherEmail = (String) session.getAttribute("teacherEmail");
+        String teacherPhone = (String) session.getAttribute("teacherPhone");
+        String teacherDOB = (String) session.getAttribute("teacherDOB");
+        String teacherGender = (String) session.getAttribute("teacherGender");
+        String teacherClass = (String) session.getAttribute("teacherClass");
+        String teacherAddress = (String) session.getAttribute("teacherAddress");
+        String teacherPassword = (String) session.getAttribute("teacherPassword");
+
+    try (Connection connection = dataSource.getConnection()) {
+        // Delete student from the students account list
+        final var DeleteTeacherAccount = connection.prepareStatement("DELETE FROM public.teacher WHERE teacherid = ?");
+        DeleteTeacherAccount.setString(1, teacherID);
+        DeleteTeacherAccount.executeUpdate();
+
+        System.out.println("Student account successfully deleted");
+    } catch (Exception e) {
+        System.out.println("Failed to delete teacher from the teacher account list");
+        e.printStackTrace();
+    }
+    return "redirect:/ListAccountTeacher";
+}
+
 }

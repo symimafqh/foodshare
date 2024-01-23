@@ -1,13 +1,14 @@
-<!doctype html>
-<html lang="en">
-
+    
+<!DOCTYPE html>
+<html>
 <head>
-  <meta charset="utf-8">
+<meta charset="ISO-8859-1">
+<meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
   <title>Codebase - Bootstrap 4 Admin Template &amp; UI Framework</title>
-
-  <meta name="description"
+  
+ <meta name="description"
     content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
   <meta name="author" content="pixelcave">
   <meta name="robots" content="noindex, nofollow">
@@ -30,25 +31,30 @@
 
   <!-- Stylesheets -->
 
-  <!-- Page JS Plugins CSS -->
-  <link rel="stylesheet" th:href="@{stylesheets/assets/js/plugins/slick/slick.css}">
-  <link rel="stylesheet" th:href="@{stylesheets/assets/js/plugins/slick/slick-theme.css}">
+<!-- Page JS Plugins CSS -->
+<link rel="stylesheet"
+	th:href="@{stylesheets/assets/js/plugins/slick/slick.css}">
+<link rel="stylesheet"
+	th:href="@{stylesheets/assets/js/plugins/slick/slick-theme.css}">
 
-  <!-- Fonts and Codebase framework -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,400i,600,700&display=swap">
-  <link rel="stylesheet" id="css-main" th:href="@{stylesheets/assets/css/codebase.min.css}">
+<!-- Fonts and Codebase framework -->
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,400i,600,700&display=swap">
+<link rel="stylesheet" id="css-main"
+	th:href="@{stylesheets/assets/css/codebase.min.css}">
+
+<!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
+<!-- <link rel="stylesheet" id="css-theme" href="../assets/css/themes/corporate.min.css"> -->
+<link rel="stylesheet" id="css-theme"
+	th:href="@{stylesheets/assets/css/themes/flat.min.css}">
+  <!-- <link rel="stylesheet" id="css-theme" href="../assets/css/themes/earth.min.css"> 
+    <!-- <link rel="stylesheet" id="css-theme" href="../assets/css/themes/elegance.min.css">
+    <link rel="stylesheet" id="css-theme" href="../assets/css/themes/pulse.min.css"> -->
+
+  <!-- <link rel="stylesheet" id="css-theme" href="../assets/css/themes/elegance.min.css"> -->
 
   <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
-  <!-- <link rel="stylesheet" id="css-theme" th:href="../assets/css/themes/corporate.min.css"> -->
-  <link rel="stylesheet" id="css-theme" th:href="@{stylesheets/assets/css/themes/flat.min.css}">
-  <!-- <link rel="stylesheet" id="css-theme" th:href="../assets/css/themes/earth.min.css"> 
-    <!-- <link rel="stylesheet" id="css-theme" th:href="../assets/css/themes/elegance.min.css">
-    <link rel="stylesheet" id="css-theme" th:href="../assets/css/themes/pulse.min.css"> -->
-
-  <!-- <link rel="stylesheet" id="css-theme" th:href="../assets/css/themes/elegance.min.css"> -->
-
-  <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
-  <!-- <link rel="stylesheet" id="css-theme" th:href="assets/css/themes/flat.min.css"> -->
+  <!-- <link rel="stylesheet" id="css-theme" href="assets/css/themes/flat.min.css"> -->
   <!-- END Stylesheets -->
 </head>
 
@@ -116,7 +122,8 @@
             <a class="img-link mr-5" href="be_pages_generic_profile.html">
               <img class="img-avatar img-avatar32" th:src="@{stylesheets/assets/media/avatars/avatar15.jpg}" alt="">
             </a>
-            <a class="align-middle link-effect text-primary-dark font-w600" href="be_pages_generic_profile.html">John Smith</a>
+            <a class="align-middle link-effect text-primary-dark font-w600" href="be_pages_generic_profile.html">John
+              Smith</a>
           </div>
           <!-- END User Info -->
         </div>
@@ -128,7 +135,7 @@
         <!-- Search -->
         <div class="block pull-t pull-r-l">
           <div class="block-content block-content-full block-content-sm bg-body-light">
-            <form th:action="@{be_pages_generic_search}" method="post">
+            <form action="be_pages_generic_search.html" method="post">
               <div class="input-group">
                 <input type="text" class="form-control" id="side-overlay-search" name="side-overlay-search"
                   placeholder="Search..">
@@ -143,130 +150,6 @@
         </div>
         <!-- END Search -->
 
-        <!-- Profile -->
-        <div class="block pull-r-l">
-          <div class="block-header bg-body-light">
-            <h3 class="block-title">
-              <i class="fa fa-fw fa-pencil font-size-default mr-5"></i>Profile
-            </h3>
-            <div class="block-options">
-              <button type="button" class="btn-block-option" data-toggle="block-option"
-                data-action="content_toggle"></button>
-            </div>
-          </div>
-          <div class="block-content">
-            <form th:action="@{be_pages_dashboard.html}" method="post" onsubmit="return false;">
-              <div class="form-group mb-15">
-                <label for="side-overlay-profile-name">Name</label>
-                <div class="input-group">
-                  <input type="text" class="form-control" id="side-overlay-profile-name"
-                    name="side-overlay-profile-name" placeholder="Your name.." value="John Smith">
-                  <div class="input-group-append">
-                    <span class="input-group-text">
-                      <i class="fa fa-user"></i>
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div class="form-group mb-15">
-                <label for="side-overlay-profile-email">Email</label>
-                <div class="input-group">
-                  <input type="email" class="form-control" id="side-overlay-profile-email"
-                    name="side-overlay-profile-email" placeholder="Your email.." value="john.smith@example.com">
-                  <div class="input-group-append">
-                    <span class="input-group-text">
-                      <i class="fa fa-envelope"></i>
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div class="form-group mb-15">
-                <label for="side-overlay-profile-password">New Password</label>
-                <div class="input-group">
-                  <input type="password" class="form-control" id="side-overlay-profile-password"
-                    name="side-overlay-profile-password" placeholder="New Password..">
-                  <div class="input-group-append">
-                    <span class="input-group-text">
-                      <i class="fa fa-asterisk"></i>
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div class="form-group mb-15">
-                <label for="side-overlay-profile-password-confirm">Confirm New Password</label>
-                <div class="input-group">
-                  <input type="password" class="form-control" id="side-overlay-profile-password-confirm"
-                    name="side-overlay-profile-password-confirm" placeholder="Confirm New Password..">
-                  <div class="input-group-append">
-                    <span class="input-group-text">
-                      <i class="fa fa-asterisk"></i>
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div class="form-group row">
-                <div class="col-6">
-                  <button type="submit" class="btn btn-block btn-alt-primary">
-                    <i class="fa fa-refresh mr-5"></i> Update
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-        <!-- END Profile -->
-
-        <!-- Settings -->
-        <div class="block pull-r-l">
-          <div class="block-header bg-body-light">
-            <h3 class="block-title">
-              <i class="fa fa-fw fa-wrench font-size-default mr-5"></i>Settings
-            </h3>
-            <div class="block-options">
-              <button type="button" class="btn-block-option" data-toggle="block-option"
-                data-action="content_toggle"></button>
-            </div>
-          </div>
-          <div class="block-content">
-            <div class="row gutters-tiny">
-              <div class="col-6">
-                <div class="custom-control custom-checkbox mb-5">
-                  <input type="checkbox" class="custom-control-input" id="side-overlay-settings-status"
-                    name="side-overlay-settings-status" value="1" checked>
-                  <label class="custom-control-label" for="side-overlay-settings-status">Online Status</label>
-                </div>
-                <div class="custom-control custom-checkbox mb-5">
-                  <input type="checkbox" class="custom-control-input" id="side-overlay-settings-public-profile"
-                    name="side-overlay-settings-public-profile" value="1">
-                  <label class="custom-control-label" for="side-overlay-settings-public-profile">Public Profile</label>
-                </div>
-                <div class="custom-control custom-checkbox mb-5">
-                  <input type="checkbox" class="custom-control-input" id="side-overlay-settings-notifications"
-                    name="side-overlay-settings-notifications" value="1" checked>
-                  <label class="custom-control-label" for="side-overlay-settings-notifications">Notifications</label>
-                </div>
-              </div>
-              <div class="col-6">
-                <div class="custom-control custom-checkbox mb-5">
-                  <input type="checkbox" class="custom-control-input" id="side-overlay-settings-updates"
-                    name="side-overlay-settings-updates" value="1">
-                  <label class="custom-control-label" for="side-overlay-settings-updates">Auto updates</label>
-                </div>
-                <div class="custom-control custom-checkbox mb-5">
-                  <input type="checkbox" class="custom-control-input" id="side-overlay-settings-api-access"
-                    name="side-overlay-settings-api-access" value="1" checked>
-                  <label class="custom-control-label" for="side-overlay-settings-api-access">API Access</label>
-                </div>
-                <div class="custom-control custom-checkbox mb-5">
-                  <input type="checkbox" class="custom-control-input" id="side-overlay-settings-limit-requests"
-                    name="side-overlay-settings-limit-requests" value="1">
-                  <label class="custom-control-label" for="side-overlay-settings-limit-requests">API Requests</label>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- END Settings -->
       </div>
       <!-- END Side Content -->
     </aside>
@@ -310,10 +193,11 @@
             <!-- END Close Sidebar -->
 
             <!-- Logo -->
-            <div class="content-header-item">
-              <img th:src="@{stylesheets/assets/pictures/logo lain.png}" style="width: 200px; height:45px;">                
-
-            </div>
+							<div class="content-header-item">
+								<img
+									th:src="@{stylesheets/assets/pictures/logo lain.png}"
+									style="width: 200px; height: 45px;">
+							</div>
             <!-- END Logo -->
           </div>
           <!-- END Normal Mode -->
@@ -332,12 +216,14 @@
 
             <!-- Visible only in normal mode -->
             <div class="sidebar-mini-hidden-b text-center">
-              <a class="img-link" href="be_pages_generic_profile.html">
-                <img class="img-avatar" th:src="@{stylesheets/assets/media/avatars/avatar15.jpg}" alt="">
-              </a>
+              <a class="img-link" href=""> <img class="img-avatar"
+									th:src="@{stylesheets/assets/media/avatars/avatar15.jpg}"
+									alt="">
+								</a>
               <ul class="list-inline mt-10">
                 <li class="list-inline-item">
-                  <a class="link-effect text-dual-primary-dark font-size-sm font-w600 text-uppercase" th:href="@{/adminProfile}">ADMIN</a>
+                  <a class="link-effect text-dual-primary-dark font-size-sm font-w600 text-uppercase"
+                    href="be_pages_generic_profile.html">ADMIN</a>
                 </li>
                 <li class="list-inline-item">
                   <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
@@ -347,7 +233,7 @@
                   </a>
                 </li>
                 <li class="list-inline-item">
-                  <a class="link-effect text-dual-primary-dark" th:href="@{/AdminSignIn}">
+                  <a class="link-effect text-dual-primary-dark" th:href="@{/signin}">
                     <i class="si si-logout"></i>
                   </a>
                 </li>
@@ -356,50 +242,41 @@
             <!-- END Visible only in normal mode -->
           </div>
           <!-- END Side User -->
+<!-- Side Navigation -->
+						<div class="content-side content-side-full">
+							<ul class="nav-main">
+								<li><a class="active"
+									th:href="@{/dashboardStudent}"><i
+										class="si si-cup"></i><span class="sidebar-mini-hide">DASHBOARD</span></a>
+								</li>
+								<li><a class="active"
+									th:href="@{/edit_profile}"><i
+										class="si si-user"></i><span class="sidebar-mini-hide">PROFIL</span></a>
+								</li>
+								<li>
+								<li><a class="nav-submenu" data-toggle="nav-submenu"
+											href="#"><i class="si si-layers"></i><span
+												class="sidebar-mini-hide">AKAUN</span></a>
+											<ul>
+												<li><a th:href="@{/ListAccountTeacher}">KOORDINATOR</a></li>
+												<li><a th:href="@{/ListAccountStudent}">PELAJAR</a></li>
+											</ul></li>
+								</li>
+								<li><a class="nav-submenu" data-toggle="nav-submenu"
+									href="#"><i class="si si-layers"></i><span
+										class="sidebar-mini-hide">KATEGORI</span></a>
+									<ul>
+										<li><a th:href="@{/AddNewUnit}">Unit
+												Beruniform</a></li>
+										<li><a th:href="@{/AddNewKelab}">Kelab
+												dan Persatuan</a></li>
+										<li><a th:href="@{/AddNewSukan}">Sukan
+												dan Permainan</a></li>
+									</ul></li>
 
-          <!-- Side Navigation -->
-          <div class="content-side content-side-full">
-            <ul class="nav-main">
-                <li>
-                    <a class="active" th:href="@{/MydashboardAdmin}"><i class="si si-cup"></i><span class="sidebar-mini-hide">DASHBOARD</span></a>
-                  </li>
-                  <li>
-                    <a class="active" th:href="@{/adminProfile}"><i class="si si-user"></i><span class="sidebar-mini-hide">PROFIL</span></a>
-                  </li>
-                  <li>
-                    <a class="active" th:href="@{/AdminViewTeacher}"><i class="si si-people"></i><span class="sidebar-mini-hide">GURU</span></a>
-                  </li>
-                  <li>
-                  <li>
-                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-layers"></i><span class="sidebar-mini-hide">AKAUN</span></a>
-                    <ul>
-                      <li>
-                        <a th:href="@{/accountCoordinator}">KOORDINATOR</a>
-                      </li>
-                      <li>
-                        <a th:href="@{/accountStudent}">PELAJAR</a>
-                      </li>
-                    </ul>
-                  </li>
-                </li>
-              <li>
-                <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-layers"></i><span class="sidebar-mini-hide">KATEGORI</span></a>
-                <ul>
-                  <li>
-                    <a th:href="@{/unit}">Unit Beruniform</a>
-                  </li>
-                  <li>
-                    <a th:href="@{/kelab}">Kelab dan Persatuan</a>
-                  </li>
-                  <li>
-                    <a th:href="@{/sukan}">Sukan dan Permainan</a>
-                  </li>
-                </ul>
-              </li>
-          
-            </ul>
-          </div>
-          <!-- END Side Navigation -->
+							</ul>
+						</div>
+						<!-- END Sidebar Scrolling -->
         </div>
         <!-- END Sidebar Scrolling -->
       </div>
@@ -534,7 +411,7 @@
             </button>
             <div class="dropdown-menu dropdown-menu-right min-width-200" aria-labelledby="page-header-user-dropdown">
               <h5 class="h6 text-center py-10 mb-5 border-b text-uppercase">User</h5>
-              <a class="dropdown-item" th:href="@{/adminProfile}">
+              <a class="dropdown-item" th:href="@{/logoutadmin}">
                 <i class="si si-user mr-5"></i> Profile
               </a>
               <div class="dropdown-divider"></div>
@@ -542,7 +419,7 @@
               <!-- END Side Overlay -->
 
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" th:href="@{AdminSignIn}">
+              <a class="dropdown-item" th:href="@{/teachersignin}">
                 <i class="si si-logout mr-5"></i> Sign Out
               </a>
             </div>
@@ -556,7 +433,7 @@
       <!-- Header Search -->
       <div id="page-header-search" class="overlay-header">
         <div class="content-header content-header-fullrow">
-          <form th:action="@{be_pages_generic_search}" method="post">
+          <form action="be_pages_generic_search.html" method="post">
             <div class="input-group">
               <div class="input-group-prepend">
                 <!-- Close Search Section -->
@@ -596,199 +473,187 @@
     <main id="main-container">
       <!-- Page Content -->
       <div class="content">
-        <div class="block">
-          <div class="block-header block-header-default">
-              <h3 class="block-title">Senarai Akaun Koordinator</h3>
-            </div>
-          <div class="block-content">
-            <div class="row">
-              <div class="col-12 mb-30">
-                <a type="button" class="btn btn-alt-primary min-width-125 float-right" th:href="@{/signup}"><i
-                    class="fa fa-plus mr-10"></i>Tambah Akaun Koordinator</a>
-              </div>
-            </div>
-            <table class="table table-bordered table-vcenter js-dataTable-full">
-              <thead class="thead-light text-center">
-                <tr>
-                  <th>No.</th>
-                  <th class="d-none d-sm-table-cell">Nombor Pekerja</th>
-                  <th class="d-none d-sm-table-cell">Nama</th>
-                  <th class="d-none d-sm-table-cell">E-mel</th>
-                  <th class="d-none d-sm-table-cell">No. Telefen</th>
-                  <th class="d-none d-sm-table-cell">Jantina</th>
-                  <th class="d-none d-sm-table-cell">Posisi Pekerjaan</th>
-                  <th class="d-none d-sm-table-cell">Profil</th>
-                  <th class="text-center" style="width: 11%;">Tindakan</th>
-                </tr>
-              </thead>
 
-              <tbody class="bg-white">
-                <tr th:each="t: ${teacher}">
-                  <input type="hidden" class="form-control" name="id_lkp_profile_status">
-                  <td class="text-center"></td>
-                  <td class="text-center" th:text="${t.teacherID}"></td>
-                  <td class="d-none d-sm-table-cell" th:text="${t.teacherName}"></td>
-                  <td class="d-none d-sm-table-cell" th:text="${t.teacherEmail}"></td>
-                  <td class="d-none d-sm-table-cell" th:text="${t.teacherPhone}" ></td>
-                  <td class="text-center" th:text="${t.teacherGender}"></td>
-                  <td class="text-center" th:text="${t.teacherRole}"></td>
-                  <td class="text-center" >
-                    <a type="button" class="btn btn-sm btn-primary" title="Kemaskini Profil" data-toggle="modal"
-                      data-target="#view_teacher_account">
-                      <i class="fa fa-user"></i>
-                    </a>
-                  </td>
-                  <td class="text-center">
-                    <button type="submit" class="btn btn-sm btn-danger" title="Delete Profile"
-                            th:id="${'button-' + }" th:data-teacherID="${teacher.teacherID}"
-                            onclick="setTeacherIDToDelete(this)">
-                        <i class="fa fa-trash"></i>
-                    </button>
-                </td>
-                </tr>
 
-              </tbody>
-            </table>
-            <!-- START Modal Edit Account-->
-            <div class="modal fade" id="view_teacher_account" tabindex="-1" role="dialog"
-              aria-labelledby="modal-create-pekerjaan" aria-hidden="true">
-              <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                  <div class="block block-themed block-transparent mb-0">
-                    <div class="block-header bg-primary-dark">
-                      <h3 class="block-title">Profil Koordinator</h3>
-                      <div class="block-options">
-                        <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
-                          <i class="si si-close"></i>
-                        </button>
-                      </div>
-                    </div>
-                    <div class="block-content">
-                      <div id="non-jawatan">
-                        <form class="js-validation-bootstrap" action="" method="post" enctype="multipart/form-data">
-                          <input type="hidden" name="id_profile" id="id_profile"
-                            value="<?php echo $rowProfile['id'] ?>">
-                          <input type="hidden" name="flag_jawatan" id="flag_jawatan" value="0">
 
-                          <div class="form-group row">
-                            <label class="col-lg-3 col-form-label" for="title">IC<span
-                                class="text-danger">*</span></label>
-                            <div class="col-lg-9">
-                              <input type="text" class="form-control" id="title" name="employer_name"
-                                value="091008033881" oninput="this.value = this.value.toUpperCase();" readonly>
-                            </div>
-                          </div>
 
-                          <div class="form-group row">
-                            <label class="col-lg-3 col-form-label" for="title">Nama<span
-                                class="text-danger">*</span></label>
-                            <div class="col-lg-9">
-                              <input type="text" class="form-control" id="title" name="designation" value="HADI ARAFF"
-                                oninput="this.value = this.value.toUpperCase();" readonly>
-                            </div>
-                          </div>
+          <!-- START Modal Edit Account-->
 
-                          <div class="form-group row">
-                            <label class="col-lg-3 col-form-label" for="title">E-mel<span
-                                class="text-danger">*</span></label>
-                            <div class="col-lg-9">
-                              <input type="text" class="form-control" id="title" name="alamat"
-                                value="hadi.araff@gmail.com		" oninput="this.value = this.value.toUpperCase();"
-                                readonly>
-                            </div>
-                          </div>
+                <div class="block block-themed block-transparent mb-0">
+                  <div class="block-header bg-primary-dark">
+                    <h3 class="block-title">Profil Pelajar</h3>
+                    <div class="block-options">
 
-                          <div class="form-group row">
-                            <label class="col-lg-3 col-form-label" for="title">No. Telefon<span
-                                class="text-danger">*</span></label>
-                            <div class="col-lg-9">
-                              <input type="text" class="form-control" id="title" name="alamat" value="0128387465"
-                                oninput="this.value = this.value.toUpperCase();" readonly>
-                            </div>
-                          </div>
-
-                          <div class="form-group row">
-                            <label class="col-lg-3 col-form-label" for="title">Tarikh Lahir (DD/MM/YYYY) <span
-                                class="text-danger">*</span></label>
-                            <div class="col-lg-9">
-                              <!-- <input type="text" class="form-control" id="title" name="poskod" maxlength="5" pattern="[0-9]{5}" placeholder="" required> -->
-                              <input type="text" class="form-control" id="title" name="poskod" maxlength="5"
-                                pattern="[0-9]{5}" onkeypress="return isNumberKey(event)" value="08/10/2009" readonly>
-
-                            </div>
-                          </div>
-
-                          <div class="form-group row">
-                            <label class="col-lg-3 col-form-label" for="title">Jantina<span
-                                class="text-danger"></span></label>
-                            <div class="ml-3">
-                              <div class="custom-control custom-radio custom-control-inline mb-5">
-                                <input class="custom-control-input flag_ahli" type="radio" name="flag_ahli"
-                                  id="ahli-inline-radio3" value="" onchange="" checked>
-                                <label class="custom-control-label" for="ahli-inline-radio3">LELAKI</label>
-                              </div>
-
-                              <div class="custom-control custom-radio custom-control-inline mb-5">
-                                <input class="custom-control-input flag_ahli" type="radio" name="flag_ahli"
-                                  id="ahli-inline-radio4" value="" onchange="">
-                                <label class="custom-control-label" for="ahli-inline-radio4">PEREMPUAN</label>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-alt-secondary" data-dismiss="modal"><i
-                                class="si si-close mr-10"></i>Tutup</button>
-                            <button type="submit" name="save_pekerjaan" class="btn btn-alt-info"><i
-                                class="fa fa-save mr-10"></i> Simpan</button>
-                          </div>
-                        </form>
-                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-            <!-- END Modal Edit Account -->
-            <!-- Modal Delete Account-->
-            <div class="modal fade" id="delete_account" tabindex="-1" role="dialog"
-              aria-labelledby="modal-create-pekerjaan" aria-hidden="true">
-              <div class="modal-dialog modal-lg-5" role="document">
-                <div class="modal-content">
-                  <div class="block block-themed block-transparent mb-0">
-                    <div class="block-header bg-primary-dark">
-                      <h3 class="block-title">Padam Akaun</h3>
-                      <div class="block-options">
-                        <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
-                          <i class="si si-close"></i>
-                        </button>
-                      </div>
-                    </div>
-                    <div class="block-content">
-                      <form class="js-validation-bootstrap" method="post">
-                        <input type="hidden" name="id_profile" id="id_profile" value="<?php echo $row['id'] ?>">
+                  <div class="block-content">
+                    <div id="non-jawatan">
+                <form class="js-validation-bootstrap" action="" method="post" enctype="multipart/form-data">
+                 
                         <div class="form-group row">
-                          <label class="col-lg-12 col-form-label" for="title">
-                            <p>Maklumat ini akan <b>dipadam</b>.<br><br />Adakah anda pasti?</p>
-                          </label>
+                          <label class="col-lg-3 col-form-label" for="title">Nombor Pekerja<span class="text-danger"></span></label>
+                          <div class="col-lg-9">
+                            <input type="text" class="form-control" id="title" name="teacherID" th:value="${teacher.teacherID}" readonly>
+                          </div>
+                        </div>
 
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label" for="title">IC<span
+                                class="text-danger"></span></label>
+                            <div class="col-lg-9">
+                              <input type="text" class="form-control" id="title" name="teacherUsername"
+                                th:value="${teacher.teacherUsername}" readonly>
+                            </div>
+                          </div>
+
+                        <div class="form-group row">
+                          <label class="col-lg-3 col-form-label" for="title">Nama<span
+                              class="text-danger"></span></label>
+                          <div class="col-lg-9">
+                            <input type="text" class="form-control" id="title" name="teacherName"
+                            th:value="${teacher.teacherName}" readonly>
+                          </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                          <label class="col-lg-3 col-form-label" for="title">Jawatan<span
+                              class="text-danger"></span></label>
+                          <div class="col-lg-9">
+                            <input type="text" class="form-control" id="title" name="teacherRole"
+                            th:value="${teacher.teacherRole}" readonly>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <label class="col-lg-3 col-form-label" for="title">E-mel<span
+                              class="text-danger"></span></label>
+                          <div class="col-lg-9">
+                            <input type="text" class="form-control" id="title" name="teacherEmail"
+                              th:value="${teacher.teacherEmail}" readonly>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <label class="col-lg-3 col-form-label" for="title">No. Telefon<span
+                              class="text-danger"></span></label>
+                          <div class="col-lg-9">
+                            <input type="text" class="form-control" id="title" name="teacherPhone" th:value="${teacher.teacherPhone}"
+                            readonly>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <label class="col-lg-3 col-form-label" for="title">Tarikh Lahir (YYYY/MM/DD) <span
+                              class="text-danger"></span></label>
+                          <div class="col-lg-9">
+                            <!-- <input type="text" class="form-control" id="title" name="poskod" maxlength="5" pattern="[0-9]{5}" placeholder="" required> -->
+                            <input type="text" class="form-control" id="title" name="teacherDOB" maxlength="5"
+                              pattern="[0-9]{5}" onkeypress="return isNumberKey(event)" th:value="${teacher.teacherDOB}" readonly />
+
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <label class="col-lg-3 col-form-label" for="title">Jantina</label>
+                          <div th:if="${teacher.teacherGender == 'Lelaki'}">
+                              <div class="col-lg-3 col-form-label">
+                                  <div class="custom-control custom-radio custom-control-inline mb-5">
+                                      <input class="custom-control-input" type="radio"
+                                          name="teacherGender" id="example-inline-radio1" value="Lelaki"
+                                          checked>
+                                      <label class="custom-control-label"
+                                          for="example-inline-radio1">Lelaki</label>
+                                  </div>
+                                  <div class="custom-control custom-radio custom-control-inline mb-5">
+                                      <input class="custom-control-input" type="radio"
+                                          name="teacherGender" id="example-inline-radio2"
+                                          value="Perempuan">
+                                      <label class="custom-control-label"
+                                          for="example-inline-radio2">Perempuan</label>
+                                  </div>
+                              </div>
+                          </div>
+                          <div th:if="${teacher.teacherGender == 'Perempuan'}">
+                              <div class="col-lg-3 col-form-label">
+                                  <div class="custom-control custom-radio custom-control-inline mb-5">
+                                      <input class="custom-control-input" type="radio"
+                                          name="teacherGender" id="example-inline-radio1" value="Lelaki">
+                                      <label class="custom-control-label"
+                                          for="example-inline-radio1">Lelaki</label>
+                                  </div>
+                                  <div class="custom-control custom-radio custom-control-inline mb-5">
+                                      <input class="custom-control-input" type="radio"
+                                          name="teacherGender" id="example-inline-radio2"
+                                          value="Perempuan" checked>
+                                      <label class="custom-control-label"
+                                          for="example-inline-radio2">Perempuan</label>
+                                  </div>
+                              </div>
+                          </div>
+                         <!-- <div class="form-group row">
+                            <div class="col-12">
+                              <div class="form-material">
+                                <textarea class="form-control" id="studentAddress" name="studentAddress" rows="3" oninput="this.value = this.value.toUpperCase()" required></textarea>
+                                <label for="material-textarea-alamat"><span th:text="${session.studentAddress}"></span></label>
+                              </div>
+                            </div>
+                          </div>-->
+                      </div>
+<!--<div class="form-group row">
+                        <label class="col-lg-3 col-form-label" for="title">Jantina<span
+                              class="text-danger"></span></label>
+                              
+                        <c:choose>
+                        <c:when test ="${student.studentGender eq 'Lelaki'}">
+                        <div class="col-lg-3 col-form-label">
+                          <div class="custom-control custom-radio custom-control-inline mb-5">
+                            <input class="custom-control-input" type="radio" name="studentGender" id="example-inline-radio1" value="Lelaki" checked disabled>
+                            <label class="custom-control-label" for="example-inline-radio1">LELAKI</label>
+                          </div>
+                          <div class="custom-control custom-radio custom-control-inline mb-5">
+                            <input class="custom-control-input" type="radio" name="studentGender" id="example-inline-radio2" value="Perempuan" disabled>
+                            <label class="custom-control-label" for="example-inline-radio2">PEREMPUAN</label>
+                          </div>
+                        </div>
+                        </c:when>
+                        <c:otherwise>
+                        <div class="col-lg-3 col-form-label">
+                          <div class="custom-control custom-radio custom-control-inline mb-5">
+                            <input class="custom-control-input" type="radio" name="studentGender" id="example-inline-radio1" value="Lelaki" disabled>
+                            <label class="custom-control-label" for="example-inline-radio1">LELAKI</label>
+                          </div>
+                          <div class="custom-control custom-radio custom-control-inline mb-5">
+                            <input class="custom-control-input" type="radio" name="studentGender" id="example-inline-radio2" value="Perempuan" checked disabled>
+                            <label class="custom-control-label" for="example-inline-radio2">PEREMPUAN</label>
+                          </div>
+                        </div>
+                        </c:otherwise>
+                        </c:choose>
+                      </div>-->
+
+                        <div class="form-group row">
+                          <label class="col-lg-3 col-form-label" for="title">Alamat<span
+                              class="text-danger"></span></label>
+                          <div class="col-lg-9">
+                            <input type="text" class="form-control" id="title" name="teacherAddress"
+                              th:value="${teacher.teacherAddress}" readonly>
+                          </div>
                         </div>
 
                         <div class="modal-footer">
-                          <button type="button" class="btn btn-alt-secondary" data-dismiss="modal"><i
-                              class="si si-close mr-10"></i>Tutup</button>
-                          <button type="submit" name="confirm_delete_sukan" class="btn btn-alt-danger"
-                            data-dismiss="modal"><i class="fa fa-trash"></i> Padam</button>
+                          <!--<button type="button" class="btn btn-alt-secondary" data-dismiss="modal"><i
+                              class="si si-close mr-10"></i>Tutup</button>-->
+
                         </div>
                       </form>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <!-- END Modal Delete Account -->
-          </div>
+
+          <!-- END Modal Edit Account -->
+
         </div>
+      </div>
       </div>
       <!-- END Page Content -->
     </main>
@@ -818,7 +683,7 @@
           <div class="block block-rounded block-transparent mb-0 bg-pattern" style="background-image: url('assets/media/various/bg-pattern-inverse.png');">
             <div class="block-header justify-content-end">
               <div class="block-options">
-                <a class="font-w600 text-danger" th:href="#" data-dismiss="modal" aria-label="Close">
+                <a class="font-w600 text-danger" href="#" data-dismiss="modal" aria-label="Close">
                   Skip Intro
                 </a>
               </div>
@@ -898,21 +763,8 @@
         assets/js/core/jquery.countTo.min.js
         assets/js/core/js.cookie.min.js
     -->
-
-    <script>
-      function setTeacherIDToDelete(button) {
-    var teacherID = button.getAttribute('data-teacherID');
-    var confirmed = confirm("Are you sure you want to delete this teacher's account?");
-    
-    if (confirmed) {
-        location.href = 'DeleteTeacherAccount?teacherID=' + teacherID;
-        alert("Account successfully deleted");
-    } else {
-        return false;
-    }
-}
-  </script>
-  <script th:src="@{stylesheets/assets/js/codebase.core.min.js}"></script>
+	<script
+		th:src="@{stylesheets/assets/js/codebase.core.min.js}"></script>
 
   <!--
         Codebase JS
@@ -920,14 +772,19 @@
         Custom functionality including Blocks/Layout API as well as other vital and optional helpers
         webpack is putting everything together at assets/_js/main/app.js
     -->
-  <script th:src="@{stylesheets/assets/js/codebase.app.min.js}"></script>
+<script
+		th:src="@{stylesheets/assets/js/codebase.app.min.js}"></script>
 
-  <!-- Page JS Plugins -->
-  <script th:src="@{stylesheets/assets/js/plugins/chartjs/Chart.min.js}"></script>
-  <script th:src="@{stylesheets/assets/js/plugins/slick/slick.min.js}"></script>
+	<!-- Page JS Plugins -->
+	<script
+		th:src="@{stylesheets/assets/js/plugins/chartjs/Chart.min.js}"></script>
+	<script
+		th:src="@{stylesheets/assets/js/plugins/slick/slick.min.js}"></script>
 
-  <!-- Page JS Code -->
-  <script th:src="@{stylesheets/assets/js/pages/be_pages_dashboard.min.js}"></script>
+	<!-- Page JS Code -->
+	<script
+		th:src="@{stylesheets/assets/js/pages/be_pages_dashboard.min.js}"></script>
+
 </body>
 
 </html>
