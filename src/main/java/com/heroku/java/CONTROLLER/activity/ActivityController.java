@@ -80,8 +80,8 @@ public String unitList(Model model) {
     try (Connection connection = dataSource.getConnection()) {
         // create statement
         final var statement = connection.createStatement();
-        String sql = "SELECT a.activityid, a.activityname, s.unitinformation, s.unitquota " +
-                     "FROM activity a JOIN unit s ON a.activityid = s.activityid";
+        String sql = "SELECT a.activityid, a.activityname, s.uniforminformation, s.uniformquota " +
+                     "FROM activity a JOIN uniform s ON a.activityid = s.activityid";
 
         try (ResultSet resultSet = statement.executeQuery(sql)) {
             while (resultSet.next()) {
