@@ -775,18 +775,21 @@
                               <i class="si si-close mr-10"></i>Tutup
                           </button>
                           <a type="button" class="btn btn-alt-danger" title="Delete Profil" 
-       th:attr="data-studentIC=${s.studentIC}" 
-       th:onclick="'DeleteStudentAccount(\'' + ${s.studentIC} + '\')'">
-        <i class="fa fa-trash"></i> Padam
-    </a>
+                              th:attr="data-studentIC=${s.studentIC}" 
+                              th:onclick="'DeleteStudentAccount(\'' + ${s.studentIC} + '\')'">
+                              <i class="fa fa-trash"></i> Padam
+                          </a>
                       </div>
-
+                      
                       <script>
-                        function DeleteStudentAccount(studentIC) {
-                            // Redirect or perform AJAX request to deleteStudentAccount endpoint with the studentIC
-                            window.location.href = "/DeleteStudentAccount?studentIC=" + studentIC;
-                        }
-                    </script>
+                          function DeleteStudentAccount(studentIC) {
+                              var confirmed = confirm("Are you sure you want to delete this student account?");
+                              if (confirmed) {
+                                  // Redirect to deleteStudentAccount endpoint with the studentIC
+                                  window.location.href = "/DeleteStudentAccount?studentIC=" + studentIC;
+                              }
+                          }
+                      </script>
                     
                       </form>
                     </div>
