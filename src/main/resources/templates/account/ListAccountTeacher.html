@@ -216,57 +216,7 @@
         </div>
         <!-- END Profile -->
 
-        <!-- Settings -->
-        <div class="block pull-r-l">
-          <div class="block-header bg-body-light">
-            <h3 class="block-title">
-              <i class="fa fa-fw fa-wrench font-size-default mr-5"></i>Settings
-            </h3>
-            <div class="block-options">
-              <button type="button" class="btn-block-option" data-toggle="block-option"
-                data-action="content_toggle"></button>
-            </div>
-          </div>
-          <div class="block-content">
-            <div class="row gutters-tiny">
-              <div class="col-6">
-                <div class="custom-control custom-checkbox mb-5">
-                  <input type="checkbox" class="custom-control-input" id="side-overlay-settings-status"
-                    name="side-overlay-settings-status" value="1" checked>
-                  <label class="custom-control-label" for="side-overlay-settings-status">Online Status</label>
-                </div>
-                <div class="custom-control custom-checkbox mb-5">
-                  <input type="checkbox" class="custom-control-input" id="side-overlay-settings-public-profile"
-                    name="side-overlay-settings-public-profile" value="1">
-                  <label class="custom-control-label" for="side-overlay-settings-public-profile">Public Profile</label>
-                </div>
-                <div class="custom-control custom-checkbox mb-5">
-                  <input type="checkbox" class="custom-control-input" id="side-overlay-settings-notifications"
-                    name="side-overlay-settings-notifications" value="1" checked>
-                  <label class="custom-control-label" for="side-overlay-settings-notifications">Notifications</label>
-                </div>
-              </div>
-              <div class="col-6">
-                <div class="custom-control custom-checkbox mb-5">
-                  <input type="checkbox" class="custom-control-input" id="side-overlay-settings-updates"
-                    name="side-overlay-settings-updates" value="1">
-                  <label class="custom-control-label" for="side-overlay-settings-updates">Auto updates</label>
-                </div>
-                <div class="custom-control custom-checkbox mb-5">
-                  <input type="checkbox" class="custom-control-input" id="side-overlay-settings-api-access"
-                    name="side-overlay-settings-api-access" value="1" checked>
-                  <label class="custom-control-label" for="side-overlay-settings-api-access">API Access</label>
-                </div>
-                <div class="custom-control custom-checkbox mb-5">
-                  <input type="checkbox" class="custom-control-input" id="side-overlay-settings-limit-requests"
-                    name="side-overlay-settings-limit-requests" value="1">
-                  <label class="custom-control-label" for="side-overlay-settings-limit-requests">API Requests</label>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- END Settings -->
+
       </div>
       <!-- END Side Content -->
     </aside>
@@ -347,7 +297,7 @@
                   </a>
                 </li>
                 <li class="list-inline-item">
-                  <a class="link-effect text-dual-primary-dark" th:href="@{/AdminSignIn}">
+                  <a class="link-effect text-dual-primary-dark" th:href="@{/adminSignin}">
                     <i class="si si-logout"></i>
                   </a>
                 </li>
@@ -374,10 +324,10 @@
                     <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-layers"></i><span class="sidebar-mini-hide">AKAUN</span></a>
                     <ul>
                       <li>
-                        <a th:href="@{/accountCoordinator}">KOORDINATOR</a>
+                        <a th:href="@{/ListAccountTeacher}">KOORDINATOR</a>
                       </li>
                       <li>
-                        <a th:href="@{/accountStudent}">PELAJAR</a>
+                        <a th:href="@{/ListAccountStudent}">PELAJAR</a>
                       </li>
                     </ul>
                   </li>
@@ -629,7 +579,7 @@
                   <td class="text-center" th:text="${t.teacherID}"></td>
                   <td class="d-none d-sm-table-cell" th:text="${t.teacherName}"></td>
                   <td class="d-none d-sm-table-cell" th:text="${t.teacherEmail}"></td>
-                  <td class="d-none d-sm-table-cell" th:text="${t.teacherPhone}" ></td>
+                  <td class="d-none d-sm-table-cell" th:text="${t.teacherPhone}"></td>
                   <td class="text-center" th:text="${t.teacherGender}"></td>
                   <td class="text-center" th:text="${t.teacherRole}"></td>
                   <td class="text-center" >
@@ -640,7 +590,7 @@
                   </td>
                   <td class="text-center">
                     <button type="submit" class="btn btn-sm btn-danger" title="Delete Profile"
-                            th:id="${'button-' + }" th:data-teacherID="${teacher.teacherID}"
+                            th:id="${'button-' + }" th:data-teacherID="${t.teacherID}"
                             onclick="setTeacherIDToDelete(this)">
                         <i class="fa fa-trash"></i>
                     </button>
