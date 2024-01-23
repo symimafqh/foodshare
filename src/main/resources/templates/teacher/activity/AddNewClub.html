@@ -740,33 +740,29 @@
                             <tbody>
                                 <tr th:each="club : ${clubList}">
                                     <tr>
-                                        <td class="text-center" id="activityID" name="activityID">${club.activity.activityID}</td>
-                                        <td class="text-center" id="namaClub" name="namaClub">${club.activity.activityName}</td>
-                                        <td class="text-center" id="info" name="info">${club.infoClub}</td>
-                                        <td class="text-center" id="quota" name="quota">${club.quotaClub}</td>
-                                        <td><center>
+                                        <td class="text-center" th:text="${club.activity.activityID}"></td>
+                                        <td class="text-center"  th:text="${club.activity.activityName}"></td>
+                                        <td class="text-center" th:text="${club.infoSukan}"></td>
+                                        <td class="text-center" th:text="${club.sukanQuota}"></td>
+                                        <td>
+                                            <form action="" method="">
                                                 <!-- 	<button type="button" class="btn btn-sm btn-primary"
                                                 data-toggle="modal" data-target="#edit_sukan"
                                                 title="Kemaskini">
                                                 <i class="fa fa-edit"></i>
                                             </button> -->
                                                 <button type="button" class="btn btn-sm btn-primary"
-                                                    onclick="handleUpdateClick('${club.activity.activityID}')">
+                                                    data-toggle="modal"
+                                                    data-target="#edit_sukan_${loopStatus.index}" title="Kemaskini">
                                                     <i class="fa fa-edit"></i>
                                                 </button>
-                                                <!-- <button type="button" name="delete-doc"
-                                                class="btn btn-sm btn-danger" data-toggle="modal"
-                                                data-target="#delete_sukan" title="Padam Dokumen">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
--->
-                                            </center></td>
+                                                <button type="button" name="delete-doc"
+                                                    class="btn btn-sm btn-danger" data-toggle="modal"
+                                                    data-target="#delete_sukan" title="Padam Dokumen">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            </form>
                                     </tr>
-                                </c:forEach>
-
-                                
-
-                            
                             </tbody>
                         </table>
                         <!-- END DISPLAY -->
