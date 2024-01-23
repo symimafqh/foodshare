@@ -151,62 +151,57 @@ public String clubList(Model model) {
 }
 
 //---------------------------ADD SUKAN------------------------------//
-@PostMapping("/AddSukan")
-public String addSukan(@ModelAttribute("sukanForm") Bean bean, Model model) {
-    try {
-        Connection connection = dataSource.getConnection();
-
-        if (bean instanceof ActivityBean) {
-            handleActivityBean((ActivityBean) bean, connection);
-        } else if (bean instanceof SukanBean) {
-            handleSukanBean((SukanBean) bean, connection);
-        }
-
-        // Successfully inserted
-        model.addAttribute("success", true);
-        connection.close();
-
-        return "redirect:/teacher/activity/AddNewSukan?success=true";
-
-    } catch (Exception e) {
-        e.printStackTrace();
-
-        // Error handling - log details or provide more meaningful messages
-        model.addAttribute("success", false);
-        return "redirect:/teacher/activity/AddNewSukan?success=false";
+@GetMapping("/addSukan")
+    public String managerAddService() {
+        return "teacher/activity/AddNewSukan";
     }
-}
 
-private void handleActivityBean(ActivityBean activityBean, Connection connection) throws SQLException {
-    String activityName = activityBean.getActivityName();
-    String teacherID = activityBean.getTeacherID();
+    @PostMapping("/AddNewSukan")
+    public String AddNewSukan(@RequestParam("teacherID") String teacherID, Model model, @ModelAttribute("AddNewSukan") SukanBean sukanBean, ActivityBean activityBean, HttpSession session) {
+        String teacherUsername = (String) session.getAttribute("teacherUsername");
+        System.out.println("ID Number : " + teacherID);
+        try {
+            Connection connection = dataSource.getConnection();
+            String sql = "INSERT INTO ACTIVITY(activityName, teacherID) VALUES (?, ?)";
+            final var statement = connection.prepareStatement(sql);
 
-    try (var preparedStatement = connection.prepareStatement(
-        "INSERT INTO ACTIVITY(activityName, teacherID) VALUES (?, ?)")) {
+            String activityName =activityBean.getActivityName();
+            String TeacherID =activityBean.getTeacherID();
+           
 
-        preparedStatement.setString(1, activityName);
-        preparedStatement.setString(2, teacherID);
-        preparedStatement.executeUpdate();
-    }
-}
+            statement.setString(1, activityName);
+            statement.setString(2, teacherID);
 
-private void handleSukanBean(SukanBean sukanBean, Connection connection) throws SQLException {
-    String sportsInfo = sukanBean.getInfoSukan();
+            statement.executeUpdate();
+
+            // Get id from database for sql 2 from sql 1
+            ActivityBean parent = new ActivityBean();
+            Integer parentActivity = parent.getMaxActivityID();
+            String sportsInfo = sukanBean.getInfoSukan();
     Integer sportsQuota = sukanBean.getQuotaSukan();
 
-    ActivityBean parent = new ActivityBean();
-    Integer parentActivity = parent.getMaxActivityID();
 
-    try (var preparedStatement = connection.prepareStatement(
-        "INSERT INTO SPORT (activityid, sportinformation, sportquota) VALUES (?, ?, ?)")) {
+            System.out.println("activityID from PARENT: " + parentActivity);
+                
+                    String child = "INSERT INTO SPORT (activityid, sportinformation, sportquota) VALUES (?, ?, ?)";
+                    final var sportStatement = connection.prepareStatement(child);
+                    sportStatement.setInt(1, parentActivity);
+                    sportStatement.setString(2, sportsInfo);
+                    sportStatement.setInt(3, sportsQuota);
 
-        preparedStatement.setInt(1, parentActivity);
-        preparedStatement.setString(2, sportsInfo);
-        preparedStatement.setInt(3, sportsQuota);
-        preparedStatement.executeUpdate();
+                    sportStatement.executeUpdate();
+               
+                model.addAttribute("success", true);
+
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "redirect:/AddNewSukan?success=false";
+        }
+
+        return "redirect:/AddNewSukan?success=true";
     }
-}
-
 
 
 
