@@ -22,148 +22,132 @@ import java.util.Map;
 import java.util.List;
 
 @Controller
-public class SukanController {
+public class ActivityController {
     private final DataSource dataSource;
 
     @Autowired
-    public SukanController(DataSource dataSource) {
+    public ActivityController(DataSource dataSource) {
         this.dataSource = dataSource;
     }
+//---------------------------LIST SUKAN------------------------------//
+    @GetMapping("/ListSukan")
+    public String sukanList(Model model) {
+        List<SukanBean> sukanList = new ArrayList<SukanBean>();
+    
+        try (Connection connection = dataSource.getConnection()) {
+            // create statement
+            final var statement = connection.createStatement();
+            String sql = "SELECT a.activityid, a.activityname, s.sportinformation, s.sportquota " +
+                         "FROM activity a JOIN sport s ON a.activityid = s.activityid";
+    
+            final var resultSet = statement.executeQuery(sql);
+    
+            while (resultSet.next()) {
+                SukanBean sukan = new SukanBean();
+                ActivityBean activity = new ActivityBean();
+    
+                // Assuming ACTIVITYID and ACTIVITYNAME come from the ACTIVITY table
+                activity.setActivityID(resultSet.getInt("activityID"));
+                activity.setActivityName(resultSet.getString("activityName"));
+    
+                // Set ActivityBean as a property of SukanBean
+                sukan.setActivity(activity);
+    
+                // Assuming SPORTINFORMATION and SPORTQUOTA come from the SPORT table
+                sukan.setInfoSukan(resultSet.getString("sportInformation"));
+                sukan.setQuotaSukan(resultSet.getInt("sportQuota"));
+    
+                sukanList.add(sukan);
+            }
+    
+            connection.close();
+    
+            // Use the Model object to pass the list to the view
+            model.addAttribute("sukanList", sukanList);
+    
+            return "activity/ListSukan"; // Return the view name as a String
+        } catch (SQLException e) {
+            e.printStackTrace(); // Consider logging or throwing a custom exception
+            return "error"; // Replace with an appropriate error view name
+        }
+    }
+    
+//---------------------------LIST UNIT------------------------------//
+@GetMapping("/ListUnit")
+public String unitList(Model model) {
+    List<UnitBean> unitList = new ArrayList<>();
 
-   @GetMapping("/ListSukan")
-    public String sukanList (Model model) {
-
-    List<SukanBean> sukanList = new ArrayList<SukanBean>();
-
-    try (Connection connection = dataSource.getConnection()){
+    try (Connection connection = dataSource.getConnection()) {
         // create statement
         final var statement = connection.createStatement();
-        String sql = "SELECT a.activityid, a.activityname, s.sportinformation, s.sportquota " + "FROM activity a "
-        + "JOIN sport s " + "on a.activityid = s.activityid";
+        String sql = "SELECT a.activityid, a.activityname, s.unitinformation, s.unitquota " +
+                     "FROM activity a JOIN unit s ON a.activityid = s.activityid";
 
-        final var resultSet = statement.executeQuery(sql);
+        try (ResultSet resultSet = statement.executeQuery(sql)) {
+            while (resultSet.next()) {
+                UnitBean unit = new UnitBean();
+                ActivityBean activity = new ActivityBean();
 
-        while (resultSet.next()) {
-            SukanBean sukan = new SukanBean();
-            ActivityBean activity = new ActivityBean();
+                activity.setActivityID(resultSet.getInt("activityID"));
+                activity.setActivityName(resultSet.getString("activityName"));
 
-            // Assuming ACTIVITYID and ACTIVITYNAME come from the ACTIVITY table
-            activity.setActivityID(resultSet.getInt("activityID"));
-            activity.setActivityName(resultSet.getString("activityName"));
+                unit.setActivity(activity);
+                unit.setInfoUnit(resultSet.getString("unitInformation"));
+                unit.setQuotaUnit(resultSet.getInt("unitQuota"));
 
-            // Set ActivityBean as a property of SukanBean
-            sukan.setActivity(activity);
-
-            // Assuming SPORTINFORMATION and SPORTQUOTA come from the SPORT table
-            sukan.setInfoSukan(resultSet.getString("sportInformation"));
-            sukan.setQuotaSukan(resultSet.getInt("sportQuota"));
-
-            sukanList.add(sukan);
+                unitList.add(unit);
+            }
         }
 
-        connection.close();
-        
         // Use the Model object to pass the list to the view
-        model.addAttribute("sukanList", sukanList);
-        
-        return "activity/ListSukan";
+        model.addAttribute("unitList", unitList);
 
+        return "activity/ListUnit";
     } catch (SQLException e) {
+        // Log the exception using a logging framework like SLF4J
         e.printStackTrace(); // Consider logging or throwing a custom exception
-        
-    } 
-
-}
-
-@GetMapping("/ListUnit")
-public String unitList (Model model) {
-
-List<UnitBean> unitList = new ArrayList<UnitBean>();
-
-try (Connection connection = dataSource.getConnection()){
-    // create statement
-    final var statement = connection.createStatement();
-    String sql = "SELECT a.activityid, a.activityname, s.unitinformation, s.unitquota " + "FROM activity a "
-    + "JOIN unit s " + "on a.activityid = s.activityid";
-
-    final var resultSet = statement.executeQuery(sql);
-
-    while (resultSet.next()) {
-        UnitBean unit = new UnitBean();
-        ActivityBean activity = new ActivityBean();
-
-        // Assuming ACTIVITYID and ACTIVITYNAME come from the ACTIVITY table
-        activity.setActivityID(resultSet.getInt("activityID"));
-        activity.setActivityName(resultSet.getString("activityName"));
-
-        // Set ActivityBean as a property of SukanBean
-        unit.setActivity(activity);
-
-        // Assuming SPORTINFORMATION and SPORTQUOTA come from the SPORT table
-        unit.setInfoSukan(resultSet.getString("unitInformation"));
-        unit.setQuotaSukan(resultSet.getInt("unitQuota"));
-
-        unitList.add(unit);
+        return "error"; // Replace with an appropriate error view name
     }
-
-    connection.close();
-    
-    // Use the Model object to pass the list to the view
-    model.addAttribute("sukanList", unitList);
-    
-    return "activity/ListUnit";
-
-} catch (SQLException e) {
-    e.printStackTrace(); // Consider logging or throwing a custom exception
-    
-} 
-
 }
 
+//---------------------------LIST club------------------------------//
 @GetMapping("/ListClub")
-public String clubList (Model model) {
+public String clubList(Model model) {
+    List<ClubBean> clubList = new ArrayList<>();
 
-List<ClubBean> unitList = new ArrayList<ClubBean>();
+    try (Connection connection = dataSource.getConnection()) {
+        // create statement
+        final var statement = connection.createStatement();
+        String sql = "SELECT a.activityid, a.activityname, s.clubinformation, s.clubquota " +
+                     "FROM activity a JOIN club s ON a.activityid = s.activityid";
 
-try (Connection connection = dataSource.getConnection()){
-    // create statement
-    final var statement = connection.createStatement();
-    String sql = "SELECT a.activityid, a.activityname, s.clubinformation, s.clubquota " + "FROM activity a "
-    + "JOIN club s " + "on a.activityid = s.activityid";
+        try (ResultSet resultSet = statement.executeQuery(sql)) {
+            while (resultSet.next()) {
+                ClubBean club = new ClubBean();
+                ActivityBean activity = new ActivityBean();
 
-    final var resultSet = statement.executeQuery(sql);
+                activity.setActivityID(resultSet.getInt("activityID"));
+                activity.setActivityName(resultSet.getString("activityName"));
 
-    while (resultSet.next()) {
-        ClubBean club = new ClubBean();
-        ActivityBean activity = new ActivityBean();
+                club.setActivity(activity);
+                club.setInfoClub(resultSet.getString("clubInformation"));
+                club.setQuotaClub(resultSet.getInt("clubQuota"));
 
-        // Assuming ACTIVITYID and ACTIVITYNAME come from the ACTIVITY table
-        activity.setActivityID(resultSet.getInt("activityID"));
-        activity.setActivityName(resultSet.getString("activityName"));
+                clubList.add(club);
+            }
+        }
 
-        // Set ActivityBean as a property of SukanBean
-        club.setActivity(activity);
+        // Use the Model object to pass the list to the view
+        model.addAttribute("clubList", clubList);
 
-        // Assuming SPORTINFORMATION and SPORTQUOTA come from the SPORT table
-        club.setInfoSukan(resultSet.getString("clubInformation"));
-        club.setQuotaSukan(resultSet.getInt("clubQuota"));
-
-        clubList.add(club);
+        return "activity/ListClub";
+    } catch (SQLException e) {
+        // Log the exception using a logging framework like SLF4J
+        e.printStackTrace(); // Consider logging or throwing a custom exception
+        return "error"; // Replace with an appropriate error view name
     }
-
-    connection.close();
-    
-    // Use the Model object to pass the list to the view
-    model.addAttribute("sukanList", unitList);
-    
-    return "activity/ListUnit";
-
-} catch (SQLException e) {
-    e.printStackTrace(); // Consider logging or throwing a custom exception
-    
-} 
-
 }
+
 
 
     //---------------------------SUKAN BEAN------------------------------//
@@ -183,16 +167,6 @@ try (Connection connection = dataSource.getConnection()){
         }
     
         private ActivityBean activity;
-        
-        /*
-         * public int getActivityID() { // This getter is not necessary if it's already
-         * defined in ActivityBean return super.getActivityID(); // This calls the
-         * inherited getter from ActivityBean }
-         * 
-         * public void setActivityID(int activityID) { // This setter is not necessary
-         * if it's already defined in ActivityBean super.setActivityID(activityID); //
-         * This calls the inherited setter from ActivityBean }
-         */
     
         // Setter method for ActivityBean
         public void setActivity(ActivityBean activity) {
@@ -248,17 +222,7 @@ try (Connection connection = dataSource.getConnection()){
         }
     
         private ActivityBean activity;
-        
-        /*
-         * public int getActivityID() { // This getter is not necessary if it's already
-         * defined in ActivityBean return super.getActivityID(); // This calls the
-         * inherited getter from ActivityBean }
-         * 
-         * public void setActivityID(int activityID) { // This setter is not necessary
-         * if it's already defined in ActivityBean super.setActivityID(activityID); //
-         * This calls the inherited setter from ActivityBean }
-         */
-    
+
         // Setter method for ActivityBean
         public void setActivity(ActivityBean activity) {
             this.activity = activity;
@@ -294,68 +258,69 @@ try (Connection connection = dataSource.getConnection()){
         }
     }
 
-    //---------------------------SPORTS BEAN------------------------------//
-    public class SukanBean {
+    //---------------------------CLUB BEAN------------------------------//
+public class ClubBean {
 	
-        private String namaSukan;
-        private String infoSukan;
-        private int quotaSukan;
-        private int activityID;
-        
-        public int getActivityID() {
-            return activityID;
-        }
-    
-        public void setActivityID(int activityID) {
-            this.activityID = activityID;
-        }
-    
-        private ActivityBean activity;
-        
-        /*
-         * public int getActivityID() { // This getter is not necessary if it's already
-         * defined in ActivityBean return super.getActivityID(); // This calls the
-         * inherited getter from ActivityBean }
-         * 
-         * public void setActivityID(int activityID) { // This setter is not necessary
-         * if it's already defined in ActivityBean super.setActivityID(activityID); //
-         * This calls the inherited setter from ActivityBean }
-         */
-    
-        // Setter method for ActivityBean
-        public void setActivity(ActivityBean activity) {
-            this.activity = activity;
-        }
-    
-        // Getter method for ActivityBean
-        public ActivityBean getActivity() {
-            return activity;
-        }
-          
-        public String getNamaSukan() {
-            return namaSukan;
-        }
-    
-        public void setNamaSukan(String namaSukan) {
-            this.namaSukan = namaSukan;
-        }
-    
-        public String getInfoSukan() {
-            return infoSukan;
-        }
-    
-        public void setInfoSukan(String infoSukan) {
-            this.infoSukan = infoSukan;
-        }
-    
-        public int getQuotaSukan() {
-            return quotaSukan;
-        }
-    
-        public void setQuotaSukan(int quotaSukan) {
-            this.quotaSukan = quotaSukan;
-        }
+	private String namaClub;
+	private String infoClub;
+	private int quotaClub;
+	private int activityID;
+	
+	public int getActivityID() {
+		return activityID;
+	}
+
+	public void setActivityID(int activityID) {
+		this.activityID = activityID;
+	}
+
+	private ActivityBean activity;
+	
+	/*
+	 * public int getActivityID() { // This getter is not necessary if it's already
+	 * defined in ActivityBean return super.getActivityID(); // This calls the
+	 * inherited getter from ActivityBean }
+	 * 
+	 * public void setActivityID(int activityID) { // This setter is not necessary
+	 * if it's already defined in ActivityBean super.setActivityID(activityID); //
+	 * This calls the inherited setter from ActivityBean }
+	 */
+
+	// Setter method for ActivityBean
+    public void setActivity(ActivityBean activity) {
+        this.activity = activity;
     }
+
+    // Getter method for ActivityBean
+    public ActivityBean getActivity() {
+        return activity;
+    }
+	  
+	public String getNamaClub() {
+		return namaClub;
+	}
+
+	public void setNamaClub(String namaClub) {
+		this.namaClub = namaClub;
+	}
+
+	public String getInfoClub() {
+		return infoClub;
+	}
+
+	public void setInfoClub(String infoClub) {
+		this.infoClub = infoClub;
+	}
+
+	public int getQuotaClub() {
+		return quotaClub;
+	}
+
+	public void setQuotaClub(int quotaClub) {
+		this.quotaClub = quotaClub;
+	}
+}
+
     
 
     //---------------------------ACTIVITY BEAN------------------------------//
