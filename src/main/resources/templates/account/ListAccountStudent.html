@@ -636,7 +636,7 @@
                     </a>
                   </td>
                   <td class="text-center">
-                    <a type="button" class="btn btn-sm btn-danger" title="Kemaskini Profil" data-toggle="modal"
+                    <a type="button" class="btn btn-sm btn-danger" title="Delete Profil" data-toggle="modal"
                       data-target="#delete_account" href="">
                       <i class="fa fa-trash"></i>
                     </a>
@@ -773,8 +773,11 @@
                         <div class="modal-footer">
                           <button type="button" class="btn btn-alt-secondary" data-dismiss="modal"><i
                               class="si si-close mr-10"></i>Tutup</button>
-                          <button type="submit" name="confirm_delete_sukan" class="btn btn-alt-danger"
-                            data-dismiss="modal"><i class="fa fa-trash"></i> Padam</button>
+                              <a type="button" class="btn btn-alt-danger" title="Delete Account" data-toggle="modal"
+                              data-target="#delete_account" th:href="@{/DeleteStudentAccount(studentIC=${s.studentIC})}">
+                              <i class="fa fa-trash"></i> Padam
+                           </a>
+                           
                         </div>
                       </form>
                     </div>
