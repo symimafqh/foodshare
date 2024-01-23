@@ -703,7 +703,7 @@
                         Aktiviti berjaya ditambah!
                     </div>
 
-                    <div th:if="${not success}" class="alert alert-danger" role="alert">
+                    <div th:unless="${success}" class="alert alert-danger" role="alert">
                         Penambahan aktiviti tidak berjaya.
                     </div>
                 </div>
