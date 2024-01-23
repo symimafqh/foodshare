@@ -631,7 +631,7 @@
                   <td class="d-none d-sm-table-cell" th:text="${s.studentPhone}" ></td>
                   <td class="text-center" th:text="${s.studentGender}"></td>
                   <td class="text-center" >
-                    <a type="button" class="btn btn-sm btn-primary" title="Kemaskini Profil" th:href="@{/viewStudentDetails(studentIC=${s.studentIC})}>
+                    <a type="button" class="btn btn-sm btn-primary" title="Kemaskini Profil" th:href="@{/viewStudentDetails?=}+${s.studentIC}" th:value="${s.studentIC}">
                       <i class="fa fa-user"></i>
                     </a>
                   </td>
