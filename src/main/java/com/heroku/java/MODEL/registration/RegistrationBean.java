@@ -8,7 +8,7 @@ import com.heroku.java.MODEL.activity.ActivityBean;
 public class RegistrationBean {
 
     private int registrationid;
-    private String studentic;
+    private String studentIC;
     private String activityid;
     private int unitReg;
 	private int clubReg;
@@ -36,15 +36,15 @@ public class RegistrationBean {
     /**
      * @return String return the studentic
      */
-    public String getStudentic() {
-        return studentic;
+    public String getStudentIC() {
+        return studentIC;
     }
 
     /**
-     * @param studentic the studentic to set
+     * @param studentIC the studentic to set
      */
-    public void setStudentic(String studentic) {
-        this.studentic = studentic;
+    public void setStudentIC(String studentIC) {
+        this.studentIC = studentIC;
     }
 
     /**
