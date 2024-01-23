@@ -636,11 +636,11 @@
                     </a>
                   </td>
                   <td class="text-center">
-                    <a type="button" class="btn btn-sm btn-danger" title="Kemaskini Profil" data-toggle="modal"
-                      data-target="#delete_account" href="">
-                      <i class="fa fa-trash"></i>
+                    <a type="button" class="btn btn-sm btn-danger" title="Delete Profil" data-toggle="modal"
+                        data-target="#delete_account" th:attr="data-studentIC=${s.studentIC}">
+                        <i class="fa fa-trash"></i>
                     </a>
-                  </td>
+                </td>
                 </tr>
 
               </tbody>
@@ -771,11 +771,24 @@
                         </div>
 
                         <div class="modal-footer">
-                          <button type="button" class="btn btn-alt-secondary" data-dismiss="modal"><i
-                              class="si si-close mr-10"></i>Tutup</button>
-                          <button type="submit" name="confirm_delete_sukan" class="btn btn-alt-danger"
-                            data-dismiss="modal"><i class="fa fa-trash"></i> Padam</button>
-                        </div>
+                          <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">
+                              <i class="si si-close mr-10"></i>Tutup
+                          </button>
+                          <a type="button" class="btn btn-alt-danger" title="Delete Profil" 
+                             th:attr="data-studentIC=${s.studentIC}" onclick="DeleteStudentAccount()">
+                             <i class="fa fa-trash"></i> Padam
+                          </a>
+                      </div>
+
+                        <script>
+                          function DeleteStudentAccount() {
+                              // Retrieve studentIC from the clicked element
+                              var studentIC = event.currentTarget.getAttribute("data-studentIC");
+                      
+                              // Redirect or perform AJAX request to deleteStudentAccount endpoint with the studentIC
+                              window.location.href = "/DeleteStudentAccount?studentIC=" + studentIC;
+                          }
+                      </script>
                       </form>
                     </div>
                   </div>

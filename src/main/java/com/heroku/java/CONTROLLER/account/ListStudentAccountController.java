@@ -123,6 +123,45 @@ public class ListStudentAccountController {
 
         return "account/viewStudentDetails";
     }
+
+    @GetMapping("/DeleteStudentAccount")
+public String DeleteStudentAccount(@RequestParam("studentIC") String studentIC, HttpSession session, Model model) {
+    String teacherUsername = (String) session.getAttribute("teacherUsername");
+        System.out.println("IC Number : " + studentIC);
+    try (Connection connection = dataSource.getConnection()) {
+        // Delete student from the students account list
+        final var DeleteStudentAccount = connection.prepareStatement("DELETE FROM student WHERE studentic = ?");
+        DeleteStudentAccount.setString(1, studentIC);
+        DeleteStudentAccount.executeUpdate();
+
+        System.out.println("Student account successfully deleted");
+    } catch (Exception e) {
+        System.out.println("Failed to delete student from the student account list");
+        e.printStackTrace();
+    }
+
+    return "account/ListAccountStudent";
+}
+
+// public String deleteStudentAccount(@RequestParam("studentIC") String studentIC) {
+//     String studentICToDelete = request.getParameter("studentICToDelete");
+		
+// 		// Validate if teacherIDToDelete is not empty or null
+// 	    if (studentICToDelete != null && !studentICToDelete.isEmpty()) {
+// 	        // Perform deletion logic using teacherIDToDelete
+// 	        // Example: Assuming you have a DAO class for handling database operations
+// 	    	StudentDAO studentDAO = new StudentDAO();
+
+// 	        studentDAO.deleteStudent(studentICToDelete);
+
+// 	        // Redirect to the coordinator list page after deletion
+// 	        response.sendRedirect("ListAccountStudent");
+// 	    } else {
+// 	        // Handle invalid or missing teacherIDToDelete parameter
+// 	        response.getWriter().println("Invalid or missing studentICToDelete parameter.");
+// 	    }
+//         return "account/ListAccountStudent";
+// }
     
 
 
