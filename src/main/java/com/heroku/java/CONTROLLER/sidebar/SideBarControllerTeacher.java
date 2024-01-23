@@ -87,7 +87,7 @@ public class SideBarControllerTeacher {
         List<ClubBean> club = new ArrayList<ClubBean>();
 
         try (Connection connection = dataSource.getConnection()) {
-            String sql = "SELECT * FROM club order by namaclub";
+            String sql = "SELECT * FROM club order by activityname";
             final var statement = connection.prepareStatement(sql);
             //statement.setString(1, "baker"); (syahir punya nih)
             final var resultSet = statement.executeQuery();
