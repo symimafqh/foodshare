@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.heroku.java.MODEL.teacher.TeacherBean;
 
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import java.io.IOException;
 import java.sql.*;
 import javax.sql.DataSource;
 import java.util.ArrayList;
@@ -148,20 +150,88 @@ public String clubList(Model model) {
     }
 }
 
+//---------------------------ADD SUKAN------------------------------//
+@PostMapping("/AddSukan")
+public void addSukan(@ModelAttribute("sukanForm") SukanBean sukanBean, Model model, Bean bean, HttpServletResponse response)  {
+    try {
+        Connection connection = dataSource.getConnection();
+
+        if (bean instanceof ActivityBean) {
+            // Handle ActivityBean
+            ActivityBean activityBean = (ActivityBean) bean;
+            String activityName = activityBean.getActivityName();
+            String teacherID = activityBean.getTeacherID();
+
+            final var prepareStatement = connection.prepareStatement("INSERT INTO ACTIVITY(activityName, teacherID) VALUES (?, ?)");
+            prepareStatement.setString(1, activityName);
+            prepareStatement.setString(2, teacherID);
+            prepareStatement.executeUpdate();
+        } else if (bean instanceof SukanBean) {
+            // Handle SukanBean
+            SukanBean sb = (SukanBean) bean;
+            String sportsInfo = sb.getInfoSukan();
+            Integer sportsQuota = sb.getQuotaSukan();
+
+            ActivityBean parent = new ActivityBean();
+            Integer parentActivity = parent.getMaxActivityID();
+
+            final var prepareStatement = connection.prepareStatement("INSERT INTO SPORT (activityid, sportinformation, sportquota) VALUES (?, ?, ?)");
+            prepareStatement.setInt(1, parentActivity);
+            prepareStatement.setString(2, sportsInfo);
+            prepareStatement.setInt(3, sportsQuota);
+            prepareStatement.executeUpdate();
+        }
+
+        System.out.println("Successfully inserted");
+
+        // Use the Model object to pass the list to the view
+        model.addAttribute("success", true);
+        connection.close();
+
+        // Set the redirect response
+        response.sendRedirect("/AddNewSukan?success=true");
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        try {
+            // Set the redirect response
+            response.sendRedirect("/AddNewSukan?success=false");
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+    }
+}
+
+// @GetMapping("/AddSukan")
+// public String addSukan(HttpSession session, Model model) {
+//     String guestICNumber = (String) session.getAttribute("guestICNumber");
+//     int reservationID = (int) session.getAttribute("reservationID");
+//     double totalPayment = (double) session.getAttribute("totalPayment");
+//     return new SomeData();
+// }
 
 
+
+
+
+    public interface Bean {
+        int getActivityID();
+        void setActivityID(int activityID);
+    }
+    
     //---------------------------SUKAN BEAN------------------------------//
-    public class SukanBean {
+    public class SukanBean implements Bean  {
 	
         private String namaSukan;
         private String infoSukan;
         private int quotaSukan;
         private int activityID;
         
+        @Override
         public int getActivityID() {
             return activityID;
         }
-    
+        @Override
         public void setActivityID(int activityID) {
             this.activityID = activityID;
         }
@@ -324,16 +394,35 @@ public class ClubBean {
     
 
     //---------------------------ACTIVITY BEAN------------------------------//
-    public class ActivityBean {
+    public class ActivityBean implements Bean{
 	
         private String activityName;
         private String TeacherID;
         private  int activityID;
         
+        @Override
         public int getActivityID() {
             return activityID;
         }
     
+        public Integer getMaxActivityID() {
+            int maxActivityID = 0;
+		try (Connection con = dataSource.getConnection();
+				Statement stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery("SELECT MAX(ACTIVITYID) FROM ACTIVITY")) {
+
+			if (rs.next()) {
+				maxActivityID = rs.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			// Handle exceptions as needed
+		}
+		return maxActivityID;
+        }
+
+        @Override
         public void setActivityID(int activityID) {
             this.activityID = activityID;
         }

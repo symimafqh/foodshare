@@ -651,73 +651,60 @@
                                     </button>
                                 </div>
                             </div>
-                            <!-- Modal Tambah Sukan-->
-                            <div class="modal fade" id="tambah_sukan" tabindex="-1" role="dialog"
-                                aria-labelledby="modal-create-pekerjaan" aria-hidden="true">
-                                <div class="modal-dialog modal-lg" role="document">
-                                    <div class="modal-content">
-                                        <div class="block block-themed block-transparent mb-0">
-                                            <div class="block-header bg-primary-dark">
-                                                <h3 class="block-title">Maklumat Sukan/Permainan</h3>
-                                                <div class="block-options">
-                                                    <button type="button" class="btn-block-option" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                        <i class="si si-close"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="block-content">
-                                                <div id="non-jawatan">
-                                                    <form action="AddSukanController" method="post">
-                                                        <div class="form-group row">
-                                                            <label class="col-lg-3 col-form-label" for="namaSukan">Nama
-                                                                Sukan/Permainan<span class="text-danger">*</span>
-                                                            </label>
-                                                            <div class="col-lg-9">
-                                                                <input type="text" class="form-control" id="namaSukan"
-                                                                    name="namaSukan" placeholder="" required>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="form-group row">
-                                                            <label class="col-lg-3 col-form-label" for="info">Informasi
-                                                                berkenaan Sukan/Permainan<span
-                                                                    class="text-danger">*</span>
-                                                            </label>
-                                                            <div class="col-lg-9">
-                                                                <textarea class="form-control" id="info" rows="7"
-                                                                    name="info" placeholder="" required></textarea>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="form-group row">
-                                                            <label class="col-lg-3 col-form-label" for="quota">Quota
-                                                                Pelajar<span class="text-danger">*</span>
-                                                            </label>
-                                                            <div class="col-lg-9">
-                                                                <input type="text" class="form-control" id="quota"
-                                                                    name="quota" placeholder="" required>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-alt-secondary"
-                                                                data-dismiss="modal">
-                                                                <i class="si si-close mr-10"></i>Tutup
-                                                            </button>
-                                                            <button type="submit" name="save_pekerjaan"
-                                                                class="btn btn-alt-info">
-                                                                <i class="fa fa-save mr-10"></i> Simpan
-                                                            </button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                           <!-- Modal Tambah Sukan -->
+<div class="modal fade" id="tambah_sukan" tabindex="-1" role="dialog" aria-labelledby="modal-create-pekerjaan" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="block block-themed block-transparent mb-0">
+                <div class="block-header bg-primary-dark">
+                    <h3 class="block-title">Maklumat Sukan/Permainan</h3>
+                    <div class="block-options">
+                        <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                            <i class="si si-close"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="block-content">
+                    <!-- Form for adding Sukan -->
+                    <form th:action="@{/AddSukan}" method="post" modelAttribute="sukanForm">
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label" for="namaSukan">Nama Sukan/Permainan<span class="text-danger">*</span></label>
+                            <div class="col-lg-9">
+                                <input type="text" class="form-control" id="namaSukan" name="namaSukan"  placeholder="" required>
                             </div>
-                            <!-- END Modal Tambah Sukan-->
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label" for="info">Informasi berkenaan Sukan/Permainan<span class="text-danger">*</span></label>
+                            <div class="col-lg-9">
+                                <textarea class="form-control" id="info" rows="7" name="info"  placeholder="" required></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label" for="quota">Quota Pelajar<span class="text-danger">*</span></label>
+                            <div class="col-lg-9">
+                                <input type="text" class="form-control" id="quota" name="quota"  placeholder="" required>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">
+                                <i class="si si-close mr-10"></i>Tutup
+                            </button>
+                            <button type="submit" name="save_sukan" class="btn btn-alt-info">
+                                <i class="fa fa-save mr-10"></i> Simpan
+                            </button>
+                        </div>
+                    </form>
+                    <!-- End Form -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END Modal Tambah Sukan -->
+
                             <!-- START Modal Edit Sukan-->
                             <div class="modal fade" id="edit_sukan_${loopStatus.index}" tabindex="-1" role="dialog"
                                 aria-labelledby="edit_sukan_${loopStatus.index}_label" aria-hidden="true">
