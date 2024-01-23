@@ -207,6 +207,121 @@ public String clubList(Model model) {
         return "redirect:/AddNewSukan?success=true";
     }
 
+    //---------------------------ADD CLUB------------------------------//
+@GetMapping("/addNewClub")
+public String AddNewClub() {
+    return "teacher/activity/AddNewClub";
+}
+
+@PostMapping("/AddNewClub")
+public String AddNewClub(@RequestParam String namaClub, @RequestParam String info, @RequestParam Integer quota, Model model, @ModelAttribute("AddNewClub") ClubBean sukanBean, ActivityBean activityBean, HttpSession session) {
+    String teacherID = (String) session.getAttribute("teacherID");
+    System.out.println("ID Number : " + teacherID);
+    try {
+        Connection connection = dataSource.getConnection();
+        String sql = "INSERT INTO activity(activityname, teacherid) VALUES (?, ?)";
+        final var statement = connection.prepareStatement(sql);
+
+        String activity = namaClub;
+        // String TeacherID =activityBean.getTeacherID();
+       
+
+        statement.setString(1, activity);
+        statement.setString(2, teacherID);
+
+        statement.executeUpdate();
+
+        // Get id from database for sql 2 from sql 1
+        ActivityBean parent = new ActivityBean();
+        Integer parentActivity = parent.getMaxActivityID();
+        // String sportsInfo = sukanBean.getInfoClub();
+        // Integer sportsQuota = sukanBean.getQuotaClub();
+        String clubInfo = info;
+        Integer clubQuota = quota;
+
+
+        System.out.println("activityID from PARENT: " + parentActivity);
+            
+                String child = "INSERT INTO club (activityid, activityname, teacherid, clubinformation, clubquota) VALUES (?, ?, ?, ?, ?)";
+                final var clubStatement = connection.prepareStatement(child);
+                clubStatement.setInt(1, parentActivity);
+                clubStatement.setString(2, activity);
+                clubStatement.setString(3, teacherID);
+                clubStatement.setString(4, clubInfo);
+                clubStatement.setInt(5, clubQuota);
+
+                clubStatement.executeUpdate();
+           
+            model.addAttribute("success", true);
+
+        connection.close();
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return "redirect:/AddNewClub?success=false";
+    }
+
+    return "redirect:/AddNewClub?success=true";
+}
+
+    //---------------------------ADD Unit------------------------------//
+    @GetMapping("/addNewUnit")
+    public String AddNewUnit() {
+        return "teacher/activity/AddNewUnit";
+    }
+    
+    @PostMapping("/AddNewUnit")
+    public String AddNewUnit(@RequestParam String namaUnit, @RequestParam String info, @RequestParam Integer quota, Model model, @ModelAttribute("AddNewUnit") UnitBean sukanBean, ActivityBean activityBean, HttpSession session) {
+        String teacherID = (String) session.getAttribute("teacherID");
+        System.out.println("ID Number : " + teacherID);
+        try {
+            Connection connection = dataSource.getConnection();
+            String sql = "INSERT INTO activity(activityname, teacherid) VALUES (?, ?)";
+            final var statement = connection.prepareStatement(sql);
+    
+            String activity = namaUnit;
+            // String TeacherID =activityBean.getTeacherID();
+           
+    
+            statement.setString(1, activity);
+            statement.setString(2, teacherID);
+    
+            statement.executeUpdate();
+    
+            // Get id from database for sql 2 from sql 1
+            ActivityBean parent = new ActivityBean();
+            Integer parentActivity = parent.getMaxActivityID();
+            // String sportsInfo = sukanBean.getInfoUnit();
+            // Integer sportsQuota = sukanBean.getQuotaUnit();
+            String unitInfo = info;
+            Integer unitQuota = quota;
+    
+    
+            System.out.println("activityID from PARENT: " + parentActivity);
+                
+                    String child = "INSERT INTO uniform (activityid, activityname, teacherid, uniforminformation, uniformquota) VALUES (?, ?, ?, ?, ?)";
+                    final var unitStatement = connection.prepareStatement(child);
+                    unitStatement.setInt(1, parentActivity);
+                    unitStatement.setString(2, activity);
+                    unitStatement.setString(3, teacherID);
+                    unitStatement.setString(4, unitInfo);
+                    unitStatement.setInt(5, unitQuota);
+    
+                    unitStatement.executeUpdate();
+               
+                model.addAttribute("success", true);
+    
+            connection.close();
+    
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "redirect:/AddNewUnit?success=false";
+        }
+    
+        return "redirect:/AddNewUnit?success=true";
+    }
+    
+
 
 
 

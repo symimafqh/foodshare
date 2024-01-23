@@ -856,26 +856,12 @@
                                             <td class="text-center" th:text="${sukan.activity.activityID}"></td>
                                             <td class="text-center"  th:text="${sukan.activity.activityName}"></td>
                                             <td class="text-center" th:text="${sukan.infoSukan}"></td>
-                                            <td class="text-center" th:text="${sukan.sukanQuota}"></td>
-                                            <td>
-                                                <form action="" method="">
-                                                    <!-- 	<button type="button" class="btn btn-sm btn-primary"
-                                                    data-toggle="modal" data-target="#edit_sukan"
-                                                    title="Kemaskini">
-                                                    <i class="fa fa-edit"></i>
-                                                </button> -->
-                                                    <button type="button" class="btn btn-sm btn-primary"
-                                                        data-toggle="modal"
-                                                        data-target="#edit_sukan_${loopStatus.index}" title="Kemaskini">
-                                                        <i class="fa fa-edit"></i>
-                                                    </button>
-                                                    <button type="button" name="delete-doc"
-                                                        class="btn btn-sm btn-danger" data-toggle="modal"
-                                                        data-target="#delete_sukan" title="Padam Dokumen">
-                                                        <i class="fa fa-trash"></i>
-                                                    </button>
-                                                </form>
-                                            </td>
+                                            <td class="text-center" th:text="${sukan.quotaSukan}"></td>
+                                            <td class="text-center" >
+                                                <a type="button" class="btn btn-sm btn-primary" title="Kemaskini Profil" th:href="@{/UpdateSukan(activityID=${sukan.activity.activityID})}">
+                                                  <i class="fa fa-user"></i>
+                                                </a>
+                                              </td>
                                         </tr>
 
                                         <!--update sukan -->
