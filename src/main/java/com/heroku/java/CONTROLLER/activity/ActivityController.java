@@ -157,48 +157,56 @@ public String addSukan(@ModelAttribute("sukanForm") Bean bean, Model model) {
         Connection connection = dataSource.getConnection();
 
         if (bean instanceof ActivityBean) {
-            ActivityBean activityBean = (ActivityBean) bean;
-            String activityName = activityBean.getActivityName();
-            String teacherID = activityBean.getTeacherID();
-
-            final var prepareStatement = connection.prepareStatement(
-                "INSERT INTO ACTIVITY(activityName, teacherID) VALUES (?, ?)");
-            prepareStatement.setString(1, activityName);
-            prepareStatement.setString(2, teacherID);
-            prepareStatement.executeUpdate();
+            handleActivityBean((ActivityBean) bean, connection);
         } else if (bean instanceof SukanBean) {
-            SukanBean sb = (SukanBean) bean;
-            String sportsInfo = sb.getInfoSukan();
-            Integer sportsQuota = sb.getQuotaSukan();
-
-            ActivityBean parent = new ActivityBean();
-            Integer parentActivity = parent.getMaxActivityID();
-
-            final var prepareStatement = connection.prepareStatement(
-                "INSERT INTO SPORT (activityid, sportinformation, sportquota) VALUES (?, ?, ?)");
-            prepareStatement.setInt(1, parentActivity);
-            prepareStatement.setString(2, sportsInfo);
-            prepareStatement.setInt(3, sportsQuota);
-            prepareStatement.executeUpdate();
+            handleSukanBean((SukanBean) bean, connection);
         }
 
-        System.out.println("Successfully inserted");
-
-        // Use the Model object to pass the success flag to the view
+        // Successfully inserted
         model.addAttribute("success", true);
         connection.close();
 
-        // Return the view name for redirection
         return "redirect:/teacher/activity/AddNewSukan?success=true";
 
     } catch (Exception e) {
         e.printStackTrace();
 
-        // Set the error flag and return the view name for redirection
+        // Error handling - log details or provide more meaningful messages
         model.addAttribute("success", false);
         return "redirect:/teacher/activity/AddNewSukan?success=false";
     }
 }
+
+private void handleActivityBean(ActivityBean activityBean, Connection connection) throws SQLException {
+    String activityName = activityBean.getActivityName();
+    String teacherID = activityBean.getTeacherID();
+
+    try (var preparedStatement = connection.prepareStatement(
+        "INSERT INTO ACTIVITY(activityName, teacherID) VALUES (?, ?)")) {
+
+        preparedStatement.setString(1, activityName);
+        preparedStatement.setString(2, teacherID);
+        preparedStatement.executeUpdate();
+    }
+}
+
+private void handleSukanBean(SukanBean sukanBean, Connection connection) throws SQLException {
+    String sportsInfo = sukanBean.getInfoSukan();
+    Integer sportsQuota = sukanBean.getQuotaSukan();
+
+    ActivityBean parent = new ActivityBean();
+    Integer parentActivity = parent.getMaxActivityID();
+
+    try (var preparedStatement = connection.prepareStatement(
+        "INSERT INTO SPORT (activityid, sportinformation, sportquota) VALUES (?, ?, ?)")) {
+
+        preparedStatement.setInt(1, parentActivity);
+        preparedStatement.setString(2, sportsInfo);
+        preparedStatement.setInt(3, sportsQuota);
+        preparedStatement.executeUpdate();
+    }
+}
+
 
 
 
