@@ -125,7 +125,17 @@ public class ListStudentAccountController {
     }
 
     @GetMapping("/DeleteStudentAccount")
-public String DeleteStudentAccount(@RequestParam("studentIC") String studentIC) {
+    public String DeleteStudentAccount(HttpSession session, Model model, @RequestParam("studentIC") String studentIC) {
+        //String studentIC = (String) session.getAttribute("studentIC");
+        String studentName = (String) session.getAttribute("studentName");
+        String studentEmail = (String) session.getAttribute("studentEmail");
+        String studentPhone = (String) session.getAttribute("studentPhone");
+        String studentDOB = (String) session.getAttribute("studentDOB");
+        String studentGender = (String) session.getAttribute("studentGender");
+        String studentClass = (String) session.getAttribute("studentClass");
+        String studentAddress = (String) session.getAttribute("studentAddress");
+        String studentPassword = (String) session.getAttribute("studentPassword");
+
     try (Connection connection = dataSource.getConnection()) {
         // Delete student from the students account list
         final var DeleteStudentAccount = connection.prepareStatement("DELETE FROM public.student WHERE studentic = ?");
