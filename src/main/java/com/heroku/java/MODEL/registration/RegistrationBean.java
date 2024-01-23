@@ -1,5 +1,7 @@
 package com.heroku.java.MODEL.registration;
 
+import com.heroku.java.MODEL.activity.ActivityBean;
+
 //import com.heroku.java.MODEL.activity.ActivityBean;
 //import com.heroku.java.MODEL.student.StudentBean;
 
@@ -11,7 +13,7 @@ public class RegistrationBean {
     private int unitReg;
 	private int clubReg;
 	private int sportReg;
-    //private ActivityBean activity;
+    private ActivityBean activity;
 
     public RegistrationBean(){
 
