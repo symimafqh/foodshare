@@ -157,7 +157,7 @@ public String clubList(Model model) {
     }
 
     @PostMapping("/AddNewSukan")
-    public String AddNewSukan(@RequestParam String namaSukan, Model model, @ModelAttribute("AddNewSukan") SukanBean sukanBean, ActivityBean activityBean, HttpSession session) {
+    public String AddNewSukan(@RequestParam String namaSukan, @RequestParam String info, @RequestParam Integer quota, Model model, @ModelAttribute("AddNewSukan") SukanBean sukanBean, ActivityBean activityBean, HttpSession session) {
         String teacherID = (String) session.getAttribute("teacherID");
         System.out.println("ID Number : " + teacherID);
         try {
@@ -177,8 +177,10 @@ public String clubList(Model model) {
             // Get id from database for sql 2 from sql 1
             ActivityBean parent = new ActivityBean();
             Integer parentActivity = parent.getMaxActivityID();
-            String sportsInfo = sukanBean.getInfoSukan();
-    Integer sportsQuota = sukanBean.getQuotaSukan();
+            // String sportsInfo = sukanBean.getInfoSukan();
+            // Integer sportsQuota = sukanBean.getQuotaSukan();
+            String sportsInfo = info;
+            Integer sportsQuota = quota;
 
 
             System.out.println("activityID from PARENT: " + parentActivity);
