@@ -157,7 +157,7 @@ public String clubList(Model model) {
     }
 
     @PostMapping("/AddNewSukan")
-    public String AddNewSukan(Model model, @ModelAttribute("AddNewSukan") SukanBean sukanBean, ActivityBean activityBean, HttpSession session) {
+    public String AddNewSukan(@RequestParam String namaSukan, Model model, @ModelAttribute("AddNewSukan") SukanBean sukanBean, ActivityBean activityBean, HttpSession session) {
         String teacherID = (String) session.getAttribute("teacherID");
         System.out.println("ID Number : " + teacherID);
         try {
@@ -165,11 +165,11 @@ public String clubList(Model model) {
             String sql = "INSERT INTO activity(activityname, teacherid) VALUES (?, ?)";
             final var statement = connection.prepareStatement(sql);
 
-            String activityName =activityBean.getActivityName();
-            String TeacherID =activityBean.getTeacherID();
+            String activity = namaSukan;
+            // String TeacherID =activityBean.getTeacherID();
            
 
-            statement.setString(1, activityName);
+            statement.setString(1, activity);
             statement.setString(2, teacherID);
 
             statement.executeUpdate();
