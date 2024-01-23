@@ -158,11 +158,11 @@ public String clubList(Model model) {
 
     @PostMapping("/AddNewSukan")
     public String AddNewSukan(Model model, @ModelAttribute("AddNewSukan") SukanBean sukanBean, ActivityBean activityBean, HttpSession session) {
-        String teacherUsername = (String) session.getAttribute("teacherUsername");
-        System.out.println("ID Number : " + teacherUsername);
+        String teacherID = (String) session.getAttribute("teacherID");
+        System.out.println("ID Number : " + teacherID);
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "INSERT INTO activity(activityname, teacherusername) VALUES (?, ?)";
+            String sql = "INSERT INTO activity(activityname, teacherid) VALUES (?, ?)";
             final var statement = connection.prepareStatement(sql);
 
             String activityName =activityBean.getActivityName();
@@ -170,7 +170,7 @@ public String clubList(Model model) {
            
 
             statement.setString(1, activityName);
-            statement.setString(2, teacherUsername);
+            statement.setString(2, teacherID);
 
             statement.executeUpdate();
 
