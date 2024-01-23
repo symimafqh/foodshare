@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.heroku.java.MODEL.student.StudentBean;
 import com.heroku.java.MODEL.teacher.TeacherBean;
+import com.heroku.java.MODEL.activity.ActivityBean;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -78,4 +80,86 @@ public class SideBarControllerTeacher {
 
         return "teacher/profileTeacher/profileTeacher_edit";
     }
+
+        @GetMapping("/infoClubTeacher")
+    public String clubList(Model model) {
+
+        List<ClubBean> club = new ArrayList<ClubBean>();
+
+        try (Connection connection = dataSource.getConnection()) {
+            String sql = "SELECT * FROM club order by namaclub";
+            final var statement = connection.prepareStatement(sql);
+            //statement.setString(1, "baker"); (syahir punya nih)
+            final var resultSet = statement.executeQuery();
+           
+
+            while (resultSet.next()) {
+                String namaClub = resultSet.getString("namaClub");
+                String infoClub = resultSet.getString("infoClub");
+                int quotaClub = resultSet.getInt("quotaClub");
+                int activityID = resultSet.getInt("activityID");
+                
+                ClubBean c = new ClubBean();
+                c.setNamaClub(namaClub);
+                c.setInfoClub(infoClub);
+                c.setQuotaClub(quotaClub);
+                c.setActivityID(activityID);
+         
+
+                club.add(c);
+                model.addAttribute("club", club);
+                //model.addAttribute("isAdmin", staffsrole != null && staffsrole.equals("admin")); // Add isAdmin flag to the modelF (syahir punya gak)
+
+            }
+
+            connection.close();
+
+        return "teacherActivity/infoClubTeacher";
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle the exception as desired (e.g., show an error message)
+            return "error";
+        }
+        
+    }
+
+    public class ClubBean {
+	
+        private String namaClub;
+        private String infoClub;
+        private int quotaClub;
+        private int activityID;
+
+        public String getNamaClub() {
+            return namaClub;
+        }
+    
+        public void setNamaClub(String namaClub) {
+            this.namaClub = namaClub;
+        }
+    
+        public String getInfoClub() {
+            return infoClub;
+        }
+    
+        public void setInfoClub(String infoClub) {
+            this.infoClub = infoClub;
+        }
+    
+        public int getQuotaClub() {
+            return quotaClub;
+        }
+    
+        public void setQuotaClub(int quotaClub) {
+            this.quotaClub = quotaClub;
+        }
+
+        public int getActivityID() {
+            return activityID;
+        }
+    
+        public void setActivityID(int activityID) {
+            this.activityID = activityID;
+        }
+}
 }
