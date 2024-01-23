@@ -157,12 +157,12 @@ public String clubList(Model model) {
     }
 
     @PostMapping("/AddNewSukan")
-    public String AddNewSukan(@RequestParam("teacherUsername") String teacherID, Model model, @ModelAttribute("AddNewSukan") SukanBean sukanBean, ActivityBean activityBean, HttpSession session) {
+    public String AddNewSukan(Model model, @ModelAttribute("AddNewSukan") SukanBean sukanBean, ActivityBean activityBean, HttpSession session) {
         String teacherUsername = (String) session.getAttribute("teacherUsername");
-        System.out.println("ID Number : " + teacherID);
+        System.out.println("ID Number : " + teacherUsername);
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "INSERT INTO ACTIVITY(activityName, teacherID) VALUES (?, ?)";
+            String sql = "INSERT INTO activity(activityname, teacherusername) VALUES (?, ?)";
             final var statement = connection.prepareStatement(sql);
 
             String activityName =activityBean.getActivityName();
@@ -170,7 +170,7 @@ public String clubList(Model model) {
            
 
             statement.setString(1, activityName);
-            statement.setString(2, teacherID);
+            statement.setString(2, teacherUsername);
 
             statement.executeUpdate();
 
@@ -183,7 +183,7 @@ public String clubList(Model model) {
 
             System.out.println("activityID from PARENT: " + parentActivity);
                 
-                    String child = "INSERT INTO SPORT (activityid, sportinformation, sportquota) VALUES (?, ?, ?)";
+                    String child = "INSERT INTO sport (activityid, sportinformation, sportquota) VALUES (?, ?, ?)";
                     final var sportStatement = connection.prepareStatement(child);
                     sportStatement.setInt(1, parentActivity);
                     sportStatement.setString(2, sportsInfo);
