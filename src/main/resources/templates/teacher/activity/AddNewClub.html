@@ -33,7 +33,7 @@
     <!-- stylesheetss -->
 
     <!-- Fonts and Codebase framework -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,400i,600,700&display=swap">
+    <link rel="stylesheet" th:href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,400i,600,700&display=swap">
     <link rel="stylesheet" id="css-main" th:href="@{stylesheets/assets/css/codebase.min.css}">
 
     <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
@@ -467,37 +467,37 @@
                             <div class="row no-gutters text-center mb-5">
                                 <div class="col-2 mb-5">
                                     <a class="text-default" data-toggle="theme" data-theme="default"
-                                        href="javascript:void(0)">
+                                        th:href="javascript:void(0)">
                                         <i class="fa fa-2x fa-circle"></i>
                                     </a>
                                 </div>
                                 <div class="col-2 mb-5">
                                     <a class="text-elegance" data-toggle="theme"
-                                        data-theme="../assets/css/themes/elegance.min.css" href="javascript:void(0)">
+                                        data-theme="../assets/css/themes/elegance.min.css" th:href="javascript:void(0)">
                                         <i class="fa fa-2x fa-circle"></i>
                                     </a>
                                 </div>
                                 <div class="col-2 mb-5">
                                     <a class="text-pulse" data-toggle="theme"
-                                        data-theme="../assets/css/themes/pulse.min.css" href="javascript:void(0)">
+                                        data-theme="../assets/css/themes/pulse.min.css" th:href="javascript:void(0)">
                                         <i class="fa fa-2x fa-circle"></i>
                                     </a>
                                 </div>
                                 <div class="col-2 mb-5">
                                     <a class="text-flat" data-toggle="theme"
-                                        data-theme="../assets/css/themes/flat.min.css" href="javascript:void(0)">
+                                        data-theme="../assets/css/themes/flat.min.css" th:href="javascript:void(0)">
                                         <i class="fa fa-2x fa-circle"></i>
                                     </a>
                                 </div>
                                 <div class="col-2 mb-5">
                                     <a class="text-corporate" data-toggle="theme"
-                                        data-theme="../assets/css/themes/corporate.min.css" href="javascript:void(0)">
+                                        data-theme="../assets/css/themes/corporate.min.css" th:href="javascript:void(0)">
                                         <i class="fa fa-2x fa-circle"></i>
                                     </a>
                                 </div>
                                 <div class="col-2 mb-5">
                                     <a class="text-earth" data-toggle="theme"
-                                        data-theme="../assets/css/themes/earth.min.css" href="javascript:void(0)">
+                                        data-theme="../assets/css/themes/earth.min.css" th:href="javascript:void(0)">
                                         <i class="fa fa-2x fa-circle"></i>
                                     </a>
                                 </div>
@@ -533,12 +533,12 @@
                             <div class="dropdown-divider"></div>
                             <div class="row gutters-tiny text-center">
                                 <div class="col-6">
-                                    <a class="dropdown-item mb-0" href="be_layout_api.html">
+                                    <a class="dropdown-item mb-0" th:href="be_layout_api.html">
                                         <i class="si si-chemistry mr-5"></i> Layout API
                                     </a>
                                 </div>
                                 <div class="col-6">
-                                    <a class="dropdown-item mb-0" href="be_ui_color_themes.html">
+                                    <a class="dropdown-item mb-0" th:href="be_ui_color_themes.html">
                                         <i class="fa fa-paint-brush mr-5"></i> Color Themes
                                     </a>
                                 </div>
@@ -623,425 +623,265 @@
             <!-- END Header Loader -->
         </header>
         <!-- END Header -->
+<!-- Main Container -->
+<main id="main-container">
+    <!-- Page Content -->
+    <!-- User Info -->
+    <!-- END User Info -->
 
-        <!-- Main Container -->
-        <main id="main-container">
-            <!-- Page Content -->
-            <!-- User Info -->
-            <!-- END User Info -->
-
-            <!-- Main Content -->
-            <div class="content">
-                <!-- User Profile -->
-                <div class="block">
-
-                    <div class="block-header block-header-default">
-                        <h3 class="block-title">
-                            <i class="fa fa-futbol-o mr-5 text-muted"></i> MAKLUMAT SUKAN
-                            DAN PERMAINAN
-                        </h3>
-                    </div>
-                    <div class="block-content">
-                        <div class="block">
-                            <div class="row">
-                                <div class="col-12 mb-30">
-                                    <button type="submit" class="btn btn-alt-primary min-width-125 float-right"
-                                        data-toggle="modal" data-target="#tambah_sukan">
-                                        <i class="fa fa-plus mr-10"></i>Tambah Sukan/Permainan
-                                    </button>
-                                </div>
-                            </div>
-                            <!-- Modal Tambah Sukan-->
-                            <div class="modal fade" id="tambah_sukan" tabindex="-1" role="dialog"
-                                aria-labelledby="modal-create-pekerjaan" aria-hidden="true">
-                                <div class="modal-dialog modal-lg" role="document">
-                                    <div class="modal-content">
-                                        <div class="block block-themed block-transparent mb-0">
-                                            <div class="block-header bg-primary-dark">
-                                                <h3 class="block-title">Maklumat Sukan/Permainan</h3>
-                                                <div class="block-options">
-                                                    <button type="button" class="btn-block-option" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                        <i class="si si-close"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="block-content">
-                                                <div id="non-jawatan">
-                                                    <form action="AddSukanController" method="post">
-                                                        <div class="form-group row">
-                                                            <label class="col-lg-3 col-form-label" for="namaSukan">Nama
-                                                                Sukan/Permainan<span class="text-danger">*</span>
-                                                            </label>
-                                                            <div class="col-lg-9">
-                                                                <input type="text" class="form-control" id="namaSukan"
-                                                                    name="namaSukan" placeholder="" required>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="form-group row">
-                                                            <label class="col-lg-3 col-form-label" for="info">Informasi
-                                                                berkenaan Sukan/Permainan<span
-                                                                    class="text-danger">*</span>
-                                                            </label>
-                                                            <div class="col-lg-9">
-                                                                <textarea class="form-control" id="info" rows="7"
-                                                                    name="info" placeholder="" required></textarea>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="form-group row">
-                                                            <label class="col-lg-3 col-form-label" for="quota">Quota
-                                                                Pelajar<span class="text-danger">*</span>
-                                                            </label>
-                                                            <div class="col-lg-9">
-                                                                <input type="text" class="form-control" id="quota"
-                                                                    name="quota" placeholder="" required>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-alt-secondary"
-                                                                data-dismiss="modal">
-                                                                <i class="si si-close mr-10"></i>Tutup
-                                                            </button>
-                                                            <button type="submit" name="save_pekerjaan"
-                                                                class="btn btn-alt-info">
-                                                                <i class="fa fa-save mr-10"></i> Simpan
-                                                            </button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- END Modal Tambah Sukan-->
-                            <!-- START Modal Edit Sukan-->
-                            <div class="modal fade" id="edit_sukan_${loopStatus.index}" tabindex="-1" role="dialog"
-                                aria-labelledby="edit_sukan_${loopStatus.index}_label" aria-hidden="true">
-                                <div class="modal-dialog modal-lg" role="document">
-                                    <div class="modal-content">
-                                        <div class="block block-themed block-transparent mb-0">
-                                            <div class="block-header bg-primary-dark">
-                                                <h3 class="block-title">Maklumat Sukan/Permainan</h3>
-                                                <div class="block-options">
-                                                    <button type="button" class="btn-block-option" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                        <i class="si si-close"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="block-content">
-                                                <div id="non-jawatan">
-                                                    <form class="" action="UpdateSukanController" method="post">
-                                                        <input type="hidden" name="id_profile" id="id_profile"
-                                                            value="${sukan.activity.activityID}">
-
-                                                        <div class="form-group row">
-                                                            <label class="col-lg-3 col-form-label" for="title">Nama
-                                                                Sukan/Permainan<span class="text-danger">*</span>
-                                                            </label>
-                                                            <div class="col-lg-9">
-                                                                <input type="text" class="form-control" id="title"
-                                                                    name="activityName" placeholder=""
-                                                                    value="<c:out value="
-                                                                    ${sukan.activity.activityName}" />"
-                                                                required>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="form-group row">
-                                                            <label class="col-lg-3 col-form-label" for="info">Informasi
-                                                                berkenaan Sukan/Permainan<span
-                                                                    class="text-danger">*</span>
-                                                            </label>
-                                                            <div class="col-lg-9">
-                                                                <textarea class="form-control" id="info" rows="7"
-                                                                    name="infoSukan" placeholder=""
-                                                                    required>${sukan.infoSukan}</textarea>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="form-group row">
-                                                            <label class="col-lg-3 col-form-label" for="quota">Sukan
-                                                                Quota<span class="text-danger">*</span>
-                                                            </label>
-                                                            <div class="col-lg-9">
-                                                                <textarea class="form-control" id="quota" rows="7"
-                                                                    name="quotaSukan" placeholder=""
-                                                                    required>${sukan.quotaSukan}</textarea>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-alt-secondary"
-                                                                data-dismiss="modal">
-                                                                <i class="si si-close mr-10"></i>Tutup
-                                                            </button>
-                                                            <button type="submit" name="update_sukan"
-                                                                class="btn btn-alt-info">
-                                                                <i class="fa fa-save mr-10"></i> Simpan
-                                                            </button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- END Modal Edit Sukan -->
-                            <!-- Modal Delete Sukan-->
-                            <div class="modal fade" id="delete_sukan" tabindex="-1" role="dialog"
-                                aria-labelledby="modal-create-pekerjaan" aria-hidden="true">
-                                <div class="modal-dialog modal-lg-5" role="document">
-                                    <div class="modal-content">
-                                        <div class="block block-themed block-transparent mb-0">
-                                            <div class="block-header bg-primary-dark">
-                                                <h3 class="block-title">Padam Sukan/Permainan</h3>
-                                                <div class="block-options">
-                                                    <button type="button" class="btn-block-option" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                        <i class="si si-close"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="block-content">
-                                                <form class="js-validation-bootstrap" method="post">
-                                                    <input type="hidden" name="id_profile" id="id_profile"
-                                                        value="<?php echo $row['id'] ?>">
-                                                    <div class="form-group row">
-                                                        <label class="col-lg-12 col-form-label" for="title">
-                                                            <p>
-                                                                Maklumat ini akan <b>dipadam</b>.<br> <br />Adakah
-                                                                anda pasti?
-                                                            </p>
-                                                        </label>
-
-                                                    </div>
-
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-alt-secondary"
-                                                            data-dismiss="modal">
-                                                            <i class="si si-close mr-10"></i>Tutup
-                                                        </button>
-                                                        <button type="submit" name="confirm_delete_sukan"
-                                                            class="btn btn-alt-danger" data-dismiss="modal">
-                                                            <i class="fa fa-trash"></i> Padam
-                                                        </button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- END Modal Delete Sukan -->
-
-                            <table class="table table-bordered table-vcenter js-dataTable-full">
-                                <thead class="thead-light text-center">
-                                    <tr>
-                                        <input type="hidden" name="activityID" id="id_profile"
-                                            th:value="${sukan.activity.activityID}">
-
-                                        <th class="d-none d-sm-table-cell" style="width: 15%;">Aktiviti
-                                            ID</th>
-                                        <th class="d-none d-sm-table-cell" style="width: 30%;">Nama
-                                            Sukan/Permainan</th>
-                                        <th class="d-none d-sm-table-cell" style="width: 40%;">Informasi</th>
-                                        <th class="text-center" style="width: 15%;">Quota</th>
-                                        <th class="text-center" style="width: 15%;">Tindakan</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr th:each="sukan : ${sukanList}">
-                                            <td class="text-center" th:text="${sukan.activity.activityID}"></td>
-                                            <td class="text-center"  th:text="${sukan.activity.activityName}"></td>
-                                            <td class="text-center" th:text="${sukan.infoSukan}"></td>
-                                            <td class="text-center" th:text="${sukan.sukanQuota}"></td>
-                                            <td>
-                                                <form action="" method="">
-                                                    <!-- 	<button type="button" class="btn btn-sm btn-primary"
-                                                    data-toggle="modal" data-target="#edit_sukan"
-                                                    title="Kemaskini">
-                                                    <i class="fa fa-edit"></i>
-                                                </button> -->
-                                                    <button type="button" class="btn btn-sm btn-primary"
-                                                        data-toggle="modal"
-                                                        data-target="#edit_sukan_${loopStatus.index}" title="Kemaskini">
-                                                        <i class="fa fa-edit"></i>
-                                                    </button>
-                                                    <button type="button" name="delete-doc"
-                                                        class="btn btn-sm btn-danger" data-toggle="modal"
-                                                        data-target="#delete_sukan" title="Padam Dokumen">
-                                                        <i class="fa fa-trash"></i>
-                                                    </button>
-                                                </form>
-                                            </td>
-                                        </tr>
-
-                                        <!--update sukan -->
-                                        <!-- START Modal Edit Sukan-->
-                                        <div class="modal fade" id="edit_sukan_${loopStatus.index}" tabindex="-1"
-                                            role="dialog" aria-labelledby="edit_sukan_${loopStatus.index}_label"
-                                            aria-hidden="true">
-                                            <div class="modal-dialog modal-lg" role="document">
-                                                <div class="modal-content">
-                                                    <div class="block block-themed block-transparent mb-0">
-                                                        <div class="block-header bg-primary-dark">
-                                                            <h3 class="block-title">Maklumat Sukan/Permainan</h3>
-                                                            <div class="block-options">
-                                                                <button type="button" class="btn-block-option"
-                                                                    data-dismiss="modal" aria-label="Close">
-                                                                    <i class="si si-close"></i>
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                        <div class="block-content">
-                                                            <div id="non-jawatan">
-                                                                <form class="" action="UpdateSukanController"
-                                                                    method="post">
-                                                                    <input type="hidden" name="id_profile"
-                                                                        id="id_profile"
-                                                                        value="${sukan.activity.activityID}">
-
-                                                                    <div class="form-group row">
-                                                                        <label class="col-lg-3 col-form-label"
-                                                                            for="title">Nama
-                                                                            Sukan/Permainan<span
-                                                                                class="text-danger">*</span>
-                                                                        </label>
-                                                                        <div class="col-lg-9">
-                                                                            <input type="text" class="form-control"
-                                                                                id="title" name="activityName"
-                                                                                placeholder="" value="<c:out value="
-                                                                                ${sukan.activity.activityName}" />"
-                                                                            required>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="form-group row">
-                                                                        <label class="col-lg-3 col-form-label"
-                                                                            for="info">Informasi
-                                                                            berkenaan Sukan/Permainan<span
-                                                                                class="text-danger">*</span>
-                                                                        </label>
-                                                                        <div class="col-lg-9">
-                                                                            <textarea class="form-control" id="info"
-                                                                                rows="7" name="infoSukan" placeholder=""
-                                                                                required>${sukan.infoSukan}</textarea>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="form-group row">
-                                                                        <label class="col-lg-3 col-form-label"
-                                                                            for="quota">Sukan
-                                                                            Quota<span class="text-danger">*</span>
-                                                                        </label>
-                                                                        <div class="col-lg-9">
-                                                                            <textarea class="form-control" id="quota"
-                                                                                rows="7" name="quotaSukan"
-                                                                                placeholder=""
-                                                                                required>${sukan.quotaSukan}</textarea>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="modal-footer">
-                                                                        <button type="button"
-                                                                            class="btn btn-alt-secondary"
-                                                                            data-dismiss="modal">
-                                                                            <i class="si si-close mr-10"></i>Tutup
-                                                                        </button>
-                                                                        <button type="submit" name="update_sukan"
-                                                                            class="btn btn-alt-info">
-                                                                            <i class="fa fa-save mr-10"></i> Simpan
-                                                                        </button>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- END Modal Edit Sukan -->
-                                    </c:forEach>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+    <!-- Main Content -->
+    <div class="content">
+        <!-- User Profile -->
+        <div class="block">
+            <div class="block-header block-header-default">
+                <h3 class="block-title">
+                    <i class="fa fa-futbol-o mr-5 text-muted"></i> MAKLUMAT KELAB
+                    DAN PERSATUAN
+                </h3>
             </div>
             <div class="block-content">
-                <div class="row justify-content-center">
-                    <div>
-                        <!-- Bordered Table -->
-
-                        <!-- END Bordered Table -->
+                <div class="block">
+                    <div class="row">
+                        <div class="col-12 mb-30">
+                            <button type="submit"
+                                class="btn btn-alt-primary min-width-125 float-right"
+                                data-toggle="modal" data-target="#tambah_sukan">
+                                <i class="fa fa-plus mr-10"></i>Tambah Kelab Dan Persatuan
+                            </button>
+                        </div>
                     </div>
+                    <!-- Modal Tambah Club -->
+                    <div class="modal fade" id="tambah_sukan" tabindex="-1"
+                        role="dialog" aria-labelledby="modal-create-pekerjaan"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="block block-themed block-transparent mb-0">
+                                    <div class="block-header bg-primary-dark">
+                                        <h3 class="block-title">Maklumat Kelab dan Pesatuan</h3>
+                                        <div class="block-options">
+                                            <button type="button" class="btn-block-option"
+                                                data-dismiss="modal" aria-label="Close">
+                                                <i class="si si-close"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="block-content">
+                                        <div id="non-jawatan">
+                                            <form th:action="AddClubController" method="post">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-3 col-form-label" for="namaClub">Nama
+                                                        Kelab dan Pesatuan<span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="col-lg-9">
+                                                        <input type="text" class="form-control" id="namaClub"
+                                                            name="namaClub" placeholder="" required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label class="col-lg-3 col-form-label" for="info">Informasi
+                                                        berkenaan Club/Permainan<span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="col-lg-9">
+                                                        <textarea class="form-control" id="info" rows="7"
+                                                            name="info" placeholder="" required></textarea>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label class="col-lg-3 col-form-label" for="quota">Quota
+                                                        Pelajar<span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="col-lg-9">
+                                                        <input type="text" class="form-control" id="quota"
+                                                            name="quota" placeholder="" required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-alt-secondary"
+                                                        data-dismiss="modal">
+                                                        <i class="si si-close mr-10"></i>Tutup
+                                                    </button>
+                                                    <button type="submit" name="save_pekerjaan"
+                                                        class="btn btn-alt-info">
+                                                        <i class="fa fa-save mr-10"></i> Simpan
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END Modal Tambah Club -->
+
+                    
+
+                    <!-- LIST DISPLAY -->
+                    <form th:action="ListClubController" method=post>
+                        <table
+                            class="table table-bordered table-vcenter js-dataTable-full">
+                            <thead class="thead-light text-center">
+                                <tr>
+                                    <input type="hidden" name="activityID" id="id_profile"
+                                        value="">
+                                    <th class="d-none d-sm-table-cell" style="width: 15%;">Aktiviti
+                                        ID</th>
+                                    <th class="d-none d-sm-table-cell" style="width: 30%;">Nama
+                                        Club/Permainan</th>
+                                    <th class="d-none d-sm-table-cell" style="width: 40%;">Informasi</th>
+                                    <th class="text-center" style="width: 15%;">Quota</th>
+                                    <th class="text-center" style="width: 15%;">Tindakan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="club : ${clubList}">
+                                    <tr>
+                                        <td class="text-center" id="activityID" name="activityID">${club.activity.activityID}</td>
+                                        <td class="text-center" id="namaClub" name="namaClub">${club.activity.activityName}</td>
+                                        <td class="text-center" id="info" name="info">${club.infoClub}</td>
+                                        <td class="text-center" id="quota" name="quota">${club.quotaClub}</td>
+                                        <td><center>
+                                                <!-- 	<button type="button" class="btn btn-sm btn-primary"
+                                                data-toggle="modal" data-target="#edit_sukan"
+                                                title="Kemaskini">
+                                                <i class="fa fa-edit"></i>
+                                            </button> -->
+                                                <button type="button" class="btn btn-sm btn-primary"
+                                                    onclick="handleUpdateClick('${club.activity.activityID}')">
+                                                    <i class="fa fa-edit"></i>
+                                                </button>
+                                                <!-- <button type="button" name="delete-doc"
+                                                class="btn btn-sm btn-danger" data-toggle="modal"
+                                                data-target="#delete_sukan" title="Padam Dokumen">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+-->
+                                            </center></td>
+                                    </tr>
+                                </c:forEach>
+
+                                
+
+                            
+                            </tbody>
+                        </table>
+                        <!-- END DISPLAY -->
                 </div>
             </div>
-    </div>
-    <!-- END User Profile -->
+        </div>
 
-    <!-- Connections -->
-    <!-- END Connections -->
-
-
-
-    <!-- Billing Information -->
-    <!-- END Billing Information -->
-    </div>
-    <!-- END Main Content -->
-    <!-- END Page Content -->
-    </main>
-    <!-- END Main Container -->
-
-    <!-- Footer -->
-    <footer id="page-footer">
-        <div class="content py-20 font-size-sm clearfix">
-            <div class="float-right">
-                Dibangunkan <i class="fa fa-heart text-pulse"></i> oleh <a class="font-w600"
-                    href="https://1.envato.market/ydb" target="_blank">That's It</a>
-            </div>
-            <div class="float-left">
-                <a class="font-w600" href="" target="_blank">E-Curricular System</a> &copy; <span
-                    class="js-year-copy"></span>
+        <div class="block-content">
+            <div class="row justify-content-center">
+                <div>
+                    <!-- Bordered Table -->
+                    <!-- ... (your content) ... -->
+                    <!-- END Bordered Table -->
+                </div>
             </div>
         </div>
-    </footer>
-    <!-- END Footer -->
     </div>
-    <!-- END Page Container -->
+    <!-- END Main Content -->
 
-    <!--
-        Codebase JS Core
+    <!-- END Page Content -->
+</main>
 
-        Vital libraries and plugins used in all pages. You can choose to not include this file if you would like
-        to handle those dependencies through webpack. Please check out assets/_js/main/bootstrap.js for more info.
+<!-- Footer -->
+<footer id="page-footer">
+    <div class="content py-20 font-size-sm clearfix">
+        <div class="float-right">
+            Dibangunkan <i class="fa fa-heart text-pulse"></i> oleh <a
+                class="font-w600" th:href="https://1.envato.market/ydb"
+                target="_blank">That's It</a>
+        </div>
+        <div class="float-left">
+            <a class="font-w600" th:href="" target="_blank">E-Curricular
+                System</a> &copy; <span class="js-year-copy"></span>
+        </div>
+    </div>
+</footer>
+<!-- END Footer -->
 
-        If you like, you could also include them separately directly from the assets/js/core folder in the following
-        order. That can come in handy if you would like to include a few of them (eg jQuery) from a CDN.
+<!-- Closing the Main Container -->
+</div>
+<!-- END Main Container -->
 
-        assets/js/core/jquery.min.js
-        assets/js/core/bootstrap.bundle.min.js
-        assets/js/core/simplebar.min.js
-        assets/js/core/jquery-scrollLock.min.js
-        assets/js/core/jquery.appear.min.js
-        assets/js/core/jquery.countTo.min.js
-        assets/js/core/js.cookie.min.js
-    -->
-    <script th:src="@{stylesheets/assets/js/codebase.core.min.js}"></script>
+<!-- END Page Container -->
 
-    <!--
-        Codebase JS
 
-        Custom functionality including Blocks/Layout API as well as other vital and optional helpers
-        webpack is putting everything together at assets/_js/main/app.js
-    -->
-    <script th:src="@{stylesheets/assets/js/codebase.app.min.js}"></script>
+<!--
+Codebase JS Core
+
+Vital libraries and plugins used in all pages. You can choose to not include this file if you would like
+to handle those dependencies through webpack. Please check out assets/_js/main/bootstrap.js for more info.
+
+If you like, you could also include them separately directly from the assets/js/core folder in the following
+order. That can come in handy if you would like to include a few of them (eg jQuery) from a CDN.
+
+assets/js/core/jquery.min.js
+assets/js/core/bootstrap.bundle.min.js
+assets/js/core/simplebar.min.js
+assets/js/core/jquery-scrollLock.min.js
+assets/js/core/jquery.appear.min.js
+assets/js/core/jquery.countTo.min.js
+assets/js/core/js.cookie.min.js
+-->
+<script
+src="${pageContext.request.contextPath}/assets/js/codebase.core.min.js"></script>
+
+<!--
+Codebase JS
+
+Custom functionality including Blocks/Layout API as well as other vital and optional helpers
+webpack is putting everything together at assets/_js/main/app.js
+-->
+<script
+src="${pageContext.request.contextPath}/assets/js/codebase.app.min.js"></script>
+
+<!-- Page JS Plugins -->
+<script
+src="${pageContext.request.contextPath}/assets/js/plugins/chartjs/Chart.min.js"></script>
+<script
+src="${pageContext.request.contextPath}/assets/js/plugins/slick/slick.min.js"></script>
+
+<!-- Page JS Code -->
+<script
+src="${pageContext.request.contextPath}/assets/js/pages/be_pages_dashboard.min.js"></script>
+</form>
+
+<script>
+function populateEditForm(activityID, activityName, infoClub,
+    quotaClub) {
+// Set values to the form fields
+document.getElementById('edit_activity_id').value = activityID;
+document.getElementById('edit_activity_name').value = activityName;
+document.getElementById('edit_info_sukan').value = infoClub;
+document.getElementById('edit_quota_sukan').value = quotaClub;
+
+// Open the modal
+$('#edit_sukan').modal('show');
+}
+</script>
+<script>
+<!--  function setActivityID(activityID) {
+document.getElementById("id_profile_modal").value = activityID;
+}
+</script>
+-->
+<script>
+function setActivityID(activityID) {
+$('#id_profile_modal').val(activityID);
+$('#deleteForm').submit(); // submit the form programmatically
+}
+</script>
+
+<script>
+function handleUpdateClick(activityId) {
+window.location.th:href = "UpdateClubController?activityID=" + activityId; 
+}  
+</script>
 </body>
-
 </html>
