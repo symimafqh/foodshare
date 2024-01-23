@@ -213,7 +213,7 @@ private void handleSukanBean(SukanBean sukanBean, Connection connection) throws 
 
 
 
-    public interface Bean {
+    interface Bean {
         int getActivityID();
         void setActivityID(int activityID);
     }
