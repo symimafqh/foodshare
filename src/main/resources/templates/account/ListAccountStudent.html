@@ -637,7 +637,7 @@
                   </td>
                   <td class="text-center">
                     <a type="button" class="btn btn-sm btn-danger" title="Delete Profil" data-toggle="modal"
-                        data-target="#delete_account" th:attr="data-studentIC=${s.studentIC}">
+                        data-target="#delete_account" th:attr="@{data-studentIC=${s.studentIC}}">
                         <i class="fa fa-trash"></i>
                     </a>
                 </td>
@@ -775,8 +775,8 @@
                               <i class="si si-close mr-10"></i>Tutup
                           </button>
                           <a type="button" class="btn btn-alt-danger" title="Delete Profil" 
-                              th:attr="data-studentIC=${s.studentIC}" 
-                              th:onclick="'DeleteStudentAccount(\'' + ${s.studentIC} + '\')'">
+                              th:attr="@{data-studentIC=${s.studentIC}}" 
+                              th:onclick="@{'DeleteStudentAccount(\'' + ${s.studentIC} + '\')'}">
                               <i class="fa fa-trash"></i> Padam
                           </a>
                       </div>
