@@ -30,7 +30,7 @@ public class ActivityController {
         this.dataSource = dataSource;
     }
 //---------------------------LIST SUKAN------------------------------//
-    @GetMapping("/ListSukan")
+    @GetMapping("/AddNewSukan")
     public String sukanList(Model model) {
         List<SukanBean> sukanList = new ArrayList<SukanBean>();
     
@@ -73,7 +73,7 @@ public class ActivityController {
     }
     
 //---------------------------LIST UNIT------------------------------//
-@GetMapping("/ListUnit")
+@GetMapping("/AddNewUnit")
 public String unitList(Model model) {
     List<UnitBean> unitList = new ArrayList<>();
 
@@ -111,7 +111,7 @@ public String unitList(Model model) {
 }
 
 //---------------------------LIST club------------------------------//
-@GetMapping("/ListClub")
+@GetMapping("/AddNewClub")
 public String clubList(Model model) {
     List<ClubBean> clubList = new ArrayList<>();
 
