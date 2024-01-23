@@ -137,8 +137,7 @@ public String DeleteStudentAccount(@RequestParam("studentIC") String studentIC) 
         System.out.println("Failed to delete student from the student account list");
         e.printStackTrace();
     }
-
-    return "account/ListAccountStudent";
+    return "redirect:/ListAccountStudent";
 }
 
 
