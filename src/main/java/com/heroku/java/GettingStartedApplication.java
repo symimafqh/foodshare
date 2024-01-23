@@ -56,10 +56,10 @@ public class GettingStartedApplication {
     //     return "teacher/sign-in/teachersignin";
     // }
 
-    @GetMapping("/AddNewSukan")
-    public String addnewsukan(){
-        return "teacher/activity/AddNewSukan";
-    }
+    // @GetMapping("/AddNewSukan")
+    // public String addnewsukan(){
+    //     return "teacher/activity/AddNewSukan";
+    // }
 
     // @GetMapping("/dashboardStudent")
     //   public String index1(@RequestParam(name = "success", required = false) Boolean success, HttpSession session) {
