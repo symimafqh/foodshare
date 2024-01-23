@@ -583,8 +583,7 @@
                   <td class="text-center" th:text="${t.teacherGender}"></td>
                   <td class="text-center" th:text="${t.teacherRole}"></td>
                   <td class="text-center" >
-                    <a type="button" class="btn btn-sm btn-primary" title="Kemaskini Profil" data-toggle="modal"
-                      data-target="#view_teacher_account">
+                    <a type="button" class="btn btn-sm btn-primary" title="Kemaskini Profil" th:href="@{/viewTeacherDetails(teacherID=${t.teacherID})}">
                       <i class="fa fa-user"></i>
                     </a>
                   </td>
