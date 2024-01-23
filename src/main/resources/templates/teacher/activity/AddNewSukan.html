@@ -667,7 +667,7 @@
                 <div class="block-content">
                     <!-- Form for adding Sukan -->
                     <form method="post" th:action="@{/AddNewSukan}" modelAttribute="AddNewSukan" th:object="(${AddNewSukan})">
-                        <input type="hidden" class="form-control form-control-lg" id="teacherID" name="teacherID" th:value="${t.teacherID}">
+                        <!-- <input type="hidden" class="form-control form-control-lg" id="teacherID" name="teacherID" th:value="${t.teacherID}"> -->
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label" for="namaSukan">Nama Sukan/Permainan<span class="text-danger">*</span></label>
                             <div class="col-lg-9">
