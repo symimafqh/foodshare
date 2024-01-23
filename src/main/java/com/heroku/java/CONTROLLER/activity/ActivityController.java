@@ -157,7 +157,7 @@ public String clubList(Model model) {
     }
 
     @PostMapping("/AddNewSukan")
-    public String AddNewSukan(@RequestParam("teacherID") String teacherID, Model model, @ModelAttribute("AddNewSukan") SukanBean sukanBean, ActivityBean activityBean, HttpSession session) {
+    public String AddNewSukan(@RequestParam("teacherUsername") String teacherID, Model model, @ModelAttribute("AddNewSukan") SukanBean sukanBean, ActivityBean activityBean, HttpSession session) {
         String teacherUsername = (String) session.getAttribute("teacherUsername");
         System.out.println("ID Number : " + teacherID);
         try {
