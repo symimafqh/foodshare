@@ -73,7 +73,7 @@ public class ActivityController {
     }
     
 //---------------------------LIST UNIT------------------------------//
-@GetMapping("/AddNewUnit")
+@GetMapping("/addNewUnit")
 public String unitList(Model model) {
     List<UnitBean> unitList = new ArrayList<>();
 
@@ -102,7 +102,7 @@ public String unitList(Model model) {
         // Use the Model object to pass the list to the view
         model.addAttribute("unitList", unitList);
 
-        return "activity/AddNewUnit";
+        return "activity/addNewUnit";
     } catch (SQLException e) {
         // Log the exception using a logging framework like SLF4J
         e.printStackTrace(); // Consider logging or throwing a custom exception
