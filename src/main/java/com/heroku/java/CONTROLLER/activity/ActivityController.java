@@ -151,7 +151,7 @@ public String clubList(Model model) {
 }
 
 //---------------------------ADD SUKAN------------------------------//
-@GetMapping("/addSukan")
+@GetMapping("/addSukann")
     public String AddNewSukan() {
         return "teacher/activity/AddNewSukan";
     }
@@ -207,8 +207,9 @@ public String clubList(Model model) {
         return "redirect:/AddNewSukan?success=true";
     }
 
+
     //---------------------------ADD CLUB------------------------------//
-@GetMapping("/addNewClub")
+@GetMapping("/addClubb")
 public String AddNewClub() {
     return "teacher/activity/AddNewClub";
 }
@@ -265,7 +266,7 @@ public String AddNewClub(@RequestParam String namaClub, @RequestParam String inf
 }
 
     //---------------------------ADD Unit------------------------------//
-    @GetMapping("/addNewUnit")
+    @GetMapping("/addUnitt")
     public String AddNewUnit() {
         return "teacher/activity/AddNewUnit";
     }
