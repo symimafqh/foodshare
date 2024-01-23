@@ -35,7 +35,7 @@ public class registrationNewController {
     }
 
     @PostMapping("/registration")
-    public String registrationActivity(HttpSession session, @ModelAttribute("registercocu") RegistrationBean r,
+    public String registrationCocu(HttpSession session, @ModelAttribute("registercocu") RegistrationBean r,
             Model model) {
         String studentIC = (String) session.getAttribute("studentIC");
         //try
