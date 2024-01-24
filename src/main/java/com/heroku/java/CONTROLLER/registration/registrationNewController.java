@@ -39,82 +39,116 @@ public class registrationNewController {
             Model model) {
         String studentIC = (String) session.getAttribute("studentIC");
         System.out.println("pass id student" + studentIC);
-        //try
+
+      
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "INSERT INTO registration(studentic, activityid) VALUES (?,?)";
-            final var statement = connection.prepareStatement(sql);
+            boolean registeractivity = isStudentRegistered(studentIC, connection);
+            if (registeractivity) {
+                // try
+                try {
 
-            //  studentIC = r.getStudentIC();
-            int unit = r.getUnitReg();
+                    String sql = "INSERT INTO registration(studentic, activityid) VALUES (?,?)";
+                    final var statement = connection.prepareStatement(sql);
 
-            statement.setString(1, studentIC);
-            statement.setInt(2, unit);
+                    // studentIC = r.getStudentIC();
+                    int unit = r.getUnitReg();
 
-            statement.executeUpdate();
+                    statement.setString(1, studentIC);
+                    statement.setInt(2, unit);
 
-            System.out.println("successfully inserted");
-            // System.out.println("product price : RM"+proprice);
-            // System.out.println("proimg: "+proimgs.getBytes());
+                    statement.executeUpdate();
 
+                    System.out.println("successfully inserted");
+                    // System.out.println("product price : RM"+proprice);
+                    // System.out.println("proimg: "+proimgs.getBytes());
+
+                    connection.close();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return "redirect:/registration";
+                }
+
+                // club
+                try {
+
+                    String sql = "INSERT INTO registration(studentic, activityid) VALUES (?,?)";
+                    final var statement = connection.prepareStatement(sql);
+
+                    // studentIC = r.getStudentIC();
+                    int club = r.getClubReg();
+
+                    statement.setString(1, studentIC);
+                    statement.setInt(2, club);
+
+                    statement.executeUpdate();
+
+                    System.out.println("successfully inserted");
+                    // System.out.println("product price : RM"+proprice);
+                    // System.out.println("proimg: "+proimgs.getBytes());
+
+                    connection.close();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return "redirect:/registration";
+                }
+
+                // sport
+                try {
+                    String sql = "INSERT INTO registration(studentic, activityid) VALUES (?,?)";
+                    final var statement = connection.prepareStatement(sql);
+
+                    // studentIC = r.getStudentIC();
+                    int sport = r.getSportReg();
+
+                    statement.setString(1, studentIC);
+                    statement.setInt(2, sport);
+
+                    statement.executeUpdate();
+
+                    System.out.println("successfully inserted");
+                    // System.out.println("product price : RM"+proprice);
+                    // System.out.println("proimg: "+proimgs.getBytes());
+
+                    connection.close();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return "redirect:/registration";
+                }
+
+            } else {
+                System.out.println("gagal insert into table reservationservice sebab dah register");
+            }
             connection.close();
-
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println("failed to insert into reservationservice");
             e.printStackTrace();
-            return "redirect:/registration";
+            return "redirect:/registered";
         }
-
-        //club
-        try {
-            Connection connection = dataSource.getConnection();
-            String sql = "INSERT INTO registration(studentic, activityid) VALUES (?,?)";
-            final var statement = connection.prepareStatement(sql);
-
-            //  studentIC = r.getStudentIC();
-            int club = r.getClubReg();
-
-            statement.setString(1, studentIC);
-            statement.setInt(2, club);
-
-            statement.executeUpdate();
-
-            System.out.println("successfully inserted");
-            // System.out.println("product price : RM"+proprice);
-            // System.out.println("proimg: "+proimgs.getBytes());
-
-            connection.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "redirect:/registration";
-        }
-
-        //sport
-        try {
-            Connection connection = dataSource.getConnection();
-            String sql = "INSERT INTO registration(studentic, activityid) VALUES (?,?)";
-            final var statement = connection.prepareStatement(sql);
-
-            //  studentIC = r.getStudentIC();
-            int sport = r.getSportReg();
-
-            statement.setString(1, studentIC);
-            statement.setInt(2, sport);
-
-            statement.executeUpdate();
-
-            System.out.println("successfully inserted");
-            // System.out.println("product price : RM"+proprice);
-            // System.out.println("proimg: "+proimgs.getBytes());
-
-            connection.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "redirect:/registration";
-        }
-
         return "redirect:/successregistration";
+    }
+
+    // method to check dah register ke belum
+    public static boolean isStudentRegistered(String studentIC, Connection connection) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM registration WHERE studentic = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, studentIC);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    int existingReservationsCount = resultSet.getInt(1);
+                    return existingReservationsCount == 0;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("fail at method isStudentRegistered()");
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }
