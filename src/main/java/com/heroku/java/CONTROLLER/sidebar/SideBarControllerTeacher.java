@@ -89,8 +89,8 @@ public class SideBarControllerTeacher {
         try (Connection connection = dataSource.getConnection()) {
             
             final var statement = connection.createStatement();
-            String sql = "SELECT a.activityid, a.activityname " +
-            "FROM activity a JOIN uniform u ON a.activityid = u.activityid";
+            String sql = "SELECT u.activityid, u.activityname " +
+            "FROM public.uniform u JOIN public.activity a ON u.activityid = a.activityid";
 
             try (ResultSet resultSet = statement.executeQuery(sql)) {
            
@@ -180,7 +180,7 @@ public class SideBarControllerTeacher {
             
             final var statement = connection.createStatement();
             String sql = "SELECT s.activityid, s.activityname " +
-            "FROM activity a JOIN sport s ON a.activityid = s.activityid";
+            "FROM sport s JOIN activity a ON s.activityid = a.activityid";
 
             try (ResultSet resultSet = statement.executeQuery(sql)) {
            
