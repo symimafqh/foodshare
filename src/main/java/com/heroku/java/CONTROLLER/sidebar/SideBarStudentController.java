@@ -547,6 +547,7 @@ public String viewPendaftaran(HttpSession session, Model model, StudentBean sb) 
         ResultSet resultSet1 = statement1.executeQuery();
         
         while (resultSet1.next()) {
+            
             activityNamesSport.add(resultSet1.getString("activityname"));
         }
 
