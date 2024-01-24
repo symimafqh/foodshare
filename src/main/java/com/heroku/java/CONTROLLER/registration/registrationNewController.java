@@ -59,7 +59,7 @@ public class registrationNewController {
                     // System.out.println("product price : RM"+proprice);
                     // System.out.println("proimg: "+proimgs.getBytes());
 
-                    connection.close();
+                    // connection.close();
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -84,7 +84,7 @@ public class registrationNewController {
                     // System.out.println("product price : RM"+proprice);
                     // System.out.println("proimg: "+proimgs.getBytes());
 
-                 connection.close();
+                //  connection.close();
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -108,12 +108,13 @@ public class registrationNewController {
                     // System.out.println("product price : RM"+proprice);
                     // System.out.println("proimg: "+proimgs.getBytes());
 
-                    connection.close();
+                    // connection.close();
 
                 } catch (Exception e) {
                     e.printStackTrace();
                     return "redirect:/registration";
                 }
+                connection.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
