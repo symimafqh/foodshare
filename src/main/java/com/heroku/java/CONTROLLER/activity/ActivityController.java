@@ -328,8 +328,8 @@ public String AddNewClub(@RequestParam String namaClub, @RequestParam String inf
     
     //---------------------------UPDATE SUKAN------------------------------//
     @GetMapping("/UpdateSukan")
-public String UpdateSukan( Model model, HttpSession session) {
-    Integer activityid = (Integer) session.getAttribute("activityID");
+public String UpdateSukan( @RequestParam("activityID") int activityid,Model model, HttpSession session) {
+    //Integer activityid = (Integer) session.getAttribute("activityID");
     System.out.println("activity id"+activityid);
 
     SukanBean sukan = new SukanBean(); // Instantiate SukanBean
