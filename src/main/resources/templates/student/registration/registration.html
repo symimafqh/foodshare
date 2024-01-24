@@ -363,7 +363,9 @@
                                     <div class="block-content tab-content overflow-hidden">
                                         <div class="tab-pane fade show active" id="btabs-animated-unit" role="tabpanel">
                                             <div class="block-content">
-                                                <form action="" method="post">
+                                                <form th:action="@{/registration}"
+                                                modelAttribute="registration"
+                                                th:object="(${registration})"  method="post">
                                              
                                                     <p class="font-italic" style="color:red "> Ruang bertanda * wajib diisi<br>
                                                     Sebarang pertukaran maklumat sila lakukan pada ruangan 'PROFILE

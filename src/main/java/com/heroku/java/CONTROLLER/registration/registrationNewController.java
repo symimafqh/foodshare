@@ -35,13 +35,14 @@ public class registrationNewController {
     }
 
     @PostMapping("/registration")
-    public String registrationCocu(HttpSession session, @ModelAttribute("registercocu") RegistrationBean r,
+    public String registrationCocu(HttpSession session, @ModelAttribute("registration") RegistrationBean r,
             Model model) {
         String studentIC = (String) session.getAttribute("studentIC");
+        System.out.println("pass id student" + studentIC);
         //try
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "INSERT INTO registration(studentic, activityid) VALUES (?,?)";
+            String sql = "INSERT INTO registration(studentic, activityid) VALUES (?,1)";
             final var statement = connection.prepareStatement(sql);
 
             //  studentIC = r.getStudentIC();
@@ -66,7 +67,7 @@ public class registrationNewController {
         //club
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "INSERT INTO registration(studentic, activityid) VALUES (?,?)";
+            String sql = "INSERT INTO registration(studentic, activityid) VALUES (?,2)";
             final var statement = connection.prepareStatement(sql);
 
             //  studentIC = r.getStudentIC();
@@ -91,7 +92,7 @@ public class registrationNewController {
         //sport
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "INSERT INTO registration(studentic, activityid) VALUES (?,?)";
+            String sql = "INSERT INTO registration(studentic, activityid) VALUES (?,3)";
             final var statement = connection.prepareStatement(sql);
 
             //  studentIC = r.getStudentIC();
