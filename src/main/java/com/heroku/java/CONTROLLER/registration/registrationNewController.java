@@ -114,7 +114,7 @@ public class registrationNewController {
             return "redirect:/registration";
         }
 
-        return "redirect:/registration?success=true";
+        return "redirect:/successregistration";
     }
 
 }
