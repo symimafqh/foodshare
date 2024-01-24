@@ -326,8 +326,40 @@ public String AddNewClub(@RequestParam String namaClub, @RequestParam String inf
     
     //---------------------------UPDATE SUKAN------------------------------//
     @GetMapping("/UpdateSukan")
-    public String UpdateSukan() {
-        return "teacher/activity/AddNewSukan";
+    public String UpdateSukan(@RequestParam("activityID") int activityid , SukanBean sukanBean, ActivityBean activityBean, Model model, HttpSession session) {
+        try {
+            Connection connection = dataSource.getConnection();
+            String sql = "SELECT a.activityid, a.activityname, s.sportinformation, s.sportquota " +
+            "FROM activity a JOIN sport s ON a.activityid = s.activityid WHERE activityid = ?";
+            final var statement = connection.prepareStatement(sql);
+            statement.setInt(1, activityid);
+            final var resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                String activityName = resultSet.getString("activityname");
+                String infoSukan = resultSet.getString("sportinformation");
+                int quotaSukan = resultSet.getInt("sportquota");
+                
+                SukanBean sukan = new SukanBean(); // Make sure to replace this with your actual Sukan class
+                ActivityBean activity = new ActivityBean();
+
+            // Set the values to the Sukan object
+            activity.setActivityName(activityName);
+            sukan.setInfoSukan(infoSukan);
+            sukan.setQuotaSukan(quotaSukan);
+
+            model.addAttribute("sukan", sukan);
+            model.addAttribute("activity", activity);
+
+
+                connection.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    
+        return "teacher/activity/UpdateSukan";
     }
 
     @PostMapping("/UpdateSukan")
