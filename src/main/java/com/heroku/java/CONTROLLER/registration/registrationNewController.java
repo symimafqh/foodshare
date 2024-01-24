@@ -42,7 +42,7 @@ public class registrationNewController {
         //try
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "INSERT INTO registration(studentic, activityid) VALUES (?,1)";
+            String sql = "INSERT INTO registration(studentic, activityid) VALUES (?,?)";
             final var statement = connection.prepareStatement(sql);
 
             //  studentIC = r.getStudentIC();
@@ -67,7 +67,7 @@ public class registrationNewController {
         //club
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "INSERT INTO registration(studentic, activityid) VALUES (?,2)";
+            String sql = "INSERT INTO registration(studentic, activityid) VALUES (?,?)";
             final var statement = connection.prepareStatement(sql);
 
             //  studentIC = r.getStudentIC();
@@ -92,7 +92,7 @@ public class registrationNewController {
         //sport
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "INSERT INTO registration(studentic, activityid) VALUES (?,3)";
+            String sql = "INSERT INTO registration(studentic, activityid) VALUES (?,?)";
             final var statement = connection.prepareStatement(sql);
 
             //  studentIC = r.getStudentIC();
