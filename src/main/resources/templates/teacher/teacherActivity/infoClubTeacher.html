@@ -389,7 +389,7 @@
                             </tr>
                           </thead>
                           <tbody>
-                                <tr th:each="club : ${clubListTeacher}">
+                                <tr th:each="clubBean : ${clubListTeacher}">
                                     <td class="text-center" th:text="${clubBean.activity.activityID}"></td>
                                     <td class="text-center" th:text="${clubBean.activity.activityName}"></td>
                                 </tr>
