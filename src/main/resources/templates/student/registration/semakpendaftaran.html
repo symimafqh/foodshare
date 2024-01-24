@@ -431,17 +431,23 @@
                                                             <input type="text" th:value="${activityID}">
 
                                                             <td style="width: 250px;">Unit Beruniform</td>
-                                                            <td style="width: 550px;" th:text="$activityNames.activityNamesUnit"></td>
+                                                            <td style="width: 550px;"> <ul th:each="activityName : ${activityNamesUnit}">
+                                                                <li th:text="${activityName}"></li>
+                                                            </ul></td>
 
                                                         </tr>
                                                         <tr>
                                                             <td style="width: 250px;">Kelab dan Persatuan</td>
-                                                            <td style="width: 550px;" th:text="$activityNames.activityNamesClub"></td>
+                                                            <td style="width: 550px;"> <ul th:each="activityName : ${activityNamesClub}">
+                                                                <li th:text="${activityName}"></li>
+                                                            </ul></td>
                                                         </tr>
                                                         <tr>
 
                                                             <td style="width: 250px;">Sukan dan Permainan</td>
-                                                            <td style="width: 550px;" th:text="$activityNames.activityNamesSport"></td>
+                                                            <td style="width: 550px;"> <ul th:each="activityName : ${activityNamesSport}">
+                                                                <li th:text="${activityName}"></li>
+                                                            </ul></td>
                                                         </tr>
                                                     </tr>
                                                     </tbody>
@@ -464,7 +470,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- END Table Keputusan -->
                     
 							</div>
