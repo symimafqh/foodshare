@@ -39,12 +39,8 @@ public class registrationNewController {
             Model model) {
         String studentIC = (String) session.getAttribute("studentIC");
         System.out.println("pass id student" + studentIC);
-
-      
-        try {
+        try{
             Connection connection = dataSource.getConnection();
-            boolean registeractivity = isStudentRegistered(studentIC, connection);
-            if (registeractivity==false) {
                 // try
                 try {
 
@@ -63,7 +59,7 @@ public class registrationNewController {
                     // System.out.println("product price : RM"+proprice);
                     // System.out.println("proimg: "+proimgs.getBytes());
 
-                    // connection.close();
+                    connection.close();
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -88,7 +84,7 @@ public class registrationNewController {
                     // System.out.println("product price : RM"+proprice);
                     // System.out.println("proimg: "+proimgs.getBytes());
 
-                    // connection.close();
+                 connection.close();
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -112,44 +108,17 @@ public class registrationNewController {
                     // System.out.println("product price : RM"+proprice);
                     // System.out.println("proimg: "+proimgs.getBytes());
 
-                    // connection.close();
+                    connection.close();
 
                 } catch (Exception e) {
                     e.printStackTrace();
                     return "redirect:/registration";
                 }
-
-            } else {
-                System.out.println("gagal insert into table reservationservice sebab dah register");
-                return "redirect:/registered";
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            connection.close();
-        } catch (SQLException e) {
-            System.out.println("failed to insert into reservationservice");
-            e.printStackTrace();
-            
-        }
         return "redirect:/successregistration";
     }
 
-    // method to check dah register ke belum
-    public static boolean isStudentRegistered(String studentIC, Connection connection) throws SQLException {
-        String sql = "SELECT COUNT(*) FROM registration WHERE studentic = ?";
-
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, studentIC);
-
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    String existingStudent = resultSet.getString(1);
-                    return existingStudent == null;
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println("fail at method isStudentRegistered()");
-            e.printStackTrace();
-        }
-        return false;
-    }
-
+   
 }
