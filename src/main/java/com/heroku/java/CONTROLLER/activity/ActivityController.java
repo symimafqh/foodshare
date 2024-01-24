@@ -316,10 +316,10 @@ public String AddNewClub(@RequestParam String namaClub, @RequestParam String inf
     
         } catch (SQLException e) {
             e.printStackTrace();
-            return "redirect:/AddNewUnit?success=false";
+            return "redirect:/addNewUnit?success=false";
         }
     
-        return "redirect:/AddNewUnit?success=true";
+        return "redirect:/addNewUnit?success=true";
     }
     
 
