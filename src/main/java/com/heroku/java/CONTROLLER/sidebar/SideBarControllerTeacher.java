@@ -84,7 +84,7 @@ public class SideBarControllerTeacher {
         @GetMapping("/infoClubTeacher")
     public String clubListTeacher(Model model) {
 
-        List<ClubBean> clubListTeacher = new ArrayList<ClubBean>();
+        List<ClubBean> clubListTeacher = new ArrayList<>();
 
         try (Connection connection = dataSource.getConnection()) {
             
@@ -92,24 +92,25 @@ public class SideBarControllerTeacher {
             String sql = "SELECT a.activityid, a.activityname " +
             "FROM activity a JOIN sport s ON a.activityid = s.activityid";
 
-            final var resultSet = statement.executeQuery(sql);
+            try (ResultSet resultSet = statement.executeQuery(sql)) {
            
-            while (resultSet.next()) {
-                ClubBean club = new ClubBean();
-				ActivityBean activity = new ActivityBean();
+                while (resultSet.next()) {
+                    ClubBean club = new ClubBean();
+				    ActivityBean activity = new ActivityBean();
 
-                activity.setActivityID(resultSet.getInt("activityID"));
-                activity.setActivityName(resultSet.getString("activityName"));
+                    activity.setActivityID(resultSet.getInt("activityID"));
+                    activity.setActivityName(resultSet.getString("activityName"));
 
-                // Set ActivityBean as a property of SukanBean
-                club.setActivity(activity);
+                    // Set ActivityBean as a property of SukanBean
+                    club.setActivity(activity);
          
 
-                clubListTeacher.add(club);
+                    clubListTeacher.add(club);
         
-                //model.addAttribute("isAdmin", staffsrole != null && staffsrole.equals("admin")); // Add isAdmin flag to the modelF (syahir punya gak)
+                    //model.addAttribute("isAdmin", staffsrole != null && staffsrole.equals("admin")); // Add isAdmin flag to the modelF (syahir punya gak)
 
             }
+        }
 
             connection.close();
 
@@ -126,12 +127,127 @@ public class SideBarControllerTeacher {
         
     }
 
+
+    //---------------------------BEANS------------------------------//
     interface Bean {
         int getActivityID();
         void setActivityID(int activityID);
     }
+    
+    //---------------------------SUKAN BEAN------------------------------//
+    public class SukanBean implements Bean  {
+	
+        private String namaSukan;
+        private String infoSukan;
+        private int quotaSukan;
+        private int activityID;
 
-    public class ClubBean {
+        public SukanBean() {
+        }
+        
+        @Override
+        public int getActivityID() {
+            return activityID;
+        }
+        @Override
+        public void setActivityID(int activityID) {
+            this.activityID = activityID;
+        }
+    
+        private ActivityBean activity;
+    
+        // Setter method for ActivityBean
+        public void setActivity(ActivityBean activity) {
+            this.activity = activity;
+        }
+    
+        // Getter method for ActivityBean
+        public ActivityBean getActivity() {
+            return activity;
+        }
+          
+        public String getNamaSukan() {
+            return namaSukan;
+        }
+    
+        public void setNamaSukan(String namaSukan) {
+            this.namaSukan = namaSukan;
+        }
+    
+        public String getInfoSukan() {
+            return infoSukan;
+        }
+    
+        public void setInfoSukan(String infoSukan) {
+            this.infoSukan = infoSukan;
+        }
+    
+        public int getQuotaSukan() {
+            return quotaSukan;
+        }
+    
+        public void setQuotaSukan(int quotaSukan) {
+            this.quotaSukan = quotaSukan;
+        }
+    
+
+    }
+
+    //---------------------------UNIT BEAN------------------------------//
+    public class UnitBean {
+	
+        private String namaUnit;
+        private String infoUnit;
+        private int quotaUnit;
+        private int activityID;
+        
+        public int getActivityID() {
+            return activityID;
+        }
+    
+        public void setActivityID(int activityID) {
+            this.activityID = activityID;
+        }
+    
+        private ActivityBean activity;
+
+        // Setter method for ActivityBean
+        public void setActivity(ActivityBean activity) {
+            this.activity = activity;
+        }
+    
+        // Getter method for ActivityBean
+        public ActivityBean getActivity() {
+            return activity;
+        }
+          
+        public String getNamaUnit() {
+            return namaUnit;
+        }
+    
+        public void setNamaUnit(String namaUnit) {
+            this.namaUnit = namaUnit;
+        }
+    
+        public String getInfoUnit() {
+            return infoUnit;
+        }
+    
+        public void setInfoUnit(String infoUnit) {
+            this.infoUnit = infoUnit;
+        }
+    
+        public int getQuotaUnit() {
+            return quotaUnit;
+        }
+    
+        public void setQuotaUnit(int quotaUnit) {
+            this.quotaUnit = quotaUnit;
+        }
+    }
+
+    //---------------------------CLUB BEAN------------------------------//
+public class ClubBean {
 	
 	private String namaClub;
 	private String infoClub;
