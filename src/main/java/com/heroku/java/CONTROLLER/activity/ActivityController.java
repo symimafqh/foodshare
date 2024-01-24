@@ -102,6 +102,7 @@ public String unitList(Model model) {
                 unitList.add(unit);
             }
         }
+        connection.close();
 
         // Use the Model object to pass the list to the view
         model.addAttribute("unitList", unitList);
@@ -140,6 +141,7 @@ public String clubList(Model model) {
                 clubList.add(club);
             }
         }
+        connection.close();
 
         // Use the Model object to pass the list to the view
         model.addAttribute("clubList", clubList);
@@ -326,7 +328,8 @@ public String AddNewClub(@RequestParam String namaClub, @RequestParam String inf
     
     //---------------------------UPDATE SUKAN------------------------------//
     @GetMapping("/UpdateSukan")
-public String UpdateSukan(@RequestParam("activityID") int activityid, Model model, HttpSession session) {
+public String UpdateSukan( Model model, HttpSession session) {
+    Integer activityid = (Integer) session.getAttribute("activityID");
     SukanBean sukan = new SukanBean(); // Instantiate SukanBean
     ActivityBean activity = new ActivityBean(); // Instantiate ActivityBean
 
