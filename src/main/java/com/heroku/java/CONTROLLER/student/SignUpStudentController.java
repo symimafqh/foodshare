@@ -34,7 +34,7 @@ public class SignUpStudentController {
     public String registerStudent(@ModelAttribute("signup")StudentBean s){
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "INSERT INTO public.student(studentic, studentname, studentemail, studentphone, studentgender, studentclass, studentdob, studentaddress, studentpassword) VALUES(?,?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO public.student(studentic, studentname, studentemail, studentphone, studentdob, studentgender, studentclass, studentaddress, studentpassword) VALUES(?,?,?,?,?,?,?,?,?)";
             final var statement = connection.prepareStatement(sql);
 
             String studIC= s.getStudentIC();
