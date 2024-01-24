@@ -86,9 +86,9 @@ public class SideBarStudentController {
 
     @GetMapping("/registration")
     public String registration(@RequestParam(name = "success", required = false) Boolean success, HttpSession session, Model model) {
-        String studentIC = (String) session.getAttribute("studentIC");
-        int activityid = (int) session.getAttribute("activityID");
-        
+        // String studentIC = (String) session.getAttribute("studentIC");
+        // int activityid = (int) session.getAttribute("activityID");
+
 
         List <SukanBean> sukan= new ArrayList<SukanBean>();
         try {
