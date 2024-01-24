@@ -100,7 +100,7 @@ public class SideBarStudentController {
         List<SukanBean> sukan = new ArrayList<SukanBean>();
         try {
              Connection connection = dataSource.getConnection();
-            String sql = "SELECT a.activityid, a.activityname, s.sportinformation, s.sportquota " +
+            String sql = "SELECT DISTINCT a.activityid, a.activityname, s.sportinformation, s.sportquota " +
                     "FROM activity a JOIN sport s ON a.activityid = s.activityid";
             final var statement = connection.prepareStatement(sql);
             final var resultSet = statement.executeQuery();
@@ -127,7 +127,7 @@ public class SideBarStudentController {
         List<ClubBean> club = new ArrayList<ClubBean>();
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "SELECT a.activityid, a.activityname, c.clubinformation, c.clubquota " +
+            String sql = "SELECT DISTINCT a.activityid, a.activityname, c.clubinformation, c.clubquota " +
                     "FROM activity a JOIN club c ON a.activityid = c.activityid";
             final var statement = connection.prepareStatement(sql);
             final var resultSet = statement.executeQuery();
@@ -152,7 +152,7 @@ public class SideBarStudentController {
         List<UnitBean> unit = new ArrayList<UnitBean>();
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "SELECT a.activityid, a.activityname, u.uniforminformation, u.uniformquota " +
+            String sql = "SELECT DISTINCT a.activityid, a.activityname, u.uniforminformation, u.uniformquota " +
                     "FROM activity a JOIN uniform u ON a.activityid = u.activityid";
             final var statement = connection.prepareStatement(sql);
             final var resultSet = statement.executeQuery();
