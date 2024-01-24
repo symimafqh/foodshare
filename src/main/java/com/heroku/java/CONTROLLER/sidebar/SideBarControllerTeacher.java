@@ -89,7 +89,7 @@ public class SideBarControllerTeacher {
         try (Connection connection = dataSource.getConnection()) {
             
             final var statement = connection.createStatement();
-            String sql = "SELECT u.activityid, u.activityname " +
+            String sql = "SELECT DISTINCT u.activityid, u.activityname " +
             "FROM public.uniform u JOIN public.activity a ON u.activityid = a.activityid";
 
             try (ResultSet resultSet = statement.executeQuery(sql)) {
@@ -133,7 +133,7 @@ public class SideBarControllerTeacher {
         try (Connection connection = dataSource.getConnection()) {
             
             final var statement = connection.createStatement();
-            String sql = "SELECT a.activityid, a.activityname " +
+            String sql = "SELECT DISTINCT a.activityid, a.activityname " +
             "FROM activity a JOIN club c ON a.activityid = c.activityid";
 
             try (ResultSet resultSet = statement.executeQuery(sql)) {
@@ -179,7 +179,7 @@ public class SideBarControllerTeacher {
         try (Connection connection = dataSource.getConnection()) {
             
             final var statement = connection.createStatement();
-            String sql = "SELECT s.activityid, s.activityname " +
+            String sql = "SELECT DISTINCT s.activityid, s.activityname " +
             "FROM sport s JOIN activity a ON s.activityid = a.activityid";
 
             try (ResultSet resultSet = statement.executeQuery(sql)) {
