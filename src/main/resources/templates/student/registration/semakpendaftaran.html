@@ -417,12 +417,12 @@
                                         <h4>SEMAKAN KEPUTUSAN PENDAFTARAN</h4>
                                         <!-- <form action="listRegistration" method="get"> -->
 
-                                           <tr th:each="activityNames : $(activityNames)">
+                                           <!-- <tr th:each="activityNames : $(activityNames)"> -->
                                                 <input type="hidden" id="ic" name="ic"
                                                 th:value="${session.studentIC}">
 
                                                 <table class="table table-bordered table-vcenter">
-                                                    <input type="text" id="ic" name="studentIC" th:value="${registartions.studentIC}">
+                                                    <input type="hidden" id="ic" name="studentIC" th:value="${session.studentIC}">
                                                    
 
                                                     <tbody>
