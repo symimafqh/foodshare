@@ -582,11 +582,17 @@
                   <td class="d-none d-sm-table-cell" th:text="${t.teacherPhone}"></td>
                   <td class="text-center" th:text="${t.teacherGender}"></td>
                   <td class="text-center" th:text="${t.teacherRole}"></td>
-                  <td class="text-center" >
+                  <!-- <td class="text-center" >
                     <a type="button" class="btn btn-sm btn-primary" title="Kemaskini Profil" th:href="@{/viewTeacherDetails(teacherID=${t.teacherID})}">
                       <i class="fa fa-user"></i>
                     </a>
-                  </td>
+                  </td> -->
+                  <td class="text-center">
+                    <a type="button" class="btn btn-sm btn-primary" title="Kemaskini Profil" th:href="@{'/api/teachers/viewDetails?teacherID=' + ${t.teacherID}}">
+                        <i class="fa fa-user"></i>
+                    </a>
+                </td>
+                
                   <td class="text-center">
                     <button type="submit" class="btn btn-sm btn-danger" title="Delete Profile"
                             th:id="${'button-' + t.teacherID}" th:data-teacherID="${t.teacherID}"
