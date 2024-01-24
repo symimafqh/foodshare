@@ -532,6 +532,8 @@ public String viewPendaftaran(HttpSession session, Model model, StudentBean sb) 
     // String studentName = 
     // String
     System.out.println("ID Number : " + studentIC);
+    boolean registered = isStudentRegistered(studentIC);
+        model.addAttribute("isStudentRegistered", registered);
     
     try (Connection connection = dataSource.getConnection()) {
         List<String> activityNamesUnit = new ArrayList<>();
