@@ -44,7 +44,7 @@ public class registrationNewController {
         try {
             Connection connection = dataSource.getConnection();
             boolean registeractivity = isStudentRegistered(studentIC, connection);
-            if (registeractivity) {
+            if (registeractivity==false) {
                 // try
                 try {
 
@@ -121,12 +121,13 @@ public class registrationNewController {
 
             } else {
                 System.out.println("gagal insert into table reservationservice sebab dah register");
+                return "redirect:/registered";
             }
             connection.close();
         } catch (SQLException e) {
             System.out.println("failed to insert into reservationservice");
             e.printStackTrace();
-            return "redirect:/registered";
+            
         }
         return "redirect:/successregistration";
     }
@@ -140,8 +141,8 @@ public class registrationNewController {
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    int existingReservationsCount = resultSet.getInt(1);
-                    return existingReservationsCount == 0;
+                    String existingStudent = resultSet.getString(1);
+                    return existingStudent == null;
                 }
             }
         } catch (SQLException e) {
