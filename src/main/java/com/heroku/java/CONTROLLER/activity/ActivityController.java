@@ -348,7 +348,7 @@ public String UpdateSukan(@RequestParam("activityID") int activityid, Model mode
 
             System.out.println("Sukan object: " + sukan);
             // Set the values to the Sukan object
-            activity.setActivityName(activityName);
+            sukan.setNamaSukan(activityName);
             sukan.setInfoSukan(infoSukan);
             sukan.setQuotaSukan(quotaSukan);
 
