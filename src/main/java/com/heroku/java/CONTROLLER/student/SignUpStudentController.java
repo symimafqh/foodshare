@@ -52,10 +52,10 @@ public class SignUpStudentController {
             statement.setString(3,email);
             statement.setString(4,phone);
             statement.setString(5,dob);
-            statement.setString(5,gender);
-            statement.setString(6,kelas);
-            statement.setString(7,address);
-            statement.setString(8,password);
+            statement.setString(6,gender);
+            statement.setString(7,kelas);
+            statement.setString(8,address);
+            statement.setString(9,password);
             
             statement.executeUpdate();
             
