@@ -549,6 +549,8 @@ public String viewPendaftaran(HttpSession session, Model model, StudentBean sb) 
         while (resultSet1.next()) {
             
             activityNamesSport.add(resultSet1.getString("activityname"));
+
+            System.out.println(activityNamesSport);
         }
 
         // Query unit
@@ -561,6 +563,7 @@ public String viewPendaftaran(HttpSession session, Model model, StudentBean sb) 
 
         while (resultSet2.next()) {
             activityNamesUnit.add(resultSet2.getString("activityname"));
+            System.out.println(activityNamesUnit);
         }
 
         // Query club
@@ -573,6 +576,7 @@ public String viewPendaftaran(HttpSession session, Model model, StudentBean sb) 
 
         while (resultSet3.next()) {
             activityNamesClub.add(resultSet3.getString("activityname"));
+            System.out.println(activityNamesClub);
         }
 
         model.addAttribute("activityNamesUnit", activityNamesUnit);
