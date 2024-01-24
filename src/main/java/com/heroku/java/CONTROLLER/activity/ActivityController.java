@@ -41,7 +41,7 @@ public class ActivityController {
         try (Connection connection = dataSource.getConnection()) {
             // create statement
             final var statement = connection.createStatement();
-            String sql = "SELECT a.activityid, a.activityname, s.sportinformation, s.sportquota " +
+            String sql = "SELECT DISTINCT a.activityid, a.activityname, s.sportinformation, s.sportquota " +
                          "FROM activity a JOIN sport s ON a.activityid = s.activityid";
     
             final var resultSet = statement.executeQuery(sql);
@@ -84,7 +84,7 @@ public String unitList(Model model) {
     try (Connection connection = dataSource.getConnection()) {
         // create statement
         final var statement = connection.createStatement();
-        String sql = "SELECT a.activityid, a.activityname, s.uniforminformation, s.uniformquota " +
+        String sql = "SELECT DISTINCT a.activityid, a.activityname, s.uniforminformation, s.uniformquota " +
                      "FROM activity a JOIN uniform s ON a.activityid = s.activityid";
 
         try (ResultSet resultSet = statement.executeQuery(sql)) {
@@ -123,7 +123,7 @@ public String clubList(Model model) {
     try (Connection connection = dataSource.getConnection()) {
         // create statement
         final var statement = connection.createStatement();
-        String sql = "SELECT a.activityid, a.activityname, s.clubinformation, s.clubquota " +
+        String sql = "SELECT DISTINCT a.activityid, a.activityname, s.clubinformation, s.clubquota " +
                      "FROM activity a JOIN club s ON a.activityid = s.activityid";
 
         try (ResultSet resultSet = statement.executeQuery(sql)) {
@@ -337,7 +337,7 @@ public String UpdateSukan( @RequestParam("activityID") int activityid,Model mode
 
     try {
         Connection connection = dataSource.getConnection();
-        String sql = "SELECT a.activityid, a.activityname, s.sportinformation, s.sportquota " +
+        String sql = "SELECT DISTINCT a.activityid, a.activityname, s.sportinformation, s.sportquota " +
             "FROM activity a JOIN sport s ON a.activityid = s.activityid WHERE a.activityid = ?";
         final var statement = connection.prepareStatement(sql);
         statement.setInt(1, activityid);
@@ -426,7 +426,7 @@ public String UpdateClub( @RequestParam("activityID") int activityid,Model model
 
     try {
         Connection connection = dataSource.getConnection();
-        String sql = "SELECT a.activityid, a.activityname, s.clubinformation, s.clubquota " +
+        String sql = "SELECT DISTINCT a.activityid, a.activityname, s.clubinformation, s.clubquota " +
             "FROM activity a JOIN club s ON a.activityid = s.activityid WHERE a.activityid = ?";
         final var statement = connection.prepareStatement(sql);
         statement.setInt(1, activityid);
@@ -513,7 +513,7 @@ public String UpdateUnit( @RequestParam("activityID") int activityid,Model model
 
     try {
         Connection connection = dataSource.getConnection();
-        String sql = "SELECT a.activityid, a.activityname, s.uniforminformation, s.uniformquota " +
+        String sql = "SELECT DISTINCT a.activityid, a.activityname, s.uniforminformation, s.uniformquota " +
             "FROM activity a JOIN uniform s ON a.activityid = s.activityid WHERE a.activityid = ?";
         final var statement = connection.prepareStatement(sql);
         statement.setInt(1, activityid);
