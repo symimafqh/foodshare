@@ -107,10 +107,11 @@ public class SideBarControllerTeacher {
          
 
                 club.add(c);
-                model.addAttribute("club", club);
+        
                 //model.addAttribute("isAdmin", staffsrole != null && staffsrole.equals("admin")); // Add isAdmin flag to the modelF (syahir punya gak)
 
             }
+            model.addAttribute("club", club);
 
             connection.close();
 
