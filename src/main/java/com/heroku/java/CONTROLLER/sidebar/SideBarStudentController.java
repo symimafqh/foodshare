@@ -83,87 +83,86 @@ public class SideBarStudentController {
         return "student/profile/edit_profile";
     }
 
-
     @GetMapping("/registration")
     public String registration(HttpSession session, Model model) {
         String studentIC = (String) session.getAttribute("studentIC");
         // int activityid = (int) session.getAttribute("activityID");
         System.out.println("guestICNumber: " + studentIC);
 
-        List <SukanBean> sukan= new ArrayList<SukanBean>();
+        List<SukanBean> sukan = new ArrayList<SukanBean>();
         try {
             Connection connection = dataSource.getConnection();
             String sql = "SELECT a.activityid, a.activityname, s.sportinformation, s.sportquota " +
-            "FROM activity a JOIN sport s ON a.activityid = s.activityid";
+                    "FROM activity a JOIN sport s ON a.activityid = s.activityid";
             final var statement = connection.prepareStatement(sql);
             final var resultSet = statement.executeQuery();
-            if (resultSet.next()) {
+            while (resultSet.next()) {
                 SukanBean s = new SukanBean();
                 ActivityBean activity = new ActivityBean();
                 activity.setActivityID(resultSet.getInt("activityID"));
-               activity.setActivityName(resultSet.getString("activityName"));
+                activity.setActivityName(resultSet.getString("activityName"));
 
-               s.setActivity(activity);
-               s.setInfoSukan(resultSet.getString("sportInformation"));
-               s.setQuotaSukan(resultSet.getInt("sportQuota"));
+                s.setActivity(activity);
+                s.setInfoSukan(resultSet.getString("sportInformation"));
+                s.setQuotaSukan(resultSet.getInt("sportQuota"));
 
-               sukan.add(s);
-                model.addAttribute("sukan", s);
+                sukan.add(s);
 
-                connection.close();
             }
+            connection.close();
+            model.addAttribute("sukan", sukan);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        List <ClubBean> club= new ArrayList<ClubBean>();
+        List<ClubBean> club = new ArrayList<ClubBean>();
         try {
             Connection connection = dataSource.getConnection();
             String sql = "SELECT a.activityid, a.activityname, c.clubinformation, c.clubquota " +
-            "FROM activity a JOIN club c ON a.activityid = c.activityid";
+                    "FROM activity a JOIN club c ON a.activityid = c.activityid";
             final var statement = connection.prepareStatement(sql);
             final var resultSet = statement.executeQuery();
-            if (resultSet.next()) {
+            while (resultSet.next()) {
                 ClubBean c = new ClubBean();
                 ActivityBean activity = new ActivityBean();
                 activity.setActivityID(resultSet.getInt("activityID"));
-               activity.setActivityName(resultSet.getString("activityName"));
+                activity.setActivityName(resultSet.getString("activityName"));
 
-               c.setActivity(activity);
-               c.setInfoClub(resultSet.getString("clubInformation"));
-               c.setQuotaClub(resultSet.getInt("clubQuota"));
+                c.setActivity(activity);
+                c.setInfoClub(resultSet.getString("clubInformation"));
+                c.setQuotaClub(resultSet.getInt("clubQuota"));
 
-               club.add(c);
-
-                connection.close();
-                model.addAttribute("club", club);
+                club.add(c);
             }
+            connection.close();
+            model.addAttribute("club", club);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        List <UnitBean> unit= new ArrayList<UnitBean>();
+        List<UnitBean> unit = new ArrayList<UnitBean>();
         try {
             Connection connection = dataSource.getConnection();
             String sql = "SELECT a.activityid, a.activityname, u.uniforminformation, u.uniformquota " +
-            "FROM activity a JOIN uniform u ON a.activityid = u.activityid";
+                    "FROM activity a JOIN uniform u ON a.activityid = u.activityid";
             final var statement = connection.prepareStatement(sql);
             final var resultSet = statement.executeQuery();
-            if (resultSet.next()) {
+            while (resultSet.next()) {
                 UnitBean u = new UnitBean();
                 ActivityBean activity = new ActivityBean();
                 activity.setActivityID(resultSet.getInt("activityID"));
-               activity.setActivityName(resultSet.getString("activityName"));
+                activity.setActivityName(resultSet.getString("activityName"));
 
-               u.setActivity(activity);
-               u.setInfoUnit(resultSet.getString("uniformInformation"));
-               u.setQuotaUnit(resultSet.getInt("uniformQuota"));
+                u.setActivity(activity);
+                u.setInfoUnit(resultSet.getString("uniformInformation"));
+                u.setQuotaUnit(resultSet.getInt("uniformQuota"));
 
-               unit.add(u);
+                unit.add(u);
 
-                connection.close();
-                model.addAttribute("unit", unit);
             }
+            connection.close();
+            model.addAttribute("unit", unit);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -260,15 +259,17 @@ public class SideBarStudentController {
 
         return "student/registration/registered";
     }
-    //---------------------------BEANS------------------------------//
+
+    // ---------------------------BEANS------------------------------//
     interface Bean {
         int getActivityID();
+
         void setActivityID(int activityID);
     }
-    
-    //---------------------------SUKAN BEAN------------------------------//
-    public class SukanBean implements Bean  {
-	
+
+    // ---------------------------SUKAN BEAN------------------------------//
+    public class SukanBean implements Bean {
+
         private String namaSukan;
         private String infoSukan;
         private int quotaSukan;
@@ -276,226 +277,224 @@ public class SideBarStudentController {
 
         public SukanBean() {
         }
-        
+
         @Override
         public int getActivityID() {
             return activityID;
         }
+
         @Override
         public void setActivityID(int activityID) {
             this.activityID = activityID;
         }
-    
+
         private ActivityBean activity;
-    
+
         // Setter method for ActivityBean
         public void setActivity(ActivityBean activity) {
             this.activity = activity;
         }
-    
+
         // Getter method for ActivityBean
         public ActivityBean getActivity() {
             return activity;
         }
-          
+
         public String getNamaSukan() {
             return namaSukan;
         }
-    
+
         public void setNamaSukan(String namaSukan) {
             this.namaSukan = namaSukan;
         }
-    
+
         public String getInfoSukan() {
             return infoSukan;
         }
-    
+
         public void setInfoSukan(String infoSukan) {
             this.infoSukan = infoSukan;
         }
-    
+
         public int getQuotaSukan() {
             return quotaSukan;
         }
-    
+
         public void setQuotaSukan(int quotaSukan) {
             this.quotaSukan = quotaSukan;
         }
-    
 
     }
 
-    //---------------------------UNIT BEAN------------------------------//
+    // ---------------------------UNIT BEAN------------------------------//
     public class UnitBean {
-	
+
         private String namaUnit;
         private String infoUnit;
         private int quotaUnit;
         private int activityID;
-        
+
         public int getActivityID() {
             return activityID;
         }
-    
+
         public void setActivityID(int activityID) {
             this.activityID = activityID;
         }
-    
+
         private ActivityBean activity;
 
         // Setter method for ActivityBean
         public void setActivity(ActivityBean activity) {
             this.activity = activity;
         }
-    
+
         // Getter method for ActivityBean
         public ActivityBean getActivity() {
             return activity;
         }
-          
+
         public String getNamaUnit() {
             return namaUnit;
         }
-    
+
         public void setNamaUnit(String namaUnit) {
             this.namaUnit = namaUnit;
         }
-    
+
         public String getInfoUnit() {
             return infoUnit;
         }
-    
+
         public void setInfoUnit(String infoUnit) {
             this.infoUnit = infoUnit;
         }
-    
+
         public int getQuotaUnit() {
             return quotaUnit;
         }
-    
+
         public void setQuotaUnit(int quotaUnit) {
             this.quotaUnit = quotaUnit;
         }
     }
 
-    //---------------------------CLUB BEAN------------------------------//
-public class ClubBean {
-	
-	private String namaClub;
-	private String infoClub;
-	private int quotaClub;
-	private int activityID;
-	
-	public int getActivityID() {
-		return activityID;
-	}
+    // ---------------------------CLUB BEAN------------------------------//
+    public class ClubBean {
 
-	public void setActivityID(int activityID) {
-		this.activityID = activityID;
-	}
+        private String namaClub;
+        private String infoClub;
+        private int quotaClub;
+        private int activityID;
 
-	private ActivityBean activity;
-	
-	/*
-	 * public int getActivityID() { // This getter is not necessary if it's already
-	 * defined in ActivityBean return super.getActivityID(); // This calls the
-	 * inherited getter from ActivityBean }
-	 * 
-	 * public void setActivityID(int activityID) { // This setter is not necessary
-	 * if it's already defined in ActivityBean super.setActivityID(activityID); //
-	 * This calls the inherited setter from ActivityBean }
-	 */
+        public int getActivityID() {
+            return activityID;
+        }
 
-	// Setter method for ActivityBean
-    public void setActivity(ActivityBean activity) {
-        this.activity = activity;
+        public void setActivityID(int activityID) {
+            this.activityID = activityID;
+        }
+
+        private ActivityBean activity;
+
+        /*
+         * public int getActivityID() { // This getter is not necessary if it's already
+         * defined in ActivityBean return super.getActivityID(); // This calls the
+         * inherited getter from ActivityBean }
+         * 
+         * public void setActivityID(int activityID) { // This setter is not necessary
+         * if it's already defined in ActivityBean super.setActivityID(activityID); //
+         * This calls the inherited setter from ActivityBean }
+         */
+
+        // Setter method for ActivityBean
+        public void setActivity(ActivityBean activity) {
+            this.activity = activity;
+        }
+
+        // Getter method for ActivityBean
+        public ActivityBean getActivity() {
+            return activity;
+        }
+
+        public String getNamaClub() {
+            return namaClub;
+        }
+
+        public void setNamaClub(String namaClub) {
+            this.namaClub = namaClub;
+        }
+
+        public String getInfoClub() {
+            return infoClub;
+        }
+
+        public void setInfoClub(String infoClub) {
+            this.infoClub = infoClub;
+        }
+
+        public int getQuotaClub() {
+            return quotaClub;
+        }
+
+        public void setQuotaClub(int quotaClub) {
+            this.quotaClub = quotaClub;
+        }
     }
 
-    // Getter method for ActivityBean
-    public ActivityBean getActivity() {
-        return activity;
-    }
-	  
-	public String getNamaClub() {
-		return namaClub;
-	}
+    // ---------------------------ACTIVITY BEAN------------------------------//
+    public class ActivityBean implements Bean {
 
-	public void setNamaClub(String namaClub) {
-		this.namaClub = namaClub;
-	}
-
-	public String getInfoClub() {
-		return infoClub;
-	}
-
-	public void setInfoClub(String infoClub) {
-		this.infoClub = infoClub;
-	}
-
-	public int getQuotaClub() {
-		return quotaClub;
-	}
-
-	public void setQuotaClub(int quotaClub) {
-		this.quotaClub = quotaClub;
-	}
-}
-
-    
-
-    //---------------------------ACTIVITY BEAN------------------------------//
-    public class ActivityBean implements Bean{
-	
         private String activityName;
         private String TeacherID;
-        private  int activityID;
+        private int activityID;
 
         public ActivityBean() {
         }
-        
+
         @Override
         public int getActivityID() {
             return activityID;
         }
-    
+
         public Integer getMaxActivityID() {
             int maxActivityID = 0;
-		try (Connection con = dataSource.getConnection();
-				Statement stmt = con.createStatement();
-				ResultSet rs = stmt.executeQuery("SELECT MAX(ACTIVITYID) FROM ACTIVITY")) {
+            try (Connection con = dataSource.getConnection();
+                    Statement stmt = con.createStatement();
+                    ResultSet rs = stmt.executeQuery("SELECT MAX(ACTIVITYID) FROM ACTIVITY")) {
 
-			if (rs.next()) {
-				maxActivityID = rs.getInt(1);
-			}
+                if (rs.next()) {
+                    maxActivityID = rs.getInt(1);
+                }
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-			// Handle exceptions as needed
-		}
-		return maxActivityID;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                // Handle exceptions as needed
+            }
+            return maxActivityID;
         }
 
         @Override
         public void setActivityID(int activityID) {
             this.activityID = activityID;
         }
-    
+
         public String getTeacherID() {
             return TeacherID;
         }
-    
+
         public void setTeacherID(String teacherID) {
             TeacherID = teacherID;
         }
-    
+
         public String getActivityName() {
             return activityName;
         }
-    
+
         public void setActivityName(String activityName) {
             this.activityName = activityName;
         }
-    
+
     }
 
 }
