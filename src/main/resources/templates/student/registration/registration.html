@@ -236,7 +236,7 @@
                       <li th:if="${!isStudentRegistered}">
                         <a th:href="@{/registration}">Pendaftaran Kokurikulum</a>
                       </li>
-                      <li th:unless="${isStudentRegistered}">
+                      <li th:if="${isStudentRegistered}">
                         <a th:href="@{/registered}">Pendaftaran Kokurikulum</a>
                       </li>
                       <li>
