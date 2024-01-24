@@ -35,8 +35,10 @@ public class SideBarStudentController {
     }
 
     @GetMapping("/dashboardStudent")
-    public String index1(@RequestParam(name = "success", required = false) Boolean success, HttpSession session) {
+    public String index1(@RequestParam(name = "success", required = false) Boolean success, HttpSession session, Model model) {
         String studentIC = (String) session.getAttribute("studentIC");
+        boolean registered = isStudentRegistered(studentIC);
+        model.addAttribute("isStudentRegistered", registered);
         return "student/dashboardStudent";
     }
 
@@ -44,6 +46,8 @@ public class SideBarStudentController {
     public String editProfile(@RequestParam(name = "success", required = false) Boolean success, HttpSession session,
             Model model) {
         String studentIC = (String) session.getAttribute("studentIC");
+        boolean registered = isStudentRegistered(studentIC);
+        model.addAttribute("isStudentRegistered", registered);
         try {
             Connection connection = dataSource.getConnection();
             String sql = "SELECT * FROM public.student where studentic=?";
@@ -90,6 +94,7 @@ public class SideBarStudentController {
         System.out.println("guestICNumber: " + studentIC);
 
             // Connection connection = dataSource.getConnection();
+            //check registered activity
             boolean registered = isStudentRegistered(studentIC);
             model.addAttribute("isStudentRegistered", registered);
         List<SukanBean> sukan = new ArrayList<SukanBean>();
