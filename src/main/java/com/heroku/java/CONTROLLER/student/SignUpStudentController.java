@@ -34,14 +34,14 @@ public class SignUpStudentController {
     public String registerStudent(@ModelAttribute("signup")StudentBean s){
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "INSERT INTO public.student(studentic, studentname, studentemail, studentphone, studentgender, studentclass, studentaddress, studentpassword) VALUES(?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO public.student(studentic, studentname, studentemail, studentphone, studentgender, studentclass, studentdob, studentaddress, studentpassword) VALUES(?,?,?,?,?,?,?,?,?)";
             final var statement = connection.prepareStatement(sql);
 
             String studIC= s.getStudentIC();
             String name= s.getStudentName();
             String email=s.getStudentEmail();
             String phone=s.getStudentPhone();
-            // String dob=stud.getDob();
+            String dob=s.getStudentDOB();
             String gender=s.getStudentGender();
             String kelas=s.getStudentClass();
             String address=s.getStudentAddress();
@@ -51,7 +51,7 @@ public class SignUpStudentController {
             statement.setString(2,name);
             statement.setString(3,email);
             statement.setString(4,phone);
-            // s.setString(5,dob);
+            statement.setString(5,dob);
             statement.setString(5,gender);
             statement.setString(6,kelas);
             statement.setString(7,address);
