@@ -90,7 +90,7 @@ public class SideBarControllerTeacher {
             
             final var statement = connection.createStatement();
             String sql = "SELECT a.activityid, a.activityname " +
-            "FROM activity a JOIN sport s ON a.activityid = s.activityid";
+            "FROM activity a JOIN club c ON a.activityid = c.activityid";
 
             try (ResultSet resultSet = statement.executeQuery(sql)) {
            
