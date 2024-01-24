@@ -811,7 +811,7 @@
                                             <td class="text-center" th:text="${sukan.infoSukan}"></td>
                                             <td class="text-center" th:text="${sukan.quotaSukan}"></td>
                                             <td class="text-center" >
-                                                <a type="button" class="btn btn-sm btn-primary" data-target="#edit_sukan" title="Kemaskini Profil" th:href="@{/UpdateSukan(activityID=${sukan.activity.activityID})}">
+                                                <a type="button" class="btn btn-sm btn-primary" th:attr="data-activity-id=${sukan.activity.activityID}" data-toggle="modal" data-target="#edit_sukan" title="Kemaskini Sukan">
                                                   <i class="fa fa-edit"></i>
                                                 </a>
                                               </td>
@@ -890,6 +890,17 @@
         webpack is putting everything together at assets/_js/main/app.js
     -->
     <script th:src="@{stylesheets/assets/js/codebase.app.min.js}"></script>
+
+    <script th:inline="javascript">
+        function openEditModal(activityId) {
+            // Use Thymeleaf expressions to set the activityId value in the hidden field
+            document.getElementById('activityId').value = /*[(${activityId})]*/ activityId;
+    
+            // Trigger the modal to open
+            $('#edit_sukan').modal('show');
+        }
+    </script>
+    
 </body>
 
 </html>
