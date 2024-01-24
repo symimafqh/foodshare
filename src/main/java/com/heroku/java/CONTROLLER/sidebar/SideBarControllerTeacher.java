@@ -81,6 +81,50 @@ public class SideBarControllerTeacher {
         return "teacher/profileTeacher/profileTeacher_edit";
     }
 
+    @GetMapping("/infoUnitTeacher")
+    public String unitListTeacher(Model model) {
+
+        List<UnitBean> unitListTeacher = new ArrayList<>();
+
+        try (Connection connection = dataSource.getConnection()) {
+            
+            final var statement = connection.createStatement();
+            String sql = "SELECT a.activityid, a.activityname " +
+            "FROM activity a JOIN uniform u ON a.activityid = u.activityid";
+
+            try (ResultSet resultSet = statement.executeQuery(sql)) {
+           
+                while (resultSet.next()) {
+                    UnitBean unit = new UnitBean();
+				    ActivityBean activity = new ActivityBean();
+
+                    activity.setActivityID(resultSet.getInt("activityID"));
+                    activity.setActivityName(resultSet.getString("activityName"));
+
+                    // Set ActivityBean as a property of UnitBean
+                    unit.setActivity(activity);
+         
+
+                    unitListTeacher.add(unit);
+
+            }
+        }
+
+            connection.close();
+
+            model.addAttribute("unitListTeacher", unitListTeacher);
+
+            
+
+        return "teacher/teacherActivity/infoUnitTeacher";
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle the exception as desired (e.g., show an error message)
+            return "error";
+        }
+        
+    }
+
         @GetMapping("/infoClubTeacher")
     public String clubListTeacher(Model model) {
 
@@ -101,7 +145,7 @@ public class SideBarControllerTeacher {
                     activity.setActivityID(resultSet.getInt("activityID"));
                     activity.setActivityName(resultSet.getString("activityName"));
 
-                    // Set ActivityBean as a property of SukanBean
+                    // Set ActivityBean as a property of ClubBean
                     club.setActivity(activity);
          
 
@@ -127,6 +171,49 @@ public class SideBarControllerTeacher {
         
     }
 
+    @GetMapping("/infoSportTeacher")
+    public String sportListTeacher(Model model) {
+
+        List<SukanBean> sportListTeacher = new ArrayList<>();
+
+        try (Connection connection = dataSource.getConnection()) {
+            
+            final var statement = connection.createStatement();
+            String sql = "SELECT a.activityid, a.activityname " +
+            "FROM activity a JOIN sport s ON a.activityid = s.activityid";
+
+            try (ResultSet resultSet = statement.executeQuery(sql)) {
+           
+                while (resultSet.next()) {
+                    SukanBean sukan = new SukanBean();
+				    ActivityBean activity = new ActivityBean();
+
+                    activity.setActivityID(resultSet.getInt("activityID"));
+                    activity.setActivityName(resultSet.getString("activityName"));
+
+                    // Set ActivityBean as a property of SukanBean
+                    sukan.setActivity(activity);
+         
+
+                    sportListTeacher.add(sukan);
+
+            }
+        }
+
+            connection.close();
+
+            model.addAttribute("sportListTeacher", sportListTeacher);
+
+            
+
+        return "teacher/teacherActivity/infoSportTeacher";
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle the exception as desired (e.g., show an error message)
+            return "error";
+        }
+        
+    }
 
     //---------------------------BEANS------------------------------//
     interface Bean {
