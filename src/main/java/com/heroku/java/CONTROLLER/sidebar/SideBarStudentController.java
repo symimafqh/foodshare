@@ -541,7 +541,7 @@ public String viewPendaftaran(HttpSession session, Model model, StudentBean sb) 
         // Query sport
         String sql1 = "SELECT A.activityname FROM registration R "
                 + "JOIN sport A ON A.activityid = R.activityid "
-                + "JOIN student S ON S.studentic = R.studentic WHERE studentic=?";
+                + "JOIN student S ON S.studentic = R.studentic WHERE R.studentic=?";
         PreparedStatement statement1 = connection.prepareStatement(sql1);
         statement1.setString(1, studentIC);
         ResultSet resultSet1 = statement1.executeQuery();
@@ -553,7 +553,7 @@ public String viewPendaftaran(HttpSession session, Model model, StudentBean sb) 
         // Query unit
         String sql2 = "SELECT A.activityname FROM registration R "
                 + "JOIN uniform A ON A.activityid = R.activityid "
-                + "JOIN student S ON S.studentic = R.studentic WHERE studentic=?";
+                + "JOIN student S ON S.studentic = R.studentic WHERE R.studentic=?";
         PreparedStatement statement2 = connection.prepareStatement(sql2);  // Fix variable name
         statement2.setString(1, studentIC);
         ResultSet resultSet2 = statement2.executeQuery();
@@ -565,7 +565,7 @@ public String viewPendaftaran(HttpSession session, Model model, StudentBean sb) 
         // Query club
         String sql3 = "SELECT A.activityname FROM registration R "
                 + "JOIN club A ON A.activityid = R.activityid "
-                + "JOIN student S ON S.studentic = R.studentic WHERE studentic=?";
+                + "JOIN student S ON S.studentic = R.studentic WHERE R.studentic=?";
         PreparedStatement statement3 = connection.prepareStatement(sql3);  // Fix variable name
         statement3.setString(1, studentIC);
         ResultSet resultSet3 = statement3.executeQuery();
