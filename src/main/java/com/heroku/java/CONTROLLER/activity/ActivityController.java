@@ -326,7 +326,7 @@ public String AddNewClub(@RequestParam String namaClub, @RequestParam String inf
     
     //---------------------------UPDATE SUKAN------------------------------//
     @GetMapping("/UpdateSukan")
-    public String UpdateSukan(@RequestParam("activityID") int activityid , SukanBean sukanBean, ActivityBean activityBean, Model model, HttpSession session) {
+    public String UpdateSukan(@RequestParam("activityID") int activityid , SukanBean sukan, ActivityBean activity, Model model, HttpSession session) {
         try {
             Connection connection = dataSource.getConnection();
             String sql = "SELECT a.activityid, a.activityname, s.sportinformation, s.sportquota " +
@@ -340,8 +340,8 @@ public String AddNewClub(@RequestParam String namaClub, @RequestParam String inf
                 String infoSukan = resultSet.getString("sportinformation");
                 int quotaSukan = resultSet.getInt("sportquota");
                 
-                SukanBean sukan = new SukanBean(); // Make sure to replace this with your actual Sukan class
-                ActivityBean activity = new ActivityBean();
+                // SukanBean sukan = new SukanBean(); // Make sure to replace this with your actual Sukan class
+                // ActivityBean activity = new ActivityBean();
 
             // Set the values to the Sukan object
             activity.setActivityName(activityName);
