@@ -89,13 +89,12 @@ public class SideBarStudentController {
         // int activityid = (int) session.getAttribute("activityID");
         System.out.println("guestICNumber: " + studentIC);
 
-        try{
-            Connection connection = dataSource.getConnection();
+            // Connection connection = dataSource.getConnection();
             boolean registered = isStudentRegistered(studentIC);
             model.addAttribute("isStudentRegistered", registered);
         List<SukanBean> sukan = new ArrayList<SukanBean>();
         try {
-            // Connection connection = dataSource.getConnection();
+             Connection connection = dataSource.getConnection();
             String sql = "SELECT a.activityid, a.activityname, s.sportinformation, s.sportquota " +
                     "FROM activity a JOIN sport s ON a.activityid = s.activityid";
             final var statement = connection.prepareStatement(sql);
@@ -122,7 +121,7 @@ public class SideBarStudentController {
 
         List<ClubBean> club = new ArrayList<ClubBean>();
         try {
-            // Connection connection = dataSource.getConnection();
+            Connection connection = dataSource.getConnection();
             String sql = "SELECT a.activityid, a.activityname, c.clubinformation, c.clubquota " +
                     "FROM activity a JOIN club c ON a.activityid = c.activityid";
             final var statement = connection.prepareStatement(sql);
@@ -147,7 +146,7 @@ public class SideBarStudentController {
 
         List<UnitBean> unit = new ArrayList<UnitBean>();
         try {
-            // Connection connection = dataSource.getConnection();
+            Connection connection = dataSource.getConnection();
             String sql = "SELECT a.activityid, a.activityname, u.uniforminformation, u.uniformquota " +
                     "FROM activity a JOIN uniform u ON a.activityid = u.activityid";
             final var statement = connection.prepareStatement(sql);
@@ -170,9 +169,6 @@ public class SideBarStudentController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }catch (Exception e) {
-        e.printStackTrace();
-    }
         return "student/registration/registration";
     }
 
