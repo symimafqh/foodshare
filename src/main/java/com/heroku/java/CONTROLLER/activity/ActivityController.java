@@ -725,6 +725,7 @@ public class ClubBean {
 		this.activityID = activityID;
 	}
 
+    
 	private ActivityBean activity;
 	
 	/*
@@ -828,4 +829,6 @@ public class ClubBean {
         }
     
     }
+
+
 }
