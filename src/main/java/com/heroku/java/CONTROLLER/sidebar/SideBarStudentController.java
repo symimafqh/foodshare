@@ -581,7 +581,7 @@ public String viewPendaftaran(HttpSession session, Model model, StudentBean sb) 
         e.printStackTrace();
     }
 
-    return "registration/semakpendaftaran";  // Corrected return statement
+    return "student/registration/semakpendaftaran";  // Corrected return statement
 }
 
 }
