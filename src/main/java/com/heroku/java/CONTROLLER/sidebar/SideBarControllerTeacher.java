@@ -82,7 +82,7 @@ public class SideBarControllerTeacher {
     }
 
         @GetMapping("/infoClubTeacher")
-    public String clubList(Model model) {
+    public String clubListTeacher(Model model) {
 
         List<ClubBean> club = new ArrayList<ClubBean>();
 

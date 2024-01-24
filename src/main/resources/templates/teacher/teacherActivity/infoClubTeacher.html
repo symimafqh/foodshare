@@ -389,11 +389,10 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <c:forEach var="club" items="${clubListCoor}">
+                            <c:forEach var="club" items="${clubListTeacher}">
                               <tr>
-                                <td class="text-center">${club.activity.activityID}</td>
-                                <td class="text-center">${club.activity.activityName}</td>
-
+                                <td class="text-center" th:text="${club.activity.activityID}"></td>
+                                <td class="text-center"  th:text="${club.activity.activityName}"></td>
                               </tr>
 
                             </c:forEach>
