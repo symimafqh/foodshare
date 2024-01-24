@@ -400,11 +400,7 @@
                                                         <div class="col-md-7">
                                                             <select class="form-control" id="unitReg" name="unitReg">
                                                                 <option value="0">Sila Pilih Unit Beruniform</option>
-                                                                <option value="161">Kadet Polis</option>
-                                                                <option value="162">Kadet Bomba</option>
-                                                                <option value="164">Kadet Remaja Sekolah</option>
-                                                                <option value="163">Puteri Islam</option>
-                                                                <option value="165">Persatuan Bulan Sabit Merah</option>
+                                                                <option th:each="u : ${u}" th:value="${u.activityID}" th:text="${u.activityName}"></option>
                                                             
                                                             </select>
                                                         </div>
@@ -414,10 +410,7 @@
                                                       <div class="col-md-7">
                                                           <select class="form-control" id="clubReg" name="clubReg">
                                                               <option value="">Sila Pilih  Kelab dan Persatuan</option>
-                                                              <option value="171">Kelab Pencinta Alam</option>
-                                                              <option value="172">Persatuan Bahasa Melayu</option>
-                                                              <option value="170">Kelab SPBT</option>
-                                                              <option value="173">Persatuan Bahasa Inggeris</option>
+                                                              <option th:each="c : ${c}" th:value="${c.activityID}" th:text="${c.activityName}"></option>
                                                               
                                                           </select>
                                                       </div>
@@ -427,10 +420,7 @@
                                                     <div class="col-md-7">
                                                         <select class="form-control" id="sportReg" name="sportReg">
                                                             <option value="0">Sila Pilih Sukan dan Permainan</option>
-                                                            <option value="169">Bola Sepak</option>
-                                                            <option value="167">Bola Jaring</option>
-                                                            <option value="168">Bola Keranjang</option>
-                                                            <option value="166">Bola Baling</option>
+                                                            <option th:each="s : ${s}" th:value="${s.activityID}" th:text="${s.activityName}"></option>
                                                         </select>
                                                     </div>
                                                 </div>
