@@ -34,7 +34,7 @@ public class SignUpTeacher {
     public String registerTeacher(@ModelAttribute("teacherRegister")TeacherBean t){
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "INSERT INTO public.teacher(teacherid, teachername, teacheremail, teacherphone, teacherrole, teachergender, teacheraddress, teacherusername, teacherpassword) VALUES(?,?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO public.teacher(teacherid, teachername, teacheremail, teacherphone, teacherdob, teacherrole, teachergender, teacheraddress, teacherusername, teacherpassword) VALUES(?,?,?,?,?,?,?,?,?,?)";
             final var statement = connection.prepareStatement(sql);
 
             String teacherid=t.getTeacherID();
@@ -42,7 +42,7 @@ public class SignUpTeacher {
             String email=t.getTeacherEmail();
             String phone=t.getTeacherPhone();
             String role=t.getTeacherRole();
-            // String dob=stud.getDob();
+            String dob=t.getTeacherDOB();
             String gender=t.getTeacherGender();
             String username =t.getTeacherUsername();
             String address=t.getTeacherAddress();
@@ -52,12 +52,12 @@ public class SignUpTeacher {
             statement.setString(2,name);
             statement.setString(3,email);
             statement.setString(4,phone);
-            // s.setString(5,dob);
-            statement.setString(5,role);
-            statement.setString(6,gender);
-            statement.setString(7,address);
-            statement.setString(8,username);
-            statement.setString(9,password);
+            statement.setString(5,dob);
+            statement.setString(6,role);
+            statement.setString(7,gender);
+            statement.setString(8,address);
+            statement.setString(9,username);
+            statement.setString(10,password);
             
             statement.executeUpdate();
             
