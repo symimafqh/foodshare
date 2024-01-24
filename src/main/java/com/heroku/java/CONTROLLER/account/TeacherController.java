@@ -20,7 +20,7 @@ public class TeacherController {
     private TeacherRepository teacherRepository;
 
     @GetMapping("/viewDetails")
-    public ResponseEntity<TeacherBean> viewTeacherDetails(@RequestParam("teacherUsername") String teacherUsername) {
+    public ResponseEntity<TeacherBean> viewTeacherDetails(@RequestParam("teacherID") String teacherUsername) {
         try {
             TeacherBean teacher = teacherRepository.getTeacherById(teacherUsername);
 
@@ -29,6 +29,14 @@ public class TeacherController {
                 teacherBean.setTeacherID(teacher.getTeacherID());
                 teacherBean.setTeacherUsername(teacher.getTeacherUsername());
                 teacherBean.setTeacherName(teacher.getTeacherName());
+                teacherBean.setTeacherEmail(teacher.getTeacherEmail());
+                teacherBean.setTeacherPhone(teacher.getTeacherPhone());
+                teacherBean.setTeacherGender(teacher.getTeacherGender());
+                teacherBean.setTeacherRole(teacher.getTeacherRole());
+                teacherBean.setTeacherAddress(teacher.getTeacherAddress());
+                teacherBean.setTeacherPassword(teacher.getTeacherPassword());
+                teacherBean.setTeacherDOB(teacher.getTeacherDOB());
+                
                 // Set other properties...
 
                 return new ResponseEntity<>(teacherBean, HttpStatus.OK);
