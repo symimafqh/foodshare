@@ -92,7 +92,7 @@ public class SideBarStudentController {
         try{
             Connection connection = dataSource.getConnection();
             boolean registered = isStudentRegistered(studentIC);
-            model.addAttribute("registered", registered);
+            model.addAttribute("isStudentRegistered", registered);
         List<SukanBean> sukan = new ArrayList<SukanBean>();
         try {
             // Connection connection = dataSource.getConnection();
