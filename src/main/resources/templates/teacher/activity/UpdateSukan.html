@@ -657,7 +657,7 @@
                                                               <div class="col-md-7">
                                                                   <input type="text" class="form-control" id="activityID"
                                                                       name="activityID" placeholder=""
-                                                                      value="${sukan.activityID}" readonly>
+                                                                      th:value="${sukan.activityID}" readonly>
                                                               </div>
                                                           </div>
                                                           <div class="form-group row">
@@ -665,21 +665,21 @@
                                                               for="example-hf-email">Nama Aktivti</label><span style="color:white">*</span>
                                                           <div class="col-md-7">
                                                               <input type="text" class="form-control" id="namaSukan"
-                                                                  name="namaSukan" placeholder="" value="${activity.namaSukan}" >
+                                                                  name="namaSukan" placeholder="" th:value="${activity.namaSukan}" >
                                                           </div>
                                                       </div>
                                                       <div class="form-group row">
                                                           <label class="col-lg-3 col-form-label" for="example-hf-email">Informasi Sukan</label><span style="color:white">*</span>
                                                           <div class="col-md-7">
                                                               <input type="text" class="form-control" id="info"
-                                                                  name="info" placeholder="" value="${sukan.infoSukan}">
+                                                                  name="info" placeholder="" th:value="${sukan.infoSukan}">
                                                           </div>
                                                       </div>
                                                       <div class="form-group row">
                                                           <label class="col-lg-3 col-form-label" for="example-hf-email">Quota Sukan</label><span style="color:white">*</span>
                                                           <div class="col-md-7">
                                                               <input type="text" class="form-control" id="quota"
-                                                                  name="quota" placeholder="" value="${sukan.quotaSukan}">
+                                                                  name="quota" placeholder="" th:value="${sukan.quotaSukan}">
                                                           </div>
                                                       </div>
                                                       
