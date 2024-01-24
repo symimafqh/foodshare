@@ -327,7 +327,8 @@ public String AddNewClub(@RequestParam String namaClub, @RequestParam String inf
     //---------------------------UPDATE SUKAN------------------------------//
     @GetMapping("/UpdateSukan")
 public String UpdateSukan(@RequestParam("activityID") int activityid, Model model, HttpSession session) {
-    
+    SukanBean sukan = new SukanBean(); // Instantiate SukanBean
+    ActivityBean activity = new ActivityBean(); // Instantiate ActivityBean
 
     try {
         Connection connection = dataSource.getConnection();
@@ -342,8 +343,8 @@ public String UpdateSukan(@RequestParam("activityID") int activityid, Model mode
             String infoSukan = resultSet.getString("sportinformation");
             int quotaSukan = resultSet.getInt("sportquota");
 
-            SukanBean sukan = new SukanBean(); // Instantiate SukanBean
-            ActivityBean activity = new ActivityBean(); // Instantiate ActivityBean
+            // SukanBean sukan = new SukanBean(); // Instantiate SukanBean
+            // ActivityBean activity = new ActivityBean(); // Instantiate ActivityBean
 
             System.out.println("Sukan object: " + sukan);
             // Set the values to the Sukan object
@@ -351,14 +352,17 @@ public String UpdateSukan(@RequestParam("activityID") int activityid, Model mode
             sukan.setInfoSukan(infoSukan);
             sukan.setQuotaSukan(quotaSukan);
 
-            model.addAttribute("sukan", sukan);
-            model.addAttribute("activity", activity);
+            // model.addAttribute("sukan", sukan);
+            // model.addAttribute("activity", activity);
 
             connection.close();
         }
     } catch (SQLException e) {
         e.printStackTrace();
     }
+    model.addAttribute("sukan", sukan);
+    model.addAttribute("activity", activity);
+
 
     return "teacher/activity/UpdateSukan";
 }
