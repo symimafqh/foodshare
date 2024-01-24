@@ -180,7 +180,7 @@ public class SideBarStudentController {
      // method to check dah register ke belum
      public boolean isStudentRegistered(String studentIC) {
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM registration WHERE studentIC = ?")) {
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM registration WHERE studentic = ?")) {
 
             preparedStatement.setString(1, studentIC);
 
@@ -539,39 +539,39 @@ public String viewPendaftaran(HttpSession session, Model model, StudentBean sb) 
         List<String> activityNamesSport = new ArrayList<>();
 
         // Query sport
-        String sql1 = "SELECT A.ACTIVITYNAME FROM REGISTRATION R "
-                + "JOIN SPORT A ON A.ACTIVITYID = R.ACTIVITYID "
-                + "JOIN STUDENT S ON S.STUDENTIC = R.STUDENTIC WHERE STUDENTIC=?";
+        String sql1 = "SELECT A.activityname FROM registration R "
+                + "JOIN sport A ON A.activityid = R.activityid "
+                + "JOIN student S ON S.studentic = R.studentic WHERE studentic=?";
         PreparedStatement statement1 = connection.prepareStatement(sql1);
         statement1.setString(1, studentIC);
         ResultSet resultSet1 = statement1.executeQuery();
         
         while (resultSet1.next()) {
-            activityNamesSport.add(resultSet1.getString("ACTIVITYNAME"));
+            activityNamesSport.add(resultSet1.getString("activityName"));
         }
 
         // Query unit
-        String sql2 = "SELECT A.ACTIVITYNAME FROM REGISTRATION R "
-                + "JOIN UNIFORM A ON A.ACTIVITYID = R.ACTIVITYID "
-                + "JOIN STUDENT S ON S.STUDENTIC = R.STUDENTIC WHERE STUDENTIC=?";
+        String sql2 = "SELECT A.activityname FROM registration R "
+                + "JOIN uniform A ON A.activityid = R.activityid "
+                + "JOIN student S ON S.studentic = R.studentic WHERE studentic=?";
         PreparedStatement statement2 = connection.prepareStatement(sql2);  // Fix variable name
         statement2.setString(1, studentIC);
         ResultSet resultSet2 = statement2.executeQuery();
 
         while (resultSet2.next()) {
-            activityNamesUnit.add(resultSet2.getString("ACTIVITYNAME"));
+            activityNamesUnit.add(resultSet2.getString("activityName"));
         }
 
         // Query club
-        String sql3 = "SELECT A.ACTIVITYNAME FROM REGISTRATION R "
-                + "JOIN CLUB A ON A.ACTIVITYID = R.ACTIVITYID "
-                + "JOIN STUDENT S ON S.STUDENTIC = R.STUDENTIC WHERE STUDENTIC=?";
+        String sql3 = "SELECT A.activityname FROM registration R "
+                + "JOIN club A ON A.activityid = R.activityid "
+                + "JOIN student S ON S.studentic = R.studentic WHERE studentic=?";
         PreparedStatement statement3 = connection.prepareStatement(sql3);  // Fix variable name
         statement3.setString(1, studentIC);
         ResultSet resultSet3 = statement3.executeQuery();
 
         while (resultSet3.next()) {
-            activityNamesClub.add(resultSet3.getString("ACTIVITYNAME"));
+            activityNamesClub.add(resultSet3.getString("activityName"));
         }
 
         model.addAttribute("activityNamesUnit", activityNamesUnit);
