@@ -94,10 +94,10 @@ public class SideBarControllerTeacher {
            
 
             while (resultSet.next()) {
-                String namaClub = resultSet.getString("namaClub");
-                String infoClub = resultSet.getString("infoClub");
-                int quotaClub = resultSet.getInt("quotaClub");
-                int activityID = resultSet.getInt("activityID");
+                String namaClub = resultSet.getString("activityname");
+                String infoClub = resultSet.getString("clubinformation");
+                int quotaClub = resultSet.getInt("clubquota");
+                int activityID = resultSet.getInt("activityid");
                 
                 ClubBean c = new ClubBean();
                 c.setNamaClub(namaClub);
