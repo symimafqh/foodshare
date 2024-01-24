@@ -233,8 +233,11 @@
               <li>
                 <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-note"></i><span class="sidebar-mini-hide">KOKURIKULUM</span></a>
                 <ul>
-                  <li>
+                  <li th:if="${!isStudentRegistered}">
                     <a th:href="@{/registration}">Pendaftaran Kokurikulum</a>
+                  </li>
+                  <li th:if="${isStudentRegistered}">
+                    <a th:href="@{/registered}">Pendaftaran Kokurikulum</a>
                   </li>
                   <li>
                     <a th:href="@{/semakan}">Semakan Pendaftaran</a>

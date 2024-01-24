@@ -205,6 +205,8 @@ public class SideBarStudentController {
     public String successregister(HttpSession session,
             Model model) {
         String studentIC = (String) session.getAttribute("studentIC");
+        boolean registered = isStudentRegistered(studentIC);
+        model.addAttribute("isStudentRegistered", registered);
         try {
             Connection connection = dataSource.getConnection();
             String sql = "SELECT * FROM public.student where studentic=?";
@@ -247,6 +249,8 @@ public class SideBarStudentController {
     @GetMapping("/registered")
     public String registered(HttpSession session, Model model) {
         String studentIC = (String) session.getAttribute("studentIC");
+        boolean registered = isStudentRegistered(studentIC);
+        model.addAttribute("isStudentRegistered", registered);
         try {
             Connection connection = dataSource.getConnection();
             String sql = "SELECT * FROM public.student where studentic=?";
