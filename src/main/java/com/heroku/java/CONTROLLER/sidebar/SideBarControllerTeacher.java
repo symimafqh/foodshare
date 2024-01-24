@@ -114,7 +114,7 @@ public class SideBarControllerTeacher {
 
             connection.close();
 
-        return "teacherActivity/infoClubTeacher";
+        return "teacher/teacherActivity/infoClubTeacher";
         } catch (SQLException e) {
             e.printStackTrace();
             // Handle the exception as desired (e.g., show an error message)
