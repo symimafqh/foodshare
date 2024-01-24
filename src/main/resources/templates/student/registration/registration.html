@@ -236,11 +236,11 @@
                       <li th:if="${!isStudentRegistered}">
                         <a th:href="@{/registration}">Pendaftaran Kokurikulum</a>
                       </li>
-                      <li th:if="${isStudentRegistered}">
+                      <li th:unless="${isStudentRegistered}">
                         <a th:href="@{/registered}">Pendaftaran Kokurikulum</a>
                       </li>
                       <li>
-                        <a th:href="@{/dashboardStudent}">Semakan Pendaftaran</a>
+                        <a th:href="@{/semakan}">Semakan Pendaftaran</a>
                       </li>
                     </ul>
                   </li>
