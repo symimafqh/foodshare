@@ -526,5 +526,62 @@ public class SideBarStudentController {
         }
 
     }
+    @GetMapping("/semakpendaftaran")
+public String viewPendaftaran(HttpSession session, Model model, StudentBean sb) {
+    String studentIC = (String) session.getAttribute("studentIC");
+    // String studentName = 
+    // String
+    System.out.println("ID Number : " + studentIC);
+    
+    try (Connection connection = dataSource.getConnection()) {
+        List<String> activityNamesUnit = new ArrayList<>();
+        List<String> activityNamesClub = new ArrayList<>();
+        List<String> activityNamesSport = new ArrayList<>();
+
+        // Query sport
+        String sql1 = "SELECT A.ACTIVITYNAME FROM REGISTRATION R "
+                + "JOIN SPORT A ON A.ACTIVITYID = R.ACTIVITYID "
+                + "JOIN STUDENT S ON S.STUDENTIC = R.STUDENTIC WHERE STUDENTIC=?";
+        PreparedStatement statement1 = connection.prepareStatement(sql1);
+        statement1.setString(1, studentIC);
+        ResultSet resultSet1 = statement1.executeQuery();
+        
+        while (resultSet1.next()) {
+            activityNamesSport.add(resultSet1.getString("ACTIVITYNAME"));
+        }
+
+        // Query unit
+        String sql2 = "SELECT A.ACTIVITYNAME FROM REGISTRATION R "
+                + "JOIN UNIFORM A ON A.ACTIVITYID = R.ACTIVITYID "
+                + "JOIN STUDENT S ON S.STUDENTIC = R.STUDENTIC WHERE STUDENTIC=?";
+        PreparedStatement statement2 = connection.prepareStatement(sql2);  // Fix variable name
+        statement2.setString(1, studentIC);
+        ResultSet resultSet2 = statement2.executeQuery();
+
+        while (resultSet2.next()) {
+            activityNamesUnit.add(resultSet2.getString("ACTIVITYNAME"));
+        }
+
+        // Query club
+        String sql3 = "SELECT A.ACTIVITYNAME FROM REGISTRATION R "
+                + "JOIN CLUB A ON A.ACTIVITYID = R.ACTIVITYID "
+                + "JOIN STUDENT S ON S.STUDENTIC = R.STUDENTIC WHERE STUDENTIC=?";
+        PreparedStatement statement3 = connection.prepareStatement(sql3);  // Fix variable name
+        statement3.setString(1, studentIC);
+        ResultSet resultSet3 = statement3.executeQuery();
+
+        while (resultSet3.next()) {
+            activityNamesClub.add(resultSet3.getString("ACTIVITYNAME"));
+        }
+
+        model.addAttribute("activityNamesUnit", activityNamesUnit);
+        model.addAttribute("activityNamesSport", activityNamesSport);
+        model.addAttribute("activityNamesClub", activityNamesClub);
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    return "registration/semakpendaftaran";  // Corrected return statement
+}
 
 }
