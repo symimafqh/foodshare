@@ -410,16 +410,98 @@ public String UpdateSukan( @RequestParam("activityID") int activityid,Model mode
 	        e.printStackTrace();
 	        // Handle the exception as needed
             return "redirect:/AddNewSukan?success=false";
-	    } 
-	    
-
-
-        
+	    }   
         return "redirect:/AddNewSukan?success=true";
     }
     
     
+//---------------------------UPDATE CLUB------------------------------//
+@GetMapping("/UpdateClub")
+public String UpdateClub( @RequestParam("activityID") int activityid,Model model, HttpSession session) {
+    //Integer activityid = (Integer) session.getAttribute("activityID");
+    System.out.println("activity id "+activityid);
 
+    ClubBean club = new ClubBean(); // Instantiate ClubBean
+    ActivityBean activity = new ActivityBean(); // Instantiate ActivityBean
+
+    try {
+        Connection connection = dataSource.getConnection();
+        String sql = "SELECT a.activityid, a.activityname, s.clubinformation, s.clubquota " +
+            "FROM activity a JOIN club s ON a.activityid = s.activityid WHERE a.activityid = ?";
+        final var statement = connection.prepareStatement(sql);
+        statement.setInt(1, activityid);
+        final var resultSet = statement.executeQuery();
+
+        if (resultSet.next()) {
+            String activityName = resultSet.getString("activityname");
+            String infoClub = resultSet.getString("clubinformation");
+            int quotaClub = resultSet.getInt("clubquota");
+
+            // ClubBean sukan = new ClubBean(); // Instantiate ClubBean
+            // ActivityBean activity = new ActivityBean(); // Instantiate ActivityBean
+
+            System.out.println("Club object: " + club);
+            // Set the values to the Club object
+            club.setActivityID(activityid);
+            club.setNamaClub(activityName);
+            club.setInfoClub(infoClub);
+            club.setQuotaClub(quotaClub);
+
+            // model.addAttribute("sukan", sukan);
+            // model.addAttribute("activity", activity);
+
+            connection.close();
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    model.addAttribute("club", club);
+    model.addAttribute("activity", activity);
+
+
+    return "teacher/activity/UpdateClub";
+}
+
+
+    @PostMapping("/UpdateClub")
+    public String UpdateClub(@RequestParam("activityID") int activityid, @RequestParam("namaClub") String activityName, @RequestParam("info") String info, @RequestParam("quota") Integer quota, ActivityBean ab, ClubBean sb, Model model) {
+        
+        //int activity = activityId;
+        //String unitName = activityName;
+
+        System.out.println(activityid);
+        System.out.println(activityName);
+        System.out.println(info);
+        System.out.println(quota);
+	    try {
+            Connection con = dataSource.getConnection();
+	        String sql1 = "UPDATE ACTIVITY SET ACTIVITYNAME = ? WHERE ACTIVITYID = ?";
+	        try (PreparedStatement ps1 = con.prepareStatement(sql1)) {
+	            ps1.setString(1, activityName);
+	            ps1.setInt(2, activityid);
+	            ps1.executeUpdate();
+	            System.out.println("Successfully updated activity table "+activityid);
+	        }
+
+	        String sql2 = "UPDATE CLUB SET CLUBINFORMATION=?, CLUBQUOTA=?  WHERE ACTIVITYID = ?";
+	        try (PreparedStatement ps2 = con.prepareStatement(sql2)) {
+	            ps2.setString(1, info);
+	            ps2.setInt(2, quota); // Assuming getQuotaClub() returns an integer
+	            ps2.setInt(3, activityid);
+	            ps2.executeUpdate();
+	            System.out.println("Successfully updated club table");
+	        }
+            model.addAttribute("success", true);
+    
+            con.close();
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        // Handle the exception as needed
+            return "redirect:/AddNewClub?success=false";
+	    } 
+        return "redirect:/AddNewClub?success=true";
+    }
 
 
 
