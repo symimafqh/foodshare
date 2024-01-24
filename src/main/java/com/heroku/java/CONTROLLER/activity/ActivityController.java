@@ -94,8 +94,8 @@ public String unitList(Model model) {
                 activity.setActivityName(resultSet.getString("activityName"));
 
                 unit.setActivity(activity);
-                unit.setInfoUnit(resultSet.getString("unitInformation"));
-                unit.setQuotaUnit(resultSet.getInt("unitQuota"));
+                unit.setInfoUnit(resultSet.getString("uniforminformation"));
+                unit.setQuotaUnit(resultSet.getInt("uniformquota"));
 
                 unitList.add(unit);
             }
