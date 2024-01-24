@@ -366,7 +366,7 @@
                                     </a>
                                 </li>
                                 <li class="list-inline-item">
-                                    <a class="link-effect text-dual-primary-dark" th:href="@{/AdminSignIn}">
+                                    <a class="link-effect text-dual-primary-dark" th:href="@{/logoutadmin}">
                                         <i class="si si-logout"></i>
                                     </a>
                                 </li>
@@ -380,27 +380,24 @@
                     <div class="content-side content-side-full">
                         <ul class="nav-main">
                             <li>
-                                <a class="active" th:href="@{/MydashboardAdmin}"><i class="si si-cup"></i><span
+                                <a class="active" th:href="@{/dashboardAdmin}"><i class="si si-cup"></i><span
                                         class="sidebar-mini-hide">DASHBOARD</span></a>
                             </li>
                             <li>
                                 <a class="active" th:href="@{/adminProfile}"><i class="si si-user"></i><span
                                         class="sidebar-mini-hide">PROFIL</span></a>
                             </li>
-                            <li>
-                                <a class="active" th:href="@{/AdminViewTeacher}"><i class="si si-people"></i><span
-                                        class="sidebar-mini-hide">GURU</span></a>
-                            </li>
+
                             <li>
                             <li>
                                 <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i
                                         class="si si-layers"></i><span class="sidebar-mini-hide">AKAUN</span></a>
                                 <ul>
                                     <li>
-                                        <a th:href="@{/accountCoordinator}">KOORDINATOR</a>
+                                        <a th:href="@{/ListAccountTeacher}">KOORDINATOR</a>
                                     </li>
                                     <li>
-                                        <a th:href="@{/accountStudent}">PELAJAR</a>
+                                        <a th:href="@{/ListAccountStudent}">PELAJAR</a>
                                     </li>
                                 </ul>
                             </li>
@@ -565,7 +562,7 @@
                             <!-- END Side Overlay -->
 
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" th:href="@{/AdminSignIn}">
+                            <a class="dropdown-item" th:href="@{/logoutadmin}">
                                 <i class="si si-logout mr-5"></i> Sign Out
                             </a>
                         </div>

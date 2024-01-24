@@ -244,15 +244,12 @@
                             <li><a class="active" th:href="@{/profileTeacher_edit}"><i class="si si-user"></i><span
                                         class="sidebar-mini-hide">PROFIL</span></a>
                             </li>
-                            <li><a class="nav-submenu" data-toggle="nav-submenu"><i class="si si-layers"></i><span
-                                        class="sidebar-mini-hide">KATEGORI</span></a>
+                            <li><a class="nav-submenu" data-toggle="nav-submenu" href="#">
+                                    <i class="si si-layers"></i><span class="sidebar-mini-hide">KATEGORI</span></a>
                                 <ul>
-                                    <li><a>Unit
-                                            Beruniform</a></li>
-                                    <li><a>Sukan
-                                            dan Permainan</a></li>
-                                    <li><a>Kelab
-                                            dan Persatuan</a></li>
+                                    <li><a th:href="@{/infoUnitTeacher}">Unit Beruniform</a></li>
+                                    <li><a th:href="@{/infoClubTeacher}">Kelab dan Persatuan</a></li>
+                                    <li><a th:href="@{/infoSportTeacher}">Sukan dan Permainan</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -381,8 +378,8 @@
                         <!-- Personal -->
                         <h1 class="h3 text-white font-w700 mb-10"><span class="d-none d-sm-inline-block"
                                 th:text="${session.teacherName}"></span></h1>
-                                <h2 class="h3 text-white font-w700 mb-10"><span class="d-none d-sm-inline-block"
-                                    th:text="${session.teacherRole}"></span></h2>
+                        <h2 class="h3 text-white font-w700 mb-10"><span class="d-none d-sm-inline-block"
+                                th:text="${session.teacherRole}"></span></h2>
                         <!-- <h2 class="h5 text-white-op">
                     Kelas 
                   </h2> -->
@@ -409,9 +406,8 @@
                         </h3>
                     </div>
                     <div class="block-content">
-                        <form th:action="@{/profileTeacher_edit}"
-                        modelAttribute="profileTeacher_edit"
-                        th:object="(${profileTeacher_edit})" method="POST" enctype="multipart/form-data" >
+                        <form th:action="@{/profileTeacher_edit}" modelAttribute="profileTeacher_edit"
+                            th:object="(${profileTeacher_edit})" method="POST" enctype="multipart/form-data">
                             <div class="row items-push">
                                 <div class="col-lg-3">
                                     <p class="text-muted">
@@ -434,7 +430,9 @@
                                     <div class="form-group row">
                                         <div class="col-12">
                                             <label for="profile-settings-username">Username</label>
-                                            <input type="text" class="form-control form-control-lg" id="profile-settings-username" name="teacherUsername" th:value="${t.teacherUsername}">
+                                            <input type="text" class="form-control form-control-lg"
+                                                id="profile-settings-username" name="teacherUsername"
+                                                th:value="${t.teacherUsername}">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -531,9 +529,8 @@
                         </h3>
                     </div>
                     <div class="block-content">
-                        <form th:action="@{/password_teacher}"
-                        modelAttribute="password_teacher"
-                        th:object="(${password_teacher})" method="post">
+                        <form th:action="@{/password_teacher}" modelAttribute="password_teacher"
+                            th:object="(${password_teacher})" method="post">
                             <div class="row items-push">
                                 <div class="col-lg-3">
                                     <p class="text-muted">
@@ -563,8 +560,7 @@
                                             <label for="profile-settings-password-new-confirm">Sahkan Kata Laluan
                                                 Baru</label>
                                             <input type="text" class="form-control form-control-lg"
-                                                id="profile-settings-password-new-confirm"
-                                                name="teacherpassword">
+                                                id="profile-settings-password-new-confirm" name="teacherpassword">
                                         </div>
                                     </div>
                                     <div class="form-group row">
