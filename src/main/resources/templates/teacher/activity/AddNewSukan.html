@@ -715,8 +715,8 @@
 <!-- END Modal Tambah Sukan -->
 
                             <!-- START Modal Edit Sukan-->
-                            <div class="modal fade" id="edit_sukan_${loopStatus.index}" tabindex="-1" role="dialog"
-                                aria-labelledby="edit_sukan_${loopStatus.index}_label" aria-hidden="true">
+                            <div class="modal fade" id="edit_sukan" tabindex="-1" role="dialog"
+                                aria-labelledby="edit_sukan_label" aria-hidden="true">
                                 <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
                                         <div class="block block-themed block-transparent mb-0">
@@ -731,7 +731,7 @@
                                             </div>
                                             <div class="block-content">
                                                 <div id="non-jawatan">
-                                                    <form class="" action="UpdateSukanController" method="post">
+                                                    <form method="post" th:action="@{/UpdateSukan}" modelAttribute="UpdateSukan" th:object="(${UpdateSukan})">
                                                         <input type="hidden" name="id_profile" id="id_profile"
                                                             value="${sukan.activity.activityID}">
 
@@ -742,9 +742,8 @@
                                                             <div class="col-lg-9">
                                                                 <input type="text" class="form-control" id="title"
                                                                     name="activityName" placeholder=""
-                                                                    value="<c:out value="
-                                                                    ${sukan.activity.activityName}" />"
-                                                                required>
+                                                                    value= ""
+                                                                required>${sukan.activity.activityName}
                                                             </div>
                                                         </div>
 
@@ -789,53 +788,7 @@
                                 </div>
                             </div>
                             <!-- END Modal Edit Sukan -->
-                            <!-- Modal Delete Sukan-->
-                            <div class="modal fade" id="delete_sukan" tabindex="-1" role="dialog"
-                                aria-labelledby="modal-create-pekerjaan" aria-hidden="true">
-                                <div class="modal-dialog modal-lg-5" role="document">
-                                    <div class="modal-content">
-                                        <div class="block block-themed block-transparent mb-0">
-                                            <div class="block-header bg-primary-dark">
-                                                <h3 class="block-title">Padam Sukan/Permainan</h3>
-                                                <div class="block-options">
-                                                    <button type="button" class="btn-block-option" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                        <i class="si si-close"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="block-content">
-                                                <form class="js-validation-bootstrap" method="post">
-                                                    <input type="hidden" name="id_profile" id="id_profile"
-                                                        value="<?php echo $row['id'] ?>">
-                                                    <div class="form-group row">
-                                                        <label class="col-lg-12 col-form-label" for="title">
-                                                            <p>
-                                                                Maklumat ini akan <b>dipadam</b>.<br> <br />Adakah
-                                                                anda pasti?
-                                                            </p>
-                                                        </label>
-
-                                                    </div>
-
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-alt-secondary"
-                                                            data-dismiss="modal">
-                                                            <i class="si si-close mr-10"></i>Tutup
-                                                        </button>
-                                                        <button type="submit" name="confirm_delete_sukan"
-                                                            class="btn btn-alt-danger" data-dismiss="modal">
-                                                            <i class="fa fa-trash"></i> Padam
-                                                        </button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- END Modal Delete Sukan -->
-
+                           
                             <table class="table table-bordered table-vcenter js-dataTable-full">
                                 <thead class="thead-light text-center">
                                     <tr>
@@ -858,98 +811,11 @@
                                             <td class="text-center" th:text="${sukan.infoSukan}"></td>
                                             <td class="text-center" th:text="${sukan.quotaSukan}"></td>
                                             <td class="text-center" >
-                                                <a type="button" class="btn btn-sm btn-primary" title="Kemaskini Profil" th:href="@{/UpdateSukan(activityID=${sukan.activity.activityID})}">
-                                                  <i class="fa fa-user"></i>
+                                                <a type="button" class="btn btn-sm btn-primary" data-target="#edit_sukan" title="Kemaskini Profil" th:href="@{/UpdateSukan(activityID=${sukan.activity.activityID})}">
+                                                  <i class="fa fa-edit"></i>
                                                 </a>
                                               </td>
                                         </tr>
-
-                                        <!--update sukan -->
-                                        <!-- START Modal Edit Sukan-->
-                                        <div class="modal fade" id="edit_sukan_${loopStatus.index}" tabindex="-1"
-                                            role="dialog" aria-labelledby="edit_sukan_${loopStatus.index}_label"
-                                            aria-hidden="true">
-                                            <div class="modal-dialog modal-lg" role="document">
-                                                <div class="modal-content">
-                                                    <div class="block block-themed block-transparent mb-0">
-                                                        <div class="block-header bg-primary-dark">
-                                                            <h3 class="block-title">Maklumat Sukan/Permainan</h3>
-                                                            <div class="block-options">
-                                                                <button type="button" class="btn-block-option"
-                                                                    data-dismiss="modal" aria-label="Close">
-                                                                    <i class="si si-close"></i>
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                        <div class="block-content">
-                                                            <div id="non-jawatan">
-                                                                <form class="" action="UpdateSukanController"
-                                                                    method="post">
-                                                                    <input type="hidden" name="id_profile"
-                                                                        id="id_profile"
-                                                                        value="${sukan.activity.activityID}">
-
-                                                                    <div class="form-group row">
-                                                                        <label class="col-lg-3 col-form-label"
-                                                                            for="title">Nama
-                                                                            Sukan/Permainan<span
-                                                                                class="text-danger">*</span>
-                                                                        </label>
-                                                                        <div class="col-lg-9">
-                                                                            <input type="text" class="form-control"
-                                                                                id="title" name="activityName"
-                                                                                placeholder="" value="<c:out value="
-                                                                                ${sukan.activity.activityName}" />"
-                                                                            required>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="form-group row">
-                                                                        <label class="col-lg-3 col-form-label"
-                                                                            for="info">Informasi
-                                                                            berkenaan Sukan/Permainan<span
-                                                                                class="text-danger">*</span>
-                                                                        </label>
-                                                                        <div class="col-lg-9">
-                                                                            <textarea class="form-control" id="info"
-                                                                                rows="7" name="infoSukan" placeholder=""
-                                                                                required>${sukan.infoSukan}</textarea>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="form-group row">
-                                                                        <label class="col-lg-3 col-form-label"
-                                                                            for="quota">Sukan
-                                                                            Quota<span class="text-danger">*</span>
-                                                                        </label>
-                                                                        <div class="col-lg-9">
-                                                                            <textarea class="form-control" id="quota"
-                                                                                rows="7" name="quotaSukan"
-                                                                                placeholder=""
-                                                                                required>${sukan.quotaSukan}</textarea>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="modal-footer">
-                                                                        <button type="button"
-                                                                            class="btn btn-alt-secondary"
-                                                                            data-dismiss="modal">
-                                                                            <i class="si si-close mr-10"></i>Tutup
-                                                                        </button>
-                                                                        <button type="submit" name="update_sukan"
-                                                                            class="btn btn-alt-info">
-                                                                            <i class="fa fa-save mr-10"></i> Simpan
-                                                                        </button>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- END Modal Edit Sukan -->
-                                    </c:forEach>
                                 </tbody>
                             </table>
                         </div>

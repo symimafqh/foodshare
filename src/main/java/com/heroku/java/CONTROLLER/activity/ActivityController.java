@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import java.util.List;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Controller
 public class ActivityController {
@@ -268,7 +270,7 @@ public String AddNewClub(@RequestParam String namaClub, @RequestParam String inf
     //---------------------------ADD Unit------------------------------//
     @GetMapping("/addUnitt")
     public String AddNewUnit() {
-        return "teacher/activity/AddNewUnit";
+        return "teacher/activity/addNewUnit";
     }
     
     @PostMapping("/AddNewUnit")
@@ -322,7 +324,55 @@ public String AddNewClub(@RequestParam String namaClub, @RequestParam String inf
         return "redirect:/addNewUnit?success=true";
     }
     
+    //---------------------------UPDATE SUKAN------------------------------//
+    @GetMapping("/UpdateSukan")
+    public String UpdateSukan() {
+        return "teacher/activity/AddNewSukan";
+    }
 
+    @PostMapping("/UpdateSukan")
+    public String UpdateSukan(@RequestParam int activityId, @RequestParam String activityName, @RequestParam String info, @RequestParam Integer quota, ActivityBean ab, SukanBean sb, Model model) {
+        
+        int activity = activityId;
+        String unitName = activityName;
+
+        System.out.println(activity + unitName);
+
+	    try {
+            Connection con = dataSource.getConnection();
+	        String sql1 = "UPDATE ACTIVITY SET ACTIVITYNAME = ? WHERE ACTIVITYID = ?";
+	        try (PreparedStatement ps1 = con.prepareStatement(sql1)) {
+	            ps1.setString(1, ab.getActivityName());
+	            ps1.setInt(2, activity);
+	            ps1.executeUpdate();
+	            System.out.println("Successfully updated activity table"+activityId);
+	        }
+
+	        String sql2 = "UPDATE SPORT SET SPORTINFORMATION=?, SPORTQUOTA=?  WHERE ACTIVITYID = ?";
+	        try (PreparedStatement ps2 = con.prepareStatement(sql2)) {
+	            ps2.setString(1, sb.getInfoSukan());
+	            ps2.setInt(2, sb.getQuotaSukan()); // Assuming getQuotaSukan() returns an integer
+	            ps2.setInt(3, activityId);
+	            ps2.executeUpdate();
+	            System.out.println("Successfully updated sport table");
+	        }
+            model.addAttribute("success", true);
+    
+            con.close();
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        // Handle the exception as needed
+            return "redirect:/AddNewSukan?success=false";
+	    } 
+	    
+
+
+        
+        return "redirect:/AddNewSukan?success=true";
+    }
+    
+    
 
 
 
