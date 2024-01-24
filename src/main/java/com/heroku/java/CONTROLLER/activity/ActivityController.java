@@ -326,23 +326,26 @@ public String AddNewClub(@RequestParam String namaClub, @RequestParam String inf
     
     //---------------------------UPDATE SUKAN------------------------------//
     @GetMapping("/UpdateSukan")
-    public String UpdateSukan(@RequestParam("activityID") int activityid , SukanBean sukan, ActivityBean activity, Model model, HttpSession session) {
-        try {
-            Connection connection = dataSource.getConnection();
-            String sql = "SELECT a.activityid, a.activityname, s.sportinformation, s.sportquota " +
+public String UpdateSukan(@RequestParam("activityID") int activityid, Model model, HttpSession session) {
+    
+
+    try {
+        Connection connection = dataSource.getConnection();
+        String sql = "SELECT a.activityid, a.activityname, s.sportinformation, s.sportquota " +
             "FROM activity a JOIN sport s ON a.activityid = s.activityid WHERE activityid = ?";
-            final var statement = connection.prepareStatement(sql);
-            statement.setInt(1, activityid);
-            final var resultSet = statement.executeQuery();
+        final var statement = connection.prepareStatement(sql);
+        statement.setInt(1, activityid);
+        final var resultSet = statement.executeQuery();
 
-            if (resultSet.next()) {
-                String activityName = resultSet.getString("activityname");
-                String infoSukan = resultSet.getString("sportinformation");
-                int quotaSukan = resultSet.getInt("sportquota");
-                
-                // SukanBean sukan = new SukanBean(); // Make sure to replace this with your actual Sukan class
-                // ActivityBean activity = new ActivityBean();
+        if (resultSet.next()) {
+            String activityName = resultSet.getString("activityname");
+            String infoSukan = resultSet.getString("sportinformation");
+            int quotaSukan = resultSet.getInt("sportquota");
 
+            SukanBean sukan = new SukanBean(); // Instantiate SukanBean
+            ActivityBean activity = new ActivityBean(); // Instantiate ActivityBean
+
+            System.out.println("Sukan object: " + sukan);
             // Set the values to the Sukan object
             activity.setActivityName(activityName);
             sukan.setInfoSukan(infoSukan);
@@ -351,16 +354,15 @@ public String AddNewClub(@RequestParam String namaClub, @RequestParam String inf
             model.addAttribute("sukan", sukan);
             model.addAttribute("activity", activity);
 
-
-                connection.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            connection.close();
         }
-
-    
-        return "teacher/activity/UpdateSukan";
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+
+    return "teacher/activity/UpdateSukan";
+}
+
 
     @PostMapping("/UpdateSukan")
     public String UpdateSukan(@RequestParam int activityId, @RequestParam String activityName, @RequestParam String info, @RequestParam Integer quota, ActivityBean ab, SukanBean sb, Model model) {
