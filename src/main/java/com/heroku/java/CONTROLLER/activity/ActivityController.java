@@ -330,7 +330,7 @@ public String AddNewClub(@RequestParam String namaClub, @RequestParam String inf
     @GetMapping("/UpdateSukan")
 public String UpdateSukan( @RequestParam("activityID") int activityid,Model model, HttpSession session) {
     //Integer activityid = (Integer) session.getAttribute("activityID");
-    System.out.println("activity id"+activityid);
+    System.out.println("activity id "+activityid);
 
     SukanBean sukan = new SukanBean(); // Instantiate SukanBean
     ActivityBean activity = new ActivityBean(); // Instantiate ActivityBean
@@ -353,6 +353,7 @@ public String UpdateSukan( @RequestParam("activityID") int activityid,Model mode
 
             System.out.println("Sukan object: " + sukan);
             // Set the values to the Sukan object
+            sukan.setActivityID(activityid);
             sukan.setNamaSukan(activityName);
             sukan.setInfoSukan(infoSukan);
             sukan.setQuotaSukan(quotaSukan);
