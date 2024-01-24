@@ -336,7 +336,7 @@ public String UpdateSukan( Model model, HttpSession session) {
     try {
         Connection connection = dataSource.getConnection();
         String sql = "SELECT a.activityid, a.activityname, s.sportinformation, s.sportquota " +
-            "FROM activity a JOIN sport s ON a.activityid = s.activityid WHERE activityid = ?";
+            "FROM activity a JOIN sport s ON a.activityid = s.activityid WHERE s.activityid = ?";
         final var statement = connection.prepareStatement(sql);
         statement.setInt(1, activityid);
         final var resultSet = statement.executeQuery();
