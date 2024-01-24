@@ -84,36 +84,38 @@ public class SideBarControllerTeacher {
         @GetMapping("/infoClubTeacher")
     public String clubListTeacher(Model model) {
 
-        List<ClubBean> club = new ArrayList<ClubBean>();
+        List<ClubBean> clubListTeacher = new ArrayList<ClubBean>();
 
         try (Connection connection = dataSource.getConnection()) {
-            String sql = "SELECT * FROM club order by activityname";
-            final var statement = connection.prepareStatement(sql);
-            //statement.setString(1, "baker"); (syahir punya nih)
-            final var resultSet = statement.executeQuery();
-           
+            
+            final var statement = connection.createStatement();
+            String sql = "SELECT a.activityid, a.activityname " +
+            "FROM activity a JOIN sport s ON a.activityid = s.activityid";
 
+            final var resultSet = statement.executeQuery(sql);
+           
             while (resultSet.next()) {
-                String namaClub = resultSet.getString("activityname");
-                String infoClub = resultSet.getString("clubinformation");
-                int quotaClub = resultSet.getInt("clubquota");
-                int activityID = resultSet.getInt("activityid");
-                
-                ClubBean c = new ClubBean();
-                c.setNamaClub(namaClub);
-                c.setInfoClub(infoClub);
-                c.setQuotaClub(quotaClub);
-                c.setActivityID(activityID);
+                ClubBean club = new ClubBean();
+				ActivityBean activity = new ActivityBean();
+
+                activity.setActivityID(resultSet.getInt("activityID"));
+                activity.setActivityName(resultSet.getString("activityName"));
+
+                // Set ActivityBean as a property of SukanBean
+                club.setActivity(activity);
          
 
-                club.add(c);
+                clubListTeacher.add(club);
         
                 //model.addAttribute("isAdmin", staffsrole != null && staffsrole.equals("admin")); // Add isAdmin flag to the modelF (syahir punya gak)
 
             }
-            model.addAttribute("club", club);
 
             connection.close();
+
+            model.addAttribute("clubListTeacher", clubListTeacher);
+
+            
 
         return "teacher/teacherActivity/infoClubTeacher";
         } catch (SQLException e) {
@@ -124,43 +126,127 @@ public class SideBarControllerTeacher {
         
     }
 
+    interface Bean {
+        int getActivityID();
+        void setActivityID(int activityID);
+    }
+
     public class ClubBean {
 	
-        private String namaClub;
-        private String infoClub;
-        private int quotaClub;
-        private int activityID;
+	private String namaClub;
+	private String infoClub;
+	private int quotaClub;
+	private int activityID;
+	
+	public int getActivityID() {
+		return activityID;
+	}
 
-        public String getNamaClub() {
-            return namaClub;
-        }
-    
-        public void setNamaClub(String namaClub) {
-            this.namaClub = namaClub;
-        }
-    
-        public String getInfoClub() {
-            return infoClub;
-        }
-    
-        public void setInfoClub(String infoClub) {
-            this.infoClub = infoClub;
-        }
-    
-        public int getQuotaClub() {
-            return quotaClub;
-        }
-    
-        public void setQuotaClub(int quotaClub) {
-            this.quotaClub = quotaClub;
-        }
+	public void setActivityID(int activityID) {
+		this.activityID = activityID;
+	}
 
+	private ActivityBean activity;
+	
+	/*
+	 * public int getActivityID() { // This getter is not necessary if it's already
+	 * defined in ActivityBean return super.getActivityID(); // This calls the
+	 * inherited getter from ActivityBean }
+	 * 
+	 * public void setActivityID(int activityID) { // This setter is not necessary
+	 * if it's already defined in ActivityBean super.setActivityID(activityID); //
+	 * This calls the inherited setter from ActivityBean }
+	 */
+
+	// Setter method for ActivityBean
+    public void setActivity(ActivityBean activity) {
+        this.activity = activity;
+    }
+
+    // Getter method for ActivityBean
+    public ActivityBean getActivity() {
+        return activity;
+    }
+	  
+	public String getNamaClub() {
+		return namaClub;
+	}
+
+	public void setNamaClub(String namaClub) {
+		this.namaClub = namaClub;
+	}
+
+	public String getInfoClub() {
+		return infoClub;
+	}
+
+	public void setInfoClub(String infoClub) {
+		this.infoClub = infoClub;
+	}
+
+	public int getQuotaClub() {
+		return quotaClub;
+	}
+
+	public void setQuotaClub(int quotaClub) {
+		this.quotaClub = quotaClub;
+	}
+}
+
+    
+
+    //---------------------------ACTIVITY BEAN------------------------------//
+    public class ActivityBean implements Bean{
+	
+        private String activityName;
+        private String TeacherID;
+        private  int activityID;
+
+        public ActivityBean() {
+        }
+        
+        @Override
         public int getActivityID() {
             return activityID;
         }
     
+        public Integer getMaxActivityID() {
+            int maxActivityID = 0;
+		try (Connection con = dataSource.getConnection();
+				Statement stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery("SELECT MAX(ACTIVITYID) FROM ACTIVITY")) {
+
+			if (rs.next()) {
+				maxActivityID = rs.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			// Handle exceptions as needed
+		}
+		return maxActivityID;
+        }
+
+        @Override
         public void setActivityID(int activityID) {
             this.activityID = activityID;
         }
-}
+    
+        public String getTeacherID() {
+            return TeacherID;
+        }
+    
+        public void setTeacherID(String teacherID) {
+            TeacherID = teacherID;
+        }
+    
+        public String getActivityName() {
+            return activityName;
+        }
+    
+        public void setActivityName(String activityName) {
+            this.activityName = activityName;
+        }
+    
+    }
 }
