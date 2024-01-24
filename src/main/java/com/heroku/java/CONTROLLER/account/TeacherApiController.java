@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.heroku.java.MODEL.teacher.TeacherBean;
 
@@ -25,6 +27,9 @@ public class TeacherApiController {
     public String viewTeacherDetails(
             @RequestParam("teacherID") String teacherID,
             RedirectAttributes redirectAttributes) {
+
+            System.out.println("Received teacherID: " + teacherID);
+
         try (Connection connection = dataSource.getConnection()) {
             String sql = "SELECT * FROM public.teacher where teacherid=?";
             final var statement = connection.prepareStatement(sql);
@@ -45,9 +50,10 @@ public class TeacherApiController {
 
                 // Add teacher object to RedirectAttributes
                 redirectAttributes.addFlashAttribute("t", teacher);
-
-                // Redirect to the viewTeacherDetails page
                 return "redirect:/account/viewTeacherDetails";
+                // RedirectView redirectView = new RedirectView("/account/viewTeacherDetails");
+                // redirectView.addStaticAttribute("teacherID", teacherID);
+                // return new ModelAndView(redirectView);
             }
         } catch (Exception e) {
             e.printStackTrace();
