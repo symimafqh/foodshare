@@ -375,7 +375,7 @@
                                                             for="example-hf-email">Nama</label><span style="color:white">*</span>
                                                         <div class="col-md-7">
                                                             <input type="text" class="form-control" id="example-hf-email"
-                                                                name="studentName" placeholder="" th:value="${s.studentName}" disabled>
+                                                                name="studentName" placeholder="" th:value="${session.studentName}" disabled>
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
@@ -383,7 +383,7 @@
                                                             Pengenalan</label><span style="color:white">*</span>
                                                         <div class="col-md-7">
                                                             <input type="text" class="form-control" id="studentIC"
-                                                                name="studentIC" placeholder="" th:value="${s.studentIC}" readonly>
+                                                                name="studentIC" placeholder="" th:value="${session.studentIC}" readonly>
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
@@ -391,7 +391,7 @@
                                                             for="example-hf-password">Kelas</label>
                                                         <div class="col-md-7">
                                                             <input type="text" class="form-control" id="example-hf-password"
-                                                                name="studentClass" placeholder="" th:value="${s.studentClass}" disabled>
+                                                                name="studentClass" placeholder="" th:value="${session.studentClass}" disabled>
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
