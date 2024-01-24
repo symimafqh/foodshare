@@ -108,7 +108,7 @@ public class SideBarStudentController {
                s.setQuotaSukan(resultSet.getInt("sportQuota"));
 
                sukan.add(s);
-                model.addAttribute("s", s);
+                model.addAttribute("sukan", sukan);
 
                 connection.close();
             }
@@ -136,7 +136,7 @@ public class SideBarStudentController {
                club.add(c);
 
                 connection.close();
-                model.addAttribute("c", c);
+                model.addAttribute("club", club);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -162,7 +162,7 @@ public class SideBarStudentController {
                unit.add(u);
 
                 connection.close();
-                model.addAttribute("u", u);
+                model.addAttribute("unit", unit);
             }
         } catch (Exception e) {
             e.printStackTrace();
