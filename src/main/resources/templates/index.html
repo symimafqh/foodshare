@@ -160,75 +160,83 @@
       </header>
       <!-- END Header -->
 
-      <!-- Main Container -->
       <main id="main-container">
         <!-- Page Content -->
         <div class="center" data-toggle="appear">
-            <center><div><h2 class="h4 font-w700 mt-30 mb-10 ml-20 mt-100">PILIH PENGGUNA</h2></div></center>
+    <center>
+        <div>
+            <h2 class="h4 font-w700 mt-30 mb-10 ml-20 mt-100">PILIH PENGGUNA</h2>
         </div>
-        <div class="content">
-          <div class="row invisible" data-toggle="appear">
-            
-          </div>
-          <div class="row invisible" data-toggle="appear">
-           
-          </div>
-          <div class="row invisible" data-toggle="appear">
-            <!-- Row #3 -->
-            <div class="col-sm-2.2 ml-auto">
-              <div class="block">
+    </center>
+</div>
+
+<div class="content">
+    <div class="row invisible" data-toggle="appear">
+        <!-- Row #3 -->
+
+        <!-- ADMINISTRATOR -->
+        <div class="col-sm-4">
+            <div class="block">
                 <div class="block-content block-content-full">
-                  <div class="py-20 text-center">
-                    <div class="mb-20">
-                        <a class="img-link" href="be_pages_generic_profile.html">
-                            <img class="img-avatar" th:src="@{stylesheets/assets/media/avatars/avatar15.jpg}" alt="">
-                          </a>
+                    <div class="py-20 text-center">
+                        <div class="mb-20">
+                            <a class="img-link" href="be_pages_generic_profile.html">
+                                <img class="img-avatar" th:src="@{stylesheets/assets/media/avatars/avatar15.jpg}" alt="">
+                            </a>
+                        </div>
+                        <div class="pt-20">
+                            <a class="btn btn-rounded btn-alt-primary" th:href="@{/adminSignin}">
+                                <i class="fa fa-user mr-5"></i> ADMINISTRATOR
+                            </a>
+                        </div>
                     </div>
-                    <div class="pt-20">
-                      <a class="btn btn-rounded btn-alt-primary" th:href="@{/adminSignin}">
-                        <i class="fa fa-user mr-5"></i> ADMINISTRATOR
-                      </a>
-                    </div>
-                  </div>
                 </div>
-              </div>
             </div>
-            <div class="col-sm-2.2 ml-10">
-              <div class="block">
+        </div>
+
+        <!-- PENYELIA -->
+        <div class="col-sm-4">
+            <div class="block">
                 <div class="block-content block-content-full">
-                  <div class="py-20 text-center">
-                    <div class="mb-20">
-                        <a class="img-link" href="be_pages_generic_profile.html">
-                            <img class="img-avatar" th:src="@{stylesheets/assets/media/avatars/avatar15.jpg}" alt="">
-                          </a>
+                    <div class="py-20 text-center">
+                        <div class="mb-20">
+                            <a class="img-link" href="be_pages_generic_profile.html">
+                                <img class="img-avatar" th:src="@{stylesheets/assets/media/avatars/avatar15.jpg}" alt="">
+                            </a>
+                        </div>
+                        <div class="pt-20">
+                            <a class="btn btn-rounded btn-alt-info" th:href="@{/teachersignin}">
+                                <i class="fa fa-users mr-5"></i> KOORDINATOR <br>
+                            </a>
+                        </div>
                     </div>
-                    <div class="pt-20">
-                      <a class="btn btn-rounded btn-alt-info" th:href="@{/teachersignin}">
-                        <i class="fa fa-users mr-5"></i> KOORDINATOR <br>
-                      </a>
-                    </div>
-                  </div>
                 </div>
-              </div>
             </div>
-            <div class="col-sm-2.2 ml-10 mr-auto">
-              <div class="block">
+        </div>
+
+        <!-- PELAJAR (STUDENT) -->
+        <div class="col-sm-4">
+            <div class="block">
                 <div class="block-content block-content-full">
-                  <div class="py-20 text-center">
-                    <div class="mb-20">
-                        <a class="img-link" href="be_pages_generic_profile.html">
-                            <img class="img-avatar" th:src="@{stylesheets/assets/media/avatars/avatar15.jpg}" alt="">
-                          </a>
+                    <div class="py-20 text-center">
+                        <div class="mb-20">
+                            <a class="img-link" href="be_pages_generic_profile.html">
+                                <img class="img-avatar" th:src="@{stylesheets/assets/media/avatars/avatar15.jpg}" alt="">
+                            </a>
+                        </div>
+                        <div class="pt-20">
+                            <a class="btn btn-rounded btn-alt-success" th:href="@{/signin}">
+                                <i class="fa fa-graduation-cap mr-5"></i> PELAJAR
+                            </a>
+                        </div>
                     </div>
-                    <div class="pt-20">
-                      <a class="btn btn-rounded btn-alt-success" th:href="@{/signin}">
-                        <i class="fa fa-graduation-cap mr-5"></i> PELAJAR
-                      </a>
-                    </div>
-                  </div>
                 </div>
-              </div>
             </div>
+        </div>
+
+    </div>
+</div>
+
             <!-- END Row #3 -->
           <!-- END User Profile -->
 
