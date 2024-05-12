@@ -401,7 +401,7 @@
                                                         <label class="col-lg-3 col-form-label" for="example-select">Unit
                                                             Beruniform</label><span style="color:red">*</span>
                                                         <div class="col-md-7">
-                                                            <select class="form-control" id="unitReg" name="unitReg">
+                                                            <select class="form-control" id="unitReg" name="unitReg" required>
                                                                 <option value="0">Sila Pilih Unit Beruniform</option>
                                                                 <option th:each="unitBean : ${unit}" th:value="${unitBean.activity.activityID}" th:text="${unitBean.activity.activityName}"></option>
                                                             
@@ -411,7 +411,7 @@
                                                     <div class="form-group row">
                                                       <label class="col-lg-3 col-form-label" for="example-select">Kelab dan Persatuan</label><span style="color:red">*</span>
                                                       <div class="col-md-7">
-                                                          <select class="form-control" id="clubReg" name="clubReg">
+                                                          <select class="form-control" id="clubReg" name="clubReg" required>
                                                               <option value="">Sila Pilih  Kelab dan Persatuan</option>
                                                               <option th:each="clubBean : ${club}" th:value="${clubBean.activity.activityID}" th:text="${clubBean.activity.activityName}"></option>
                                                               
@@ -421,7 +421,7 @@
                                                   <div class="form-group row">
                                                     <label class="col-lg-3 col-form-label" for="example-select">Sukan dan Permainan</label><span style="color:red">*</span>
                                                     <div class="col-md-7">
-                                                        <select class="form-control" id="sportReg" name="sportReg">
+                                                        <select class="form-control" id="sportReg" name="sportReg" required>
                                                             <option value="0">Sila Pilih Sukan dan Permainan</option>
                                                             <option th:each="sukanBean : ${sukan}" th:value="${sukanBean.activity.activityID}" th:text="${sukanBean.activity.activityName}"></option>
                                                         </select>
