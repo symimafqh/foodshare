@@ -165,47 +165,47 @@ public class SideBarAdminController {
   //END OF ADD TEACHER ACCOUNT
 
       //ADD STUDENT ACCOUNT
-    //   @PostMapping("/signup")
-    //   public String registerStudent(@ModelAttribute("signup")StudentBean s){
-    //       try {
-    //           Connection connection = dataSource.getConnection();
-    //           String sql = "INSERT INTO public.student(studentic, studentname, studentemail, studentphone, studentdob, studentgender, studentclass, studentaddress, studentpassword) VALUES(?,?,?,?,?,?,?,?,?)";
-    //           final var statement = connection.prepareStatement(sql);
+      @PostMapping("/addStudentAccount")
+      public String registerStudent(@ModelAttribute("addStudentAccount")StudentBean s){
+          try {
+              Connection connection = dataSource.getConnection();
+              String sql = "INSERT INTO public.student(studentic, studentname, studentemail, studentphone, studentdob, studentgender, studentclass, studentaddress, studentpassword) VALUES(?,?,?,?,?,?,?,?,?)";
+              final var statement = connection.prepareStatement(sql);
   
-    //           String studIC= s.getStudentIC();
-    //           String name= s.getStudentName();
-    //           String email=s.getStudentEmail();
-    //           String phone=s.getStudentPhone();
-    //           String dob=s.getStudentDOB();
-    //           String gender=s.getStudentGender();
-    //           String kelas=s.getStudentClass();
-    //           String address=s.getStudentAddress();
-    //           String password =s.getStudentPassword();
+              String studIC= s.getStudentIC();
+              String name= s.getStudentName();
+              String email=s.getStudentEmail();
+              String phone=s.getStudentPhone();
+              String dob=s.getStudentDOB();
+              String gender=s.getStudentGender();
+              String kelas=s.getStudentClass();
+              String address=s.getStudentAddress();
+              String password =s.getStudentPassword();
       
-    //           statement.setString(1,studIC);
-    //           statement.setString(2,name);
-    //           statement.setString(3,email);
-    //           statement.setString(4,phone);
-    //           statement.setString(5,dob);
-    //           statement.setString(6,gender);
-    //           statement.setString(7,kelas);
-    //           statement.setString(8,address);
-    //           statement.setString(9,password);
+              statement.setString(1,studIC);
+              statement.setString(2,name);
+              statement.setString(3,email);
+              statement.setString(4,phone);
+              statement.setString(5,dob);
+              statement.setString(6,gender);
+              statement.setString(7,kelas);
+              statement.setString(8,address);
+              statement.setString(9,password);
               
-    //           statement.executeUpdate();
+              statement.executeUpdate();
               
-    //           // System.out.println("type : "+protype);
-    //           // System.out.println("product price : RM"+proprice);
-    //           // System.out.println("proimg: "+proimgs.getBytes());
+              // System.out.println("type : "+protype);
+              // System.out.println("product price : RM"+proprice);
+              // System.out.println("proimg: "+proimgs.getBytes());
               
-    //           connection.close();
+              connection.close();
                   
-    //               } catch (Exception e) {
-    //                   e.printStackTrace();
-    //                   return "redirect:/signup";
-    //               }
-    //           return "redirect:/ListAccountStudent";
-    //   }
+                  } catch (Exception e) {
+                      e.printStackTrace();
+                      return "redirect:/signup";
+                  }
+              return "redirect:/ListAccountStudent";
+      }
   //END OF STUDENT ACCOUNT
   
   // LIST ACCOUNT STUDENTS
