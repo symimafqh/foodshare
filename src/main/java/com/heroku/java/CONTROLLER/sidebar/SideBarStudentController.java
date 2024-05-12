@@ -37,9 +37,44 @@ public class SideBarStudentController {
     @GetMapping("/dashboardStudent")
     public String index1(@RequestParam(name = "success", required = false) String studentName, Boolean success, HttpSession session, Model model) {
         String studentIC = (String) session.getAttribute("studentIC");
-        session.setAttribute("studentName", studentName);
         boolean registered = isStudentRegistered(studentIC);
         model.addAttribute("isStudentRegistered", registered);
+        try {
+            Connection connection = dataSource.getConnection();
+            String sql = "SELECT * FROM public.student where studentic=?";
+            final var statement = connection.prepareStatement(sql);
+            statement.setString(1, studentIC);
+            final var resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                String studentName = resultSet.getString("studentName");
+                String studentEmail = resultSet.getString("studentEmail");
+                String studentPhone = resultSet.getString("studentPhone");
+                String studentDOB = resultSet.getString("studentDOB");
+                String studentGender = resultSet.getString("studentGender");
+                String studentClass = resultSet.getString("studentClass");
+                String studentAddress = resultSet.getString("studentAddress");
+                String studentPassword = resultSet.getString("studentPassword");
+
+                StudentBean s = new StudentBean();
+
+                s.setStudentIC(studentIC);
+                s.setStudentName(studentName);
+                s.setStudentEmail(studentEmail);
+                s.setStudentPhone(studentPhone);
+                s.setStudentDOB(studentDOB);
+                s.setStudentGender(studentGender);
+                s.setStudentClass(studentClass);
+                s.setStudentAddress(studentAddress);
+                s.setStudentPassword(studentPassword);
+
+                model.addAttribute("s", s);
+                session.setAttribute("studentName",studentName);
+                connection.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return "student/dashboardStudent";
     }
 
