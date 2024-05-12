@@ -463,11 +463,15 @@
                                         <div class="col-12">
                                             <label for="profile-settings-email">Tarikh Lahir</label>
                                             <input type="date" class="js-datepicker form-control form-control-lg"
-                                                id="example-datepicker6" name="teacherDOB" data-week-start="1"
+                                                id="teacher-dob" name="teacherDOB" data-week-start="1"
                                                 data-autoclose="true" data-today-highlight="true"
-                                                data-date-format="dd-mm-yyyy" th:value="${t.teacherDOB}">
+                                                data-date-format="dd-mm-yyyy" th:value="${t.teacherDOB}" max="">
                                         </div>
                                     </div>
+                                    <script>
+                                        var today = new Date().toISOString().split('T')[0];
+                                        document.getElementById("teacher-dob").setAttribute("max",today);
+                                      </script>
                                     <div class="form-group row">
                                         <label class="col-12">Jantina</label>
                                         <div th:if="${t.teacherGender == 'Lelaki'}">
