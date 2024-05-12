@@ -35,7 +35,7 @@ public class SideBarStudentController {
     }
 
     @GetMapping("/dashboardStudent")
-    public String index1(@RequestParam(name = "success", required = false) String studentName, Boolean success, HttpSession session, Model model) {
+    public String index1(@RequestParam(name = "success", required = false) Boolean success, HttpSession session, Model model) {
         String studentIC = (String) session.getAttribute("studentIC");
         boolean registered = isStudentRegistered(studentIC);
         model.addAttribute("isStudentRegistered", registered);
