@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.heroku.java.CONTROLLER.activity.ActivityController.ActivityBean;
-import com.heroku.java.CONTROLLER.activity.ActivityController.ClubBean;
-import com.heroku.java.CONTROLLER.activity.ActivityController.SukanBean;
+import com.heroku.java.CONTROLLER.sidebar.SideBarAdminController.ActivityBean;
+import com.heroku.java.CONTROLLER.sidebar.SideBarAdminController.ClubBean;
+import com.heroku.java.CONTROLLER.sidebar.SideBarAdminController.SukanBean;
 import com.heroku.java.MODEL.student.StudentBean;
 
 import jakarta.servlet.http.HttpSession;

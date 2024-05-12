@@ -242,54 +242,36 @@
             <!-- END Visible only in normal mode -->
           </div>
           <!-- END Side User -->
-<!-- Side Navigation -->
-<div class="content-side content-side-full">
+ <!-- Side Navigation -->
+ <div class="content-side content-side-full">
   <ul class="nav-main">
-      <li>
-          <a class="active" th:href="@{/MydashboardAdmin}"><i class="si si-cup"></i><span
-                  class="sidebar-mini-hide">DASHBOARD</span></a>
-      </li>
-      <li>
-          <a class="active" th:href="@{/adminProfile}"><i class="si si-user"></i><span
-                  class="sidebar-mini-hide">PROFIL</span></a>
-      </li>
-      <li>
-          <a class="active" th:href="@{/AdminViewTeacher}"><i class="si si-people"></i><span
-                  class="sidebar-mini-hide">GURU</span></a>
-      </li>
-      <li>
-      <li>
-          <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i
-                  class="si si-layers"></i><span class="sidebar-mini-hide">AKAUN</span></a>
-          <ul>
-              <li>
-                  <a th:href="@{/accountCoordinator}">KOORDINATOR</a>
-              </li>
-              <li>
-                  <a th:href="@{/accountStudent}">PELAJAR</a>
-              </li>
-          </ul>
-      </li>
-      </li>
-      <li>
-          <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i
-                  class="si si-layers"></i><span class="sidebar-mini-hide">KATEGORI</span></a>
-          <ul>
-              <li>
-                  <a th:href="@{/addNewunit}">Unit Beruniform</a>
-              </li>
-              <li>
-                  <a th:href="@{/AddNewClub}">Kelab dan Persatuan</a>
-              </li>
-              <li>
-                  <a th:href="@{/AddNewSukan}">Sukan dan Permainan</a>
-              </li>
-          </ul>
-      </li>
+    <li><a class="active" th:href="@{/dashboardAdmin}"><i class="si si-cup"></i><span
+          class="sidebar-mini-hide">DASHBOARD</span></a>
+    </li>
+    <li><a class="active" th:href="@{/profileAdmin}"><i class="si si-user"></i><span
+          class="sidebar-mini-hide">PROFIL</span></a>
+    </li>
+    <li>
+    <li><a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-people"></i><span
+          class="sidebar-mini-hide">AKAUN</span></a>
+      <ul>
+        <li><a th:href="@{/ListAccountTeacher}">KOORDINATOR</a></li>
+        <li><a th:href="@{/ListAccountStudent}">PELAJAR</a></li>
+      </ul>
+    </li>
+    </li>
+    <li><a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-layers"></i><span
+          class="sidebar-mini-hide">KATEGORI</span></a>
+      <ul>
+        <li><a th:href="@{/addNewUnit}">Unit Beruniform</a></li>
+        <li><a th:href="@{/AddNewClub}">Kelab dan Persatuan</a></li>
+        <li><a th:href="@{/AddNewSukan}">Sukan dan Permainan</a></li>
+      </ul>
+    </li>
 
   </ul>
 </div>
-<!-- END Side Navigation -->
+<!-- END Sidebar Scrolling -->
 						<!-- END Sidebar Scrolling -->
         </div>
         <!-- END Sidebar Scrolling -->
