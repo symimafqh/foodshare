@@ -176,9 +176,13 @@
                   <div class="form-group row">
                     <div class="col-12">
                       <label for="profile-settings-email">Tarikh Lahir</label>
-                      <input type="date" class="js-datepicker form-control form-control-lg" id="signup-tarikhlahir" name="studentDOB" data-week-start="1" data-autoclose="true" data-today-highlight="true" data-date-format="dd-mm-yyyy" required >
+                      <input type="date" class="js-datepicker form-control form-control-lg" id="signup-tarikhlahir" name="studentDOB" data-week-start="1" data-autoclose="true" data-today-highlight="true" data-date-format="dd-mm-yyyy" max="" required >
                     </div>
                   </div>
+                  <script>
+                    var today = new Date().toISOString().split('T')[0];
+                    document.getElementById("signup-tarikhlahir").setAttribute("max",today);
+                  </script>
                   <div class="form-group row">
                     <div class="col-md-9">
                       <div class="form-material">
