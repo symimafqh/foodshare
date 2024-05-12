@@ -32,8 +32,44 @@ public class SideBarAdminController {
     }
 
     @GetMapping("/dashboardAdmin")
-    public String dashboardAdmin(@RequestParam(name = "success", required = false) Boolean success, HttpSession session) {
-      String teacherUsername = (String) session.getAttribute("teacherUsername");
+    public String dashboardAdmin(@RequestParam(name = "success", required = false) Boolean success, Model model, HttpSession session) {
+    //   String teacherUsername = (String) session.getAttribute("teacherUsername");
+    String teacherUsername = (String) session.getAttribute("teacherUsername");
+    try {
+        Connection connection = dataSource.getConnection();
+        String sql = "SELECT * FROM public.teacher where teacherusername=?";
+        final var statement = connection.prepareStatement(sql);
+        statement.setString(1, teacherUsername);
+        final var resultSet = statement.executeQuery();
+        if (resultSet.next()) {
+            String teacherName = resultSet.getString("teacherName");
+            String teacherEmail = resultSet.getString("teacherEmail");
+            String teacherPhone = resultSet.getString("teacherPhone");
+            String teacherDOB = resultSet.getString("teacherDOB");
+            String teacherGender = resultSet.getString("teacherGender");
+            String teacherRole= resultSet.getString("teacherRole");
+            String teacherAddress = resultSet.getString("teacherAddress");
+            String teacherPassword = resultSet.getString("teacherPassword");
+
+            TeacherBean t = new TeacherBean();
+
+            t.setTeacherUsername(teacherUsername);
+            t.setTeacherName(teacherName);
+            t.setTeacherEmail(teacherEmail);
+            t.setTeacherPhone(teacherPhone);
+            t.setTeacherDOB(teacherDOB);
+            t.setTeacherGender(teacherGender);
+            t.setTeacherRole(teacherRole);
+            t.setTeacherAddress(teacherAddress);
+            t.setTeacherPassword(teacherPassword);
+
+            model.addAttribute("t", t);
+
+            connection.close();
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
       return "teacher/dashboardAdmin";
   }
 
