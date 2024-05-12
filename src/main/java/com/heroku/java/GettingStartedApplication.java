@@ -39,6 +39,11 @@ public class GettingStartedApplication {
     public String signup() {
         return "student/sign-in/signup";
     }
+
+    @GetMapping("/addStudentAccount")
+    public String addStudentAccount() {
+        return "student/sign-in/addStudentAccount";
+    }
     
 
     //  @GetMapping("/adminSignin")
@@ -49,6 +54,11 @@ public class GettingStartedApplication {
     @GetMapping("/teacherRegister")
     public String teacherRegister(){
         return "teacher/sign-in/teacherRegister";
+    }
+
+    @GetMapping("/addTeacherAccount")
+    public String addTeacherAccount(){
+        return "teacher/sign-in/addTeacherAccount";
     }
 
     // @GetMapping("/teachersignin")
