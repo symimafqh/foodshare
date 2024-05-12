@@ -241,7 +241,7 @@ public class SideBarAdminController {
   
 //LIST OF ACCOUNT TEACHER
 @GetMapping("/ListAccountTeacher")
-public String studentAccountList(Model model) {
+public String teacherAccountList(Model model) {
 
     List<TeacherBean> teacher = new ArrayList<TeacherBean>();
 
