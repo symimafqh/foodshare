@@ -35,8 +35,9 @@ public class SideBarStudentController {
     }
 
     @GetMapping("/dashboardStudent")
-    public String index1(@RequestParam(name = "success", required = false) Boolean success, HttpSession session, Model model) {
+    public String index1(@RequestParam(name = "success", required = false) String studentName, Boolean success, HttpSession session, Model model) {
         String studentIC = (String) session.getAttribute("studentIC");
+        session.setAttribute("studentName", studentName);
         boolean registered = isStudentRegistered(studentIC);
         model.addAttribute("isStudentRegistered", registered);
         return "student/dashboardStudent";
@@ -77,7 +78,7 @@ public class SideBarStudentController {
                 s.setStudentPassword(studentPassword);
 
                 model.addAttribute("s", s);
-
+                session.setAttribute("studentName",studentName);
                 connection.close();
             }
         } catch (Exception e) {
