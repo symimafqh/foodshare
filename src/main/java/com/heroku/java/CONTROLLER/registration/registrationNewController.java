@@ -35,94 +35,104 @@ public class registrationNewController {
     }
 
     @PostMapping("/registration")
-public String registrationCocu(HttpSession session, @ModelAttribute("registration") RegistrationBean r, Model model) {
-    String studentIC = (String) session.getAttribute("studentIC");
-    try (Connection connection = dataSource.getConnection()) {
-        // Register for unit activity
-        int unit = r.getUnitReg();
-        if (!insertRegistrationUnit(connection, studentIC, unit)) {
-            return "redirect:/registerQuota"; // Redirect if unit registration fails
-        }
+    public String registrationCocu(HttpSession session, @ModelAttribute("registration") RegistrationBean r,
+            Model model) {
+        String studentIC = (String) session.getAttribute("studentIC");
+        boolean unitQuotaAvailable;
+        System.out.println("pass id student" + studentIC);
+        try {
+            Connection connection = dataSource.getConnection();
+            // try
+            try {
+                
+                // if(!unitQuotaAvailable)
+                // {
+                    
+                //     return "redirect:/registration";
+                // }
+                
+                
+                //insert success
+                String sql = "INSERT INTO registration(studentic, activityid) VALUES (?,?)";
+                final var statement = connection.prepareStatement(sql);
 
-        // Register for club activity
-        int club = r.getClubReg();
-        if (!insertRegistrationUnit(connection, studentIC, club)) {
-            return "redirect:/registerQuota"; // Redirect if club registration fails
-        }
+                // studentIC = r.getStudentIC();
+                int unit = r.getUnitReg();
 
-        // Register for sport activity
-        int sport = r.getSportReg();
-        if (!insertRegistrationUnit(connection, studentIC, sport)) {
-            return "redirect:/registerQuota"; // Redirect if sport registration fails
-        }
-    } catch (Exception e) {
-        e.printStackTrace();
-        return "redirect:/registration";
-    }
-    return "redirect:/successregistration";
-}
+                statement.setString(1, studentIC);
+                statement.setInt(2, unit);
 
-public boolean insertRegistrationUnit(Connection con, String studentIC, int activityID) {
-    try {
-        // Check if the quota is available
-        if (isQuotaAvailable(con, activityID)) {
-            try (PreparedStatement ps = con
-                    .prepareStatement("INSERT INTO registration(studentIC, activityID) VALUES (?,?)")) {
-                ps.setString(1, studentIC);
-                ps.setInt(2, activityID);
+                statement.executeUpdate();
 
-                // execute update for insert operation
-                ps.executeUpdate();
-                System.out.println(
-                        "Successfully inserted registration for " + studentIC + " and activityID " + activityID);
+                System.out.println("successfully inserted");
+                // System.out.println("product price : RM"+proprice);
+                // System.out.println("proimg: "+proimgs.getBytes());
 
-                // Update the quota (decrement by 1)
-                int newQuota = updateQuotaForActivity(con, activityID,
-                        getQuotaForActivityUnit(con, activityID) - 1);
-                System.out.println("Dah decrement satu untuk " + activityID + ". New quota: " + newQuota);
-                return true;
+                // connection.close();
+
+            } 
+
+
+            
+            catch (Exception e) {
+                e.printStackTrace();
+                return "redirect:/registration";
             }
-        } else {
-            System.out.println("Quota not available for activityID: " + activityID);
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-    return false;
-}
+            
+            // club
+            try {
 
-// Check if the quota is available
-public boolean isQuotaAvailable(Connection con, int activityID) throws SQLException {
-    int currentQuota = getQuotaForActivityUnit(con, activityID);
-    System.out.println("current quota " + activityID + " is " + currentQuota);
-    return currentQuota > 0;
-}
+                String sql = "INSERT INTO registration(studentic, activityid) VALUES (?,?)";
+                final var statement = connection.prepareStatement(sql);
 
-// GET QUOTA
-private int getQuotaForActivityUnit(Connection con, int activityID) throws SQLException {
-    String sql = "SELECT UNIFORMQUOTA FROM UNIFORM WHERE ACTIVITYID = ?";
-    try (PreparedStatement pstmt = con.prepareStatement(sql)) {
-        pstmt.setInt(1, activityID);
-        try (ResultSet rs = pstmt.executeQuery()) {
-            if (rs.next()) {
-                return rs.getInt("UNIFORMQUOTA");
+                // studentIC = r.getStudentIC();
+                int club = r.getClubReg();
+
+                statement.setString(1, studentIC);
+                statement.setInt(2, club);
+
+                statement.executeUpdate();
+
+                System.out.println("successfully inserted");
+                // System.out.println("product price : RM"+proprice);
+                // System.out.println("proimg: "+proimgs.getBytes());
+
+                // connection.close();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return "redirect:/registration";
             }
+
+            // sport
+            try {
+                String sql = "INSERT INTO registration(studentic, activityid) VALUES (?,?)";
+                final var statement = connection.prepareStatement(sql);
+
+                // studentIC = r.getStudentIC();
+                int sport = r.getSportReg();
+
+                statement.setString(1, studentIC);
+                statement.setInt(2, sport);
+
+                statement.executeUpdate();
+
+                System.out.println("successfully inserted");
+                // System.out.println("product price : RM"+proprice);
+                // System.out.println("proimg: "+proimgs.getBytes());
+
+                // connection.close();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return "redirect:/registration";
+            }
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return "redirect:/successregistration";
     }
-    return 0; // Default to 0 if activityID not found (you may want to handle this differently)
-}
-
-// UPDATE QUOTA
-private int updateQuotaForActivity(Connection con, int activityID, int newQuota) throws SQLException {
-    String sql = "UPDATE UNIFORM SET UNIFORMQUOTA = ? WHERE ACTIVITYID = ?";
-    try (PreparedStatement pstmt = con.prepareStatement(sql)) {
-        pstmt.setInt(1, newQuota);
-        pstmt.setInt(2, activityID);
-        pstmt.executeUpdate();
-    }
-    return newQuota;
-}
-
 
 //     @GetMapping("/semakpendaftaran")
 // public String viewPendaftaran(HttpSession session, Model model, StudentBean sb) {
