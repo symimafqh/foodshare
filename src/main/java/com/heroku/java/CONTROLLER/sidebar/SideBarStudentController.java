@@ -327,49 +327,49 @@ public class SideBarStudentController {
     }
 
     //quota full
-    @GetMapping("/registerQuota")
-    public String registerQuota(HttpSession session, Model model) {
-        String studentIC = (String) session.getAttribute("studentIC");
-        boolean registered = isStudentRegistered(studentIC);
-        model.addAttribute("isStudentRegistered", registered);
-        try {
-            Connection connection = dataSource.getConnection();
-            String sql = "SELECT * FROM public.student where studentic=?";
-            final var statement = connection.prepareStatement(sql);
-            statement.setString(1, studentIC);
-            final var resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                String studentName = resultSet.getString("studentName");
-                String studentEmail = resultSet.getString("studentEmail");
-                String studentPhone = resultSet.getString("studentPhone");
-                String studentDOB = resultSet.getString("studentDOB");
-                String studentGender = resultSet.getString("studentGender");
-                String studentClass = resultSet.getString("studentClass");
-                String studentAddress = resultSet.getString("studentAddress");
-                String studentPassword = resultSet.getString("studentPassword");
+    // @GetMapping("/registerQuota")
+    // public String registerQuota(HttpSession session, Model model) {
+    //     String studentIC = (String) session.getAttribute("studentIC");
+    //     boolean registered = isStudentRegistered(studentIC);
+    //     model.addAttribute("isStudentRegistered", registered);
+    //     try {
+    //         Connection connection = dataSource.getConnection();
+    //         String sql = "SELECT * FROM public.student where studentic=?";
+    //         final var statement = connection.prepareStatement(sql);
+    //         statement.setString(1, studentIC);
+    //         final var resultSet = statement.executeQuery();
+    //         if (resultSet.next()) {
+    //             String studentName = resultSet.getString("studentName");
+    //             String studentEmail = resultSet.getString("studentEmail");
+    //             String studentPhone = resultSet.getString("studentPhone");
+    //             String studentDOB = resultSet.getString("studentDOB");
+    //             String studentGender = resultSet.getString("studentGender");
+    //             String studentClass = resultSet.getString("studentClass");
+    //             String studentAddress = resultSet.getString("studentAddress");
+    //             String studentPassword = resultSet.getString("studentPassword");
 
-                StudentBean s = new StudentBean();
+    //             StudentBean s = new StudentBean();
 
-                s.setStudentIC(studentIC);
-                s.setStudentName(studentName);
-                s.setStudentEmail(studentEmail);
-                s.setStudentPhone(studentPhone);
-                s.setStudentDOB(studentDOB);
-                s.setStudentGender(studentGender);
-                s.setStudentClass(studentClass);
-                s.setStudentAddress(studentAddress);
-                s.setStudentPassword(studentPassword);
+    //             s.setStudentIC(studentIC);
+    //             s.setStudentName(studentName);
+    //             s.setStudentEmail(studentEmail);
+    //             s.setStudentPhone(studentPhone);
+    //             s.setStudentDOB(studentDOB);
+    //             s.setStudentGender(studentGender);
+    //             s.setStudentClass(studentClass);
+    //             s.setStudentAddress(studentAddress);
+    //             s.setStudentPassword(studentPassword);
 
-                model.addAttribute("s", s);
+    //             model.addAttribute("s", s);
 
-                connection.close();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    //             connection.close();
+    //         }
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //     }
 
-        return "student/registration/registerQuota";
-    }
+    //     return "student/registration/registerQuota";
+    // }
 
     // ---------------------------BEANS------------------------------//
     interface Bean {

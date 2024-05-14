@@ -45,13 +45,6 @@ public class registrationNewController {
             // try
             try {
                 
-                // if(!unitQuotaAvailable)
-                // {
-                    
-                //     return "redirect:/registration";
-                // }
-                
-                
                 //insert success
                 String sql = "INSERT INTO registration(studentic, activityid) VALUES (?,?)";
                 final var statement = connection.prepareStatement(sql);
@@ -71,9 +64,6 @@ public class registrationNewController {
                 // connection.close();
 
             } 
-
-
-            
             catch (Exception e) {
                 e.printStackTrace();
                 return "redirect:/registration";
