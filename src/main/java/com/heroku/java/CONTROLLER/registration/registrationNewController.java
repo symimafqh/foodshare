@@ -100,12 +100,12 @@ public boolean isQuotaAvailable(Connection con, int activityID) throws SQLExcept
 
 // GET QUOTA
 private int getQuotaForActivityUnit(Connection con, int activityID) throws SQLException {
-    String sql = "SELECT UNITQUOTA FROM UNIT WHERE ACTIVITYID = ?";
+    String sql = "SELECT UNIFORMQUOTA FROM UNIT WHERE ACTIVITYID = ?";
     try (PreparedStatement pstmt = con.prepareStatement(sql)) {
         pstmt.setInt(1, activityID);
         try (ResultSet rs = pstmt.executeQuery()) {
             if (rs.next()) {
-                return rs.getInt("UNITQUOTA");
+                return rs.getInt("UNIFORMQUOTA");
             }
         }
     }
@@ -114,7 +114,7 @@ private int getQuotaForActivityUnit(Connection con, int activityID) throws SQLEx
 
 // UPDATE QUOTA
 private int updateQuotaForActivity(Connection con, int activityID, int newQuota) throws SQLException {
-    String sql = "UPDATE UNIT SET UNITQUOTA = ? WHERE ACTIVITYID = ?";
+    String sql = "UPDATE UNIFORM SET UNIFORMQUOTA = ? WHERE ACTIVITYID = ?";
     try (PreparedStatement pstmt = con.prepareStatement(sql)) {
         pstmt.setInt(1, newQuota);
         pstmt.setInt(2, activityID);
