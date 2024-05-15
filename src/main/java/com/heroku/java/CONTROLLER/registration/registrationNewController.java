@@ -38,12 +38,14 @@ public class registrationNewController {
     public String registrationCocu(HttpSession session, @ModelAttribute("registration") RegistrationBean r,
             Model model) {
         String studentIC = (String) session.getAttribute("studentIC");
+        boolean unitQuotaAvailable;
         System.out.println("pass id student" + studentIC);
         try {
             Connection connection = dataSource.getConnection();
             // try
             try {
-
+                
+                //insert success
                 String sql = "INSERT INTO registration(studentic, activityid) VALUES (?,?)";
                 final var statement = connection.prepareStatement(sql);
 
@@ -61,11 +63,12 @@ public class registrationNewController {
 
                 // connection.close();
 
-            } catch (Exception e) {
+            } 
+            catch (Exception e) {
                 e.printStackTrace();
                 return "redirect:/registration";
             }
-
+            
             // club
             try {
 
