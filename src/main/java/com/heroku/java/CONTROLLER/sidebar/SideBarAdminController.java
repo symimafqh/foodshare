@@ -458,7 +458,7 @@ try (Connection connection = dataSource.getConnection()) {
     DeleteTeacherAccount.setString(1, teacherID);
     DeleteTeacherAccount.executeUpdate();
 
-    System.out.println("Student account successfully deleted");
+    System.out.println("Teacher account successfully deleted");
 } catch (Exception e) {
     System.out.println("Failed to delete teacher from the teacher account list");
     e.printStackTrace();
