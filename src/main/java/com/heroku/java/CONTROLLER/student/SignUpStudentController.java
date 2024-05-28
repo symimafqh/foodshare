@@ -32,10 +32,19 @@ public class SignUpStudentController {
 
     @PostMapping("/signup")
     public String registerStudent(@ModelAttribute("signup")StudentBean s){
-        try {
-            Connection connection = dataSource.getConnection();
+        try( Connection connection = dataSource.getConnection()) {
+            String checkSql = "SELECT COUNT(*) FROM public.student WHERE studentic = ?";
+        try (PreparedStatement checkStatement = connection.prepareStatement(checkSql)) {
+            checkStatement.setString(1, s.getStudentIC());
+            try (ResultSet resultSet = checkStatement.executeQuery()) {
+                if (resultSet.next() && resultSet.getInt(1) > 0) {
+                    // StudentIC already exists
+                    return "redirect:/signup?error=exists";
+                }
+            }
+        }
             String sql = "INSERT INTO public.student(studentic, studentname, studentemail, studentphone, studentdob, studentgender, studentclass, studentaddress, studentpassword) VALUES(?,?,?,?,?,?,?,?,?)";
-            final var statement = connection.prepareStatement(sql);
+            try (final var statement = connection.prepareStatement(sql)){;
 
             String studIC= s.getStudentIC();
             String name= s.getStudentName();
@@ -59,15 +68,12 @@ public class SignUpStudentController {
             
             statement.executeUpdate();
             
-            // System.out.println("type : "+protype);
-            // System.out.println("product price : RM"+proprice);
-            // System.out.println("proimg: "+proimgs.getBytes());
-            
+            }
             connection.close();
                 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    return "redirect:/signup";
+                    return "redirect:/signup?nombor IC sudah didaftarkan";
                 }
             return "redirect:/signin";
     }
