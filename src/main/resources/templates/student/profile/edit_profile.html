@@ -533,7 +533,7 @@
                         <div class="form-group row">
                           <div class="col-12">
                             <label for="profile-settings-password-new">Kata Laluan Baru</label>
-                            <input type="password" class="studentPassword" id="profile-settings-password-new" name="studentPassword">
+                            <input type="password" class="form-control form-control-lg" id="studentPassword" name="studentPassword">
                           </div>
                         </div>
                         <div class="form-group row">
@@ -548,6 +548,24 @@
                             <button type="submit" class="btn btn-alt-primary" id="submitBtn">Kemaskini</button>
                           </div>
                         </div>
+                        <script>
+                          const passwordInput = document.getElementById('studentPassword');
+                          const confirmPasswordInput = document.getElementById('studentPasswordConfirmation');
+                          const passwordErrorMessage = document.getElementById('passwordError');
+                          const submitButton = document.getElementById('submitBtn');
+        
+                          confirmPasswordInput.addEventListener('input', validatePasswords);
+        
+                          function validatePasswords() {
+                            if (passwordInput.value !== confirmPasswordInput.value) {
+                              passwordErrorMessage.style.display = 'inline';
+                              submitButton.disabled = true;
+                            } else {
+                              passwordErrorMessage.style.display = 'none';
+                              submitButton.disabled = false;
+                            }
+                          }
+                        </script>
                       </div>
                     </div>
                   </form>
