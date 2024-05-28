@@ -1,57 +1,52 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Codebase - Bootstrap 4 Admin Template &amp; UI Framework</title>
 
-  <title>Codebase - Bootstrap 4 Admin Template &amp; UI Framework</title>
+    <meta name="description" content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
+    <meta name="author" content="pixelcave">
+    <meta name="robots" content="noindex, nofollow">
 
-  <meta name="description"
-    content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
-  <meta name="author" content="pixelcave">
-  <meta name="robots" content="noindex, nofollow">
+    <!-- Open Graph Meta -->
+    <meta property="og:title" content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework">
+    <meta property="og:site_name" content="Codebase">
+    <meta property="og:description" content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
 
-  <!-- Open Graph Meta -->
-  <meta property="og:title" content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework">
-  <meta property="og:site_name" content="Codebase">
-  <meta property="og:description"
-    content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="">
-  <meta property="og:image" content="">
-
-  <!-- Icons -->
-  <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
-  <link rel="shortcut icon" th:href="@{stylesheets/assets/media/favicons/favicon.png}">
-  <link rel="icon" type="image/png" sizes="192x192" th:href="@{stylesheets/assets/media/favicons/favicon-192x192.png}">
-  <link rel="apple-touch-icon" sizes="180x180"
-    th:href="@{stylesheets/assets/media/favicons/apple-touch-icon-180x180.png}">
-  <!-- END Icons -->
-
-  <!-- stylesheets -->
-
-  <!-- Fonts and Codebase framework -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,400i,600,700&display=swap">
-  <link rel="stylesheet" id="css-main" th:href="@{stylesheets/assets/css/codebase.min.css}">
-
-  <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
-  <!-- <link rel="stylesheet" id="css-theme" th:href="../assets/css/themes/corporate.min.css"> -->
-  <link rel="stylesheet" id="css-theme" th:href="@{stylesheets/assets/css/themes/flat.min.css}">
-  <!-- <link rel="stylesheet" id="css-theme" th:href="../assets/css/themes/earth.min.css"> 
+    <!-- Icons -->
+    <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
+    <link rel="shortcut icon" th:href="@{stylesheets/assets/media/favicons/favicon.png}">
+    <link rel="icon" type="image/png" sizes="192x192" th:href="@{stylesheets/assets/media/favicons/favicon-192x192.png}">
+    <link rel="apple-touch-icon" sizes="180x180" th:href="@{stylesheets/assets/media/favicons/apple-touch-icon-180x180.png}">
+    <!-- END Icons -->
+    
+    <!-- stylesheets -->
+    
+    <!-- Fonts and Codebase framework -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,400i,600,700&display=swap">
+    <link rel="stylesheet" id="css-main" th:href="@{stylesheets/assets/css/codebase.min.css}">
+    
+        <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
+    <!-- <link rel="stylesheet" id="css-theme" th:href="../assets/css/themes/corporate.min.css"> -->
+    <link rel="stylesheet" id="css-theme" th:href="@{stylesheets/assets/css/themes/flat.min.css}"> 
+    <!-- <link rel="stylesheet" id="css-theme" th:href="../assets/css/themes/earth.min.css"> 
     <!-- <link rel="stylesheet" id="css-theme" th:href="../assets/css/themes/elegance.min.css">
     <link rel="stylesheet" id="css-theme" th:href="../assets/css/themes/pulse.min.css"> -->
-
-  <!-- <link rel="stylesheet" id="css-theme" th:href="../assets/css/themes/elegance.min.css"> -->
-
-  <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
-  <!-- <link rel="stylesheet" id="css-theme" th:href="assets/css/themes/flat.min.css"> -->
-  <!-- END stylesheets -->
-</head>
-
-<body>
-  <!-- Page Container -->
-  <!--
+    
+    <!-- <link rel="stylesheet" id="css-theme" th:href="../assets/css/themes/elegance.min.css"> -->
+    
+    <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
+    <!-- <link rel="stylesheet" id="css-theme" th:href="assets/css/themes/flat.min.css"> -->
+    <!-- END stylesheets -->
+  </head>
+  <body>
+    <!-- Page Container -->
+    <!--
         Available classes for #page-container:
 
     GENERIC
@@ -94,59 +89,56 @@
         'main-content-boxed'                        Full width Main Content with a specific maximum width (screen width > 1200px)
         'main-content-narrow'                       Full width Main Content with a percentage width (screen width > 1200px)
     -->
-  <div id="page-container" class="sidebar-o enable-page-overlay side-scroll page-header-modern main-content-boxed">
-    <!-- Side Overlay-->
-    <aside id="side-overlay">
-      <!-- Side Header -->
-      <div class="content-header content-header-fullrow">
-        <div class="content-header-section align-parent">
-          <!-- Close Side Overlay -->
-          <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-          <button type="button" class="btn btn-circle btn-dual-secondary align-v-r" data-toggle="layout"
-            data-action="side_overlay_close">
-            <i class="fa fa-times text-danger"></i>
-          </button>
-          <!-- END Close Side Overlay -->
+    <div id="page-container" class="sidebar-o enable-page-overlay side-scroll page-header-modern main-content-boxed">
+      <!-- Side Overlay-->
+      <aside id="side-overlay">
+        <!-- Side Header -->
+        <div class="content-header content-header-fullrow">
+          <div class="content-header-section align-parent">
+            <!-- Close Side Overlay -->
+            <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
+            <button type="button" class="btn btn-circle btn-dual-secondary align-v-r" data-toggle="layout" data-action="side_overlay_close">
+              <i class="fa fa-times text-danger"></i>
+            </button>
+            <!-- END Close Side Overlay -->
 
-          <!-- User Info -->
-          <div class="content-header-item">
-            <a class="img-link mr-5" href="be_pages_generic_profile.html">
-              <img class="img-avatar img-avatar32" src="assets/media/avatars/avatar15.jpg" alt="">
-            </a>
-            <a class="align-middle link-effect text-primary-dark font-w600" href="be_pages_generic_profile.html">John
-              Smith</a>
+            <!-- User Info -->
+            <div class="content-header-item">
+              <a class="img-link mr-5" href="be_pages_generic_profile.html">
+                <img class="img-avatar img-avatar32" src="assets/media/avatars/avatar15.jpg" alt="">
+              </a>
+              <a class="align-middle link-effect text-primary-dark font-w600" href="be_pages_generic_profile.html">John Smith</a>
+            </div>
+            <!-- END User Info -->
           </div>
-          <!-- END User Info -->
         </div>
-      </div>
-      <!-- END Side Header -->
+        <!-- END Side Header -->
 
-      <!-- Side Content -->
-      <div class="content-side">
-        <!-- Search -->
-        <div class="block pull-t pull-r-l">
-          <div class="block-content block-content-full block-content-sm bg-body-light">
-            <form action="be_pages_generic_search.html" method="post">
-              <div class="input-group">
-                <input type="text" class="form-control" id="side-overlay-search" name="side-overlay-search"
-                  placeholder="Search..">
-                <div class="input-group-append">
-                  <button type="submit" class="btn btn-secondary px-10">
-                    <i class="fa fa-search"></i>
-                  </button>
+        <!-- Side Content -->
+        <div class="content-side">
+          <!-- Search -->
+          <div class="block pull-t pull-r-l">
+            <div class="block-content block-content-full block-content-sm bg-body-light">
+              <form action="be_pages_generic_search.html" method="post">
+                <div class="input-group">
+                  <input type="text" class="form-control" id="side-overlay-search" name="side-overlay-search" placeholder="Search..">
+                  <div class="input-group-append">
+                    <button type="submit" class="btn btn-secondary px-10">
+                      <i class="fa fa-search"></i>
+                    </button>
+                  </div>
                 </div>
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
+          <!-- END Search -->
         </div>
-        <!-- END Search -->
-      </div>
-      <!-- END Side Content -->
-    </aside>
-    <!-- END Side Overlay -->
+        <!-- END Side Content -->
+      </aside>
+      <!-- END Side Overlay -->
 
-    <!-- Sidebar -->
-    <!--
+      <!-- Sidebar -->
+      <!--
           Helper classes
 
           Adding .sidebar-mini-hide to an element will make it invisible (opacity: 0) when the sidebar is in mini mode
@@ -157,265 +149,252 @@
           Adding .sidebar-mini-visible to an element will show it only when the sidebar is in mini mode
               - use .sidebar-mini-visible-b if you would like to be a block when visible (display: block)
       -->
-    <nav id="sidebar">
-      <!-- Sidebar Content -->
-      <div class="sidebar-content">
-        <!-- Side Header -->
-        <div class="content-header content-header-fullrow px-15">
-          <!-- Mini Mode -->
-          <div class="content-header-section sidebar-mini-visible-b">
-            <!-- Logo -->
-            <span class="content-header-item font-w700 font-size-xl float-left animated fadeIn">
-              <span class="text-dual-primary-dark">c</span><span class="text-primary">b</span>
-            </span>
-            <!-- END Logo -->
-          </div>
-          <!-- END Mini Mode -->
-
-          <!-- Normal Mode -->
-          <div class="content-header-section text-center align-parent sidebar-mini-hidden">
-            <!-- Close Sidebar, Visible only on mobile screens -->
-            <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-            <button type="button" class="btn btn-circle btn-dual-secondary d-lg-none align-v-r" data-toggle="layout"
-              data-action="sidebar_close">
-              <i class="fa fa-times text-danger"></i>
-            </button>
-            <!-- END Close Sidebar -->
-
-            <!-- Logo -->
-            <div class="content-header-item">
-              <img th:src="@{stylesheets/assets/pictures/logo lain.png}" style="width: 200px; height:45px;">
+      <nav id="sidebar">
+        <!-- Sidebar Content -->
+        <div class="sidebar-content">
+          <!-- Side Header -->
+          <div class="content-header content-header-fullrow px-15">
+            <!-- Mini Mode -->
+            <div class="content-header-section sidebar-mini-visible-b">
+              <!-- Logo -->
+              <span class="content-header-item font-w700 font-size-xl float-left animated fadeIn">
+                <span class="text-dual-primary-dark">c</span><span class="text-primary">b</span>
+              </span>
+              <!-- END Logo -->
             </div>
-            <!-- END Logo -->
-          </div>
-          <!-- END Normal Mode -->
-        </div>
-        <!-- END Side Header -->
+            <!-- END Mini Mode -->
 
-        <!-- Sidebar Scrolling -->
-        <div class="js-sidebar-scroll">
-          <!-- Side User -->
-          <div class="content-side content-side-full content-side-user px-10 align-parent">
-            <!-- Visible only in mini mode -->
-            <div class="sidebar-mini-visible-b align-v animated fadeIn">
-              <img class="img-avatar img-avatar32" th:src="@{stylesheets/assets/media/avatars/avatar15.jpg}" alt="">
+            <!-- Normal Mode -->
+            <div class="content-header-section text-center align-parent sidebar-mini-hidden">
+              <!-- Close Sidebar, Visible only on mobile screens -->
+              <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
+              <button type="button" class="btn btn-circle btn-dual-secondary d-lg-none align-v-r" data-toggle="layout" data-action="sidebar_close">
+                <i class="fa fa-times text-danger"></i>
+              </button>
+              <!-- END Close Sidebar -->
+
+              <!-- Logo -->
+              <div class="content-header-item">
+                <img th:src="@{stylesheets/assets/pictures/logo lain.png}" style="width: 200px; height:45px;">                
+              </div>
+              <!-- END Logo -->
             </div>
-            <!-- END Visible only in mini mode -->
-
-            <!-- Visible only in normal mode -->
-            <div class="sidebar-mini-hidden-b text-center">
-              <a class="img-link" href="">
-                <img class="img-avatar" th:src="@{stylesheets/assets/media/avatars/avatar15.jpg}" alt="">
-              </a>
-              <ul class="list-inline mt-10">
-                <li class="list-inline-item">
-                  <a class="link-effect text-dual-primary-dark font-size-sm font-w600 text-uppercase" href=""><span
-                      class="d-none d-sm-inline-block" th:text="${session.studentName}"></span></a>
-                </li>
-                <li class="list-inline-item">
-                  <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-                  <a class="link-effect text-dual-primary-dark" data-toggle="layout"
-                    data-action="sidebar_style_inverse_toggle" href="javascript:void(0)">
-                    <i class="si si-drop"></i>
-                  </a>
-                </li>
-                <li class="list-inline-item">
-                  <a class="link-effect text-dual-primary-dark" th:href="@{/logoutstudent}">
-                    <i class="si si-logout"></i>
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <!-- END Visible only in normal mode -->
+            <!-- END Normal Mode -->
           </div>
-          <!-- END Side User -->
+          <!-- END Side Header -->
 
-          <!-- Side Navigation -->
+          <!-- Sidebar Scrolling -->
+          <div class="js-sidebar-scroll">
+            <!-- Side User -->
+            <div class="content-side content-side-full content-side-user px-10 align-parent">
+              <!-- Visible only in mini mode -->
+              <div class="sidebar-mini-visible-b align-v animated fadeIn">
+                <img class="img-avatar img-avatar32" th:src="@{stylesheets/assets/media/avatars/avatar15.jpg}" alt="">
+              </div>
+              <!-- END Visible only in mini mode -->
 
-          <div class="content-side content-side-full">
-            <ul class="nav-main">
-              <li>
-                <a class="active" th:href="@{/dashboardStudent}"><i class="si si-cup"></i><span
-                    class="sidebar-mini-hide">DASHBOARD</span></a>
-              </li>
-              <li>
-                <a class="active" th:href="@{/edit_profile}"><i class="si si-user"></i><span
-                    class="sidebar-mini-hide">PROFIL</span></a>
-              </li>
-
-              <li>
-                <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-note"></i><span
-                    class="sidebar-mini-hide">KOKURIKULUM</span></a>
-                <ul>
-                  <li th:if="${!isStudentRegistered}">
-                    <a th:href="@{/registration}">Pendaftaran Kokurikulum</a>
+              <!-- Visible only in normal mode -->
+              <div class="sidebar-mini-hidden-b text-center">
+                <a class="img-link" href="">
+                  <img class="img-avatar" th:src="@{stylesheets/assets/media/avatars/avatar15.jpg}" alt="">
+                </a>
+                <ul class="list-inline mt-10">
+                  <li class="list-inline-item">
+                    <a class="link-effect text-dual-primary-dark font-size-sm font-w600 text-uppercase" href=""><span class="d-none d-sm-inline-block" th:text="${session.studentName}"></span></a>
                   </li>
-                  <li th:if="${isStudentRegistered}">
-                    <a th:href="@{/registered}">Pendaftaran Kokurikulum</a>
+                  <li class="list-inline-item">
+                    <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
+                    <a class="link-effect text-dual-primary-dark" data-toggle="layout" data-action="sidebar_style_inverse_toggle" href="javascript:void(0)">
+                      <i class="si si-drop"></i>
+                    </a>
                   </li>
-                  <li>
-                    <a th:href="@{/semakpendaftaran}">Semakan Pendaftaran</a>
+                  <li class="list-inline-item">
+                    <a class="link-effect text-dual-primary-dark" th:href="@{/logoutstudent}">
+                      <i class="si si-logout"></i>
+                    </a>
                   </li>
                 </ul>
-              </li>
-            </ul>
+              </div>
+              <!-- END Visible only in normal mode -->
+            </div>
+            <!-- END Side User -->
+
+           <!-- Side Navigation -->
+            
+           <div class="content-side content-side-full">
+            <ul class="nav-main">
+                <li>
+                  <a class="active" th:href="@{/dashboardStudent}"><i class="si si-cup"></i><span class="sidebar-mini-hide">DASHBOARD</span></a>
+                </li>
+                <li>
+                  <a class="active" th:href="@{/edit_profile}"><i class="si si-user"></i><span class="sidebar-mini-hide">PROFIL</span></a>
+                </li>
+  
+                <li>
+                  <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-note"></i><span class="sidebar-mini-hide">KOKURIKULUM</span></a>
+                  <ul>
+                    <li th:if="${!isStudentRegistered}">
+                        <a th:href="@{/registration}">Pendaftaran Kokurikulum</a>
+                      </li>
+                      <li th:if="${isStudentRegistered}">
+                        <a th:href="@{/registered}">Pendaftaran Kokurikulum</a>
+                      </li>
+                    <li>
+                      <a th:href="@{/semakpendaftaran}">Semakan Pendaftaran</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
           </div>
           <!-- END Side Navigation -->
+          </div>
+          <!-- END Sidebar Scrolling -->
         </div>
-        <!-- END Sidebar Scrolling -->
-      </div>
-      <!-- Sidebar Content -->
-    </nav>
-    <!-- END Sidebar -->
+        <!-- Sidebar Content -->
+      </nav>
+      <!-- END Sidebar -->
 
-    <!-- Header -->
-    <header id="page-header">
-      <!-- Header Content -->
-      <div class="content-header">
-        <!-- Left Section -->
-        <div class="content-header-section">
-          <!-- Toggle Sidebar -->
-          <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-          <button type="button" class="btn btn-circle btn-dual-secondary" data-toggle="layout"
-            data-action="sidebar_toggle">
-            <i class="fa fa-navicon"></i>
-          </button>
-          <!-- END Toggle Sidebar -->
-
-          <!-- Open Search Section -->
-          <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-          <button type="button" class="btn btn-circle btn-dual-secondary" data-toggle="layout"
-            data-action="header_search_on">
-            <i class="fa fa-search"></i>
-          </button>
-          <!-- END Open Search Section -->
-        </div>
-        <!-- END Left Section -->
-
-        <!-- Right Section -->
-        <div class="content-header-section">
-          <!-- User Dropdown -->
-          <div class="btn-group" role="group">
-            <button type="button" class="btn btn-rounded btn-dual-secondary" id="page-header-user-dropdown"
-              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fa fa-user d-sm-none"></i>
-              <span class="d-none d-sm-inline-block" th:text="${session.studentName}"></span>
-              <i class="fa fa-angle-down ml-5"></i>
+      <!-- Header -->
+      <header id="page-header">
+        <!-- Header Content -->
+        <div class="content-header">
+          <!-- Left Section -->
+          <div class="content-header-section">
+            <!-- Toggle Sidebar -->
+            <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
+            <button type="button" class="btn btn-circle btn-dual-secondary" data-toggle="layout" data-action="sidebar_toggle">
+              <i class="fa fa-navicon"></i>
             </button>
-            <div class="dropdown-menu dropdown-menu-right min-width-200" aria-labelledby="page-header-user-dropdown">
-              <h5 class="h6 text-center py-10 mb-5 border-b text-uppercase">User</h5>
-              <a class="dropdown-item" th:href="@{/edit_profile}">
-                <i class="si si-user mr-5"></i> Profile
-              </a>
-              <div class="dropdown-divider"></div>
+            <!-- END Toggle Sidebar -->
 
-              <!-- END Side Overlay -->
-
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" th:href="@{/logoutstudent}">
-                <i class="si si-logout mr-5"></i> Sign Out
-              </a>
-            </div>
+            <!-- Open Search Section -->
+            <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
+            <button type="button" class="btn btn-circle btn-dual-secondary" data-toggle="layout" data-action="header_search_on">
+              <i class="fa fa-search"></i>
+            </button>
+            <!-- END Open Search Section -->
           </div>
-          <!-- END User Dropdown -->
-        </div>
-        <!-- END Right Section -->
-      </div>
-      <!-- END Header Content -->
+          <!-- END Left Section -->
 
-      <!-- Header Search -->
-      <div id="page-header-search" class="overlay-header">
-        <div class="content-header content-header-fullrow">
-          <form action="be_pages_generic_search.html" method="post">
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <!-- Close Search Section -->
-                <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-                <button type="button" class="btn btn-secondary" data-toggle="layout" data-action="header_search_off">
-                  <i class="fa fa-times"></i>
-                </button>
-                <!-- END Close Search Section -->
-              </div>
-              <input type="text" class="form-control" placeholder="Search or hit ESC.." id="page-header-search-input"
-                name="page-header-search-input">
-              <div class="input-group-append">
-                <button type="submit" class="btn btn-secondary">
-                  <i class="fa fa-search"></i>
-                </button>
+          <!-- Right Section -->
+          <div class="content-header-section">
+            <!-- User Dropdown -->
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-rounded btn-dual-secondary" id="page-header-user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-user d-sm-none"></i>
+                <span class="d-none d-sm-inline-block" th:text="${session.studentName}"></span>
+                <i class="fa fa-angle-down ml-5"></i>
+              </button>
+              <div class="dropdown-menu dropdown-menu-right min-width-200" aria-labelledby="page-header-user-dropdown">
+                <h5 class="h6 text-center py-10 mb-5 border-b text-uppercase">User</h5>
+                <a class="dropdown-item" th:href="@{/edit_profile}">
+                  <i class="si si-user mr-5"></i> Profile
+                </a>
+                <div class="dropdown-divider"></div>
+
+                <!-- END Side Overlay -->
+
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" th:href="@{/logoutstudent}">
+                  <i class="si si-logout mr-5"></i> Sign Out
+                </a>
               </div>
             </div>
-          </form>
+            <!-- END User Dropdown -->
+          </div>
+          <!-- END Right Section -->
         </div>
-      </div>
-      <!-- END Header Search -->
+        <!-- END Header Content -->
 
-      <!-- Header Loader -->
-      <!-- Please check out the Activity page under Elements category to see examples of showing/hiding it -->
-      <div id="page-header-loader" class="overlay-header bg-primary">
-        <div class="content-header content-header-fullrow text-center">
-          <div class="content-header-item">
-            <i class="fa fa-sun-o fa-spin text-white"></i>
+        <!-- Header Search -->
+        <div id="page-header-search" class="overlay-header">
+          <div class="content-header content-header-fullrow">
+            <form action="be_pages_generic_search.html" method="post">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <!-- Close Search Section -->
+                  <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
+                  <button type="button" class="btn btn-secondary" data-toggle="layout" data-action="header_search_off">
+                    <i class="fa fa-times"></i>
+                  </button>
+                  <!-- END Close Search Section -->
+                </div>
+                <input type="text" class="form-control" placeholder="Search or hit ESC.." id="page-header-search-input" name="page-header-search-input">
+                <div class="input-group-append">
+                  <button type="submit" class="btn btn-secondary">
+                    <i class="fa fa-search"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
-      </div>
-      <!-- END Header Loader -->
-    </header>
-    <!-- END Header -->
+        <!-- END Header Search -->
 
-    <!-- Main Container -->
-    <main id="main-container">
-      <!-- Page Content -->
-      <!-- User Info -->
-      <div class="bg-image bg-image-bottom"
-        style="background-image: url('stylesheets/assets/media/photos/photo13@2x.jpg');">
-        <div class="bg-black-op-75 py-30">
-          <div class="content content-full text-center">
-            <!-- Avatar -->
-            <div class="mb-15">
-              <a class="img-link" href="">
-                <img class="img-avatar img-avatar96 img-avatar-thumb"
-                  th:src="@{stylesheets/assets/media/avatars/avatar15.jpg}" alt="">
-              </a>
+        <!-- Header Loader -->
+        <!-- Please check out the Activity page under Elements category to see examples of showing/hiding it -->
+        <div id="page-header-loader" class="overlay-header bg-primary">
+          <div class="content-header content-header-fullrow text-center">
+            <div class="content-header-item">
+              <i class="fa fa-sun-o fa-spin text-white"></i>
             </div>
-            <!-- END Avatar -->
+          </div>
+        </div>
+        <!-- END Header Loader -->
+      </header>
+      <!-- END Header -->
 
-            <!-- Personal -->
-            <h1 class="h3 text-white font-w700 mb-10"><span class="d-none d-sm-inline-block"
-                th:text="${session.studentName}"></span></h1>
-            <!-- <h2 class="h5 text-white-op">
+         <!-- Main Container -->
+         <main id="main-container">
+            <!-- Page Content -->
+            <!-- User Info -->
+            <div class="bg-image bg-image-bottom" style="background-image: url('stylesheets/assets/media/photos/photo13@2x.jpg');">
+              <div class="bg-black-op-75 py-30">
+                <div class="content content-full text-center">
+                  <!-- Avatar -->
+                  <div class="mb-15">
+                    <a class="img-link" href="">
+                      <img class="img-avatar img-avatar96 img-avatar-thumb" th:src="@{stylesheets/assets/media/avatars/avatar15.jpg}" alt="">
+                    </a>
+                  </div>
+                  <!-- END Avatar -->
+    
+                  <!-- Personal -->
+                  <h1 class="h3 text-white font-w700 mb-10"><span class="d-none d-sm-inline-block" th:text="${session.studentName}"></span></h1>
+                  <!-- <h2 class="h5 text-white-op">
                     Kelas 
                   </h2> -->
-            <!-- END Personal -->
-
-            <!-- Actions -->
-            <h2 class="h3 text-white font-w500 mb-10"><span class="d-none d-sm-inline-block"
-                th:text="${session.studentClass}"></span></h2>
-            <!-- END Actions -->
-          </div>
-        </div>
-      </div>
-      <!-- END User Info -->
-
-      <!-- Main Content -->
-      <div class="content">
-        <!-- User Profile -->
-        <div class="block">
-          <div class="block-header block-header-default">
-            <h3 class="block-title">
-              <i class="fa fa-user-circle mr-5 text-muted"></i> Profile Pengguna
-            </h3>
-          </div>
-          <div class="block-content">
-            <form th:action="@{/edit_profile}" modelAttribute="edit_profile" th:object="(${edit_profile})" method="POST"
-              enctype="multipart/form-data">
-              <div class="row items-push">
-                <div class="col-lg-3">
-                  <p class="text-muted">
-                    Maklumat akaun profil anda. Nama pengguna akan dipaparkan kepada umum.
-                  </p>
+                  <!-- END Personal -->
+    
+                  <!-- Actions -->
+                  <h2 class="h3 text-white font-w500 mb-10"><span class="d-none d-sm-inline-block" th:text="${session.studentClass}"></span></h2>
+                  <!-- END Actions -->
                 </div>
-                <div class="col-lg-7 offset-lg-1">
-                  <!--<div class="form-group row">
+              </div>
+            </div>
+            <!-- END User Info -->
+    
+            <!-- Main Content -->
+            <div class="content">
+              <!-- User Profile -->
+              <div class="block">
+                <div class="block-header block-header-default">
+                  <h3 class="block-title">
+                    <i class="fa fa-user-circle mr-5 text-muted"></i> Profile Pengguna
+                  </h3>
+                </div>
+                <div class="block-content">
+                  <form  th:action="@{/edit_profile}"
+                  modelAttribute="edit_profile"
+                  th:object="(${edit_profile})" method="POST" enctype="multipart/form-data">
+                    <div class="row items-push">
+                      <div class="col-lg-3">
+                        <p class="text-muted">
+                          Maklumat akaun profil anda. Nama pengguna akan dipaparkan kepada umum.
+                        </p>
+                      </div>
+                      <div class="col-lg-7 offset-lg-1">
+                        <!--<div class="form-group row">
                             <div class="col-md-10 col-xl-6">
                               <div class="push">
                                 <img class="img-avatar" th:src="@{stylesheets/assets/media/avatars/avatar15.jpg}" alt="">
@@ -427,78 +406,79 @@
                               </div>
                             </div>
                           </div>-->
-                  <div class="form-group row">
-                    <div class="col-12">
-                      <label for="profile-settings-username">Username</label>
-                      <input type="text" class="form-control form-control-lg" id="profile-settings-username"
-                        name="studentIC" th:value="${s.studentIC}">
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <div class="col-12">
-                      <label for="profile-settings-name">Nama</label>
-                      <input type="text" class="form-control form-control-lg" id="profile-settings-name"
-                        name="studentName" th:value="${s.studentName}">
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <div class="col-12">
-                      <label for="profile-settings-email">Email</label>
-                      <input type="email" class="form-control form-control-lg" id="profile-settings-email"
-                        name="studentEmail" th:value="${s.studentEmail}">
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <div class="col-12">
-                      <label for="profile-settings-name">Nombor Telefon</label>
-                      <input type="text" class="form-control form-control-lg" id="profile-settings-name"
-                        name="studentPhone" th:value="${s.studentPhone}">
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <div class="col-12">
-                      <label for="profile-settings-email">Tarikh Lahir</label>
-                      <input type="date" class="js-datepicker form-control form-control-lg" id="student-dob"
-                        name="studentDOB" data-week-start="1" data-autoclose="true" data-today-highlight="true"
-                        data-date-format="dd-mm-yyyy" th:value="${s.studentDOB}" max="">
-                    </div>
-                  </div>
-                  <script>
-                    var today = new Date().toISOString().split('T')[0];
-                    document.getElementById("student-dob").setAttribute("max", today);
-                  </script>
-
-                  <div class="form-group row">
-                    <label class="col-12">Jantina</label>
-                    <div th:if="${s.studentGender == 'Lelaki'}">
-                      <div class="col-12">
-                        <div class="custom-control custom-radio custom-control-inline mb-5">
-                          <input class="custom-control-input" type="radio" name="studentGender"
-                            id="example-inline-radio1" value="Lelaki" checked>
-                          <label class="custom-control-label" for="example-inline-radio1">Lelaki</label>
+                        <div class="form-group row">
+                          <div class="col-12">
+                            <label for="profile-settings-username">Username</label>
+                            <input type="text" class="form-control form-control-lg" id="profile-settings-username" name="studentIC" th:value="${s.studentIC}">
+                          </div>
                         </div>
-                        <div class="custom-control custom-radio custom-control-inline mb-5">
-                          <input class="custom-control-input" type="radio" name="studentGender"
-                            id="example-inline-radio2" value="Perempuan">
-                          <label class="custom-control-label" for="example-inline-radio2">Perempuan</label>
+                        <div class="form-group row">
+                          <div class="col-12">
+                            <label for="profile-settings-name">Nama</label>
+                            <input type="text" class="form-control form-control-lg" id="profile-settings-name" name="studentName" th:value="${s.studentName}">
+                          </div>
                         </div>
-                      </div>
-                    </div>
-                    <div th:if="${s.studentGender == 'Perempuan'}">
-                      <div class="col-12">
-                        <div class="custom-control custom-radio custom-control-inline mb-5">
-                          <input class="custom-control-input" type="radio" name="studentGender"
-                            id="example-inline-radio1" value="Lelaki">
-                          <label class="custom-control-label" for="example-inline-radio1">Lelaki</label>
+                        <div class="form-group row">
+                          <div class="col-12">
+                            <label for="profile-settings-email">Email</label>
+                            <input type="email" class="form-control form-control-lg" id="profile-settings-email" name="studentEmail"  th:value="${s.studentEmail}">
+                          </div>
                         </div>
-                        <div class="custom-control custom-radio custom-control-inline mb-5">
-                          <input class="custom-control-input" type="radio" name="studentGender"
-                            id="example-inline-radio2" value="Perempuan" checked>
-                          <label class="custom-control-label" for="example-inline-radio2">Perempuan</label>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- <div class="form-group row">
+                        <div class="form-group row">
+                            <div class="col-12">
+                              <label for="profile-settings-name">Nombor Telefon</label>
+                              <input type="text" class="form-control form-control-lg" id="profile-settings-name" name="studentPhone" th:value="${s.studentPhone}">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <div class="col-12">
+                              <label for="profile-settings-email">Tarikh Lahir</label>
+                              <input type="date" class="js-datepicker form-control form-control-lg" id="student-dob" name="studentDOB" data-week-start="1" data-autoclose="true" data-today-highlight="true" data-date-format="dd-mm-yyyy" th:value="${s.studentDOB}" max="" >
+                            </div>
+                          </div>
+                          <script>
+                            var today = new Date().toISOString().split('T')[0];
+                            document.getElementById("student-dob").setAttribute("max",today);
+                          </script>
+                          
+                          <div class="form-group row">
+                            <label class="col-12">Jantina</label>
+                            <div th:if="${s.studentGender == 'Lelaki'}">
+                                <div class="col-12">
+                                    <div class="custom-control custom-radio custom-control-inline mb-5">
+                                        <input class="custom-control-input" type="radio"
+                                            name="studentGender" id="example-inline-radio1" value="Lelaki"
+                                            checked>
+                                        <label class="custom-control-label"
+                                            for="example-inline-radio1">Lelaki</label>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline mb-5">
+                                        <input class="custom-control-input" type="radio"
+                                            name="studentGender" id="example-inline-radio2"
+                                            value="Perempuan">
+                                        <label class="custom-control-label"
+                                            for="example-inline-radio2">Perempuan</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div th:if="${s.studentGender == 'Perempuan'}">
+                                <div class="col-12">
+                                    <div class="custom-control custom-radio custom-control-inline mb-5">
+                                        <input class="custom-control-input" type="radio"
+                                            name="studentGender" id="example-inline-radio1" value="Lelaki">
+                                        <label class="custom-control-label"
+                                            for="example-inline-radio1">Lelaki</label>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline mb-5">
+                                        <input class="custom-control-input" type="radio"
+                                            name="studentGender" id="example-inline-radio2"
+                                            value="Perempuan" checked>
+                                        <label class="custom-control-label"
+                                            for="example-inline-radio2">Perempuan</label>
+                                    </div>
+                                </div>
+                            </div>
+                           <!-- <div class="form-group row">
                               <div class="col-12">
                                 <div class="form-material">
                                   <textarea class="form-control form-control-lg" id="studentAddress" name="studentAddress" rows="3" oninput="this.value = this.value.toUpperCase()" th:field="${s.studentAddress}"></textarea>
@@ -506,138 +486,117 @@
                                 </div>
                               </div>
                             </div> -->
-                  </div>
-
-                  <div class="form-group row">
-                    <div class="col-12">
-                      <button type="submit" class="btn btn-alt-primary">Kemaskini</button>
+                        </div>
+                        
+                        <div class="form-group row">
+                          <div class="col-12">
+                            <button type="submit" class="btn btn-alt-primary">Kemaskini</button>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  </form>
                 </div>
               </div>
-            </form>
-          </div>
-        </div>
-        <!-- END User Profile -->
-
-        <!-- Connections -->
-        <!-- END Connections -->
-
-        <!-- Change Password -->
-        <div class="block">
-          <div class="block-header block-header-default">
-            <h3 class="block-title">
-              <i class="fa fa-asterisk mr-5 text-muted"></i> Tukar Kata Laluan
-            </h3>
-          </div>
-          <div class="block-content">
-            <form th:action="@{/edit_password}" modelAttribute="edit_password" th:object="(${edit_password})"
-              method="post">
-              <div class="row items-push">
-                <div class="col-lg-3">
-                  <p class="text-muted">
-                    Tukar kata laluan semasa.
-                  </p>
+              <!-- END User Profile -->
+    
+              <!-- Connections -->
+              <!-- END Connections -->
+    
+              <!-- Change Password -->
+              <div class="block">
+                <div class="block-header block-header-default">
+                  <h3 class="block-title">
+                    <i class="fa fa-asterisk mr-5 text-muted"></i> Tukar Kata Laluan
+                  </h3>
                 </div>
-                <div class="col-lg-7 offset-lg-1">
-                  <div class="form-group row">
-                    <div class="col-12">
-                      <label for="profile-settings-password">Kata Laluan Semasa</label>
-                      <input type="password" class="form-control form-control-lg" id="password" name="password"
-                        th:value="${s.studentPassword}">
-                      <span class="eye" onclick="togglePassword()">
-                        <i id="eye-icon" class="fa fa-eye"></i>
-                      </span>
+                <div class="block-content">
+                  <form  th:action="@{/edit_password}"
+                  modelAttribute="edit_password"
+                  th:object="(${edit_password})" method="post">
+                    <div class="row items-push">
+                      <div class="col-lg-3">
+                        <p class="text-muted">
+                          Tukar kata laluan semasa.
+                        </p>
+                      </div>
+                      <div class="col-lg-7 offset-lg-1">
+                        <div class="form-group row">
+                          <div class="col-12">
+                            <label for="profile-settings-password">Kata Laluan Semasa</label>
+                            <input type="password" class="form-control form-control-lg" id="password" name="password" th:value="${s.studentPassword}">
+                            <span class="eye" onclick="togglePassword()">
+                                <i id="eye-icon" class="fa fa-eye"></i> 
+                              </span>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <div class="col-12">
+                            <label for="profile-settings-password-new">Kata Laluan Baru</label>
+                            <input type="text" class="form-control form-control-lg" id="profile-settings-password-new" name="studentPassword">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <div class="col-12">
+                            <label for="profile-settings-password-new-confirm">Sahkan Kata Laluan Baru</label>
+                            <input type="text" class="form-control form-control-lg" id="profile-settings-password-new-confirm" name="studentpassword">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <div class="col-12">
+                            <button type="submit" class="btn btn-alt-primary">Kemaskini</button>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div class="form-group row">
-                    <div class="col-12">
-                      <label for="profile-settings-password-new">Kata Laluan Baru</label>
-                      <input type="password" class="form-control form-control-lg" id="studentPassword"
-                        name="studentPassword">
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <div class="col-12">
-                      <label for="profile-settings-password-new-confirm">Sahkan Kata Laluan Baru</label>
-                      <input type="password" class="form-control form-control-lg" id="studentPasswordConfirmation"
-                        name="studentpassword">
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <div class="col-12">
-                      <span id="passwordError" style="color: red; display: none;">Kata laluan tidak sepadan!</span>
-                      <button type="submit" class="btn btn-alt-primary" id="" submitBtn">Kemaskini</button>
-                    </div>
-                  </div>
+                  </form>
                 </div>
               </div>
-            </form>
+              <!-- END Change Password -->
+    
+              <!-- Billing Information -->
+              <!-- END Billing Information -->
+            </div>
+            <!-- END Main Content -->
+            <!-- END Page Content -->
+          </main>
+          <!-- END Main Container -->
+
+      <!-- Footer -->
+      <footer id="page-footer">
+        <div class="content py-20 font-size-sm clearfix">
+          <div class="float-right">
+            Dibangunkan <i class="fa fa-heart text-pulse"></i> oleh <a class="font-w600" href="https://1.envato.market/ydb" target="_blank">That's It</a>
+          </div>
+          <div class="float-left">
+            <a class="font-w600" href="" target="_blank">E-Curricular System</a> &copy; <span class="js-year-copy"></span>
           </div>
         </div>
-        <!-- END Change Password -->
+      </footer>
+      <!-- END Footer -->
+    </div>
+    <!-- END Page Container -->
 
-        <!-- Billing Information -->
-        <!-- END Billing Information -->
-      </div>
-      <!-- END Main Content -->
-      <!-- END Page Content -->
-    </main>
-    <!-- END Main Container -->
+    <script>
+        function togglePassword() {
+        
+          var x = document.getElementById("password");
+          var icon = document.getElementById("eye-icon");
+        
+          if (x.type === "password") {
+            x.type = "text";
+            icon.classList.add("fa-eye-slash");
+            icon.classList.remove("fa-eye");
+          } else {
+            x.type = "password";
+            icon.classList.remove("fa-eye-slash");       
+            icon.classList.add("fa-eye");
+          }
+        }  
+        </script>
 
-    <!-- Footer -->
-    <footer id="page-footer">
-      <div class="content py-20 font-size-sm clearfix">
-        <div class="float-right">
-          Dibangunkan <i class="fa fa-heart text-pulse"></i> oleh <a class="font-w600"
-            href="https://1.envato.market/ydb" target="_blank">That's It</a>
-        </div>
-        <div class="float-left">
-          <a class="font-w600" href="" target="_blank">E-Curricular System</a> &copy; <span class="js-year-copy"></span>
-        </div>
-      </div>
-    </footer>
-    <!-- END Footer -->
-  </div>
-  <!-- END Page Container -->
 
-  <script>
-    function togglePassword() {
-
-      var x = document.getElementById("password");
-      var icon = document.getElementById("eye-icon");
-
-      if (x.type === "password") {
-        x.type = "text";
-        icon.classList.add("fa-eye-slash");
-        icon.classList.remove("fa-eye");
-      } else {
-        x.type = "password";
-        icon.classList.remove("fa-eye-slash");
-        icon.classList.add("fa-eye");
-      }
-    }  
-  </script>
-  <script>
-    const passwordInput = document.getElementById('studentPassword');
-    const confirmPasswordInput = document.getElementById('studentPasswordConfirmation');
-    const passwordErrorMessage = document.getElementById('passwordError');
-    const submitButton = document.getElementById('submitBtn');
-
-    confirmPasswordInput.addEventListener('input', validatePasswords);
-
-    function validatePasswords() {
-      if (passwordInput.value !== confirmPasswordInput.value) {
-        passwordErrorMessage.style.display = 'inline';
-        submitButton.disabled = true;
-      } else {
-        passwordErrorMessage.style.display = 'none';
-        submitButton.disabled = false;
-      }
-    }
-  </script>
-
-  <!--
+    <!--
         Codebase JS Core
 
         Vital libraries and plugins used in all pages. You can choose to not include this file if you would like
@@ -654,21 +613,20 @@
         assets/js/core/jquery.countTo.min.js
         assets/js/core/js.cookie.min.js
     -->
-  <script th:src="@{stylesheets/assets/js/codebase.core.min.js}"></script>
+    <script th:src="@{stylesheets/assets/js/codebase.core.min.js}"></script>
 
-  <!--
+    <!--
         Codebase JS
     
         Custom functionality including Blocks/Layout API as well as other vital and optional helpers
         webpack is putting everything together at assets/_js/main/app.js
     -->
-  <script th:src="@{stylesheets/assets/js/codebase.app.min.js}"></script>
-
-  <!-- Page JS Plugins -->
-  <script th:src="@{stylesheets/assets/js/plugins/jquery-validation/jquery.validate.min.js}"></script>
-
-  <!-- Page JS Code -->
-  <script th:src="@{stylesheets/assets/js/pages/op_auth_signin.min.js}"></script>
-</body>
-
+    <script th:src="@{stylesheets/assets/js/codebase.app.min.js}"></script>
+    
+    <!-- Page JS Plugins -->
+    <script th:src="@{stylesheets/assets/js/plugins/jquery-validation/jquery.validate.min.js}"></script>
+    
+    <!-- Page JS Code -->
+    <script th:src="@{stylesheets/assets/js/pages/op_auth_signin.min.js}"></script>
+  </body>
 </html>
