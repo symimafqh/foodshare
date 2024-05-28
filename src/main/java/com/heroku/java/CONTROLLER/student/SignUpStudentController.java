@@ -39,7 +39,7 @@ public class SignUpStudentController {
             try (ResultSet resultSet = checkStatement.executeQuery()) {
                 if (resultSet.next() && resultSet.getInt(1) > 0) {
                     // StudentIC already exists
-                    return "redirect:/signup?error=exists";
+                    return "redirect:/signup?NomborICpernah didaftarkan";
                 }
             }
         }
@@ -73,7 +73,7 @@ public class SignUpStudentController {
                 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    return "redirect:/signup?nombor IC sudah didaftarkan";
+                    return "redirect:/signup?";
                 }
             return "redirect:/signin";
     }
