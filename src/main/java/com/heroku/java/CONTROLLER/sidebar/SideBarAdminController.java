@@ -316,11 +316,21 @@ public class SideBarAdminController {
         String studentPassword = (String) session.getAttribute("studentPassword");
 
     try (Connection connection = dataSource.getConnection()) {
+        //start transaction
+        connection.setAutoCommit(false);
+
+        //Delete from child table (registration table)
+        String deleteFromChildQuery = "DELETE FROM public.registration WHERE studentic = ?";
+        final var deleteFromChildStatement = connection.prepareStatement(deleteFromChildQuery);
+        deleteFromChildStatement.setString(1, studentIC);
+        deleteFromChildStatement.executeUpdate();
+
         // Delete student from the students account list
         final var DeleteStudentAccount = connection.prepareStatement("DELETE FROM public.student WHERE studentic = ?");
         DeleteStudentAccount.setString(1, studentIC);
         DeleteStudentAccount.executeUpdate();
 
+        connection.commit();//commit the transaction
         System.out.println("Student account successfully deleted");
     } catch (Exception e) {
         System.out.println("Failed to delete student from the student account list");
