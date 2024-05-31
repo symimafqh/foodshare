@@ -34,6 +34,8 @@ public class registrationNewController {
     public registrationNewController(DataSource dataSource) {
         this.dataSource = dataSource;
     }
+
+    @PostMapping("/registration")
     public String registrationCocu(HttpSession session, @ModelAttribute("registration") RegistrationBean r, 
                                    Model model) {
         String studentIC = (String) session.getAttribute("studentIC");
