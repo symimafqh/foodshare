@@ -34,8 +34,6 @@ public class registrationNewController {
     public registrationNewController(DataSource dataSource) {
         this.dataSource = dataSource;
     }
-
-    @PostMapping("/registration")
     public String registrationCocu(HttpSession session, @ModelAttribute("registration") RegistrationBean r, 
                                    Model model) {
         String studentIC = (String) session.getAttribute("studentIC");
@@ -43,107 +41,175 @@ public class registrationNewController {
         System.out.println("pass id student" + studentIC);
 
         try (Connection connection = dataSource.getConnection()) {
-            // Uniform registration
-            String uniformQuotaSql = "SELECT uniformquota FROM uniform WHERE activityid = ?";
-            try (PreparedStatement uniformQuotaStmt = connection.prepareStatement(uniformQuotaSql)) {
-                uniformQuotaStmt.setInt(1, r.getUnitReg());
-                try (ResultSet uniformQuotaRs = uniformQuotaStmt.executeQuery()) {
-                    int uniformQuota = 0;
-                    if (uniformQuotaRs.next()) {
-                        uniformQuota = uniformQuotaRs.getInt("uniformquota");
-                    }
-                    if (uniformQuota > 0) {
-                        String uniformInsertSql = "INSERT INTO registration(studentic, activityid) VALUES (?, ?)";
-                        try (PreparedStatement uniformInsertStmt = connection.prepareStatement(uniformInsertSql)) {
-                            uniformInsertStmt.setString(1, studentIC);
-                            uniformInsertStmt.setInt(2, r.getUnitReg());
-                            uniformInsertStmt.executeUpdate();
-                        }
-                        int newUniformQuota = uniformQuota - 1;
-                        String updateUniformQuotaSql = "UPDATE uniform SET uniformquota = ? WHERE activityid = ?";
-                        try (PreparedStatement updateUniformQuotaStmt = connection.prepareStatement(updateUniformQuotaSql)) {
-                            updateUniformQuotaStmt.setInt(1, newUniformQuota);
-                            updateUniformQuotaStmt.setInt(2, r.getUnitReg());
-                            updateUniformQuotaStmt.executeUpdate();
-                        }
-                        System.out.println("Successfully inserted in uniform and quota updated.");
-                    } else {
-                        System.out.println("Uniform quota reached. Registration not allowed.");
-                        return "redirect:/registerQuota";
-                    }
-                }
-            }
+            // Step 1: Check quotas for all activities
+            int uniformQuota = getQuota(connection, "uniform", r.getUnitReg());
+            int clubQuota = getQuota(connection, "club", r.getClubReg());
+            int sportQuota = getQuota(connection, "sport", r.getSportReg());
 
-            // Club registration
-            String clubQuotaSql = "SELECT clubquota FROM club WHERE activityid = ?";
-            try (PreparedStatement clubQuotaStmt = connection.prepareStatement(clubQuotaSql)) {
-                clubQuotaStmt.setInt(1, r.getClubReg());
-                try (ResultSet clubQuotaRs = clubQuotaStmt.executeQuery()) {
-                    int clubQuota = 0;
-                    if (clubQuotaRs.next()) {
-                        clubQuota = clubQuotaRs.getInt("clubquota");
-                    }
-                    if (clubQuota > 0) {
-                        String clubInsertSql = "INSERT INTO registration(studentic, activityid) VALUES (?, ?)";
-                        try (PreparedStatement clubInsertStmt = connection.prepareStatement(clubInsertSql)) {
-                            clubInsertStmt.setString(1, studentIC);
-                            clubInsertStmt.setInt(2, r.getClubReg());
-                            clubInsertStmt.executeUpdate();
-                        }
-                        int newClubQuota = clubQuota - 1;
-                        String updateClubQuotaSql = "UPDATE club SET clubquota = ? WHERE activityid = ?";
-                        try (PreparedStatement updateClubQuotaStmt = connection.prepareStatement(updateClubQuotaSql)) {
-                            updateClubQuotaStmt.setInt(1, newClubQuota);
-                            updateClubQuotaStmt.setInt(2, r.getClubReg());
-                            updateClubQuotaStmt.executeUpdate();
-                        }
-                        System.out.println("Successfully inserted in club and quota updated.");
-                    } else {
-                        System.out.println("Club quota reached. Registration not allowed.");
-                        return "redirect:/registerQuota";
-                    }
-                }
-            }
+            if (uniformQuota > 0 && clubQuota > 0 && sportQuota > 0) {
+                // Step 2: Insert registrations
+                insertRegistration(connection, studentIC, r.getUnitReg());
+                insertRegistration(connection, studentIC, r.getClubReg());
+                insertRegistration(connection, studentIC, r.getSportReg());
 
-            // Sport registration
-            String sportQuotaSql = "SELECT sportquota FROM sport WHERE activityid = ?";
-            try (PreparedStatement sportQuotaStmt = connection.prepareStatement(sportQuotaSql)) {
-                sportQuotaStmt.setInt(1, r.getSportReg());
-                try (ResultSet sportQuotaRs = sportQuotaStmt.executeQuery()) {
-                    int sportQuota = 0;
-                    if (sportQuotaRs.next()) {
-                        sportQuota = sportQuotaRs.getInt("sportquota");
-                    }
-                    if (sportQuota > 0) {
-                        String sportInsertSql = "INSERT INTO registration(studentic, activityid) VALUES (?, ?)";
-                        try (PreparedStatement sportInsertStmt = connection.prepareStatement(sportInsertSql)) {
-                            sportInsertStmt.setString(1, studentIC);
-                            sportInsertStmt.setInt(2, r.getSportReg());
-                            sportInsertStmt.executeUpdate();
-                        }
-                        int newSportQuota = sportQuota - 1;
-                        String updateSportQuotaSql = "UPDATE sport SET sportquota = ? WHERE activityid = ?";
-                        try (PreparedStatement updateSportQuotaStmt = connection.prepareStatement(updateSportQuotaSql)) {
-                            updateSportQuotaStmt.setInt(1, newSportQuota);
-                            updateSportQuotaStmt.setInt(2, r.getSportReg());
-                            updateSportQuotaStmt.executeUpdate();
-                        }
-                        System.out.println("Successfully inserted in sport and quota updated.");
-                    } else {
-                        System.out.println("Sport quota reached. Registration not allowed.");
-                        return "redirect:/registerQuota";
-                    }
-                }
-            }
+                // Step 3: Update quotas
+                updateQuota(connection, "uniform", r.getUnitReg(), uniformQuota - 1);
+                updateQuota(connection, "club", r.getClubReg(), clubQuota - 1);
+                updateQuota(connection, "sport", r.getSportReg(), sportQuota - 1);
 
-            return "redirect:/successregistration"; // Successful registration for all
+                return "redirect:/successregistration"; // Successful registration for all
+            } else {
+                System.out.println("One or more quotas reached. Registration not allowed.");
+                return "redirect:/registerQuota";
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
             return "redirect:/registration";
         }
     }
+
+    private int getQuota(Connection connection, String tableName, int activityId) throws SQLException {
+        String sql = "SELECT " + tableName + "quota FROM " + tableName + " WHERE activityid = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, activityId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(tableName + "quota");
+                }
+            }
+        }
+        return 0;
+    }
+
+    private void insertRegistration(Connection connection, String studentIC, int activityId) throws SQLException {
+        String sql = "INSERT INTO registration(studentic, activityid) VALUES (?, ?)";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, studentIC);
+            stmt.setInt(2, activityId);
+            stmt.executeUpdate();
+        }
+    }
+
+    private void updateQuota(Connection connection, String tableName, int activityId, int newQuota) throws SQLException {
+        String sql = "UPDATE " + tableName + " SET " + tableName + "quota = ? WHERE activityid = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, newQuota);
+            stmt.setInt(2, activityId);
+            stmt.executeUpdate();
+        }
+    }
 }
+
+//     @PostMapping("/registration")
+//     public String registrationCocu(HttpSession session, @ModelAttribute("registration") RegistrationBean r, 
+//                                    Model model) {
+//         String studentIC = (String) session.getAttribute("studentIC");
+
+//         System.out.println("pass id student" + studentIC);
+
+//         try (Connection connection = dataSource.getConnection()) {
+//             // Uniform registration
+//             String uniformQuotaSql = "SELECT uniformquota FROM uniform WHERE activityid = ?";
+//             try (PreparedStatement uniformQuotaStmt = connection.prepareStatement(uniformQuotaSql)) {
+//                 uniformQuotaStmt.setInt(1, r.getUnitReg());
+//                 try (ResultSet uniformQuotaRs = uniformQuotaStmt.executeQuery()) {
+//                     int uniformQuota = 0;
+//                     if (uniformQuotaRs.next()) {
+//                         uniformQuota = uniformQuotaRs.getInt("uniformquota");
+//                     }
+//                     if (uniformQuota > 0) {
+//                         String uniformInsertSql = "INSERT INTO registration(studentic, activityid) VALUES (?, ?)";
+//                         try (PreparedStatement uniformInsertStmt = connection.prepareStatement(uniformInsertSql)) {
+//                             uniformInsertStmt.setString(1, studentIC);
+//                             uniformInsertStmt.setInt(2, r.getUnitReg());
+//                             uniformInsertStmt.executeUpdate();
+//                         }
+//                         int newUniformQuota = uniformQuota - 1;
+//                         String updateUniformQuotaSql = "UPDATE uniform SET uniformquota = ? WHERE activityid = ?";
+//                         try (PreparedStatement updateUniformQuotaStmt = connection.prepareStatement(updateUniformQuotaSql)) {
+//                             updateUniformQuotaStmt.setInt(1, newUniformQuota);
+//                             updateUniformQuotaStmt.setInt(2, r.getUnitReg());
+//                             updateUniformQuotaStmt.executeUpdate();
+//                         }
+//                         System.out.println("Successfully inserted in uniform and quota updated.");
+//                     } else {
+//                         System.out.println("Uniform quota reached. Registration not allowed.");
+//                         return "redirect:/registerQuota";
+//                     }
+//                 }
+//             }
+
+//             // Club registration
+//             String clubQuotaSql = "SELECT clubquota FROM club WHERE activityid = ?";
+//             try (PreparedStatement clubQuotaStmt = connection.prepareStatement(clubQuotaSql)) {
+//                 clubQuotaStmt.setInt(1, r.getClubReg());
+//                 try (ResultSet clubQuotaRs = clubQuotaStmt.executeQuery()) {
+//                     int clubQuota = 0;
+//                     if (clubQuotaRs.next()) {
+//                         clubQuota = clubQuotaRs.getInt("clubquota");
+//                     }
+//                     if (clubQuota > 0) {
+//                         String clubInsertSql = "INSERT INTO registration(studentic, activityid) VALUES (?, ?)";
+//                         try (PreparedStatement clubInsertStmt = connection.prepareStatement(clubInsertSql)) {
+//                             clubInsertStmt.setString(1, studentIC);
+//                             clubInsertStmt.setInt(2, r.getClubReg());
+//                             clubInsertStmt.executeUpdate();
+//                         }
+//                         int newClubQuota = clubQuota - 1;
+//                         String updateClubQuotaSql = "UPDATE club SET clubquota = ? WHERE activityid = ?";
+//                         try (PreparedStatement updateClubQuotaStmt = connection.prepareStatement(updateClubQuotaSql)) {
+//                             updateClubQuotaStmt.setInt(1, newClubQuota);
+//                             updateClubQuotaStmt.setInt(2, r.getClubReg());
+//                             updateClubQuotaStmt.executeUpdate();
+//                         }
+//                         System.out.println("Successfully inserted in club and quota updated.");
+//                     } else {
+//                         System.out.println("Club quota reached. Registration not allowed.");
+//                         return "redirect:/registerQuota";
+//                     }
+//                 }
+//             }
+
+//             // Sport registration
+//             String sportQuotaSql = "SELECT sportquota FROM sport WHERE activityid = ?";
+//             try (PreparedStatement sportQuotaStmt = connection.prepareStatement(sportQuotaSql)) {
+//                 sportQuotaStmt.setInt(1, r.getSportReg());
+//                 try (ResultSet sportQuotaRs = sportQuotaStmt.executeQuery()) {
+//                     int sportQuota = 0;
+//                     if (sportQuotaRs.next()) {
+//                         sportQuota = sportQuotaRs.getInt("sportquota");
+//                     }
+//                     if (sportQuota > 0) {
+//                         String sportInsertSql = "INSERT INTO registration(studentic, activityid) VALUES (?, ?)";
+//                         try (PreparedStatement sportInsertStmt = connection.prepareStatement(sportInsertSql)) {
+//                             sportInsertStmt.setString(1, studentIC);
+//                             sportInsertStmt.setInt(2, r.getSportReg());
+//                             sportInsertStmt.executeUpdate();
+//                         }
+//                         int newSportQuota = sportQuota - 1;
+//                         String updateSportQuotaSql = "UPDATE sport SET sportquota = ? WHERE activityid = ?";
+//                         try (PreparedStatement updateSportQuotaStmt = connection.prepareStatement(updateSportQuotaSql)) {
+//                             updateSportQuotaStmt.setInt(1, newSportQuota);
+//                             updateSportQuotaStmt.setInt(2, r.getSportReg());
+//                             updateSportQuotaStmt.executeUpdate();
+//                         }
+//                         System.out.println("Successfully inserted in sport and quota updated.");
+//                     } else {
+//                         System.out.println("Sport quota reached. Registration not allowed.");
+//                         return "redirect:/registerQuota";
+//                     }
+//                 }
+//             }
+
+//             return "redirect:/successregistration"; // Successful registration for all
+
+//         } catch (Exception e) {
+//             e.printStackTrace();
+//             return "redirect:/registration";
+//         }
+//     }
+// }
 // @Controller
 // public class registrationNewController {
 
