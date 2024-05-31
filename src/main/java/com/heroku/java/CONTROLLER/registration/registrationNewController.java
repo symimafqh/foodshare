@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.heroku.java.MODEL.registration.RegistrationBean;
 import com.heroku.java.MODEL.student.StudentBean;
 import com.heroku.java.MODEL.teacher.TeacherBean;
+import com.heroku.java.CONTROLLER.sidebar.*;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -35,39 +36,85 @@ public class registrationNewController {
     }
 
     @PostMapping("/registration")
-    public String registrationCocu(HttpSession session, @ModelAttribute("registration") RegistrationBean r,
+    public String registrationCocu(HttpSession session, @ModelAttribute("registration") RegistrationBean r, 
             Model model) {
         String studentIC = (String) session.getAttribute("studentIC");
         boolean unitQuotaAvailable;
         System.out.println("pass id student" + studentIC);
+
+
         try {
             Connection connection = dataSource.getConnection();
             // try
             try {
+                // Step 1: Retrieve the quota for the activity from the uniform table
+                String quotaSql = "SELECT uniformquota FROM uniform WHERE activityid = ?";
+                final var quotaStmt = connection.prepareStatement(quotaSql);
+
+                int uniformquota = r.getQuotaUniform();
+                quotaStmt.setInt(1, uniformquota);
+                ResultSet quotaRs = quotaStmt.executeQuery();
                 
-                //insert success
-                String sql = "INSERT INTO registration(studentic, activityid) VALUES (?,?)";
-                final var statement = connection.prepareStatement(sql);
+                int quota = 0;
+                if (quotaRs.next()) {
+                    quota = quotaRs.getInt("uniformquota");
+                } 
+            
+                // Step 2: Retrieve the current number of registrations for the activity
+                // String quotaCheckSql = "SELECT COUNT(*) AS currentRegistrations FROM registration WHERE activityid = ?";
+                // final var quotaCheckStmt = connection.prepareStatement(quotaCheckSql);
+                // quotaCheckStmt.setInt(1, unit);
+                // ResultSet currentRegistrationsRs = quotaCheckStmt.executeQuery();
+                
+                
+            
+                // Step 3: Compare the current number of registrations with the quota
+                if (quota != 0) {
 
-                // studentIC = r.getStudentIC();
-                int unit = r.getUnitReg();
-
-                statement.setString(1, studentIC);
-                statement.setInt(2, unit);
-
-                statement.executeUpdate();
-
-                System.out.println("successfully inserted");
-                // System.out.println("product price : RM"+proprice);
-                // System.out.println("proimg: "+proimgs.getBytes());
-
-                // connection.close();
-
-            } 
-            catch (Exception e) {
+                    int unit=r.getUnitReg();
+                    // Step 4: Insert the new registration only if the quota has not been reached
+                    String insertSql = "INSERT INTO registration(studentic, activityid) VALUES (?, ?)";
+                    final var insertStmt = connection.prepareStatement(insertSql);
+                    insertStmt.setString(1, studentIC);
+                    insertStmt.setInt(2, unit);
+                    insertStmt.executeUpdate();
+                    
+                    System.out.println("Successfully inserted");
+                } else {
+                    return "redirect:/registerQuota";
+                }
+            } catch (Exception e) {
                 e.printStackTrace();
                 return "redirect:/registration";
             }
+            // try {
+
+            
+            
+                
+            //     //insert success
+            //     String sql = "INSERT INTO registration(studentic, activityid) VALUES (?,?)";
+            //     final var statement = connection.prepareStatement(sql);
+
+            //     // studentIC = r.getStudentIC();
+            //     int unit = r.getUnitReg();
+
+            //     statement.setString(1, studentIC);
+            //     statement.setInt(2, unit);
+
+            //     statement.executeUpdate();
+
+            //     System.out.println("successfully inserted");
+            //     // System.out.println("product price : RM"+proprice);
+            //     // System.out.println("proimg: "+proimgs.getBytes());
+
+            //     // connection.close();
+
+            // } 
+            // catch (Exception e) {
+            //     e.printStackTrace();
+            //     return "redirect:/registration";
+            // }
             
             // club
             try {

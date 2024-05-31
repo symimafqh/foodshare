@@ -14,6 +14,8 @@ public class RegistrationBean {
 	private int clubReg;
 	private int sportReg;
     private ActivityBean activity;
+    private int quotauniform;
+
 
     public RegistrationBean(){
 
@@ -102,6 +104,20 @@ public class RegistrationBean {
      */
     public void setSportReg(int sportReg) {
         this.sportReg = sportReg;
+    }
+
+     /**
+     * @return int return the sportReg
+     */
+    public int getQuotaUniform() {
+        return quotauniform;
+    }
+
+    /**
+     * @param sportReg the sportReg to set
+     */
+    public void setQuotaUniform(int quotauniform) {
+        this.quotauniform = quotauniform;
     }
 
 }
