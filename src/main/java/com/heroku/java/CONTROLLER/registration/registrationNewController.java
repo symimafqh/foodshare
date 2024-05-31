@@ -45,48 +45,38 @@ public class registrationNewController {
 
         try {
             Connection connection = dataSource.getConnection();
-            // try
+        
             try {
                 // Step 1: Retrieve the quota for the activity from the uniform table
                 String quotaSql = "SELECT uniformquota FROM uniform WHERE activityid = ?";
                 final var quotaStmt = connection.prepareStatement(quotaSql);
-
-                int uniformquota = r.getQuotaUniform();
-                quotaStmt.setInt(1, uniformquota);
+                quotaStmt.setInt(1, r.getUnitReg());  // Use activityid from r.getUnitReg()
                 ResultSet quotaRs = quotaStmt.executeQuery();
                 
                 int quota = 0;
                 if (quotaRs.next()) {
                     quota = quotaRs.getInt("uniformquota");
                 } 
-            
-                // Step 2: Retrieve the current number of registrations for the activity
-                // String quotaCheckSql = "SELECT COUNT(*) AS currentRegistrations FROM registration WHERE activityid = ?";
-                // final var quotaCheckStmt = connection.prepareStatement(quotaCheckSql);
-                // quotaCheckStmt.setInt(1, unit);
-                // ResultSet currentRegistrationsRs = quotaCheckStmt.executeQuery();
-                
-                
-            
-                // Step 3: Compare the current number of registrations with the quota
-                if (quota != 0) {
-
-                    int unit=r.getUnitReg();
-                    // Step 4: Insert the new registration only if the quota has not been reached
+        
+                // Step 2: Check if the quota is greater than 0
+                if (quota > 0) {
+                    // Step 3: Insert the new registration if the quota is greater than 0
                     String insertSql = "INSERT INTO registration(studentic, activityid) VALUES (?, ?)";
                     final var insertStmt = connection.prepareStatement(insertSql);
                     insertStmt.setString(1, studentIC);
-                    insertStmt.setInt(2, unit);
+                    insertStmt.setInt(2, r.getUnitReg());
                     insertStmt.executeUpdate();
                     
                     System.out.println("Successfully inserted");
                 } else {
+                    System.out.println("Quota reached for this activity. Registration not allowed.");
                     return "redirect:/registerQuota";
                 }
             } catch (Exception e) {
                 e.printStackTrace();
                 return "redirect:/registration";
             }
+        
             // try {
 
             
