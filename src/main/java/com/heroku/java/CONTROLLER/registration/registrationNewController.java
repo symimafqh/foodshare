@@ -71,6 +71,7 @@ public class registrationNewController {
         }
     }
 
+    //dapatkan quota
     private int getQuota(Connection connection, String tableName, int activityId) throws SQLException {
         String sql = "SELECT " + tableName + "quota FROM " + tableName + " WHERE activityid = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -84,6 +85,7 @@ public class registrationNewController {
         return 0;
     }
 
+    //insert registration
     private void insertRegistration(Connection connection, String studentIC, int activityId) throws SQLException {
         String sql = "INSERT INTO registration(studentic, activityid) VALUES (?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -93,6 +95,7 @@ public class registrationNewController {
         }
     }
 
+    //minus 1 untuk dah register
     private void updateQuota(Connection connection, String tableName, int activityId, int newQuota) throws SQLException {
         String sql = "UPDATE " + tableName + " SET " + tableName + "quota = ? WHERE activityid = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
