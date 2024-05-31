@@ -39,7 +39,7 @@ public class registrationNewController {
     public String registrationCocu(HttpSession session, @ModelAttribute("registration") RegistrationBean r, 
             Model model) {
         String studentIC = (String) session.getAttribute("studentIC");
-        boolean unitQuotaAvailable;
+        
         System.out.println("pass id student" + studentIC);
 
 
@@ -66,8 +66,17 @@ public class registrationNewController {
                     insertStmt.setString(1, studentIC);
                     insertStmt.setInt(2, r.getUnitReg());
                     insertStmt.executeUpdate();
-                    
+
                     System.out.println("Successfully inserted");
+
+                    // Step 4: Decrement the quota by 1 and update the uniform table
+                    int newQuota = quota - 1;
+                    String updateQuotaSql = "UPDATE uniform SET uniformquota = ? WHERE activityid = ?";
+                    final var updateQuotaStmt = connection.prepareStatement(updateQuotaSql);
+                    updateQuotaStmt.setInt(1, newQuota);
+                    updateQuotaStmt.setInt(2, r.getUnitReg());
+                    updateQuotaStmt.executeUpdate();
+
                 } else {
                     System.out.println("Quota reached for this activity. Registration not allowed.");
                     return "redirect:/registerQuota";
@@ -76,56 +85,43 @@ public class registrationNewController {
                 e.printStackTrace();
                 return "redirect:/registration";
             }
-        
-            // try {
-
-            
-            
-                
-            //     //insert success
-            //     String sql = "INSERT INTO registration(studentic, activityid) VALUES (?,?)";
-            //     final var statement = connection.prepareStatement(sql);
-
-            //     // studentIC = r.getStudentIC();
-            //     int unit = r.getUnitReg();
-
-            //     statement.setString(1, studentIC);
-            //     statement.setInt(2, unit);
-
-            //     statement.executeUpdate();
-
-            //     System.out.println("successfully inserted");
-            //     // System.out.println("product price : RM"+proprice);
-            //     // System.out.println("proimg: "+proimgs.getBytes());
-
-            //     // connection.close();
-
-            // } 
-            // catch (Exception e) {
-            //     e.printStackTrace();
-            //     return "redirect:/registration";
-            // }
             
             // club
             try {
+                // Step 1: Retrieve the quota for the activity from the uniform table
+                String quotaSql = "SELECT clubquota FROM club WHERE activityid = ?";
+                final var quotaStmt = connection.prepareStatement(quotaSql);
+                quotaStmt.setInt(1, r.getClubReg());  // Use activityid from r.getUnitReg()
+                ResultSet quotaRs = quotaStmt.executeQuery();
+                
+                int quota = 0;
+                if (quotaRs.next()) {
+                    quota = quotaRs.getInt("clubquota");
+                } 
+        
+                // Step 2: Check if the quota is greater than 0
+                if (quota > 0) {
+                    // Step 3: Insert the new registration if the quota is greater than 0
+                    String insertSql = "INSERT INTO registration(studentic, activityid) VALUES (?, ?)";
+                    final var insertStmt = connection.prepareStatement(insertSql);
+                    insertStmt.setString(1, studentIC);
+                    insertStmt.setInt(2, r.getClubReg());
+                    insertStmt.executeUpdate();
 
-                String sql = "INSERT INTO registration(studentic, activityid) VALUES (?,?)";
-                final var statement = connection.prepareStatement(sql);
+                    System.out.println("Successfully inserted");
 
-                // studentIC = r.getStudentIC();
-                int club = r.getClubReg();
+                    // Step 4: Decrement the quota by 1 and update the uniform table
+                    int newQuota = quota - 1;
+                    String updateQuotaSql = "UPDATE club SET clubquota = ? WHERE activityid = ?";
+                    final var updateQuotaStmt = connection.prepareStatement(updateQuotaSql);
+                    updateQuotaStmt.setInt(1, newQuota);
+                    updateQuotaStmt.setInt(2, r.getClubReg());
+                    updateQuotaStmt.executeUpdate();
 
-                statement.setString(1, studentIC);
-                statement.setInt(2, club);
-
-                statement.executeUpdate();
-
-                System.out.println("successfully inserted");
-                // System.out.println("product price : RM"+proprice);
-                // System.out.println("proimg: "+proimgs.getBytes());
-
-                // connection.close();
-
+                } else {
+                    System.out.println("Quota reached for this activity. Registration not allowed.");
+                    return "redirect:/registerQuota";
+                }
             } catch (Exception e) {
                 e.printStackTrace();
                 return "redirect:/registration";
@@ -133,33 +129,44 @@ public class registrationNewController {
 
             // sport
             try {
-                String sql = "INSERT INTO registration(studentic, activityid) VALUES (?,?)";
-                final var statement = connection.prepareStatement(sql);
+                // Step 1: Retrieve the quota for the activity from the uniform table
+                String quotaSql = "SELECT sportquota FROM sport WHERE activityid = ?";
+                final var quotaStmt = connection.prepareStatement(quotaSql);
+                quotaStmt.setInt(1, r.getSportReg());  // Use activityid from r.getUnitReg()
+                ResultSet quotaRs = quotaStmt.executeQuery();
+                
+                int quota = 0;
+                if (quotaRs.next()) {
+                    quota = quotaRs.getInt("sportquota");
+                } 
+        
+                // Step 2: Check if the quota is greater than 0
+                if (quota > 0) {
+                    // Step 3: Insert the new registration if the quota is greater than 0
+                    String insertSql = "INSERT INTO registration(studentic, activityid) VALUES (?, ?)";
+                    final var insertStmt = connection.prepareStatement(insertSql);
+                    insertStmt.setString(1, studentIC);
+                    insertStmt.setInt(2, r.getSportReg());
+                    insertStmt.executeUpdate();
 
-                // studentIC = r.getStudentIC();
-                int sport = r.getSportReg();
+                    System.out.println("Successfully inserted");
 
-                statement.setString(1, studentIC);
-                statement.setInt(2, sport);
+                    // Step 4: Decrement the quota by 1 and update the uniform table
+                    int newQuota = quota - 1;
+                    String updateQuotaSql = "UPDATE sport SET sportquota = ? WHERE activityid = ?";
+                    final var updateQuotaStmt = connection.prepareStatement(updateQuotaSql);
+                    updateQuotaStmt.setInt(1, newQuota);
+                    updateQuotaStmt.setInt(2, r.getSportReg());
+                    updateQuotaStmt.executeUpdate();
 
-                statement.executeUpdate();
-
-                System.out.println("successfully inserted");
-                // System.out.println("product price : RM"+proprice);
-                // System.out.println("proimg: "+proimgs.getBytes());
-
-                // connection.close();
-
+                } else {
+                    System.out.println("Quota reached for this activity. Registration not allowed.");
+                    return "redirect:/registerQuota";
+                }
             } catch (Exception e) {
                 e.printStackTrace();
                 return "redirect:/registration";
             }
-            connection.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "redirect:/successregistration";
-    }
 
 //     @GetMapping("/semakpendaftaran")
 // public String viewPendaftaran(HttpSession session, Model model, StudentBean sb) {
