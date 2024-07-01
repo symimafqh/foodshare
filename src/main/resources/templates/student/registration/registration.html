@@ -403,7 +403,7 @@
                                                         <div class="col-md-7">
                                                             <select class="form-control" id="unitReg" name="unitReg" required>
                                                                 <option value="0">Sila Pilih Unit Beruniform</option>
-                                                                <option th:each="unitBean : ${unit}" th:value="${unitBean.activity.activityID}(${unit.quotaUnit})" th:text="${unitBean.activity.activityName}"></option>
+                                                                <option th:each="unitBean : ${unit}" th:value="${unitBean.activity.activityID}" th:text="${unitBean.activity.activityName+ ' (' + unit.quotaUnit + ')'}"></option>
                                                             
                                                             </select>
                                                         </div>
@@ -413,7 +413,7 @@
                                                       <div class="col-md-7">
                                                           <select class="form-control" id="clubReg" name="clubReg" required>
                                                               <option value="">Sila Pilih  Kelab dan Persatuan</option>
-                                                              <option th:each="clubBean : ${club}" th:value="${clubBean.activity.activityID}(${club.quotaClub})" th:text="${clubBean.activity.activityName}"></option>
+                                                              <option th:each="clubBean : ${club}" th:value="${clubBean.activity.activityID}" th:text="${clubBean.activity.activityName+ ' (' + club.quotaClub + ')'}"></option>
                                                               
                                                           </select>
                                                       </div>
@@ -423,7 +423,7 @@
                                                     <div class="col-md-7">
                                                         <select class="form-control" id="sportReg" name="sportReg" required>
                                                             <option value="0">Sila Pilih Sukan dan Permainan</option>
-                                                            <option th:each="sukanBean : ${sukan}" th:value="${sukanBean.activity.activityID}(${sukan.quotaSukan})" th:text="${sukanBean.activity.activityName}"></option>
+                                                            <option th:each="sukanBean : ${sukan}" th:value="${sukanBean.activity.activityID}" th:text="${sukanBean.activity.activityName + ' (' + sukan.quotaSukan + ')'}"></option>
                                                         </select>
                                                     </div>
                                                 </div>
