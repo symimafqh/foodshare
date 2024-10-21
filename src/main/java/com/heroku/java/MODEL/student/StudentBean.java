@@ -18,7 +18,7 @@ public class StudentBean {
     }
 
     /**
-     * @param studentIC the studentIC to set
+     * @param studentNumber the studentIC to set
      */
     public void setStudentNumber(String studentNumber) {
         this.studentNumber = studentNumber;

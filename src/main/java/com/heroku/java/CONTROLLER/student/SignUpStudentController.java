@@ -64,9 +64,11 @@ public class SignUpStudentController {
 
             }
             connection.close();
+            System.out.println("Executing query: " + checkSql + " with studentNumber: " + s.getStudentNumber());
 
         } catch (Exception e) {
             e.printStackTrace();
+            
             return "redirect:/signup?";
         }
         return "redirect:/signin";
