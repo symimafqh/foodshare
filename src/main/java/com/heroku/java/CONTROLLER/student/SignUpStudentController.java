@@ -36,6 +36,8 @@ public class SignUpStudentController {
         try (Connection connection = dataSource.getConnection()) {
             String checkSql = "SELECT COUNT(*) FROM public.student WHERE studentNumber = ?";
             try (PreparedStatement checkStatement = connection.prepareStatement(checkSql)) {
+                System.out.println("Student Number: " + s.getStudentNumber());
+
                 checkStatement.setString(1, s.getStudentNumber());
                 try (ResultSet resultSet = checkStatement.executeQuery()) {
                     if (resultSet.next() && resultSet.getInt(1) > 0) {
@@ -53,6 +55,7 @@ public class SignUpStudentController {
                 String email = s.getStudentEmail();
 
                 String password = s.getStudentPassword();
+                System.out.println("Student Number: " + s.getStudentNumber());
 
                 // Correct order for parameter binding
                 statement.setString(1, studIC); // studentNumber
