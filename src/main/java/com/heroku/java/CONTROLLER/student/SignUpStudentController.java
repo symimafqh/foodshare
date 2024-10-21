@@ -33,37 +33,28 @@ public class SignUpStudentController {
     @PostMapping("/signup")
     public String registerStudent(@ModelAttribute("signup")StudentBean s){
         try( Connection connection = dataSource.getConnection()) {
-            String checkSql = "SELECT COUNT(*) FROM public.student WHERE studentic = ?";
+            String checkSql = "SELECT COUNT(*) FROM public.student WHERE studentNumber = ?";
         try (PreparedStatement checkStatement = connection.prepareStatement(checkSql)) {
-            checkStatement.setString(1, s.getStudentIC());
+            checkStatement.setString(1, s.getStudentNumber());
             try (ResultSet resultSet = checkStatement.executeQuery()) {
                 if (resultSet.next() && resultSet.getInt(1) > 0) {
                     // StudentIC already exists
-                    return "redirect:/signup?NomborICpernah didaftarkan";
+                    return "redirect:/signup?StudentNumberAlreadyExsist";
                 }
             }
         }
-            String sql = "INSERT INTO public.student(studentic, studentname, studentemail, studentphone, studentdob, studentgender, studentclass, studentaddress, studentpassword) VALUES(?,?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO public.student(studentnumber, studentname, studentemail, studentpassword) VALUES(?,?,?,?)";
             try (final var statement = connection.prepareStatement(sql)){;
 
-            String studIC= s.getStudentIC();
+            String studIC= s.getStudentNumber();
             String name= s.getStudentName();
             String email=s.getStudentEmail();
-            String phone=s.getStudentPhone();
-            String dob=s.getStudentDOB();
-            String gender=s.getStudentGender();
-            String kelas=s.getStudentClass();
-            String address=s.getStudentAddress();
+    
             String password =s.getStudentPassword();
     
             statement.setString(1,studIC);
             statement.setString(2,name);
             statement.setString(3,email);
-            statement.setString(4,phone);
-            statement.setString(5,dob);
-            statement.setString(6,gender);
-            statement.setString(7,kelas);
-            statement.setString(8,address);
             statement.setString(9,password);
             
             statement.executeUpdate();

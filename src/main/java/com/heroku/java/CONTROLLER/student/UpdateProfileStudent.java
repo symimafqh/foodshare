@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.heroku.java.MODEL.student.StudentBean;
-import com.heroku.java.MODEL.teacher.TeacherBean;
+import com.heroku.java.MODEL.teacher.CafeBean;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -35,33 +35,26 @@ public class UpdateProfileStudent {
 
     @PostMapping("/edit_profile")
     public String updateprofilestudent(@ModelAttribute("edit_profile") StudentBean s, HttpSession session, Model model) {
-        String studentIC = (String) session.getAttribute("studentIC");
-        System.out.println("IC Number : " + studentIC);
+        String studentNumber = (String) session.getAttribute("studentNumber");
+        System.out.println("Student Number : " + studentNumber);
 
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "UPDATE public.student SET studentname=?, studentemail=?,studentphone=?,studentdob=?,studentgender=?,studentaddress=? WHERE studentic=?";
+            String sql = "UPDATE public.student SET studentname=?, studentemail=? WHERE studentNumber=?";
             final var statement = connection.prepareStatement(sql);
 
             String studentName = s.getStudentName();
             String studentEmail = s.getStudentEmail();
-            String studentPhone = s.getStudentPhone();
-            String studentDOB = s.getStudentDOB();
-            String studentGender = s.getStudentGender();
-            String studentAddress = s.getStudentAddress();
+        
 
             
             statement.setString(1, studentName);
             statement.setString(2, studentEmail);
-            statement.setString(3, studentPhone);
-            statement.setString(4, studentDOB);
-            statement.setString(5, studentGender);
-            statement.setString(6, studentAddress);
-            statement.setString(7, studentIC);
+            statement.setString(7, studentNumber);
 
             System.out.println("Name: " + studentName);
             System.out.println("Email: " + studentEmail);
-            System.out.println("IC: " + studentIC);
+            System.out.println("Student Number: " + studentNumber);
             statement.executeUpdate();
 
             connection.close();
@@ -73,18 +66,18 @@ public class UpdateProfileStudent {
 
     @PostMapping("/edit_password")
     public String updatepasswordstudent(StudentBean s, HttpSession session, Model model) {
-        String studentIC = (String) session.getAttribute("studentIC");
-        System.out.println("IC Number : " + studentIC);
+        String studentNumber = (String) session.getAttribute("studentNumber");
+        System.out.println("IC Number : " + studentNumber);
 
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "UPDATE public.student SET studentpassword=? WHERE studentic=?";
+            String sql = "UPDATE public.student SET studentpassword=? WHERE studentNumber=?";
             final var statement = connection.prepareStatement(sql);
 
             String studentPassword = s.getStudentPassword();
 
             statement.setString(1, studentPassword);
-            statement.setString(2, studentIC);
+            statement.setString(2, studentNumber);
             statement.executeUpdate();
 
             connection.close();

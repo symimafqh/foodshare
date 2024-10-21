@@ -1,4 +1,4 @@
-package com.heroku.java.CONTROLLER.student;
+package com.heroku.java.CONTROLLER.cafeteria_owner;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.heroku.java.MODEL.student.StudentBean;
+import com.heroku.java.MODEL.teacher.CafeBean;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -23,64 +24,66 @@ import java.util.Map;
 import java.util.List;
 
 @Controller
-public class LoginStudentController {
+public class LoginCafeteriaOwnerController {
+
     private final DataSource dataSource;
 
     @Autowired
-    public LoginStudentController(DataSource dataSource) {
+    public LoginCafeteriaOwnerController(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
-    @GetMapping("/signin")
-    public String signin() {
-        return "student/sign-in/signin";
+    @GetMapping("/teachersignin")
+    public String cafeteriaSignin() {
+        return "teacher/sign-in/teachersignin";
     }
 
-    @PostMapping("/signin")
-    public String LoginStudent(HttpSession session,@RequestParam(name = "success", required = false) Boolean success, String studentNumber, String studentPassword, StudentBean s, Model model) {
+    @PostMapping("/teachersignin")
+    public String LoginOwner(HttpSession session,@RequestParam(name = "success", required = false) Boolean success, String cafeNumber, String cafePassword, CafeBean t, Model model) {
 
         try {
             // String returnPage = null;
             Connection connection = dataSource.getConnection();
 
-            String sql = "SELECT * FROM public.student WHERE studentNumber=? AND studentpassword=?";
+            String sql = "SELECT * FROM public.cafeteria_owner WHERE cafeNumber=? AND cafePassword=?";
             final var statement = connection.prepareStatement(sql);
-            statement.setString(1, studentNumber);
-            statement.setString(2, studentPassword);
+            statement.setString(1, cafeNumber);
+            statement.setString(2, cafePassword);
 
             final var resultSet = statement.executeQuery();
 
-            System.out.println("student number : " + studentNumber);
-            System.out.println("student pass : " + studentPassword);
+            System.out.println("teacher ic : " + cafeNumber);
+            System.out.println("teacher pass : " + cafePassword);
 
             if (resultSet.next()) {
 
                 // String guestICNumber = resultSet.getString("guestICNumber");
-                // String teacherName = resultSet.getString("guestname");
-                String studentNo = resultSet.getString("studentNumber");
-                String password = resultSet.getString("studentPassword");
-                String studentName = resultSet.getString("studentName");
-                String studentEmail = resultSet.getString("studentEmail");
-                
-                System.out.println(studentNo);
+                String username = resultSet.getString("cafeNumber");
+                String password = resultSet.getString("cafePassword");
+                String cafeName = resultSet.getString("cafeName");
+                String cafeEmail = resultSet.getString("cafeEmail");
+        
+
+                System.out.println(username);
                 // if they're admin
                 // System.out.println("Email : " + guestEmail.equals(email) + " | " + email);
                 // System.out.println("Password status : " + guestPassword.equals(password));
 
-                if (studentNo.equals(studentNumber) && password.equals(studentPassword)) {
+                if (username.equals(cafeNumber) && password.equals(cafePassword)) {
 
-                    session.setAttribute("studentNumber", studentNumber);
-                    session.setAttribute("studentPassword", studentPassword);
-                    session.setAttribute("studentName", studentName);
+                    session.setAttribute("cafeNumber", cafeNumber);
+                    session.setAttribute("cafePassword", cafePassword);
+                    session.setAttribute("cafeName", cafeName);
+                    session.setAttribute("cafeEmail", cafeEmail);
+                
 
 
-
-                    return "redirect:/dashboardStudent?success=true" ;
+                    return "redirect:/dashboardTeacher?success=true" ;
                 }
             }
 
             connection.close();
-            return "redirect:/signin?invalidUsername&Password";
+            return "redirect:/teachersignin?invalidUsername&Password";
 
         } catch (SQLException sqe) {
             System.out.println("Error Code = " + sqe.getErrorCode());
@@ -97,10 +100,9 @@ public class LoginStudentController {
         }
     }
 
-    @GetMapping("/logoutstudent")
-    public String logoutStudent(HttpSession session) {
+    @GetMapping("/logoutteacher")
+    public String logoutTeacher(HttpSession session) {
         session.invalidate();
         return "index";
     }
-    
 }
