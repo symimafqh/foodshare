@@ -45,7 +45,7 @@ public class LoginCafeteriaOwnerController {
             // String returnPage = null;
             Connection connection = dataSource.getConnection();
 
-            String sql = "SELECT * FROM public.cafeteria_owner WHERE cafeNumber=? AND cafePassword=?";
+            String sql = "SELECT * FROM public.cafeteria_owner WHERE \"cafeNumber\"=? AND \"cafePassword\"=?";
             final var statement = connection.prepareStatement(sql);
             statement.setString(1, cafeNumber);
             statement.setString(2, cafePassword);
