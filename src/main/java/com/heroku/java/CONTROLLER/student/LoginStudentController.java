@@ -72,7 +72,7 @@ public class LoginStudentController {
                     session.setAttribute("studentNumber", studentNumber);
                     session.setAttribute("studentPassword", studentPassword);
                     session.setAttribute("studentName", studentName);
-
+                    session.setAttribute("studentEmail", studentEmail);
 
 
                     return "redirect:/dashboardStudent?success=true" ;

@@ -1,7 +1,7 @@
 package com.heroku.java.CONTROLLER.account;
 
-import com.heroku.java.MODEL.teacher.TeacherBean;
+import com.heroku.java.MODEL.teacher.CafeBean;
 
 public interface TeacherRepository {
-    TeacherBean getTeacherById(String username);
+    CafeBean getTeacherById(String username);
 }
