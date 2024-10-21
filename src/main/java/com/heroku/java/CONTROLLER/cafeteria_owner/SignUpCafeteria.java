@@ -42,9 +42,9 @@ public class SignUpCafeteria {
             String number=t.getCafeNumber();
             String password =t.getCafePassword();
     
-            statement.setString(1,name);
-            statement.setString(2,email);
-            statement.setString(3,number);
+            statement.setString(1,number);
+            statement.setString(2,name);
+            statement.setString(3,email);
             statement.setString(4,password);
             
             statement.executeUpdate();
