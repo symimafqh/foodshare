@@ -123,8 +123,8 @@
                 <!-- </a> -->
               </div>
               <div class="px-30 ">
-                <h1 class="h3 font-w700 mt-10 mt-5 mb-10">Daftar Akaun Baharu</h1>
-                <h2 class="h5 font-w400 text-muted mb-0">Sila Masukkan Maklumat Anda</h2>
+                <h1 class="h3 font-w700 mt-10 mt-5 mb-10">Register Account</h1>
+                <h2 class="h5 font-w400 text-muted mb-0">Please fill in this form</h2>
               </div>
               <!-- END Header -->
 
@@ -136,10 +136,10 @@
                 <div class="form-group row">
                   <div class="col-12">
                     <div class="form-material">
-                      <input type="text" class="form-control" id="signup-ic" name="studentIC" maxlength="12"
+                      <input type="text" class="form-control" id="signup-number" name="studentNumber" maxlength="12"
                         pattern="[0-9]*" required>
-                      <label for="signup-username">Nombor Kad Pengenalan</label>
-                      <small style="color:red;">tanpa (-) atau space(' '). cth:010203054477</small>
+                      <label for="signup-username">Student Number</label>
+                      <!-- <small style="color:red;">tanpa (-) atau space(' '). cth:010203054477</small> -->
                     </div>
                   </div>
                 </div>
@@ -148,61 +148,11 @@
                     <div class="form-material">
                       <input type="text" class="form-control" id="signup-nama" name="studentName"
                         oninput="this.value = this.value.toUpperCase()" required>
-                      <label for="signup-nama">Nama</label>
+                      <label for="signup-nama">Name</label>
                     </div>
                   </div>
                 </div>
-                <div class="form-group row">
-                  <div class="col-12">
-                    <div class="form-material">
-                      <input type="text" class="form-control" id="signup-notel" name="studentPhone" maxlength="12"
-                        pattern="[0-9]*" required>
-                      <label for="signup-notel">Nombor Telefon</label>
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <div class="col-12">
-                    <div class="form-material">
-                      <select class="form-control" id="signup-jantina" name="studentClass" required>
-                        <option></option><!-- Empty value for demostrating material select box -->
-                        <option value="Mukhriz">MUKHRIZ</option>
-                        <option value="Durah">DURAH</option>
-                        <option value="Melewar">MELEWAR</option>
-                        <option value="Kurshiah">KURSHIAH</option>
-                        <option value="Antah">ANTAH</option>
-                        <option value="Najihah">NAJIHAH</option>
-                        <option value="Munawir">MUNAWIR</option>
-                        <option value="Bahiyah">BAHIYAH</option>
-                      </select>
-                      <label for="signup-kelas">Kelas</label>
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <div class="col-12">
-                    <label for="profile-settings-email">Tarikh Lahir</label>
-                    <input type="date" class="js-datepicker form-control form-control-lg" id="signup-tarikhlahir"
-                      name="studentDOB" data-week-start="1" data-autoclose="true" data-today-highlight="true"
-                      data-date-format="dd-mm-yyyy" max="" required>
-                  </div>
-                </div>
-                <script>
-                  var today = new Date().toISOString().split('T')[0];
-                  document.getElementById("signup-tarikhlahir").setAttribute("max", today);
-                </script>
-                <div class="form-group row">
-                  <div class="col-md-9">
-                    <div class="form-material">
-                      <select class="form-control" id="signup-jantina" name="studentGender" required>
-                        <option></option><!-- Empty value for demostrating material select box -->
-                        <option value="Lelaki">Lelaki</option>
-                        <option value="Perempuan">Perempuan</option>
-                      </select>
-                      <label for="material-jantina">Jantina</label>
-                    </div>
-                  </div>
-                </div>
+                
                 <div class="form-group row">
                   <div class="col-12">
                     <div class="form-material">
@@ -214,17 +164,8 @@
                 <div class="form-group row">
                   <div class="col-12">
                     <div class="form-material">
-                      <textarea class="form-control" id="signup-alamat" name="studentAddress" rows="3"
-                        oninput="this.value = this.value.toUpperCase()" required></textarea>
-                      <label for="material-textarea-alamat">Alamat</label>
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <div class="col-12">
-                    <div class="form-material">
                       <input type="password" class="form-control" id="studentPassword" name="studentPassword" required>
-                      <label for="signup-password">Kata Laluan</label>
+                      <label for="signup-password">Password</label>
                     </div>
                   </div>
                 </div>
@@ -233,18 +174,18 @@
                     <div class="form-material">
                       <input type="password" class="form-control" id="studentPasswordConfirmation"
                         name="studentPasswordConfirmation" required>
-                      <label for="signup-password-confirm">Sahkan Kata Laluan</label>
+                      <label for="signup-password-confirm">Confirmation Pasword</label>
                     </div>
                   </div>
                 </div>
                 <div class="form-group">
-                  <span id="passwordError" style="color: red; display: none;">Kata laluan tidak sepadan!</span>
+                  <span id="passwordError" style="color: red; display: none;">Password did not match!</span>
                   <button type="submit" class="btn btn-sm btn-hero btn-alt-success" id="submitBtn">
-                    <i class="si si-login mr-10"></i> Daftar Akaun
+                    <i class="si si-login mr-10"></i> Register Account
                   </button>
                   <div class="mt-30">
                     <a class="link-effect text-muted mr-10 mb-5 d-inline-block" th:href="@{/signin}">
-                      <i class="fa fa-user text-muted mr-5"></i> Log Masuk
+                      <i class="fa fa-user text-muted mr-5"></i> Login
                     </a>
                   </div>
                 </div>
