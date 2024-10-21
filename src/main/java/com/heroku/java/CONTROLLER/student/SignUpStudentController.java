@@ -34,7 +34,7 @@ public class SignUpStudentController {
     @PostMapping("/signup")
     public String registerStudent(@ModelAttribute("signup") StudentBean s) {
         try (Connection connection = dataSource.getConnection()) {
-            String checkSql = "SELECT COUNT(*) FROM public.student WHERE studentNumber = ?";
+            String checkSql = "SELECT COUNT(*) FROM public.student WHERE \"studentNumber\" = ?";
             try (PreparedStatement checkStatement = connection.prepareStatement(checkSql)) {
                 System.out.println("Student Number: " + s.getStudentNumber());
 
@@ -46,7 +46,7 @@ public class SignUpStudentController {
                     }
                 }
             }
-            String sql = "INSERT INTO public.student(studentNumber, studentName, studentEmail, studentPassword) VALUES(?,?,?,?)";
+            String sql = "INSERT INTO public.student(\"studentNumber\", studentName, studentEmail, studentPassword) VALUES(?,?,?,?)";
             try (final var statement = connection.prepareStatement(sql)) {
                 ;
 
