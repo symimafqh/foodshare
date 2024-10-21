@@ -43,7 +43,7 @@ public class SignUpStudentController {
                 }
             }
         }
-            String sql = "INSERT INTO public.student(studentnumber, studentname, studentemail, studentpassword) VALUES(?,?,?,?)";
+            String sql = "INSERT INTO public.student(studentNumber, studentName, studentEmail, studentPassword) VALUES(?,?,?,?)";
             try (final var statement = connection.prepareStatement(sql)){;
 
             String studIC= s.getStudentNumber();
@@ -52,10 +52,10 @@ public class SignUpStudentController {
     
             String password =s.getStudentPassword();
     
-            statement.setString(1,studIC);
-            statement.setString(2,name);
+            statement.setString(1,name);
+            statement.setString(2,studIC);
             statement.setString(3,email);
-            statement.setString(9,password);
+            statement.setString(4,password);
             
             statement.executeUpdate();
             
