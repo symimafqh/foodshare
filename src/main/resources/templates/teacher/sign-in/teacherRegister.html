@@ -89,129 +89,93 @@
     -->
     <div id="page-container" class="main-content-boxed">
 
-      <!-- Main Container -->
       <main id="main-container">
         <!-- Page Content -->
         <div class="bg-image" style="background-image: url('stylesheets/assets/media/photos/photo34@2x.jpg');">
-          <div class="row mx-0 bg-earth-op">
-            <div class="hero-static col-md-6 col-xl-8 d-none d-md-flex align-items-md-end">
-              <div class="p-30 invisible" data-toggle="appear">
-                <p class="font-size-h3 font-w600 text-white mb-5">
-                  We're very happy you are joining our community!
-                </p>
-                <p class="font-size-h5 text-white">
-                  <i class="fa fa-angles-right"></i> Create your account today and receive 50% off.
-                </p>
-                <p class="font-italic text-white-op">
-                  Copyright &copy; <span class="js-year-copy"></span>
-                </p>
-              </div>
-            </div>
-            <div class="hero-static col-md-6 col-xl-4 d-flex align-items-center bg-white">
-              <div class="content content-full">
-                <!-- Header -->
-                <div class="px-30 py-10 ml-30">
-                  <!-- <a class="link-effect font-w700" th:th:href=""> -->
-                    <img th:src="@{stylesheets/assets/pictures/2.png}" style="width: 200px; height:200px;">
-                    <!-- <i class="si si-fire"></i>
-                    <span class="font-size-xl text-primary-dark">code</span><span class="font-size-xl">base</span> -->
-                  <!-- </a> -->
+            <div class="row mx-0 bg-earth-op">
+                <div class="hero-static col-md-6 col-xl-8 d-none d-md-flex align-items-md-end">
+                    <div class="p-30 invisible" data-toggle="appear">
+                        <p class="font-size-h3 font-w600 text-white mb-5">We're very happy you are joining our community!</p>
+                        <p class="font-size-h5 text-white">
+                            <i class="fa fa-angles-right"></i> Create your account today and receive 50% off.
+                        </p>
+                        <p class="font-italic text-white-op">Copyright &copy; <span class="js-year-copy"></span></p>
+                    </div>
                 </div>
-                <div class="px-30 ">
-                <h1 class="h3 font-w700 mt-10 mt-5 mb-10">Register Account</h1>
-                <h2 class="h5 font-w400 text-muted mb-0">Please enter your details</h2>
-              </div>
-                <!-- END Header -->
-
-                <!-- Sign Up Form -->
-                <!-- jQuery Validation functionality is initialized with .js-validation-signup class in js/pages/op_auth_signup.min.js which was auto compiled from _js/pages/op_auth_signup.js -->
-                <!-- For more examples you can check out https://github.com/jzaefferer/jquery-validation -->
-                <form  th:action="@{/teacherRegister}"
-                modelAttribute="teacherRegister"
-                th:object="(${teacherRegister})"
-                enctype="multipart/form-data"method="post">
-                  <div class="form-group row">
-                    <div class="col-12">
-                      <div class="form-material">
-                        <input type="text" class="form-control" id="signup-ic" name="cafeNumber" maxlength="12" pattern="[0-9]*" required>
-                        <label for="signup-username">Cafe Number</label>
-                        <!-- <small style="color:red;">tanpa (-) atau space(' '). cth:010203054477</small> -->
-                      </div>
+                <div class="hero-static col-md-6 col-xl-4 d-flex align-items-center bg-white">
+                    <div class="content content-full">
+                        <!-- Header -->
+                        <div class="px-30 py-10">
+                            <img th:src="@{stylesheets/assets/pictures/2.png}" style="width: 200px; height:200px;">
+                        </div>
+                        <div class="px-30 ">
+                            <h1 class="h3 font-w700 mt-10 mt-5 mb-10">Register Account</h1>
+                            <h2 class="h5 font-w400 text-muted mb-0">Please enter your details</h2>
+                        </div>
+                        <!-- END Header -->
+    
+                        <!-- Sign Up Form -->
+                        <form th:action="@{/teacherRegister}" modelAttribute="teacherRegister" th:object="(${teacherRegister})" enctype="multipart/form-data" method="post">
+                            <div class="form-group">
+                                <label for="signup-ic">Cafe Number</label>
+                                <input type="text" class="form-control" id="signup-ic" name="cafeNumber" maxlength="12" pattern="[0-9]*" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="signup-nama">Name</label>
+                                <input type="text" class="form-control" id="signup-nama" name="cafeName" oninput="this.value = this.value.toUpperCase()" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="signup-email">Email</label>
+                                <input type="email" class="form-control" id="signup-email" name="cafeEmail" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="teacherPassword">Password</label>
+                                <input type="password" class="form-control" id="teacherPassword" name="cafePassword" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="teacherPasswordConfirmation">Password Confirmation</label>
+                                <input type="password" class="form-control" id="teacherPasswordConfirmation" name="teacherPasswordConfirmation" required>
+                            </div>
+                            <div class="form-group">
+                                <span id="passwordError" style="color: red; display: none;">Password did not match!</span>
+                                <button type="submit" class="btn btn-sm btn-hero btn-alt-success" id="submitBtn">
+                                    <i class="si si-login mr-10"></i> Register Account
+                                </button>
+                                <div class="mt-30">
+                                    <a class="link-effect text-muted mr-10 mb-5 d-inline-block" th:href="@{/teachersignin}">
+                                        <i class="fa fa-user text-muted mr-5"></i> Login
+                                    </a>
+                                </div>
+                            </div>
+                            <script>
+                                const passwordInput = document.getElementById('teacherPassword');
+                                const confirmPasswordInput = document.getElementById('teacherPasswordConfirmation');
+                                const passwordErrorMessage = document.getElementById('passwordError');
+                                const submitButton = document.getElementById('submitBtn');
+    
+                                confirmPasswordInput.addEventListener('input', validatePasswords);
+    
+                                function validatePasswords() {
+                                    if (passwordInput.value !== confirmPasswordInput.value) {
+                                        passwordErrorMessage.style.display = 'inline';
+                                        submitButton.disabled = true;
+                                    } else {
+                                        passwordErrorMessage.style.display = 'none';
+                                        submitButton.disabled = false;
+                                    }
+                                }
+                            </script>
+                        </form>
+                        <!-- END Sign Up Form -->
                     </div>
-                  </div>
-                  <div class="form-group row">
-                    <div class="col-12">
-                      <div class="form-material">
-                        <input type="text" class="form-control" id="signup-nama" name="cafeName" oninput="this.value = this.value.toUpperCase()" required>
-                        <label for="signup-nama">Name</label>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <div class="col-12">
-                      <div class="form-material">
-                        <input type="email" class="form-control" id="signup-email" name="cafeEmail" required>
-                        <label for="signup-email">Email</label>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div class="form-group row">
-                    <div class="col-12">
-                      <div class="form-material">
-                        <input type="password" class="form-control" id="teacherPassword" name="cafePassword" required>
-                        <label for="signup-password">Password</label>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <div class="col-12">
-                      <div class="form-material">
-                        <input type="password" class="form-control" id="teacherPasswordConfirmation" name="teacherPassswordConfirmation" required>
-                        <label for="signup-password-confirm">Password Confirmation</label>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <span id="passwordError" style="color: red; display: none;">Password did not match!</span>
-                     <button type="submit" class="btn btn-sm btn-hero btn-alt-success" id="submitBtn" >
-                      <i class="si si-login mr-10"></i> Register Account
-                    </button>
-                    <div class="mt-30">
-                      <a class="link-effect text-muted mr-10 mb-5 d-inline-block" th:href="@{/teachersignin}">
-                        <i class="fa fa-user text-muted mr-5"></i> Login
-                      </a>
-                    </div>
-                  </div>
-                  <script>
-                    const passwordInput = document.getElementById('teacherPassword');
-                    const confirmPasswordInput = document.getElementById('teacherPasswordConfirmation');
-                    const passwordErrorMessage = document.getElementById('passwordError');
-                    const submitButton = document.getElementById('submitBtn');
-  
-                    confirmPasswordInput.addEventListener('input', validatePasswords);
-  
-                    function validatePasswords() {
-                      if (passwordInput.value !== confirmPasswordInput.value) {
-                        passwordErrorMessage.style.display = 'inline';
-                        submitButton.disabled = true;
-                      } else {
-                        passwordErrorMessage.style.display = 'none';
-                        submitButton.disabled = false;
-                      }
-                    }
-                  </script>
-                </form>
-                <!-- END Sign Up Form -->
-              </div>
+                </div>
             </div>
-          </div>
+            <!-- END Page Content -->
         </div>
-        <!-- END Page Content -->
-      </main>
-      <!-- END Main Container -->
-    </div>
-    <!-- END Page Container -->
+    </main>
+  </div>
+  <!-- END Page Container -->
+    
 
     <!-- Terms Modal -->
     <div class="modal fade" id="modal-terms" tabindex="-1" role="dialog" aria-labelledby="modal-terms" aria-hidden="true">
