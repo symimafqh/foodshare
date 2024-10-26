@@ -37,7 +37,7 @@ public class SideBarStudentController {
         // model.addAttribute("isStudentRegistered", registered);
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "SELECT * FROM public.student where studentNumber=?";
+            String sql = "SELECT * FROM public.student where \"studentNumber\"=?";
             final var statement = connection.prepareStatement(sql);
             statement.setString(1, studentNumber);
             final var resultSet = statement.executeQuery();
@@ -74,7 +74,7 @@ public class SideBarStudentController {
         // model.addAttribute("isStudentRegistered", registered);
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "SELECT * FROM public.student where studentNumber=?";
+            String sql = "SELECT * FROM public.student where \"studentNumber\"=?";
             final var statement = connection.prepareStatement(sql);
             statement.setString(1, studentNumber);
             final var resultSet = statement.executeQuery();
