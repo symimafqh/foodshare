@@ -46,13 +46,14 @@ public class SignUpStudentController {
                     }
                 }
             }
-            String sql = "INSERT INTO public.student(\"studentNumber\", \"studentName\", \"studentEmail\", \"studentPassword\") VALUES(?,?,?,?)";
+            String sql = "INSERT INTO public.student(\"studentNumber\", \"studentName\", \"studentEmail\", \"studentPassword\",\"studentPhoneNumber\" ) VALUES(?,?,?,?)";
             try (final var statement = connection.prepareStatement(sql)) {
                 ;
 
                 String studIC = s.getStudentNumber();
                 String name = s.getStudentName();
                 String email = s.getStudentEmail();
+                String phone = s.getStudentPhone();
 
                 String password = s.getStudentPassword();
                 System.out.println("Student Number: " + s.getStudentNumber());
@@ -62,6 +63,7 @@ public class SignUpStudentController {
                 statement.setString(2, name); // studentName
                 statement.setString(3, email); // studentEmail
                 statement.setString(4, password); // studentPassword
+                statement.setString(4, phone); // studentPhone
 
                 statement.executeUpdate();
 

@@ -5,6 +5,7 @@ public class StudentBean {
 	private String studentName;
 	private String studentEmail;
     private String studentPassword;
+    private String studentPhone;
 
     public StudentBean(){
     	
@@ -52,62 +53,19 @@ public class StudentBean {
         this.studentEmail = studentEmail;
     }
 
-    // /**
-    //  * @return String return the studentPhone
-    //  */
-    // public String getStudentPhone() {
-    //     return studentPhone;
-    // }
+    /**
+     * @return String return the studentPhone
+     */
+    public String getStudentPhone() {
+        return studentPhone;
+    }
 
-    // /**
-    //  * @param studentPhone the studentPhone to set
-    //  */
-    // public void setStudentPhone(String studentPhone) {
-    //     this.studentPhone = studentPhone;
-    // }
-
-    // /**
-    //  * @return String return the studentDOB
-    //  */
-    // public String getStudentDOB() {
-    //     return studentDOB;
-    // }
-
-    // /**
-    //  * @param studentDOB the studentDOB to set
-    //  */
-    // public void setStudentDOB(String studentDOB) {
-    //     this.studentDOB = studentDOB;
-    // }
-
-    // /**
-    //  * @return String return the studentGender
-    //  */
-    // public String getStudentGender() {
-    //     return studentGender;
-    // }
-
-    // /**
-    //  * @param studentGender the studentGender to set
-    //  */
-    // public void setStudentGender(String studentGender) {
-    //     this.studentGender = studentGender;
-    // }
-
-    // /**
-    //  * @return String return the studentClass
-    //  */
-    // public String getStudentClass() {
-    //     return studentClass;
-    // }
-
-    // /**
-    //  * @param studentClass the studentClass to set
-    //  */
-    // public void setStudentClass(String studentClass) {
-    //     this.studentClass = studentClass;
-    // }
-
+    /**
+     * @param studentPhone the studentPhone to set
+     */
+    public void setStudentPhone(String studentPhone) {
+        this.studentPhone = studentPhone;
+    }
     /**
      * @return String return the studentPassword
      */
@@ -122,25 +80,5 @@ public class StudentBean {
         this.studentPassword = studentPassword;
     }
 
-    // /**
-    //  * @return String return the studentAddress
-    //  */
-    // public String getStudentAddress() {
-    //     return studentAddress;
-    // }
-
-    // /**
-    //  * @param studentAddress the studentAddress to set
-    //  */
-    // public void setStudentAddress(String studentAddress) {
-    //     this.studentAddress = studentAddress;
-    // }
-
-    // public void setString(int i, Object studIC) {
-    //     // TODO Auto-generated method stub
-    //     throw new UnsupportedOperationException("Unimplemented method 'setString'");
-    // }
-
-    
 
 }
