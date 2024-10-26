@@ -74,7 +74,7 @@ public class LoginStudentController {
                     session.setAttribute("studentName", studentName);
                     session.setAttribute("studentEmail", studentEmail);
 
-
+                System.out.print(studentNo+ "pergi dashbord");
                     return "redirect:/dashboardStudent?success=true" ;
                 }
             }
