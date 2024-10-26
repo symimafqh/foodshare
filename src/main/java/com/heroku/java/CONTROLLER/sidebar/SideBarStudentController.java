@@ -10,10 +10,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import com.heroku.java.CONTROLLER.sidebar.SideBarAdminController.ActivityBean;
-import com.heroku.java.CONTROLLER.sidebar.SideBarAdminController.ClubBean;
-import com.heroku.java.CONTROLLER.sidebar.SideBarAdminController.SukanBean;
 import com.heroku.java.MODEL.student.StudentBean;
 
 import jakarta.servlet.http.HttpSession;
@@ -37,8 +33,8 @@ public class SideBarStudentController {
     @GetMapping("/dashboardStudent")
     public String index1(@RequestParam(name = "success", required = false) Boolean success, HttpSession session, Model model) {
         String studentNumber = (String) session.getAttribute("studentNumber");
-        boolean registered = isStudentRegistered(studentNumber);
-        model.addAttribute("isStudentRegistered", registered);
+        // boolean registered = isStudentRegistered(studentNumber);
+        // model.addAttribute("isStudentRegistered", registered);
         try {
             Connection connection = dataSource.getConnection();
             String sql = "SELECT * FROM public.student where studentNumber=?";
@@ -74,8 +70,8 @@ public class SideBarStudentController {
     public String editProfile(@RequestParam(name = "success", required = false) Boolean success, HttpSession session,
             Model model) {
         String studentNumber = (String) session.getAttribute("studentNumber");
-        boolean registered = isStudentRegistered(studentNumber);
-        model.addAttribute("isStudentRegistered", registered);
+        // boolean registered = isStudentRegistered(studentNumber);
+        // model.addAttribute("isStudentRegistered", registered);
         try {
             Connection connection = dataSource.getConnection();
             String sql = "SELECT * FROM public.student where studentNumber=?";
@@ -107,6 +103,25 @@ public class SideBarStudentController {
         return "student/profile/edit_profile";
     }
 
+//    // method to check dah register ke belum
+//      public boolean isStudentRegistered(String studentNumber) {
+//         try (Connection connection = dataSource.getConnection();
+//              PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM registration WHERE studentNumber = ?")) {
+
+//             preparedStatement.setString(1, studentNumber);
+
+//             try (ResultSet resultSet = preparedStatement.executeQuery()) {
+//                 // If the count is greater than 0, the student is registered
+//                 return resultSet.next() && resultSet.getInt(1) > 0;
+//             }
+
+//         } catch (SQLException e) {
+//             e.printStackTrace(); // Handle the exception based on your application's requirements
+//         }
+
+//         return false;
+//     }
+}
     // @GetMapping("/registration")
     // public String registration(HttpSession session, Model model) {
     //     String studentNumber = (String) session.getAttribute("studentNumber");
@@ -237,10 +252,6 @@ public class SideBarStudentController {
     //             String studentName = resultSet.getString("studentName");
     //             String studentEmail = resultSet.getString("studentEmail");
     //             String studentPhone = resultSet.getString("studentPhone");
-    //             String studentDOB = resultSet.getString("studentDOB");
-    //             String studentGender = resultSet.getString("studentGender");
-    //             String studentClass = resultSet.getString("studentClass");
-    //             String studentAddress = resultSet.getString("studentAddress");
     //             String studentPassword = resultSet.getString("studentPassword");
 
     //             StudentBean s = new StudentBean();
@@ -249,10 +260,6 @@ public class SideBarStudentController {
     //             s.setStudentName(studentName);
     //             s.setStudentEmail(studentEmail);
     //             s.setStudentPhone(studentPhone);
-    //             s.setStudentDOB(studentDOB);
-    //             s.setStudentGender(studentGender);
-    //             s.setStudentClass(studentClass);
-    //             s.setStudentAddress(studentAddress);
     //             s.setStudentPassword(studentPassword);
 
     //             model.addAttribute("s", s);
@@ -281,10 +288,6 @@ public class SideBarStudentController {
     //             String studentName = resultSet.getString("studentName");
     //             String studentEmail = resultSet.getString("studentEmail");
     //             String studentPhone = resultSet.getString("studentPhone");
-    //             String studentDOB = resultSet.getString("studentDOB");
-    //             String studentGender = resultSet.getString("studentGender");
-    //             String studentClass = resultSet.getString("studentClass");
-    //             String studentAddress = resultSet.getString("studentAddress");
     //             String studentPassword = resultSet.getString("studentPassword");
 
     //             StudentBean s = new StudentBean();
@@ -293,10 +296,6 @@ public class SideBarStudentController {
     //             s.setStudentName(studentName);
     //             s.setStudentEmail(studentEmail);
     //             s.setStudentPhone(studentPhone);
-    //             s.setStudentDOB(studentDOB);
-    //             s.setStudentGender(studentGender);
-    //             s.setStudentClass(studentClass);
-    //             s.setStudentAddress(studentAddress);
     //             s.setStudentPassword(studentPassword);
 
     //             model.addAttribute("s", s);
@@ -310,50 +309,50 @@ public class SideBarStudentController {
     //     return "student/registration/registered";
     // }
 
-    // //quota full
-    // @GetMapping("/registerQuota")
-    // public String registerQuota(HttpSession session, Model model) {
-    //     String studentNumber = (String) session.getAttribute("studentNumber");
-    //     boolean registered = isStudentRegistered(studentNumber);
-    //     model.addAttribute("isStudentRegistered", registered);
-    //     try {
-    //         Connection connection = dataSource.getConnection();
-    //         String sql = "SELECT * FROM public.student where studentNumber=?";
-    //         final var statement = connection.prepareStatement(sql);
-    //         statement.setString(1, studentNumber);
-    //         final var resultSet = statement.executeQuery();
-    //         if (resultSet.next()) {
-    //             String studentName = resultSet.getString("studentName");
-    //             String studentEmail = resultSet.getString("studentEmail");
-    //             String studentPhone = resultSet.getString("studentPhone");
-    //             String studentDOB = resultSet.getString("studentDOB");
-    //             String studentGender = resultSet.getString("studentGender");
-    //             String studentClass = resultSet.getString("studentClass");
-    //             String studentAddress = resultSet.getString("studentAddress");
-    //             String studentPassword = resultSet.getString("studentPassword");
+//     //quota full
+//     @GetMapping("/registerQuota")
+//     public String registerQuota(HttpSession session, Model model) {
+//         String studentNumber = (String) session.getAttribute("studentNumber");
+//         boolean registered = isStudentRegistered(studentNumber);
+//         model.addAttribute("isStudentRegistered", registered);
+//         try {
+//             Connection connection = dataSource.getConnection();
+//             String sql = "SELECT * FROM public.student where studentNumber=?";
+//             final var statement = connection.prepareStatement(sql);
+//             statement.setString(1, studentNumber);
+//             final var resultSet = statement.executeQuery();
+//             if (resultSet.next()) {
+//                 String studentName = resultSet.getString("studentName");
+//                 String studentEmail = resultSet.getString("studentEmail");
+//                 String studentPhone = resultSet.getString("studentPhone");
+//                 String studentDOB = resultSet.getString("studentDOB");
+//                 String studentGender = resultSet.getString("studentGender");
+//                 String studentClass = resultSet.getString("studentClass");
+//                 String studentAddress = resultSet.getString("studentAddress");
+//                 String studentPassword = resultSet.getString("studentPassword");
 
-    //             StudentBean s = new StudentBean();
+//                 StudentBean s = new StudentBean();
 
-    //             s.setStudentNumber(studentNumber);
-    //             s.setStudentName(studentName);
-    //             s.setStudentEmail(studentEmail);
-    //             s.setStudentPhone(studentPhone);
-    //             s.setStudentDOB(studentDOB);
-    //             s.setStudentGender(studentGender);
-    //             s.setStudentClass(studentClass);
-    //             s.setStudentAddress(studentAddress);
-    //             s.setStudentPassword(studentPassword);
+//                 s.setStudentNumber(studentNumber);
+//                 s.setStudentName(studentName);
+//                 s.setStudentEmail(studentEmail);
+//                 s.setStudentPhone(studentPhone);
+//                 s.setStudentDOB(studentDOB);
+//                 s.setStudentGender(studentGender);
+//                 s.setStudentClass(studentClass);
+//                 s.setStudentAddress(studentAddress);
+//                 s.setStudentPassword(studentPassword);
 
-    //             model.addAttribute("s", s);
+//                 model.addAttribute("s", s);
 
-    //             connection.close();
-    //         }
-    //     } catch (Exception e) {
-    //         e.printStackTrace();
-    //     }
+//                 connection.close();
+//             }
+//         } catch (Exception e) {
+//             e.printStackTrace();
+//         }
 
-    //     return "student/registration/registerQuota";
-    // }
+//         return "student/registration/registerQuota";
+//     }
 
 //     // ---------------------------BEANS------------------------------//
 //     interface Bean {
