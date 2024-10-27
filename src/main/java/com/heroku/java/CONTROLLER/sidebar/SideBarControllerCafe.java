@@ -102,7 +102,7 @@ public class SideBarControllerCafe {
     }
 
     // Get Mapping for Add Leftover Page
-    @GetMapping("/add_leftover")
+    @GetMapping("/addLeftover")
     public String leftoverAdd(@RequestParam(name = "success", required = false) Boolean success, Model model,
             HttpSession session) {
         String cafeNumber = (String) session.getAttribute("cafeNumber");
