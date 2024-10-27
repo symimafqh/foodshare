@@ -40,20 +40,23 @@ public class UpdateProfileStudent {
 
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "UPDATE public.student SET studentname=?, studentemail=? WHERE studentNumber=?";
+            String sql = "UPDATE public.student SET \"studentname\"=?, \"studentemail\"=?, \"studentPhone\" WHERE \"studentNumber\"=?";
             final var statement = connection.prepareStatement(sql);
 
             String studentName = s.getStudentName();
             String studentEmail = s.getStudentEmail();
+            String studentPhone = s.getStudentPhone();
         
 
             
             statement.setString(1, studentName);
             statement.setString(2, studentEmail);
-            statement.setString(7, studentNumber);
+            statement.setString(3, studentPhone);
+            statement.setString(4, studentNumber);
 
             System.out.println("Name: " + studentName);
             System.out.println("Email: " + studentEmail);
+            System.out.println("Email: " + studentPhone);
             System.out.println("Student Number: " + studentNumber);
             statement.executeUpdate();
 
@@ -71,7 +74,7 @@ public class UpdateProfileStudent {
 
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "UPDATE public.student SET studentpassword=? WHERE studentNumber=?";
+            String sql = "UPDATE public.student SET \"studentpassword\"=? WHERE \"studentNumber\"=?";
             final var statement = connection.prepareStatement(sql);
 
             String studentPassword = s.getStudentPassword();

@@ -230,20 +230,7 @@
                   <a class="active" th:href="@{/edit_profile}"><i class="si si-user"></i><span class="sidebar-mini-hide">PROFIL</span></a>
                 </li>
   
-                <li>
-                  <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-note"></i><span class="sidebar-mini-hide">KOKURIKULUM</span></a>
-                  <ul>
-                    <li th:if="${!isStudentRegistered}">
-                        <a th:href="@{/registration}">Pendaftaran Kokurikulum</a>
-                      </li>
-                      <li th:if="${isStudentRegistered}">
-                        <a th:href="@{/registered}">Pendaftaran Kokurikulum</a>
-                      </li>
-                    <li>
-                      <a th:href="@{/semakpendaftaran}">Semakan Pendaftaran</a>
-                    </li>
-                  </ul>
-                </li>
+                
               </ul>
           </div>
           <!-- END Side Navigation -->
@@ -367,7 +354,7 @@
                   <!-- END Personal -->
     
                   <!-- Actions -->
-                  <h2 class="h3 text-white font-w500 mb-10"><span class="d-none d-sm-inline-block" th:text="${session.studentClass}"></span></h2>
+                  <h2 class="h3 text-white font-w500 mb-10"><span class="d-none d-sm-inline-block" th:text="${session.studentNumber}"></span></h2>
                   <!-- END Actions -->
                 </div>
               </div>
@@ -380,7 +367,7 @@
               <div class="block">
                 <div class="block-header block-header-default">
                   <h3 class="block-title">
-                    <i class="fa fa-user-circle mr-5 text-muted"></i> Profile Pengguna
+                    <i class="fa fa-user-circle mr-5 text-muted"></i> Student Profile
                   </h3>
                 </div>
                 <div class="block-content">
@@ -389,9 +376,9 @@
                   th:object="(${edit_profile})" method="POST" enctype="multipart/form-data">
                     <div class="row items-push">
                       <div class="col-lg-3">
-                        <p class="text-muted">
+                        <!-- <p class="text-muted">
                           Maklumat akaun profil anda. Nama pengguna akan dipaparkan kepada umum.
-                        </p>
+                        </p> -->
                       </div>
                       <div class="col-lg-7 offset-lg-1">
                         <!--<div class="form-group row">
@@ -408,13 +395,13 @@
                           </div>-->
                         <div class="form-group row">
                           <div class="col-12">
-                            <label for="profile-settings-username">Username</label>
-                            <input type="text" class="form-control form-control-lg" id="profile-settings-username" name="studentIC" th:value="${s.studentIC}">
+                            <label for="profile-settings-username">Student Number</label>
+                            <input type="text" class="form-control form-control-lg" id="profile-settings-username" name="studentNumber" th:value="${s.studentNumber}">
                           </div>
                         </div>
                         <div class="form-group row">
                           <div class="col-12">
-                            <label for="profile-settings-name">Nama</label>
+                            <label for="profile-settings-name">Name</label>
                             <input type="text" class="form-control form-control-lg" id="profile-settings-name" name="studentName" th:value="${s.studentName}">
                           </div>
                         </div>
@@ -426,22 +413,22 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-12">
-                              <label for="profile-settings-name">Nombor Telefon</label>
+                              <label for="profile-settings-name">Phone Number</label>
                               <input type="text" class="form-control form-control-lg" id="profile-settings-name" name="studentPhone" th:value="${s.studentPhone}">
                             </div>
                           </div>
-                          <div class="form-group row">
+                          <!-- <div class="form-group row">
                             <div class="col-12">
                               <label for="profile-settings-email">Tarikh Lahir</label>
                               <input type="date" class="js-datepicker form-control form-control-lg" id="student-dob" name="studentDOB" data-week-start="1" data-autoclose="true" data-today-highlight="true" data-date-format="dd-mm-yyyy" th:value="${s.studentDOB}" max="" >
                             </div>
-                          </div>
-                          <script>
+                          </div> -->
+                          <!-- <script>
                             var today = new Date().toISOString().split('T')[0];
                             document.getElementById("student-dob").setAttribute("max",today);
                           </script>
-                          
-                          <div class="form-group row">
+                           -->
+                          <!-- <div class="form-group row">
                             <label class="col-12">Jantina</label>
                             <div th:if="${s.studentGender == 'Lelaki'}">
                                 <div class="col-12">
@@ -478,19 +465,19 @@
                                     </div>
                                 </div>
                             </div>
-                           <!-- <div class="form-group row">
+                           <div class="form-group row">
                               <div class="col-12">
                                 <div class="form-material">
                                   <textarea class="form-control form-control-lg" id="studentAddress" name="studentAddress" rows="3" oninput="this.value = this.value.toUpperCase()" th:field="${s.studentAddress}"></textarea>
                                   <label for="material-textarea-alamat"></label>
                                 </div>
                               </div>
-                            </div> -->
+                            </div>
                         </div>
-                        
+                         -->
                         <div class="form-group row">
                           <div class="col-12">
-                            <button type="submit" class="btn btn-alt-primary">Kemaskini</button>
+                            <button type="submit" class="btn btn-alt-primary">Update</button>
                           </div>
                         </div>
                       </div>
@@ -507,7 +494,7 @@
               <div class="block">
                 <div class="block-header block-header-default">
                   <h3 class="block-title">
-                    <i class="fa fa-asterisk mr-5 text-muted"></i> Tukar Kata Laluan
+                    <i class="fa fa-asterisk mr-5 text-muted"></i> Change Password
                   </h3>
                 </div>
                 <div class="block-content">
@@ -517,13 +504,13 @@
                     <div class="row items-push">
                       <div class="col-lg-3">
                         <p class="text-muted">
-                          Tukar kata laluan semasa.
+                          Change current Password
                         </p>
                       </div>
                       <div class="col-lg-7 offset-lg-1">
                         <div class="form-group row">
                           <div class="col-12">
-                            <label for="profile-settings-password">Kata Laluan Semasa</label>
+                            <label for="profile-settings-password">Current Password</label>
                             <input type="password" class="form-control form-control-lg" id="password" name="password" th:value="${s.studentPassword}">
                             <span class="eye" onclick="togglePassword()">
                                 <i id="eye-icon" class="fa fa-eye"></i> 
@@ -532,20 +519,20 @@
                         </div>
                         <div class="form-group row">
                           <div class="col-12">
-                            <label for="profile-settings-password-new">Kata Laluan Baru</label>
+                            <label for="profile-settings-password-new">New Password</label>
                             <input type="password" class="form-control form-control-lg" id="studentPassword" name="studentPassword">
                           </div>
                         </div>
                         <div class="form-group row">
                           <div class="col-12">
-                            <label for="profile-settings-password-new-confirm">Sahkan Kata Laluan Baru</label>
+                            <label for="profile-settings-password-new-confirm">Confirmation New Password</label>
                             <input type="password" class="form-control form-control-lg" id="studentPasswordConfirmation" name="studentpassword">
                           </div>
                         </div>
                         <div class="form-group row">
                           <div class="col-12">
-                            <span id="passwordError" style="color: red; display: none;">Kata laluan tidak sepadan!</span>
-                            <button type="submit" class="btn btn-alt-primary" id="submitBtn">Kemaskini</button>
+                            <span id="passwordError" style="color: red; display: none;">Password did not match</span>
+                            <button type="submit" class="btn btn-alt-primary" id="submitBtn">Update</button>
                           </div>
                         </div>
                         <script>
