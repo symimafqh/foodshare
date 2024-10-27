@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.heroku.java.MODEL.cafe.CafeBean;
 import com.heroku.java.MODEL.student.StudentBean;
-import com.heroku.java.MODEL.teacher.CafeBean;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -33,12 +33,12 @@ public class LoginCafeteriaOwnerController {
         this.dataSource = dataSource;
     }
 
-    @GetMapping("/teachersignin")
+    @GetMapping("/cafesignin")
     public String cafeteriaSignin() {
-        return "teacher/sign-in/teachersignin";
+        return "cafe/sign-in/cafesignin";
     }
 
-    @PostMapping("/teachersignin")
+    @PostMapping("/cafesignin")
     public String LoginOwner(HttpSession session,@RequestParam(name = "success", required = false) Boolean success, String cafeNumber, String cafePassword, CafeBean t, Model model) {
 
         try {
@@ -52,8 +52,8 @@ public class LoginCafeteriaOwnerController {
 
             final var resultSet = statement.executeQuery();
 
-            System.out.println("teacher ic : " + cafeNumber);
-            System.out.println("teacher pass : " + cafePassword);
+            System.out.println("cafe ic : " + cafeNumber);
+            System.out.println("cafe pass : " + cafePassword);
 
             if (resultSet.next()) {
 
@@ -75,6 +75,9 @@ public class LoginCafeteriaOwnerController {
                     session.setAttribute("cafePassword", cafePassword);
                     session.setAttribute("cafeName", cafeName);
                     session.setAttribute("cafeEmail", cafeEmail);
+
+                    System.out.println("student number : " + cafeNumber);
+                    System.out.println("student pass : " + cafePassword);
                 
 
 
@@ -83,7 +86,7 @@ public class LoginCafeteriaOwnerController {
             }
 
             connection.close();
-            return "redirect:/teachersignin?invalidUsername&Password";
+            return "redirect:/cafesignin?invalidUsername&Password";
 
         } catch (SQLException sqe) {
             System.out.println("Error Code = " + sqe.getErrorCode());
@@ -100,7 +103,7 @@ public class LoginCafeteriaOwnerController {
         }
     }
 
-    @GetMapping("/logoutteacher")
+    @GetMapping("/logoutcafe")
     public String logoutTeacher(HttpSession session) {
         session.invalidate();
         return "index";

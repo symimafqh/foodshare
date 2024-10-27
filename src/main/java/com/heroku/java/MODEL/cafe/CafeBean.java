@@ -1,4 +1,4 @@
-package com.heroku.java.MODEL.teacher;
+package com.heroku.java.MODEL.cafe;
 
 public class CafeBean {
     private String cafeNumber;

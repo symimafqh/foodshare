@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.heroku.java.MODEL.teacher.CafeBean;
+import com.heroku.java.MODEL.cafe.CafeBean;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -30,8 +30,8 @@ public class SignUpCafeteria {
         this.dataSource = dataSource;
     }
 
-    @PostMapping("/teacherRegister")
-    public String registerCafe(@ModelAttribute("teacherRegister")CafeBean t){
+    @PostMapping("/cafeRegister")
+    public String registerCafe(@ModelAttribute("cafeRegister")CafeBean t){
         try {
             Connection connection = dataSource.getConnection();
             String sql = "INSERT INTO public.cafeteria_owner(\"cafeNumber\", \"cafeName\", \"cafeEmail\", \"cafePassword\") VALUES(?,?,?,?)";
@@ -57,9 +57,9 @@ public class SignUpCafeteria {
                 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    return "redirect:/teacherRegister";
+                    return "redirect:/cafeRegister";
                 }
                 
-            return "redirect:/teachersignin";
+            return "redirect:/cafesignin";
     }
 }

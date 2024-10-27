@@ -115,7 +115,7 @@
                         <!-- END Header -->
     
                         <!-- Sign Up Form -->
-                        <form th:action="@{/teacherRegister}" modelAttribute="teacherRegister" th:object="(${teacherRegister})" enctype="multipart/form-data" method="post">
+                        <form th:action="@{/cafeRegister}" modelAttribute="cafeRegister" th:object="(${cafeRegister})" enctype="multipart/form-data" method="post">
                             <div class="form-group">
                                 <label for="signup-ic">Cafe Number</label>
                                 <input type="text" class="form-control" id="signup-ic" name="cafeNumber" maxlength="12" pattern="[0-9]*" required>
@@ -129,12 +129,12 @@
                                 <input type="email" class="form-control" id="signup-email" name="cafeEmail" required>
                             </div>
                             <div class="form-group">
-                                <label for="teacherPassword">Password</label>
-                                <input type="password" class="form-control" id="teacherPassword" name="cafePassword" required>
+                                <label for="cafePassword">Password</label>
+                                <input type="password" class="form-control" id="cafePassword" name="cafePassword" required>
                             </div>
                             <div class="form-group">
-                                <label for="teacherPasswordConfirmation">Password Confirmation</label>
-                                <input type="password" class="form-control" id="teacherPasswordConfirmation" name="teacherPasswordConfirmation" required>
+                                <label for="cafePasswordConfirmation">Password Confirmation</label>
+                                <input type="password" class="form-control" id="cafePasswordConfirmation" name="cafePasswordConfirmation" required>
                             </div>
                             <div class="form-group">
                                 <span id="passwordError" style="color: red; display: none;">Password did not match!</span>
@@ -142,14 +142,14 @@
                                     <i class="si si-login mr-10"></i> Register Account
                                 </button>
                                 <div class="mt-30">
-                                    <a class="link-effect text-muted mr-10 mb-5 d-inline-block" th:href="@{/teachersignin}">
+                                    <a class="link-effect text-muted mr-10 mb-5 d-inline-block" th:href="@{/cafesignin}">
                                         <i class="fa fa-user text-muted mr-5"></i> Login
                                     </a>
                                 </div>
                             </div>
                             <script>
-                                const passwordInput = document.getElementById('teacherPassword');
-                                const confirmPasswordInput = document.getElementById('teacherPasswordConfirmation');
+                                const passwordInput = document.getElementById('cafePassword');
+                                const confirmPasswordInput = document.getElementById('cafePasswordConfirmation');
                                 const passwordErrorMessage = document.getElementById('passwordError');
                                 const submitButton = document.getElementById('submitBtn');
     
