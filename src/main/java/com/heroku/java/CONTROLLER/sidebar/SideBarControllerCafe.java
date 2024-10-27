@@ -42,7 +42,7 @@ public class SideBarControllerCafe {
         System.out.println("Cafe Number" + cafeNumber);
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "SELECT * FROM public.cafeteria_owner where cafeNumber=?";
+            String sql = "SELECT * FROM public.cafeteria_owner where \"cafeNumber\"=?";
             final var statement = connection.prepareStatement(sql);
             statement.setString(1, cafeNumber);
             final var resultSet = statement.executeQuery();
@@ -76,7 +76,7 @@ public class SideBarControllerCafe {
         String cafeNumber = (String) session.getAttribute("cafeNumber");
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "SELECT * FROM public.cafeteria_owner where cafeNumber=?";
+            String sql = "SELECT * FROM public.cafeteria_owner where \"cafeNumber\"=?";
             final var statement = connection.prepareStatement(sql);
             statement.setString(1, cafeNumber);
             final var resultSet = statement.executeQuery();
