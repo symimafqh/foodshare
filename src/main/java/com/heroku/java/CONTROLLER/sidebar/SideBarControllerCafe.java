@@ -100,7 +100,7 @@ public class SideBarControllerCafe {
             e.printStackTrace();
         }
 
-        return "cafe/profileCafe/profileCafe_edit";
+        return "cafeteria_owner/profileCO/profileCafe_edit";
     }
 
 }
