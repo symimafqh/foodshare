@@ -23,10 +23,11 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import java.util.List;
+
 @Controller
 public class SideBarControllerCafe {
 
-     private final DataSource dataSource;
+    private final DataSource dataSource;
 
     @Autowired
     public SideBarControllerCafe(DataSource dataSource) {
@@ -34,11 +35,14 @@ public class SideBarControllerCafe {
     }
 
     @GetMapping("/dashboardCafe")
-      public String dashboardCafe(@RequestParam(name = "success", required = false) Boolean success, Model model,HttpSession session) {
-        String cafeNumber= (String) session.getAttribute("cafeNumber");
+    public String dashboardCafe(@RequestParam(name = "success", required = false) Boolean success, Model model,
+            HttpSession session) {
+        String cafeNumber = (String) session.getAttribute("cafeNumber");
+
+        System.out.println("Cafe Number" + cafeNumber);
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "SELECT * FROM public.cafeteria_owner where cafeusername=?";
+            String sql = "SELECT * FROM public.cafeteria_owner where cafeNumber=?";
             final var statement = connection.prepareStatement(sql);
             statement.setString(1, cafeNumber);
             final var resultSet = statement.executeQuery();
@@ -55,8 +59,9 @@ public class SideBarControllerCafe {
                 t.setCafePassword(cafePassword);
 
                 model.addAttribute("t", t);
-                session.setAttribute("cafeName",cafeName);
+                session.setAttribute("cafeName", cafeName);
                 connection.close();
+                System.out.println("Cafe Number" + cafeName);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -66,7 +71,8 @@ public class SideBarControllerCafe {
     }
 
     @GetMapping("/profileCafe_edit")
-    public String editProfileCafe(@RequestParam(name = "success", required = false) Boolean success, Model model, HttpSession session) {
+    public String editProfileCafe(@RequestParam(name = "success", required = false) Boolean success, Model model,
+            HttpSession session) {
         String cafeNumber = (String) session.getAttribute("cafeNumber");
         try {
             Connection connection = dataSource.getConnection();
@@ -87,7 +93,7 @@ public class SideBarControllerCafe {
                 t.setCafePassword(cafePassword);
 
                 model.addAttribute("t", t);
-                session.setAttribute("cafeName",cafeName);
+                session.setAttribute("cafeName", cafeName);
                 connection.close();
             }
         } catch (Exception e) {
