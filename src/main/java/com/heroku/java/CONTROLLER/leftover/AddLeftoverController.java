@@ -60,7 +60,7 @@ public class AddLeftoverController {
 
             // Insert leftover data into the database
             Connection connection = dataSource.getConnection();
-            String sql = "INSERT INTO public.leftover (foodname, foodquantity, fooddescription, image_path, cafenumber) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO public.leftover (\"foodname\", \"foodquantity\", \"fooddescription\", \"image_path\", \"cafeNumber\") VALUES (?, ?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
 
             statement.setString(1, foodName);
