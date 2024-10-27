@@ -66,43 +66,78 @@ public class SideBarStudentController {
         return "student/dashboardStudent";
     }
 
+    // @GetMapping("/edit_profile")
+    // public String editProfile(@RequestParam(name = "success", required = false) Boolean success, HttpSession session,
+    //         Model model) {
+    //     String studentNumber = (String) session.getAttribute("studentNumber");
+    //     // boolean registered = isStudentRegistered(studentNumber);
+    //     // model.addAttribute("isStudentRegistered", registered);
+    //     try {
+    //         Connection connection = dataSource.getConnection();
+    //         String sql = "SELECT * FROM public.student where \"studentNumber\"=?";
+    //         final var statement = connection.prepareStatement(sql);
+    //         statement.setString(1, studentNumber);
+    //         final var resultSet = statement.executeQuery();
+    //         if (resultSet.next()) {
+    //             String studentName = resultSet.getString("studentName");
+    //             String studentEmail = resultSet.getString("studentEmail");
+    //             String studentPhone = resultSet.getString("studentPhone");
+    //             String studentPassword = resultSet.getString("studentPassword");
+
+    //             StudentBean s = new StudentBean();
+
+    //             s.setStudentNumber(studentNumber);
+    //             s.setStudentName(studentName);
+    //             s.setStudentEmail(studentEmail);
+    //             s.setStudentPhone(studentPhone);
+    //             s.setStudentPassword(studentPassword);
+
+    //             model.addAttribute("s", s);
+    //             session.setAttribute("studentName",studentName);
+    //             connection.close();
+    //         }
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //     }
+
+    //     return "student/profile/edit_profile";
+    // }
     @GetMapping("/edit_profile")
-    public String editProfile(@RequestParam(name = "success", required = false) Boolean success, HttpSession session,
-            Model model) {
+    public String editProfile(@RequestParam(name = "success", required = false) Boolean success, HttpSession session, Model model) {
         String studentNumber = (String) session.getAttribute("studentNumber");
-        // boolean registered = isStudentRegistered(studentNumber);
-        // model.addAttribute("isStudentRegistered", registered);
-        try {
-            Connection connection = dataSource.getConnection();
-            String sql = "SELECT * FROM public.student where \"studentNumber\"=?";
-            final var statement = connection.prepareStatement(sql);
-            statement.setString(1, studentNumber);
-            final var resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                String studentName = resultSet.getString("studentName");
-                String studentEmail = resultSet.getString("studentEmail");
-                String studentPhone = resultSet.getString("studentPhone");
-                String studentPassword = resultSet.getString("studentPassword");
-
-                StudentBean s = new StudentBean();
-
-                s.setStudentNumber(studentNumber);
-                s.setStudentName(studentName);
-                s.setStudentEmail(studentEmail);
-                s.setStudentPhone(studentPhone);
-                s.setStudentPassword(studentPassword);
-
-                model.addAttribute("s", s);
-                session.setAttribute("studentName",studentName);
-                connection.close();
+        if (studentNumber == null) {
+            return "redirect:/error"; // or handle this case as needed
+        }
+    
+        try (Connection connection = dataSource.getConnection()) {
+            String sql = "SELECT * FROM public.student WHERE \"studentNumber\"=?";
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setString(1, studentNumber);
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    if (resultSet.next()) {
+                        StudentBean s = new StudentBean();
+                        s.setStudentNumber(studentNumber);
+                        s.setStudentName(resultSet.getString("studentName"));
+                        s.setStudentEmail(resultSet.getString("studentEmail"));
+                        s.setStudentPhone(resultSet.getString("studentPhone"));
+                        s.setStudentPassword(resultSet.getString("studentPassword"));
+    
+                        model.addAttribute("s", s);
+                        session.setAttribute("studentName", s.getStudentName());
+                    } else {
+                        System.out.println("No student found for student number: " + studentNumber);
+                        return "redirect:/error"; // Handle the case where no student is found
+                    }
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
+            return "redirect:/error"; // Handle exceptions appropriately
         }
-
+    
         return "student/profile/edit_profile";
     }
-
+    
 //    // method to check dah register ke belum
 //      public boolean isStudentRegistered(String studentNumber) {
 //         try (Connection connection = dataSource.getConnection();
