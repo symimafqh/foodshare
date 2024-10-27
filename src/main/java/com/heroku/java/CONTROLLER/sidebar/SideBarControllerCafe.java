@@ -62,7 +62,7 @@ public class SideBarControllerCafe {
             e.printStackTrace();
         }
 
-        return "cafe/dashboardCafe";
+        return "cafeteria_owner/dashboardOwner";
     }
 
     @GetMapping("/profileCafe_edit")
