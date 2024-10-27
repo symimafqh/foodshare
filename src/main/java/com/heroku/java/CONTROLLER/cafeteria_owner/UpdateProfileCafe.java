@@ -38,7 +38,7 @@ public class UpdateProfileCafe{
         System.out.println("CAFE Number : " + cafeNumber);
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "UPDATE public.cafe SET cafename=?, cafeemail=? WHERE cafenumber=?";
+            String sql = "UPDATE public.cafeteria_owner SET \"cafename\"=?, \"cafeemail\"=? WHERE \"cafenumber\"=?";
             final var statement = connection.prepareStatement(sql);
 
             String cafeName = s.getCafeName();
@@ -70,7 +70,7 @@ public class UpdateProfileCafe{
 
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "UPDATE public.cafe SET cafePassword=? WHERE cafenumber=?";
+            String sql = "UPDATE public.cafeteria_owner SET \"cafePassword\"=? WHERE \"cafenumber\"=?";
             final var statement = connection.prepareStatement(sql);
 
             String cafePassword = t.getCafePassword();
