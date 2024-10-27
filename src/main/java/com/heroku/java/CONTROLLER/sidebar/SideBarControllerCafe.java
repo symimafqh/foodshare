@@ -101,59 +101,27 @@ public class SideBarControllerCafe {
         return "cafeteria_owner/profileCO/profileCafe_edit";
     }
 
-    // Add Leftover Endpoint
-    @PostMapping("addLeftover")
-    public String addLeftover(
-            @RequestParam("foodname") String foodName,
-            @RequestParam("foodquantity") int foodQuantity,
-            @RequestParam("fooddescription") String foodDescription,
-            @RequestParam("image") MultipartFile imageFile,
-            HttpSession session, Model model) {
-
+    // Get Mapping for Add Leftover Page
+    @GetMapping("/add_leftover")
+    public String leftoverAdd(@RequestParam(name = "success", required = false) Boolean success, Model model,
+            HttpSession session) {
         String cafeNumber = (String) session.getAttribute("cafeNumber");
-        System.out.println("Cafe Number: " + cafeNumber);
-
-        String imagePath = ""; // Placeholder for the image path
-
+        
         try {
-            // Save the image to the filesystem if it is not empty
-            if (!imageFile.isEmpty()) {
-                // Generate unique file name and save the file
-                String fileName = System.currentTimeMillis() + "_" + imageFile.getOriginalFilename();
-                Path uploadPath = Paths.get("src/main/resources/public/stylesheets/assets/leftover", fileName);
-
-                // Ensure the directory exists
-                Files.createDirectories(uploadPath.getParent());
-                Files.write(uploadPath, imageFile.getBytes());
-
-                // Set the imagePath as a relative path to be stored in the database
-                imagePath = "/stylesheets/assets/leftover/" + fileName;
+            if (cafeNumber != null) {
+                // Create an empty Leftover bean for the form
+                LeftoverBean leftover = new LeftoverBean();
+                
+                // Adding the Leftover bean to the model
+                model.addAttribute("leftover", leftover);
+                
+                // Adding cafeNumber to the session to ensure we have it when the leftover is added
+                model.addAttribute("cafeNumber", cafeNumber);
             }
-
-            // Insert leftover data into the database
-            Connection connection = dataSource.getConnection();
-            String sql = "INSERT INTO public.leftover (foodname, foodquantity, fooddescription, image_path, cafenumber) VALUES (?, ?, ?, ?, ?)";
-            PreparedStatement statement = connection.prepareStatement(sql);
-
-            statement.setString(1, foodName);
-            statement.setInt(2, foodQuantity);
-            statement.setString(3, foodDescription);
-            statement.setString(4, imagePath);
-            statement.setString(5, cafeNumber);
-
-            System.out.println("Food Name: " + foodName);
-            System.out.println("Food Quantity: " + foodQuantity);
-            System.out.println("Food Description: " + foodDescription);
-            System.out.println("Image Path: " + imagePath);
-
-            statement.executeUpdate();
-
-            connection.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return "redirect:/dashboardCafe?success=true";
+        return "cafeteria_owner/leftover/add_leftover";
     }
-
 }
