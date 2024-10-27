@@ -185,8 +185,8 @@
 
                         <!-- Logo -->
                         <div class="content-header-item">
-                            <img th:src="@{stylesheets/assets/pictures/logo lain.png}"
-                                style="width: 200px; height:45px;">
+                            <img th:src="@{stylesheets/assets/pictures/Foodshare.png}"
+                                style="width: 200px; height:50px;">
                         </div>
                         <!-- END Logo -->
                     </div>
@@ -215,7 +215,7 @@
                                 <li class="list-inline-item">
                                     <a class="link-effect text-dual-primary-dark font-size-sm font-w600 text-uppercase"
                                         href=""><span class="d-none d-sm-inline-block"
-                                            th:text="${session.teacherName}"></span></a>
+                                            th:text="${session.cafeName}"></span></a>
                                 </li>
                                 <li class="list-inline-item">
                                     <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
@@ -225,7 +225,7 @@
                                     </a>
                                 </li>
                                 <li class="list-inline-item">
-                                    <a class="link-effect text-dual-primary-dark" th:href="@{/logoutadmin}">
+                                    <a class="link-effect text-dual-primary-dark" th:href="@{/logoutteacher}">
                                         <i class="si si-logout"></i>
                                     </a>
                                 </li>
@@ -239,36 +239,19 @@
 
                     <div class="content-side content-side-full">
                         <ul class="nav-main">
-                            <li><a class="active"
-                                th:href="@{/dashboardAdmin}"><i
-                                    class="si si-cup"></i><span class="sidebar-mini-hide">DASHBOARD</span></a>
+                            <li><a class="active" th:href="@{/dashboardCafe}"><i class="si si-cup"></i><span
+                                        class="sidebar-mini-hide">DASHBOARD</span></a></li>
+                            <li><a class="active" th:href="@{/profileCafe_edit}"><i class="si si-user"></i><span
+                                        class="sidebar-mini-hide">PROFILE</span></a>
                             </li>
-                            <li><a class="active" th:href="@{/profileAdmin}"><i
-                                    class="si si-user"></i><span class="sidebar-mini-hide">PROFIL</span></a>
-                            </li>
-                            <li>
-                                <li><a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-people"></i><span
-                                      class="sidebar-mini-hide">AKAUN</span></a>
-                                  <ul>
-                                    <li><a th:href="@{/ListAccountTeacher}">KOORDINATOR</a></li>
-                                    <li><a th:href="@{/ListAccountStudent}">PELAJAR</a></li>
-                                  </ul>
-                                </li>
-                                </li>
-                            <li><a class="nav-submenu" data-toggle="nav-submenu"
-                                ><i class="si si-layers"></i><span
-                                    class="sidebar-mini-hide">KATEGORI</span></a>
+                            <li><a class="nav-submenu" data-toggle="nav-submenu" href="#"><i
+                                        class="si si-layers"></i><span class="sidebar-mini-hide">LEFTOVER</span></a>
                                 <ul>
-                                    <li>
-                                        <a th:href="@{/addNewUnit}">Unit Beruniform</a>
-                                    </li>
-                                    <li>
-                                        <a th:href="@{/AddNewClub}">Kelab dan Persatuan</a>
-                                    </li>
-                                    <li>
-                                        <a th:href="@{/AddNewSukan}">Sukan dan Permainan</a>
-                                    </li>
-                                </ul></li>
+                                    <li><a th:href="@{/addLeftover}">Add Leftover</a></li>
+                                    <li>Update Leftover</a></li>
+                                    <li>Delete Leftover</a></li>
+                                </ul>
+                            </li>
 
                         </ul>
                     </div>
@@ -311,13 +294,13 @@
                         <button type="button" class="btn btn-rounded btn-dual-secondary" id="page-header-user-dropdown"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-user d-sm-none"></i>
-                            <span class="d-none d-sm-inline-block" th:text="${session.teacherName}"></span>
+                            <span class="d-none d-sm-inline-block" th:text="${session.cafeName}"></span>
                             <i class="fa fa-angle-down ml-5"></i>
                         </button>
                         <div class="dropdown-menu dropdown-menu-right min-width-200"
                             aria-labelledby="page-header-user-dropdown">
                             <h5 class="h6 text-center py-10 mb-5 border-b text-uppercase">User</h5>
-                            <a class="dropdown-item" th:href="@{/profileTeacher_edit}">
+                            <a class="dropdown-item" th:href="@{/profileCafe_edit}">
                                 <i class="si si-user mr-5"></i> Profile
                             </a>
                             <div class="dropdown-divider"></div>
@@ -325,7 +308,7 @@
                             <!-- END Side Overlay -->
 
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" th:href="@{/logoutadmin}">
+                            <a class="dropdown-item" th:href="@{/logoutTeacher}">
                                 <i class="si si-logout mr-5"></i> Sign Out
                             </a>
                         </div>
@@ -378,252 +361,65 @@
 
         <!-- Main Container -->
         <main id="main-container">
-            <!-- Page Content -->
-            <!-- User Info -->
-            <div class="bg-image bg-image-bottom"
-                style="background-image: url('stylesheets/assets/media/photos/photo13@2x.jpg');">
-                <div class="bg-black-op-75 py-30">
-                    <div class="content content-full text-center">
-                        <!-- Avatar -->
-                        <div class="mb-15">
-                            <a class="img-link" href="">
-                                <img class="img-avatar img-avatar96 img-avatar-thumb"
-                                    th:src="@{stylesheets/assets/media/avatars/avatar15.jpg}" alt="">
-                            </a>
+            <!-- Add Leftover Section -->
+            <div class="block">
+                <div class="block-header block-header-default">
+                    <h3 class="block-title">
+                        <i class="fa fa-plus-circle mr-5 text-muted"></i> Add Leftover
+                    </h3>
+                </div>
+                <div class="block-content">
+                    <form th:action="@{/addLeftover}" modelAttribute="add_Leftover"
+                            th:object="(${add_Leftover})" method="POST" enctype="multipart/form-data">
+                        <div class="row items-push">
+                            <div class="col-lg-3">
+                                <p class="text-muted">
+                                    Add details of the leftover food, including an image.
+                                </p>
+                            </div>
+                            <div class="col-lg-7 offset-lg-1">
+                                <div class="form-group row">
+                                    <div class="col-12">
+                                        <label for="foodname">Food Name</label>
+                                        <input type="text" class="form-control form-control-lg" id="foodname"
+                                            name="foodname" placeholder="Enter food name" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-12">
+                                        <label for="foodquantity">Food Quantity</label>
+                                        <input type="number" class="form-control form-control-lg" id="foodquantity"
+                                            name="foodquantity" placeholder="Enter quantity" min="1" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-12">
+                                        <label for="fooddescription">Food Description</label>
+                                        <textarea class="form-control form-control-lg" id="fooddescription"
+                                            name="fooddescription" rows="4"
+                                            placeholder="Enter a brief description of the leftover food"
+                                            required></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-12">
+                                        <label for="image">Food Image</label>
+                                        <input type="file" class="form-control form-control-lg" id="image" name="image"
+                                            accept="image/*" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-alt-primary">Add Leftover</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <!-- END Avatar -->
-
-                        <!-- Personal -->
-                        <h1 class="h3 text-white font-w700 mb-10"><span class="d-none d-sm-inline-block"
-                                th:text="${session.teacherName}"></span></h1>
-                                <h2 class="h3 text-white font-w700 mb-10"><span class="d-none d-sm-inline-block"
-                                    th:text="${session.teacherRole}"></span></h2>
-                        <!-- <h2 class="h5 text-white-op">
-                    Kelas 
-                  </h2> -->
-                        <!-- END Personal -->
-
-                        <!-- Actions -->
-                        <a th:href="@{/dashboardAdmin}"
-                            class="btn btn-rounded btn-hero btn-sm btn-alt-secondary mb-5">
-                            <i class="fa fa-arrow-left mr-5"></i> Kembali
-                        </a>
-                        <!-- END Actions -->
-                    </div>
+                    </form>
                 </div>
             </div>
-            <!-- END User Info -->
+            <!-- END Add Leftover Section -->
 
-            <!-- Main Content -->
-            <div class="content">
-                <!-- User Profile -->
-                <div class="block">
-                    <div class="block-header block-header-default">
-                        <h3 class="block-title">
-                            <i class="fa fa-user-circle mr-5 text-muted"></i> Profile Pengguna
-                        </h3>
-                    </div>
-                    <div class="block-content">
-                        <form th:action="@{/profileAdmin}"
-                        modelAttribute="profileAdmin"
-                        th:object="(${profileAdmin})" method="POST" enctype="multipart/form-data" >
-                            <div class="row items-push">
-                                <div class="col-lg-3">
-                                    <p class="text-muted">
-                                        Maklumat akaun profil anda. Nama pengguna akan dipaparkan kepada umum.
-                                    </p>
-                                </div>
-                                <div class="col-lg-7 offset-lg-1">
-                                    <!--<div class="form-group row">
-                            <div class="col-md-10 col-xl-6">
-                              <div class="push">
-                                <img class="img-avatar" th:src="@{stylesheets/assets/media/avatars/avatar15.jpg}" alt="">
-                              </div>
-                              <div class="custom-file">
-                                <!-- Populating custom file input label with the selected filename (data-toggle="custom-file-input" is initialized in Helpers.coreBootstrapCustomFileInput()) --
-                                <input type="file" class="custom-file-input" id="profile-settings-avatar" name="profile-settings-avatar" data-toggle="custom-file-input">
-                                <label class="custom-file-label" for="profile-settings-avatar">Choose new avatar</label>
-                              </div>
-                            </div>
-                          </div>-->
-                                    <div class="form-group row">
-                                        <div class="col-12">
-                                            <label for="profile-settings-username">Username</label>
-                                            <input type="text" class="form-control form-control-lg"
-                                                id="profile-settings-username" name="teacherUsername"
-                                                th:value="${t.teacherUsername}">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-12">
-                                            <label for="profile-settings-name">Nama</label>
-                                            <input type="text" class="form-control form-control-lg"
-                                                id="profile-settings-name" name="teacherName"
-                                                th:value="${t.teacherName}">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-12">
-                                            <label for="profile-settings-email">Email</label>
-                                            <input type="email" class="form-control form-control-lg"
-                                                id="profile-settings-email" name="teacherEmail"
-                                                th:value="${t.teacherEmail}">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-12">
-                                            <label for="profile-settings-name">Nombor Telefon</label>
-                                            <input type="text" class="form-control form-control-lg"
-                                                id="profile-settings-name" name="teacherPhone"
-                                                th:value="${t.teacherPhone}">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-12">
-                                            <label for="profile-settings-email">Tarikh Lahir</label>
-                                            <input type="date" class="js-datepicker form-control form-control-lg"
-                                                id="tarikhlahir-teacher" name="teacherDOB" data-week-start="1"
-                                                data-autoclose="true" data-today-highlight="true"
-                                                data-date-format="dd-mm-yyyy" th:value="${t.teacherDOB}" max="">
-                                        </div>
-                                    </div>
-                                    <script>
-                                        var today = new Date().toISOString().split('T')[0];
-                                        document.getElementById("tarikhlahir-teacher").setAttribute("max",today);
-                                      </script>
-                                    <div class="form-group row">
-                                        <label class="col-12">Jantina</label>
-                                        <div th:if="${t.teacherGender == 'Lelaki'}">
-                                            <div class="col-12">
-                                                <div class="custom-control custom-radio custom-control-inline mb-5">
-                                                    <input class="custom-control-input" type="radio"
-                                                        name="teacherGender" id="example-inline-radio1" value="Lelaki"
-                                                        checked>
-                                                    <label class="custom-control-label"
-                                                        for="example-inline-radio1">Lelaki</label>
-                                                </div>
-                                                <div class="custom-control custom-radio custom-control-inline mb-5">
-                                                    <input class="custom-control-input" type="radio"
-                                                        name="teacherGender" id="example-inline-radio2"
-                                                        value="Perempuan">
-                                                    <label class="custom-control-label"
-                                                        for="example-inline-radio2">Perempuan</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div th:if="${t.teacherGender == 'Perempuan'}">
-                                            <div class="col-12">
-                                                <div class="custom-control custom-radio custom-control-inline mb-5">
-                                                    <input class="custom-control-input" type="radio"
-                                                        name="teacherGender" id="example-inline-radio1" value="Lelaki">
-                                                    <label class="custom-control-label"
-                                                        for="example-inline-radio1">Lelaki</label>
-                                                </div>
-                                                <div class="custom-control custom-radio custom-control-inline mb-5">
-                                                    <input class="custom-control-input" type="radio"
-                                                        name="teacherGender" id="example-inline-radio2"
-                                                        value="Perempuan" checked>
-                                                    <label class="custom-control-label"
-                                                        for="example-inline-radio2">Perempuan</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-12">
-                                            <button type="submit" class="btn btn-alt-primary">Kemaskini</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <!-- END User Profile -->
-
-                <!-- Connections -->
-                <!-- END Connections -->
-
-                <!-- Change Password -->
-                <div class="block">
-                    <div class="block-header block-header-default">
-                        <h3 class="block-title">
-                            <i class="fa fa-asterisk mr-5 text-muted"></i> Tukar Kata Laluan
-                        </h3>
-                    </div>
-                    <div class="block-content">
-                        <form th:action="@{/password_admin}"
-                        modelAttribute="password_admin"
-                        th:object="(${password_admin})" method="post">
-                            <div class="row items-push">
-                                <div class="col-lg-3">
-                                    <p class="text-muted">
-                                        Tukar kata laluan semasa.
-                                    </p>
-                                </div>
-                                <div class="col-lg-7 offset-lg-1">
-                                    <div class="form-group row">
-                                        <div class="col-12">
-                                            <label for="profile-settings-password">Kata Laluan Semasa</label>
-                                            <input type="password" class="form-control form-control-lg" id="password"
-                                                name="password" th:value="${t.teacherPassword}">
-                                            <span class="eye" onclick="togglePassword()">
-                                                <i id="eye-icon" class="fa fa-eye"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-12">
-                                            <label for="profile-settings-password-new">Kata Laluan Baru</label>
-                                            <input type="password" class="form-control form-control-lg"
-                                                id="teacherPassword" name="teacherPassword">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-12">
-                                            <label for="profile-settings-password-new-confirm">Sahkan Kata Laluan
-                                                Baru</label>
-                                            <input type="password" class="form-control form-control-lg"
-                                                id="teacherPasswordConfirmation"
-                                                name="profile-settings-password-new-confirm">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-12">
-                                            <span id="passwordError" style="color: red; display: none;">Kata laluan tidak sepadan!</span>
-                                            <button type="submit" class="btn btn-alt-primary">Kemaskini</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <script>
-                                const passwordInput = document.getElementById('teacherPassword');
-                                const confirmPasswordInput = document.getElementById('teacherPasswordConfirmation');
-                                const passwordErrorMessage = document.getElementById('passwordError');
-                                const submitButton = document.getElementById('submitBtn');
-              
-                                confirmPasswordInput.addEventListener('input', validatePasswords);
-              
-                                function validatePasswords() {
-                                  if (passwordInput.value !== confirmPasswordInput.value) {
-                                    passwordErrorMessage.style.display = 'inline';
-                                    submitButton.disabled = true;
-                                  } else {
-                                    passwordErrorMessage.style.display = 'none';
-                                    submitButton.disabled = false;
-                                  }
-                                }
-                              </script>
-                        </form>
-                    </div>
-                </div>
-                <!-- END Change Password -->
-
-                <!-- Billing Information -->
-                <!-- END Billing Information -->
-            </div>
-            <!-- END Main Content -->
-            <!-- END Page Content -->
         </main>
         <!-- END Main Container -->
 
