@@ -118,14 +118,14 @@ public class LoginStudentController {
                     session.setAttribute("studentNumber", resultSet.getString("studentNumber"));
                     session.setAttribute("studentName", resultSet.getString("studentName"));
                     session.setAttribute("studentEmail", resultSet.getString("studentEmail"));
+
+                    System.out.println("student number : " + studentNumber);
+                    System.out.println("student pass : " + studentPassword);
                     return "redirect:/dashboardStudent?success=true";
 
                 }
             }
-            
-            System.out.println("student number : " + studentNumber);
-            System.out.println("student pass : " + studentPassword);
-            
+
         } catch (SQLException sqe) {
             System.out.println("SQL Error: " + sqe.getMessage());
             return "redirect:/signin?error";
