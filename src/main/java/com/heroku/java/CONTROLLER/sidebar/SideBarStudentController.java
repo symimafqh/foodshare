@@ -33,6 +33,7 @@ public class SideBarStudentController {
     @GetMapping("/dashboardStudent")
     public String index1(@RequestParam(name = "success", required = false) Boolean success, HttpSession session, Model model) {
         String studentNumber = (String) session.getAttribute("studentNumber");
+        System.out.println("Session studentNumber in edit profile: " + studentNumber);
         // boolean registered = isStudentRegistered(studentNumber);
         // model.addAttribute("isStudentRegistered", registered);
         try {
@@ -105,6 +106,8 @@ public class SideBarStudentController {
     @GetMapping("/edit_profile")
     public String editProfile(@RequestParam(name = "success", required = false) Boolean success, HttpSession session, Model model) {
         String studentNumber = (String) session.getAttribute("studentNumber");
+        System.out.println("Session studentNumber in edit profile: " + studentNumber);
+
         if (studentNumber == null) {
             return "redirect:/error"; // or handle this case as needed
         }
