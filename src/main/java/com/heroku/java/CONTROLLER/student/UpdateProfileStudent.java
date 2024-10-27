@@ -40,7 +40,7 @@ public class UpdateProfileStudent {
 
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "UPDATE public.student SET \"studentname\"=?, \"studentemail\"=?, \"studentphonenumber\"=? WHERE \"studentNumber\"=?";
+            String sql = "UPDATE public.student SET \"studentName\"=?, \"studentEmail\"=?, \"studentphonenumber\"=? WHERE \"studentNumber\"=?";
             final var statement = connection.prepareStatement(sql);
 
             String studentName = s.getStudentName();
@@ -74,7 +74,7 @@ public class UpdateProfileStudent {
 
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "UPDATE public.student SET \"studentpassword\"=? WHERE \"studentNumber\"=?";
+            String sql = "UPDATE public.student SET \"studentPassword\"=? WHERE \"studentNumber\"=?";
             final var statement = connection.prepareStatement(sql);
 
             String studentPassword = s.getStudentPassword();
