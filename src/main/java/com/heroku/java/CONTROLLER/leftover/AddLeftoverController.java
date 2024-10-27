@@ -1,4 +1,4 @@
-package com.heroku.java.CONTROLLER.cafeteria_owner;
+package com.heroku.java.CONTROLLER.leftover;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.heroku.java.MODEL.leftover.Leftover;
+import com.heroku.java.MODEL.leftover.LeftoverBean;
 
 import jakarta.servlet.http.HttpSession;
 
