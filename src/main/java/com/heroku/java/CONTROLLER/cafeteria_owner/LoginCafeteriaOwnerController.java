@@ -35,7 +35,7 @@ public class LoginCafeteriaOwnerController {
 
     @GetMapping("/cafesignin")
     public String cafeteriaSignin() {
-        return "cafe/sign-in/cafesignin";
+        return "cafeteria_owner/sign-in/cafesignin";
     }
 
     @PostMapping("/cafesignin")
