@@ -81,7 +81,7 @@ public class LoginCafeteriaOwnerController {
                 
 
 
-                    return "redirect:/dashboardTeacher?success=true" ;
+                    return "redirect:/dashboardOwner?success=true" ;
                 }
             }
 
