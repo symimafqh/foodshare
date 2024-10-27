@@ -122,7 +122,7 @@ public class SideBarStudentController {
                         s.setStudentNumber(studentNumber);
                         s.setStudentName(resultSet.getString("studentName"));
                         s.setStudentEmail(resultSet.getString("studentEmail"));
-                        s.setStudentPhone(resultSet.getString("studentPhone"));
+                        s.setStudentPhone(resultSet.getString("studentphonenumber"));
                         s.setStudentPassword(resultSet.getString("studentPassword"));
     
                         model.addAttribute("s", s);
