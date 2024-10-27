@@ -353,78 +353,251 @@
 
     <main id="main-container">
       <!-- Page Content -->
+      <!-- Page Content -->
       <div class="content">
-        <div class="row invisible" data-toggle="appear">
-          <!-- Row #1 -->
-          <div class="col-6 col-xl-4">
-            <a class="block block-link-shadow text-right" href="javascript:void(0)">
-              <div class="block-content block-content-full clearfix">
-                <div class="float-left mt-10 d-none d-sm-block">
-                  <i class="fa fa-fw fa-home fa-3x text-body-bg-dark"></i>
-                </div>
-                <div class="font-size-h3 font-w600" data-toggle="countTo" data-speed="1000" data-to="8">0</div>
-                <div class="font-size-sm font-w600 text-uppercase text-muted">Unit
-                  Uniform</div>
-              </div>
-            </a>
-          </div>
-          <div class="col-6 col-xl-4">
-            <a class="block block-link-shadow text-right" href="javascript:void(0)">
-              <div class="block-content block-content-full clearfix">
-                <div class="float-left mt-10 d-none d-sm-block">
-                  <i class="fa fa-fw fa-user fa-3x text-body-bg-dark"></i>
-                </div>
-                <div class="font-size-h3 font-w600">
-                  <span data-toggle="countTo" data-speed="1000" data-to="21">0</span>
-                </div>
-                <div class="font-size-sm font-w600 text-uppercase text-muted">Kelab
-                  dan Persatuan</div>
-              </div>
-            </a>
-          </div>
-          <div class="col-6 col-xl-4">
-            <a class="block block-link-shadow text-right" href="javascript:void(0)">
-              <div class="block-content block-content-full clearfix">
-                <div class="float-left mt-10 d-none d-sm-block">
-                  <i class="fa fa-cubes fa-3x text-body-bg-dark"></i>
-                </div>
-                <div class="font-size-h3 font-w600" data-toggle="countTo" data-speed="1000" data-to="12">0</div>
-                <div class="font-size-sm font-w600 text-uppercase text-muted">Sukan
-                  dan Permainan</div>
-              </div>
-            </a>
-          </div>
-          <!-- END Row #1 -->
-
-          <div class="col-md-12">
-            <div class="block block-themed">
-              <div class="block-header ">
-                <h3 class="block-title">SISTEM E-CURRICULAR</h3>
-              </div>
-              <img th:src="@{stylesheets/assets/pictures/organisasi chart.png}" style="width: 1148px; height: 800px;">
+        <!-- Statistics -->
+        <div class="content-heading">
+          <div class="dropdown float-right">
+            <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" id="ecom-dashboard-stats-drop"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Today
+            </button>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="ecom-dashboard-stats-drop">
+              <a class="dropdown-item active" href="javascript:void(0)">
+                <i class="fa fa-fw fa-calendar mr-5"></i>Today
+              </a>
+              <a class="dropdown-item" href="javascript:void(0)">
+                <i class="fa fa-fw fa-calendar mr-5"></i>This Week
+              </a>
+              <a class="dropdown-item" href="javascript:void(0)">
+                <i class="fa fa-fw fa-calendar mr-5"></i>This Month
+              </a>
+              <a class="dropdown-item" href="javascript:void(0)">
+                <i class="fa fa-fw fa-calendar mr-5"></i>This Year
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="javascript:void(0)">
+                <i class="fa fa-fw fa-circle-o mr-5"></i>All Time
+              </a>
             </div>
           </div>
-          <!-- end row two-->
+          Statistics <small class="d-none d-sm-inline">Awesome!</small>
+        </div>
+
+        <div class="row gutters-tiny">
+          <!-- Earnings -->
+          <div class="col-md-6 col-xl-3">
+            <div class="block block-rounded block-transparent bg-gd-elegance">
+              <div class="block-content block-content-full block-sticky-options">
+                <div class="block-options">
+                  <div class="block-options-item">
+                    <i class="fa fa-area-chart text-white-op"></i>
+                  </div>
+                </div>
+                <div class="py-20 text-center">
+                  <div class="font-size-h2 font-w700 mb-0 text-white" data-toggle="countTo" data-to="2420"
+                    data-before="$">0</div>
+                  <div class="font-size-sm font-w600 text-uppercase text-white-op">Earnings</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- END Earnings -->
+
+          <!-- Orders -->
+          <div class="col-md-6 col-xl-3">
+            <div class="block block-rounded block-transparent bg-gd-dusk">
+              <div class="block-content block-content-full block-sticky-options">
+                <div class="block-options">
+                  <div class="block-options-item">
+                    <i class="fa fa-archive text-white-op"></i>
+                  </div>
+                </div>
+                <div class="py-20 text-center">
+                  <div class="font-size-h2 font-w700 mb-0 text-white" data-toggle="countTo" data-to="35">0</div>
+                  <div class="font-size-sm font-w600 text-uppercase text-white-op">Orders</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- END Orders -->
+
+          <!-- New Customers -->
+          <div class="col-md-6 col-xl-3">
+            <div class="block block-rounded block-transparent bg-gd-sea">
+              <div class="block-content block-content-full block-sticky-options">
+                <div class="block-options">
+                  <div class="block-options-item">
+                    <i class="fa fa-users text-white-op"></i>
+                  </div>
+                </div>
+                <div class="py-20 text-center">
+                  <div class="font-size-h2 font-w700 mb-0 text-white" data-toggle="countTo" data-to="15">0</div>
+                  <div class="font-size-sm font-w600 text-uppercase text-white-op">New Customers</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- END New Customers -->
+
+          <!-- Conversion Rate -->
+          <div class="col-md-6 col-xl-3">
+            <div class="block block-rounded block-transparent bg-gd-aqua">
+              <div class="block-content block-content-full block-sticky-options">
+                <div class="block-options">
+                  <div class="block-options-item">
+                    <i class="fa fa-cart-arrow-down text-white-op"></i>
+                  </div>
+                </div>
+                <div class="py-20 text-center">
+                  <div class="font-size-h2 font-w700 mb-0 text-white">5.6%</div>
+                  <div class="font-size-sm font-w600 text-uppercase text-white-op">Conversion</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- END Conversion Rate -->
+        </div>
+        <!-- END Statistics -->
+
+        <!-- Orders Overview -->
+        <div class="content-heading">
+          <div class="dropdown float-right">
+            <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" id="ecom-orders-overview-drop"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              This Week
+            </button>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="ecom-orders-overview-drop">
+              <a class="dropdown-item active" href="javascript:void(0)">
+                <i class="fa fa-fw fa-calendar mr-5"></i>This Week
+              </a>
+              <a class="dropdown-item" href="javascript:void(0)">
+                <i class="fa fa-fw fa-calendar mr-5"></i>This Month
+              </a>
+              <a class="dropdown-item" href="javascript:void(0)">
+                <i class="fa fa-fw fa-calendar mr-5"></i>This Year
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="javascript:void(0)">
+                <i class="fa fa-fw fa-circle-o mr-5"></i>All Time
+              </a>
+            </div>
+          </div>
+          Orders <small class="d-none d-sm-inline">Overview</small>
+        </div>
+
+        <!-- Latest Orders and Top Products -->
+        <div class="row gutters-tiny">
+          <!-- Latest Orders -->
+          <div class="col-xl-6">
+            <h2 class="content-heading">Latest Orders</h2>
+            <div class="block block-rounded">
+              <div class="block-content">
+                <table class="table table-borderless table-striped">
+                  <thead>
+                    <tr>
+                      <th style="width: 100px;">ID</th>
+                      <th>Status</th>
+                      <th class="d-none d-sm-table-cell">Customer</th>
+                      <th class="text-right">Value</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <span class="font-w600">ORD.1851</span>
+                      </td>
+                      <td>
+                        <span class="badge badge-danger">Canceled</span>
+                      </td>
+                      <td class="d-none d-sm-table-cell">
+                        <span>Carl Wells</span>
+                      </td>
+                      <td class="text-right">
+                        <span class="text-black">$143</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span class="font-w600">ORD.1850</span>
+                      </td>
+                      <td>
+                        <span class="badge badge-info">Processing</span>
+                      </td>
+                      <td class="d-none d-sm-table-cell">
+                        <span>Melissa Rice</span>
+                      </td>
+                      <td class="text-right">
+                        <span class="text-black">$898</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!-- END Latest Orders -->
+
+          <!-- Top Products -->
+          <div class="col-xl-6">
+            <h2 class="content-heading">Top Products</h2>
+            <div class="block block-rounded">
+              <div class="block-content">
+                <table class="table table-borderless table-striped">
+                  <thead>
+                    <tr>
+                      <th class="d-none d-sm-table-cell" style="width: 100px;">ID</th>
+                      <th>Product</th>
+                      <th class="text-center">Orders</th>
+                      <th class="d-none d-sm-table-cell text-center">Rating</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="d-none d-sm-table-cell">
+                        <span class="font-w600">PID.258</span>
+                      </td>
+                      <td>
+                        <span>Dark Souls III</span>
+                      </td>
+                      <td class="text-center">
+                        <span class="text-gray-dark">912</span>
+                      </td>
+                      <td class="d-none d-sm-table-cell text-center">
+                        <div class="text-warning">
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!-- END Top Products -->
+        </div>
+        <!-- END Latest Orders and Top Products -->
+      </div>
+      <!-- END Page Content -->
+    </main>
+
+    <!-- Footer -->
+    <footer id="page-footer">
+      <div class="content py-20 font-size-sm clearfix">
+        <div class="float-right">
+          Dibangunkan <i class="fa fa-heart text-pulse"></i> oleh <a class="font-w600"
+            href="https://1.envato.market/ydb" target="_blank">That's It</a>
+        </div>
+        <div class="float-left">
+          <a class="font-w600" href="" target="_blank">E-Curricular System</a> &copy; <span class="js-year-copy"></span>
         </div>
       </div>
-  </div>
-  <!-- END Page Content -->
-  </main>
-  <!-- END Main Container -->
-
-  <!-- Footer -->
-  <footer id="page-footer">
-    <div class="content py-20 font-size-sm clearfix">
-      <div class="float-right">
-        Dibangunkan <i class="fa fa-heart text-pulse"></i> oleh <a class="font-w600" href="https://1.envato.market/ydb"
-          target="_blank">That's It</a>
-      </div>
-      <div class="float-left">
-        <a class="font-w600" href="" target="_blank">E-Curricular System</a> &copy; <span class="js-year-copy"></span>
-      </div>
-    </div>
-  </footer>
-  <!-- END Footer -->
+    </footer>
+    <!-- END Footer -->
   </div>
   <!-- END Page Container -->
 
