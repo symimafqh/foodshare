@@ -186,12 +186,12 @@ public class AddLeftoverController {
         try {
             // Query the student database to get all student phone numbers
             Connection connection = dataSource.getConnection();
-            String sql = "SELECT studentphonenumber FROM public.student";
+            String sql = "SELECT \"studentphonenumber\" FROM public.student WHERE \"studentphonenumber\" IS NOT NULL";
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                String phoneNumber = resultSet.getString("studentphonenumber");
+                String phoneNumber = resultSet.getString("\"studentphonenumber\"");
                 if (phoneNumber != null && !phoneNumber.isEmpty()) {
                     numbers.add(phoneNumber);
                 }
