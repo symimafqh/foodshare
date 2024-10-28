@@ -124,7 +124,7 @@ public class AddLeftoverController {
         this.dataSource = dataSource;
     }
 
-    @PostMapping("/addLeftover")
+    @PostMapping("addLeftover")
     public String addLeftover(@ModelAttribute("addLeftover") LeftoverBean leftover, HttpSession session, Model model) {
         try {
             // Step 1: Add leftover to the database (similar to before)
