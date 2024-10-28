@@ -132,7 +132,7 @@ public class AddLeftoverController {
         try {
             // Step 1: Add leftover to the database (similar to before)
             Connection connection = dataSource.getConnection();
-            String sql = "INSERT INTO public.leftover (\"foodname\", \"foodquantity\", \"fooddescription\", \"image_path\", \"cafenumber\") VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO public.leftover (\"foodname\", \"foodquantity\", \"fooddescription\", \"image_path\", \"cafeNumber\") VALUES (?, ?, ?, ?, ?)";
             final var statement = connection.prepareStatement(sql);
             statement.setString(1, leftover.getFoodname());
             statement.setInt(2, leftover.getFoodquantity());
