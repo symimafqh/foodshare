@@ -139,6 +139,7 @@ public class AddLeftoverController {
             statement.setString(5, cafeNumber);
             statement.executeUpdate();
             connection.close();
+            System.out.println("Received request to add leftover");
 
             // Step 2: Send WhatsApp notifications to students
             notifyStudents(leftover);
@@ -162,6 +163,7 @@ public class AddLeftoverController {
 
         // Step 1: Get list of student phone numbers
         List<String> studentNumbers = getStudentPhoneNumbers();
+        
 
         // Step 2: Create the message to be sent
         String messageBody = "New leftover food available!\n" +
@@ -189,11 +191,13 @@ public class AddLeftoverController {
             String sql = "SELECT \"studentphonenumber\" FROM public.student WHERE \"studentphonenumber\" IS NOT NULL";
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
+            
 
             while (resultSet.next()) {
                 String phoneNumber = resultSet.getString("\"studentphonenumber\"");
                 if (phoneNumber != null && !phoneNumber.isEmpty()) {
                     numbers.add(phoneNumber);
+                    System.out.println(phoneNumber);
                 }
             }
             connection.close();
