@@ -160,31 +160,36 @@ public class AddLeftoverController {
         String ACCOUNT_SID = System.getenv("TWILIO_ACCOUNT_SID");
         String AUTH_TOKEN = System.getenv("TWILIO_AUTH_TOKEN");
         String FROM_WHATSAPP_NUMBER = System.getenv("TWILIO_WHATSAPP_NUMBER");
-
+    
         // Initialize Twilio SDK
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-
+    
         // Step 1: Get list of student phone numbers
         List<String> studentNumbers = getStudentPhoneNumbers();
-        
-
+    
         // Step 2: Create the message to be sent
         String messageBody = "New leftover food available!\n" +
                 "Food Name: " + leftover.getFoodname() + "\n" +
                 "Quantity: " + leftover.getFoodquantity() + "\n" +
                 "Description: " + leftover.getFooddescription() + "\n" +
                 "Hurry up and reserve it before it's gone!";
-
+    
         // Step 3: Send the message to each student
         for (String studentNumber : studentNumbers) {
-            Message message = Message.creator(
-                    new PhoneNumber("whatsapp:" + studentNumber),
-                    new PhoneNumber(FROM_WHATSAPP_NUMBER),
-                    messageBody
-            ).create();
-            System.out.println("Message sent to: " + studentNumber);
+            try {
+                Message message = Message.creator(
+                        new PhoneNumber("whatsapp:" + studentNumber),  // Ensure the 'To' number is formatted for WhatsApp
+                        new PhoneNumber(FROM_WHATSAPP_NUMBER),         // The 'From' number also should be in WhatsApp format
+                        messageBody
+                ).create();
+                System.out.println("Message sent to: " + studentNumber);
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("Failed to send message to: " + studentNumber);
+            }
         }
     }
+    
 
     private List<String> getStudentPhoneNumbers() {
         List<String> numbers = new ArrayList<>();
