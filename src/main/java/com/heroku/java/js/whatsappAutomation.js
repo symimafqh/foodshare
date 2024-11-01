@@ -1,8 +1,18 @@
 const qrcode = require('qrcode-terminal');
 const { Client } = require('whatsapp-web.js');
+const puppeteer = require('puppeteer-core');
 
-// Create a new client
-const client = new Client();
+// Create a new client with puppeteer configurations
+const client = new Client({
+    puppeteer: {
+        // Specify the executablePath where Chrome/Chromium can be found in the Heroku environment
+        executablePath: process.env.CHROME_BIN || '/usr/bin/google-chrome-stable',
+        args: [
+            '--no-sandbox',             // Required in Heroku to run Chromium without sandboxing
+            '--disable-setuid-sandbox'  // Disables setuid sandbox
+        ]
+    }
+});
 
 // Listen for QR code generation
 client.on('qr', (qr) => {
