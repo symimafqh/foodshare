@@ -223,7 +223,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.heroku.java.MODEL.leftover.LeftoverBean;
 
@@ -268,7 +267,7 @@ public class AddLeftoverController {
             statement.setString(5, cafeNumber);
             statement.executeUpdate();
             connection.close();
-            System.out.println("Received request to add leftover");
+            System.out.println("Leftover added to the database.");
 
             // Step 2: Notify students via WhatsApp
             notifyStudents(leftover);
@@ -305,19 +304,41 @@ public class AddLeftoverController {
     }
 
     private void sendWhatsAppMessage(String phoneNumber, String message) throws Exception {
-        // Construct the command to run the Node.js script
-        ProcessBuilder processBuilder = new ProcessBuilder("node", "whatsappAutomation.js", phoneNumber, message);
-        Process process = processBuilder.start();
+        try {
+            // Construct the command to run the Node.js script
+            // Make sure the path is correct relative to the working directory of your Heroku app
+            ProcessBuilder processBuilder = new ProcessBuilder("node", "src/main/java/com/heroku/java/js/whatsappAutomation.js", phoneNumber, message);
+            
+            // In Heroku, the Node.js script might be located in a different directory depending on your project structure.
+            // Ensure that the path matches the deployment structure.
+            
+            // Start the Node.js process
+            Process process = processBuilder.start();
 
-        // Read the output from the script
-        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-        String line;
-        while ((line = reader.readLine()) != null) {
-            System.out.println(line);
+            // Read the output from the script
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+
+            // Read any errors from the script
+            BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+            String errorLine;
+            while ((errorLine = errorReader.readLine()) != null) {
+                System.err.println("Error: " + errorLine);
+            }
+
+            // Wait for the process to finish
+            int exitCode = process.waitFor();
+            if (exitCode != 0) {
+                throw new RuntimeException("Node.js script exited with error code: " + exitCode);
+            }
+
+        } catch (Exception e) {
+            System.err.println("Failed to execute Node.js script. Ensure Node.js is installed and accessible.");
+            e.printStackTrace();
         }
-
-        // Wait for the process to finish
-        process.waitFor();
     }
 
     private List<String> getStudentPhoneNumbers() {
@@ -333,7 +354,7 @@ public class AddLeftoverController {
                 String phoneNumber = resultSet.getString("studentphonenumber");
                 if (phoneNumber != null && !phoneNumber.isEmpty()) {
                     numbers.add(phoneNumber);
-                    System.out.println(phoneNumber);
+                    System.out.println("Student phone number: " + phoneNumber);
                 }
             }
             connection.close();
