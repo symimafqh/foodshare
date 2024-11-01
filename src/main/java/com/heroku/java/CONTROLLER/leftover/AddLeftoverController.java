@@ -84,17 +84,145 @@
 //         return "redirect:/dashboardCafe?success=true";
 //     }
 // }
+//---------------------------------------------------------twilio-----------------------------------------
+// package com.heroku.java.CONTROLLER.leftover;
+
+// import com.twilio.Twilio;
+// import com.twilio.rest.api.v2010.account.Message;
+// import com.twilio.type.PhoneNumber;
+// import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.stereotype.Controller;
+// import org.springframework.ui.Model;
+// import org.springframework.web.bind.annotation.ModelAttribute;
+// import org.springframework.web.bind.annotation.PostMapping;
+// import org.springframework.web.bind.annotation.RequestParam;
+// import org.springframework.web.multipart.MultipartFile;
+
+// import com.heroku.java.MODEL.leftover.LeftoverBean;
+
+// import jakarta.servlet.http.HttpSession;
+
+// import java.sql.Connection;
+// import java.sql.PreparedStatement;
+// import java.sql.ResultSet;
+// import javax.sql.DataSource;
+// import java.nio.file.Files;
+// import java.nio.file.Path;
+// import java.nio.file.Paths;
+// import java.util.ArrayList;
+// import java.util.List;
+
+// import com.twilio.Twilio;
+// import com.twilio.rest.api.v2010.account.Message;
+// import com.twilio.type.PhoneNumber;
+
+// @Controller
+// public class AddLeftoverController {
+
+//     private final DataSource dataSource;
+
+//     @Autowired
+//     public AddLeftoverController(DataSource dataSource) {
+//         this.dataSource = dataSource;
+//     }
+
+//     @PostMapping("/addLeftover")
+//     public String addLeftover(@ModelAttribute("addLeftover") LeftoverBean leftover, HttpSession session, Model model) {
+
+//         System.out.println("Received POST request for adding leftover.");
+//         try {
+//             // Step 1: Add leftover to the database (similar to before)
+//             Connection connection = dataSource.getConnection();
+//             String sql = "INSERT INTO public.leftover (\"foodname\", \"foodquantity\", \"fooddescription\", \"image_path\", \"cafeNumber\") VALUES (?, ?, ?, ?, ?)";
+//             final var statement = connection.prepareStatement(sql);
+//             statement.setString(1, leftover.getFoodname());
+//             statement.setInt(2, leftover.getFoodquantity());
+//             statement.setString(3, leftover.getFooddescription());
+//             statement.setString(4, leftover.getImagePath());
+//             String cafeNumber = (String) session.getAttribute("cafeNumber");
+//             statement.setString(5, cafeNumber);
+//             statement.executeUpdate();
+//             connection.close();
+//             System.out.println("Received request to add leftover");
+
+//             // Step 2: Send WhatsApp notifications to students
+//             notifyStudents(leftover);
+
+//             return "redirect:/dashboardCafe?success=true";
+
+//         } catch (Exception e) {
+//             e.printStackTrace();
+//             return "redirect:/addLeftover?error=true";
+//         }
+//     }
+
+//     private void notifyStudents(LeftoverBean leftover) {
+//         // Getting credentials from environment variables securely
+//         String ACCOUNT_SID = System.getenv("TWILIO_ACCOUNT_SID");
+//         String AUTH_TOKEN = System.getenv("TWILIO_AUTH_TOKEN");
+//         String FROM_WHATSAPP_NUMBER = System.getenv("TWILIO_WHATSAPP_NUMBER");
+    
+//         // Initialize Twilio SDK
+//         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+    
+//         // Step 1: Get list of student phone numbers
+//         List<String> studentNumbers = getStudentPhoneNumbers();
+    
+//         // Step 2: Create the message to be sent
+//         String messageBody = "New leftover food available!\n" +
+//                 "Food Name: " + leftover.getFoodname() + "\n" +
+//                 "Quantity: " + leftover.getFoodquantity() + "\n" +
+//                 "Description: " + leftover.getFooddescription() + "\n" +
+//                 "Hurry up and reserve it before it's gone!";
+    
+//         // Step 3: Send the message to each student
+//         for (String studentNumber : studentNumbers) {
+//             try {
+//                 Message message = Message.creator(
+//                         new PhoneNumber("whatsapp:" + studentNumber),  // Ensure the 'To' number is formatted for WhatsApp
+//                         new PhoneNumber(FROM_WHATSAPP_NUMBER),         // The 'From' number also should be in WhatsApp format
+//                         messageBody
+//                 ).create();
+//                 System.out.println("Message sent to: " + studentNumber);
+//             } catch (Exception e) {
+//                 e.printStackTrace();
+//                 System.out.println("Failed to send message to: " + studentNumber);
+//             }
+//         }
+//     }
+    
+
+//     private List<String> getStudentPhoneNumbers() {
+//         List<String> numbers = new ArrayList<>();
+//         try {
+//             // Query the student database to get all student phone numbers
+//             Connection connection = dataSource.getConnection();
+//             String sql = "SELECT studentphonenumber FROM public.student WHERE studentphonenumber IS NOT NULL";
+//             PreparedStatement statement = connection.prepareStatement(sql);
+//             ResultSet resultSet = statement.executeQuery();
+            
+
+//             while (resultSet.next()) {
+//                 String phoneNumber = resultSet.getString("studentphonenumber");
+//                 if (phoneNumber != null && !phoneNumber.isEmpty()) {
+//                     numbers.add(phoneNumber);
+//                     System.out.println(phoneNumber);
+//                 }
+//             }
+//             connection.close();
+//         } catch (Exception e) {
+//             e.printStackTrace();
+//         }
+//         return numbers;
+//     }
+// }
 package com.heroku.java.CONTROLLER.leftover;
 
-import com.twilio.Twilio;
-import com.twilio.rest.api.v2010.account.Message;
-import com.twilio.type.PhoneNumber;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.heroku.java.MODEL.leftover.LeftoverBean;
@@ -105,15 +233,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.sql.DataSource;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.twilio.Twilio;
-import com.twilio.rest.api.v2010.account.Message;
-import com.twilio.type.PhoneNumber;
 
 @Controller
 public class AddLeftoverController {
@@ -127,10 +254,9 @@ public class AddLeftoverController {
 
     @PostMapping("/addLeftover")
     public String addLeftover(@ModelAttribute("addLeftover") LeftoverBean leftover, HttpSession session, Model model) {
-
         System.out.println("Received POST request for adding leftover.");
         try {
-            // Step 1: Add leftover to the database (similar to before)
+            // Step 1: Add leftover to the database
             Connection connection = dataSource.getConnection();
             String sql = "INSERT INTO public.leftover (\"foodname\", \"foodquantity\", \"fooddescription\", \"image_path\", \"cafeNumber\") VALUES (?, ?, ?, ?, ?)";
             final var statement = connection.prepareStatement(sql);
@@ -144,7 +270,7 @@ public class AddLeftoverController {
             connection.close();
             System.out.println("Received request to add leftover");
 
-            // Step 2: Send WhatsApp notifications to students
+            // Step 2: Notify students via WhatsApp
             notifyStudents(leftover);
 
             return "redirect:/dashboardCafe?success=true";
@@ -156,40 +282,43 @@ public class AddLeftoverController {
     }
 
     private void notifyStudents(LeftoverBean leftover) {
-        // Getting credentials from environment variables securely
-        String ACCOUNT_SID = System.getenv("TWILIO_ACCOUNT_SID");
-        String AUTH_TOKEN = System.getenv("TWILIO_AUTH_TOKEN");
-        String FROM_WHATSAPP_NUMBER = System.getenv("TWILIO_WHATSAPP_NUMBER");
-    
-        // Initialize Twilio SDK
-        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-    
         // Step 1: Get list of student phone numbers
         List<String> studentNumbers = getStudentPhoneNumbers();
-    
+
         // Step 2: Create the message to be sent
         String messageBody = "New leftover food available!\n" +
                 "Food Name: " + leftover.getFoodname() + "\n" +
                 "Quantity: " + leftover.getFoodquantity() + "\n" +
                 "Description: " + leftover.getFooddescription() + "\n" +
                 "Hurry up and reserve it before it's gone!";
-    
-        // Step 3: Send the message to each student
+
+        // Step 3: Send the message to each student using Node.js
         for (String studentNumber : studentNumbers) {
             try {
-                Message message = Message.creator(
-                        new PhoneNumber("whatsapp:" + studentNumber),  // Ensure the 'To' number is formatted for WhatsApp
-                        new PhoneNumber(FROM_WHATSAPP_NUMBER),         // The 'From' number also should be in WhatsApp format
-                        messageBody
-                ).create();
-                System.out.println("Message sent to: " + studentNumber);
+                // Send message through Node.js script
+                sendWhatsAppMessage(studentNumber, messageBody);
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("Failed to send message to: " + studentNumber);
             }
         }
     }
-    
+
+    private void sendWhatsAppMessage(String phoneNumber, String message) throws Exception {
+        // Construct the command to run the Node.js script
+        ProcessBuilder processBuilder = new ProcessBuilder("node", "whatsappAutomation.js", phoneNumber, message);
+        Process process = processBuilder.start();
+
+        // Read the output from the script
+        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            System.out.println(line);
+        }
+
+        // Wait for the process to finish
+        process.waitFor();
+    }
 
     private List<String> getStudentPhoneNumbers() {
         List<String> numbers = new ArrayList<>();
@@ -199,7 +328,6 @@ public class AddLeftoverController {
             String sql = "SELECT studentphonenumber FROM public.student WHERE studentphonenumber IS NOT NULL";
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
-            
 
             while (resultSet.next()) {
                 String phoneNumber = resultSet.getString("studentphonenumber");
