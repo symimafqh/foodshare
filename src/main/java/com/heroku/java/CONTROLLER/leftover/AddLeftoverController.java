@@ -223,6 +223,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -240,18 +241,18 @@ import java.sql.ResultSet;
 import javax.sql.DataSource;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class AddLeftoverController {
-
     private final DataSource dataSource;
 
     @Autowired
     public AddLeftoverController(DataSource dataSource) {
         this.dataSource = dataSource;
     }
-
     @PostMapping("/addLeftover")
     public String addLeftover(@ModelAttribute("addLeftover") LeftoverBean leftover, HttpSession session, Model model) {
         System.out.println("Received POST request for adding leftover.");
@@ -306,43 +307,46 @@ public class AddLeftoverController {
 
     private void sendWhatsAppMessage(String apiKey, String apiSecret, String from, String to, String messageBody) throws Exception {
         String url = "https://api.nexmo.com/v1/messages";
-
+    
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.setBasicAuth(apiKey, apiSecret);
         headers.add("Content-Type", "application/json");
-
+    
         // Construct the JSON payload for WhatsApp message
         String payload = createWhatsAppPayload(from, to, messageBody);
-
+    
+        // Log the payload for debugging purposes
+        System.out.println("Sending WhatsApp Payload: " + payload);
+    
         HttpEntity<String> entity = new HttpEntity<>(payload, headers);
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
-
+    
         System.out.println("WhatsApp message sent to " + to + ": " + response.getBody());
     }
-
+    
     private String createWhatsAppPayload(String from, String to, String text) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.writeValueAsString(new WhatsAppMessagePayload(from, to, text));
     }
-
+    
     private static class WhatsAppMessagePayload {
         public String from;
         public String to;
         public String channel = "whatsapp";
         public String message_type = "text";
         public Content content;
-
+    
         public WhatsAppMessagePayload(String from, String to, String text) {
             this.from = from;
             this.to = to;
             this.content = new Content(text);
         }
-
+    
         private static class Content {
             public String type = "text";
-            public String text;
-
+            public String text; // Ensure this is the actual message content.
+    
             public Content(String text) {
                 this.text = text;
             }
