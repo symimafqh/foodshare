@@ -359,12 +359,12 @@ public class AddLeftoverController {
         List<String> numbers = new ArrayList<>();
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "SELECT \"studentPhoneNumber\" FROM public.student WHERE \"studentPhoneNumber\" IS NOT NULL";
+            String sql = "SELECT studentPhoneNumber FROM public.student WHERE studentPhoneNumber IS NOT NULL";
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
     
             while (resultSet.next()) {
-                String phoneNumber = resultSet.getString("\"studentPhoneNumber\"");
+                String phoneNumber = resultSet.getString("studentPhoneNumber");
                 if (phoneNumber != null && !phoneNumber.isEmpty()) {
                     // Adjust the phone number format
                     phoneNumber = formatPhoneNumber(phoneNumber);
