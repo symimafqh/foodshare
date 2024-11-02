@@ -233,11 +233,31 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.sql.DataSource;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.heroku.java.MODEL.leftover.LeftoverBean;
+
+import jakarta.servlet.http.HttpSession;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.sql.DataSource;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -269,7 +289,7 @@ public class AddLeftoverController {
             connection.close();
             System.out.println("Leftover added to the database.");
 
-            // Step 2: Notify students via WhatsApp
+            // Step 2: Notify students via WhatsApp using Vonage
             notifyStudents(leftover);
 
             return "redirect:/dashboardCafe?success=true";
@@ -281,70 +301,76 @@ public class AddLeftoverController {
     }
 
     private void notifyStudents(LeftoverBean leftover) {
-        // Step 1: Get list of student phone numbers
         List<String> studentNumbers = getStudentPhoneNumbers();
 
-        // Step 2: Create the message to be sent
         String messageBody = "New leftover food available!\n" +
                 "Food Name: " + leftover.getFoodname() + "\n" +
                 "Quantity: " + leftover.getFoodquantity() + "\n" +
                 "Description: " + leftover.getFooddescription() + "\n" +
                 "Hurry up and reserve it before it's gone!";
 
-        // Step 3: Send the message to each student using Node.js
+        String fromNumber = System.getenv("VONAGE_WHATSAPP_NUMBER");
+        String apiKey = System.getenv("VONAGE_API_KEY");
+        String apiSecret = System.getenv("VONAGE_API_SECRET");
+
         for (String studentNumber : studentNumbers) {
             try {
-                // Send message through Node.js script
-                sendWhatsAppMessage(studentNumber, messageBody);
+                sendWhatsAppMessage(apiKey, apiSecret, fromNumber, studentNumber, messageBody);
             } catch (Exception e) {
+                System.err.println("Failed to send WhatsApp message to: " + studentNumber);
                 e.printStackTrace();
-                System.out.println("Failed to send message to: " + studentNumber);
             }
         }
     }
 
-    private void sendWhatsAppMessage(String phoneNumber, String message) throws Exception {
-        try {
-            // Construct the command to run the Node.js script
-            // Make sure the path is correct relative to the working directory of your Heroku app
-            ProcessBuilder processBuilder = new ProcessBuilder("node", "src/main/java/com/heroku/java/js/whatsappAutomation.js", phoneNumber, message);
-            
-            // In Heroku, the Node.js script might be located in a different directory depending on your project structure.
-            // Ensure that the path matches the deployment structure.
-            
-            // Start the Node.js process
-            Process process = processBuilder.start();
+    private void sendWhatsAppMessage(String apiKey, String apiSecret, String from, String to, String messageBody) throws Exception {
+        String url = "https://api.nexmo.com/v1/messages";
 
-            // Read the output from the script
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line);
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBasicAuth(apiKey, apiSecret);
+        headers.add("Content-Type", "application/json");
+
+        // Construct the JSON payload for WhatsApp message
+        String payload = createWhatsAppPayload(from, to, messageBody);
+
+        HttpEntity<String> entity = new HttpEntity<>(payload, headers);
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
+
+        System.out.println("WhatsApp message sent to " + to + ": " + response.getBody());
+    }
+
+    private String createWhatsAppPayload(String from, String to, String text) throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.writeValueAsString(new WhatsAppMessagePayload(from, to, text));
+    }
+
+    private static class WhatsAppMessagePayload {
+        public String from;
+        public String to;
+        public String channel = "whatsapp";
+        public String message_type = "text";
+        public Content content;
+
+        public WhatsAppMessagePayload(String from, String to, String text) {
+            this.from = from;
+            this.to = to;
+            this.content = new Content(text);
+        }
+
+        private static class Content {
+            public String type = "text";
+            public String text;
+
+            public Content(String text) {
+                this.text = text;
             }
-
-            // Read any errors from the script
-            BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-            String errorLine;
-            while ((errorLine = errorReader.readLine()) != null) {
-                System.err.println("Error: " + errorLine);
-            }
-
-            // Wait for the process to finish
-            int exitCode = process.waitFor();
-            if (exitCode != 0) {
-                throw new RuntimeException("Node.js script exited with error code: " + exitCode);
-            }
-
-        } catch (Exception e) {
-            System.err.println("Failed to execute Node.js script. Ensure Node.js is installed and accessible.");
-            e.printStackTrace();
         }
     }
 
     private List<String> getStudentPhoneNumbers() {
         List<String> numbers = new ArrayList<>();
         try {
-            // Query the student database to get all student phone numbers
             Connection connection = dataSource.getConnection();
             String sql = "SELECT studentphonenumber FROM public.student WHERE studentphonenumber IS NOT NULL";
             PreparedStatement statement = connection.prepareStatement(sql);
