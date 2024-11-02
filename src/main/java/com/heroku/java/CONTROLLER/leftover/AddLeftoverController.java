@@ -223,7 +223,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -241,9 +240,7 @@ import java.sql.ResultSet;
 import javax.sql.DataSource;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class AddLeftoverController {
@@ -253,6 +250,7 @@ public class AddLeftoverController {
     public AddLeftoverController(DataSource dataSource) {
         this.dataSource = dataSource;
     }
+
     @PostMapping("/addLeftover")
     public String addLeftover(@ModelAttribute("addLeftover") LeftoverBean leftover, HttpSession session, Model model) {
         System.out.println("Received POST request for adding leftover.");
@@ -284,20 +282,15 @@ public class AddLeftoverController {
 
     private void notifyStudents(LeftoverBean leftover) {
         List<String> studentNumbers = getStudentPhoneNumbers();
-
-        String messageBody = "New leftover food available!\n" +
-                "Food Name: " + leftover.getFoodname() + "\n" +
-                "Quantity: " + leftover.getFoodquantity() + "\n" +
-                "Description: " + leftover.getFooddescription() + "\n" +
-                "Hurry up and reserve it before it's gone!";
-
+        
         String fromNumber = System.getenv("VONAGE_WHATSAPP_NUMBER");
         String apiKey = System.getenv("VONAGE_API_KEY");
         String apiSecret = System.getenv("VONAGE_API_SECRET");
 
         for (String studentNumber : studentNumbers) {
             try {
-                sendWhatsAppMessage(apiKey, apiSecret, fromNumber, studentNumber, messageBody);
+                // Pass individual fields to sendWhatsAppMessage
+                sendWhatsAppMessage(apiKey, apiSecret, fromNumber, studentNumber, leftover.getFoodname(), leftover.getFoodquantity(), leftover.getFooddescription());
             } catch (Exception e) {
                 System.err.println("Failed to send WhatsApp message to: " + studentNumber);
                 e.printStackTrace();
@@ -305,7 +298,7 @@ public class AddLeftoverController {
         }
     }
 
-    private void sendWhatsAppMessage(String apiKey, String apiSecret, String from, String to, String messageBody) throws Exception {
+    private void sendWhatsAppMessage(String apiKey, String apiSecret, String from, String to, String foodName, int quantity, String description) throws Exception {
         String url = "https://api.nexmo.com/v1/messages";
     
         RestTemplate restTemplate = new RestTemplate();
@@ -313,10 +306,10 @@ public class AddLeftoverController {
         headers.setBasicAuth(apiKey, apiSecret);
         headers.add("Content-Type", "application/json");
     
-        // Construct the JSON payload for WhatsApp message
-        String payload = createWhatsAppPayload(from, to, messageBody);
+        // Construct JSON payload with separate fields
+        String payload = createWhatsAppPayload(from, to, foodName, quantity, description);
     
-        // Log the payload for debugging purposes
+        // Log the payload for debugging
         System.out.println("Sending WhatsApp Payload: " + payload);
     
         HttpEntity<String> entity = new HttpEntity<>(payload, headers);
@@ -325,11 +318,20 @@ public class AddLeftoverController {
         System.out.println("WhatsApp message sent to " + to + ": " + response.getBody());
     }
     
-    private String createWhatsAppPayload(String from, String to, String text) throws Exception {
+    private String createWhatsAppPayload(String from, String to, String foodName, int quantity, String description) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
-        return mapper.writeValueAsString(new WhatsAppMessagePayload(from, to, text));
+        
+        // Create a detailed message with separate fields
+        String messageText = "New leftover food available!\n" +
+                             "Food Name: " + foodName + "\n" +
+                             "Quantity: " + quantity + "\n" +
+                             "Description: " + description + "\n" +
+                             "Hurry up and reserve it before it's gone!";
+        
+        // Construct the JSON payload with content type "text"
+        return mapper.writeValueAsString(new WhatsAppMessagePayload(from, to, messageText));
     }
-    
+
     private static class WhatsAppMessagePayload {
         public String from;
         public String to;
