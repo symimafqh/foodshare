@@ -359,13 +359,15 @@ public class AddLeftoverController {
         List<String> numbers = new ArrayList<>();
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "SELECT studentphonenumber FROM public.student WHERE studentphonenumber IS NOT NULL";
+            String sql = "SELECT \"studentphonenumber\" FROM public.student WHERE \"studentphonenumber\" IS NOT NULL";
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
-
+    
             while (resultSet.next()) {
-                String phoneNumber = resultSet.getString("studentphonenumber");
+                String phoneNumber = resultSet.getString("\"studentphonenumber\"");
                 if (phoneNumber != null && !phoneNumber.isEmpty()) {
+                    // Adjust the phone number format
+                    phoneNumber = formatPhoneNumber(phoneNumber);
                     numbers.add(phoneNumber);
                     System.out.println("Student phone number: " + phoneNumber);
                 }
@@ -375,5 +377,14 @@ public class AddLeftoverController {
             e.printStackTrace();
         }
         return numbers;
+    }
+    
+    private String formatPhoneNumber(String phoneNumber) {
+        // Check if the phone number starts with "0" and replace it with "+60"
+        if (phoneNumber.startsWith("0")) {
+            return "+60" + phoneNumber.substring(1);
+        }
+        // If the phone number is already in the correct format, return it as is
+        return phoneNumber;
     }
 }
