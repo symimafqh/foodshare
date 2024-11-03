@@ -71,50 +71,25 @@
                     </h3>
                 </div>
                 <div class="block-content">
-                    <form th:action="@{/updateLeftover}" method="POST" enctype="multipart/form-data">
-                        <input type="hidden" name="foodid" th:value="${food.foodid}"/>
-                        <div class="row items-push">
-                            <div class="col-lg-3">
-                                <p class="text-muted">
-                                    Update the details of the leftover food, including an image.
-                                </p>
-                            </div>
-                            <div class="col-lg-7 offset-lg-1">
-                                <div class="form-group row">
-                                    <div class="col-12">
-                                        <label for="foodname">Food Name</label>
-                                        <input type="text" class="form-control form-control-lg" id="foodname"
-                                            name="foodname" th:value="${food.foodname}" required>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-12">
-                                        <label for="foodquantity">Food Quantity</label>
-                                        <input type="number" class="form-control form-control-lg" id="foodquantity"
-                                            name="foodquantity" th:value="${food.foodquantity}" min="1" required>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-12">
-                                        <label for="fooddescription">Food Description</label>
-                                        <textarea class="form-control form-control-lg" id="fooddescription"
-                                            name="fooddescription" rows="4" required th:text="${food.fooddescription}"></textarea>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-12">
-                                        <label for="image">Food Image</label>
-                                        <input type="file" class="form-control form-control-lg" id="image" name="image"
-                                            accept="image/*">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-12">
-                                        <button type="submit" class="btn btn-alt-primary">Update Leftover</button>
-                                    </div>
-                                </div>
-                            </div>
+                    <form th:action="@{/updateLeftover}" th:object="${food}" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" th:field="*{foodid}" /> <!-- Hidden field for food ID -->
+                        <div class="form-group">
+                            <label for="foodname">Food Name</label>
+                            <input type="text" class="form-control" th:field="*{foodname}" required />
                         </div>
+                        <div class="form-group">
+                            <label for="foodquantity">Food Quantity</label>
+                            <input type="number" class="form-control" th:field="*{foodquantity}" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="fooddescription">Food Description</label>
+                            <textarea class="form-control" th:field="*{fooddescription}" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="image">Food Image</label>
+                            <input type="file" class="form-control" name="image" accept="image/*" />
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Leftover</button>
                     </form>
                 </div>
             </div>

@@ -47,14 +47,15 @@ public class FoodController {
         return "cafeteria_owner/leftover/foodList"; // Return the view name
     }
 
-    // Method to get specific food details for updating
     @GetMapping("/foodDetails")
     public String viewFoodDetails(@RequestParam("foodid") int foodID, Model model) {
         try (Connection connection = dataSource.getConnection()) {
-            String sql = "SELECT * FROM public.leftover WHERE foodid=?"; // Use foodid for filtering
+            String sql = "SELECT * FROM public.leftover WHERE foodid=?"; // Correct SQL query
             final var statement = connection.prepareStatement(sql);
-            statement.setInt(1, foodID);
+            statement.setInt(1, foodID); // Set the foodID parameter
             final var resultSet = statement.executeQuery();
+            
+            // Check if a food item was found
             if (resultSet.next()) {
                 LeftoverBean food = new LeftoverBean();
                 food.setFoodid(resultSet.getInt("foodid"));
@@ -63,16 +64,17 @@ public class FoodController {
                 food.setFooddescription(resultSet.getString("fooddescription"));
                 food.setImagePath(resultSet.getString("image_path"));
                 
-                model.addAttribute("food", food); // Add food details to the model for editing
-                return "cafeteria_owner/leftover/update_leftover"; // Return the update view
+                model.addAttribute("food", food); // Add the food details to the model
+                return "cafeteria_owner/leftover/update_leftover"; // Return the correct view path
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            return "redirect:/error"; // Handle the exception appropriately
+            e.printStackTrace(); // Log the exception for debugging
+            return "redirect:/error"; // Redirect on exception
         }
-        return "redirect:/notFound"; // Redirect if food is not found
+        
+        return "redirect:/notFound"; // Redirect if food item was not found
     }
-
+    
     // Method to delete a food item
     @PostMapping("/deleteFood")
     public String deleteFood(@RequestParam("foodid") int foodID) {

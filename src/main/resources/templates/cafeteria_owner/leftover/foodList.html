@@ -400,7 +400,7 @@
                                         <img th:src="${food.imagePath}" alt="Food Image" style="width: 50px;">
                                     </td>
                                     <td>
-                                        <a href="@{/foodDetails(foodid=${food.foodid})}" class="btn btn-sm btn-primary" title="Update">
+                                        <a th:href="@{/foodDetails(foodid=${food.foodid})}" class="btn btn-sm btn-primary" title="Update">
                                             <i class="fa fa-pencil"></i>
                                         </a>
                                         <button class="btn btn-sm btn-danger" data-foodid="${food.foodid}"
