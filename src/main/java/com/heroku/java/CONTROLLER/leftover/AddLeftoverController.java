@@ -227,6 +227,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -240,7 +241,9 @@ import java.sql.ResultSet;
 import javax.sql.DataSource;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class AddLeftoverController {
@@ -282,36 +285,56 @@ public class AddLeftoverController {
         }
     }
 
-    private void notifyStudents(LeftoverBean leftover) {
-        List<String> studentNumbers = getStudentPhoneNumbers();
+   private void notifyStudents(LeftoverBean leftover) {
+    // Get unique student phone numbers
+    List<String> studentNumbers = getStudentPhoneNumbers();
 
-        for (String studentNumber : studentNumbers) {
-            try {
-                String messageText = "New leftover food available!\n" +
-                                     "Food Name: " + leftover.getFoodname() + "\n" +
-                                     "Quantity: " + leftover.getFoodquantity() + "\n" +
-                                     "Description: " + leftover.getFooddescription() + "\n" +
-                                     "Hurry up and reserve it before it's gone!";
-                sendTelegramMessage(messageText);
-            } catch (Exception e) {
-                System.err.println("Failed to send Telegram message to: " + studentNumber);
-                e.printStackTrace();
-            }
+    // Construct the message body
+    String messageBody = "New leftover food available!\n" +
+                         "Food Name: " + leftover.getFoodname() + "\n" +
+                         "Quantity: " + leftover.getFoodquantity() + "\n" +
+                         "Description: " + leftover.getFooddescription() + "\n" +
+                         "Hurry up and reserve it before it's gone!";
+
+    // Loop through each student number
+    for (String studentNumber : studentNumbers) {
+        try {
+            // Log the message sending attempt
+            System.out.println("Attempting to send Telegram message to: " + studentNumber);
+            
+            // Here, call the function to send a message via Telegram API
+            sendTelegramMessage(studentNumber, messageBody);
+        } catch (Exception e) {
+            System.err.println("Failed to send Telegram message to: " + studentNumber);
+            e.printStackTrace();
         }
     }
+}
 
-    private void sendTelegramMessage(String message) {
-        String url = "https://api.telegram.org/bot" + TELEGRAM_BOT_TOKEN + "/sendMessage";
-        RestTemplate restTemplate = new RestTemplate();
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(org.springframework.http.MediaType.APPLICATION_JSON);
+// Add this method to send a Telegram message
+private void sendTelegramMessage(String chatId, String message) throws Exception {
+    String url = "https://api.telegram.org/bot" + TELEGRAM_BOT_TOKEN + "/sendMessage";
 
-        String payload = String.format("{\"chat_id\":\"%s\", \"text\":\"%s\"}", TELEGRAM_CHAT_ID, message);
+    RestTemplate restTemplate = new RestTemplate();
+    HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.APPLICATION_JSON);
+    
+    // Create the payload
+    Map<String, Object> payload = new HashMap<>();
+    payload.put("chat_id", chatId);
+    payload.put("text", message);
 
-        HttpEntity<String> entity = new HttpEntity<>(payload, headers);
-        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
-        System.out.println("Telegram message sent: " + response.getBody());
-    }
+    // Convert payload to JSON string
+    ObjectMapper objectMapper = new ObjectMapper();
+    String jsonPayload = objectMapper.writeValueAsString(payload);
+    
+    // Create the entity
+    HttpEntity<String> entity = new HttpEntity<>(jsonPayload, headers);
+    
+    // Send the request
+    ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
+    System.out.println("Telegram message sent: " + response.getBody());
+}
 
     private List<String> getStudentPhoneNumbers() {
         List<String> numbers = new ArrayList<>();
