@@ -44,7 +44,7 @@ public class FoodController {
             return "redirect:/error"; // Handle errors gracefully
         }
         model.addAttribute("foodList", foodList); // Add the food list to the model
-        return "cafteria_owner/leftover/foodList"; // Return the view name
+        return "cafeteria_owner/leftover/foodList"; // Return the view name
     }
 
     // Method to get specific food details for updating
