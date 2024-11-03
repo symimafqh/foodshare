@@ -44,10 +44,11 @@
         </dependency>
 
         <dependency>
-            <groupId>com.vonage</groupId>
-            <artifactId>server-sdk</artifactId>
-            <version>8.13.0</version>
+            <groupId>com.twilio.sdk</groupId>
+            <artifactId>twilio</artifactId>
+            <version>8.30.0</version> <!-- Check for the latest version -->
         </dependency>
+        
 
     </dependencies>
 
