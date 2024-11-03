@@ -223,7 +223,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -241,13 +240,13 @@ import java.sql.ResultSet;
 import javax.sql.DataSource;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class AddLeftoverController {
     private final DataSource dataSource;
+    private static final String TELEGRAM_BOT_TOKEN = "7837384848:AAG2C6I3X80VkNP0l1s4PZUv1qOBbcoPcjM"; // Replace with your Telegram bot token
+    private static final String TELEGRAM_CHAT_ID = "557905244"; // Replace with your Telegram chat ID
 
     @Autowired
     public AddLeftoverController(DataSource dataSource) {
@@ -272,7 +271,7 @@ public class AddLeftoverController {
             connection.close();
             System.out.println("Leftover added to the database.");
 
-            // Step 2: Notify students via WhatsApp using Vonage
+            // Step 2: Notify students via Telegram
             notifyStudents(leftover);
 
             return "redirect:/dashboardCafe?success=true";
@@ -283,116 +282,56 @@ public class AddLeftoverController {
         }
     }
 
-  private void notifyStudents(LeftoverBean leftover) {
-    List<String> studentNumbers = getStudentPhoneNumbers();
+    private void notifyStudents(LeftoverBean leftover) {
+        List<String> studentNumbers = getStudentPhoneNumbers();
 
-    String fromNumber = System.getenv("VONAGE_WHATSAPP_NUMBER");
-    String apiKey = System.getenv("VONAGE_API_KEY");
-    String apiSecret = System.getenv("VONAGE_API_SECRET");
-
-    for (String studentNumber : studentNumbers) {
-        try {
-            System.out.println("Attempting to send WhatsApp message to: " + studentNumber);
-            sendWhatsAppMessage(apiKey, apiSecret, fromNumber, studentNumber, leftover.getFoodname(), leftover.getFoodquantity(), leftover.getFooddescription());
-        } catch (Exception e) {
-            System.err.println("Failed to send WhatsApp message to: " + studentNumber);
-            e.printStackTrace();
-        }
-    }
-}
-
-private void sendWhatsAppMessage(String apiKey, String apiSecret, String from, String to, String messageBody, int i, String string) throws Exception {
-    // Remove any prefixes from `from` and `to` and ensure they're in plain E.164 format
-    if (from.startsWith("+") || from.startsWith("00")) {
-        from = from.replaceFirst("^\\+|^00", "");
-    }
-    if (to.startsWith("+") || to.startsWith("00")) {
-        to = to.replaceFirst("^\\+|^00", "");
-    }
-
-    // Logging to verify formatting
-    System.out.println("Attempting to send WhatsApp message from: " + from + " to: " + to);
-
-    String url = "https://api.nexmo.com/v1/messages";
-    RestTemplate restTemplate = new RestTemplate();
-    HttpHeaders headers = new HttpHeaders();
-    headers.setBasicAuth(apiKey, apiSecret);
-    headers.add("Content-Type", "application/json");
-
-    // Construct the JSON payload for WhatsApp message
-    String payload = createWhatsAppPayload(from, to, messageBody);
-
-    // Log the payload for debugging purposes
-    System.out.println("Sending WhatsApp Payload: " + payload);
-
-    HttpEntity<String> entity = new HttpEntity<>(payload, headers);
-    try {
-        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
-        System.out.println("WhatsApp message sent to " + to + ": " + response.getBody());
-    } catch (HttpClientErrorException e) {
-        System.err.println("Error Response Body: " + e.getResponseBodyAsString());
-        throw e;
-    }
-}
-
-private String createWhatsAppPayload(String from, String to, String text) throws Exception {
-    ObjectMapper mapper = new ObjectMapper();
-
-    // Create the payload according to the API requirements
-    Map<String, Object> payloadMap = new HashMap<>();
-    payloadMap.put("from", from);
-    payloadMap.put("to", to);
-    payloadMap.put("channel", "whatsapp");
-    payloadMap.put("message_type", "text");
-    payloadMap.put("text", text);
-
-    // Convert payload map to JSON string
-    return mapper.writeValueAsString(payloadMap);
-}
-private static class WhatsAppMessagePayload {
-    public String from;
-    public String to;
-    public String channel = "whatsapp";
-    public String message_type = "text";
-    public String text; // Directly place the message text here
-
-    public WhatsAppMessagePayload(String from, String to, String text) {
-        this.from = from;  // Assume "whatsapp:" prefix already added
-        this.to = to;
-        this.text = text;
-    }
-}
-
-// Gets formatted student phone numbers
-private List<String> getStudentPhoneNumbers() {
-    List<String> numbers = new ArrayList<>();
-    try {
-        Connection connection = dataSource.getConnection();
-        String sql = "SELECT studentPhoneNumber FROM public.student WHERE studentPhoneNumber IS NOT NULL";
-        PreparedStatement statement = connection.prepareStatement(sql);
-        ResultSet resultSet = statement.executeQuery();
-
-        while (resultSet.next()) {
-            String phoneNumber = resultSet.getString("studentPhoneNumber");
-            if (phoneNumber != null && !phoneNumber.isEmpty()) {
-                phoneNumber = formatPhoneNumber(phoneNumber);
-                numbers.add(phoneNumber);
-                System.out.println("Formatted student phone number: " + phoneNumber);
+        for (String studentNumber : studentNumbers) {
+            try {
+                String messageText = "New leftover food available!\n" +
+                                     "Food Name: " + leftover.getFoodname() + "\n" +
+                                     "Quantity: " + leftover.getFoodquantity() + "\n" +
+                                     "Description: " + leftover.getFooddescription() + "\n" +
+                                     "Hurry up and reserve it before it's gone!";
+                sendTelegramMessage(messageText);
+            } catch (Exception e) {
+                System.err.println("Failed to send Telegram message to: " + studentNumber);
+                e.printStackTrace();
             }
         }
-        connection.close();
-    } catch (Exception e) {
-        e.printStackTrace();
     }
-    return numbers;
-}
 
-// Formats phone number for consistency
-private String formatPhoneNumber(String phoneNumber) {
-    // Convert "0" prefix to "+60" for Malaysian numbers
-    if (phoneNumber.startsWith("0")) {
-        return "+60" + phoneNumber.substring(1);
+    private void sendTelegramMessage(String message) {
+        String url = "https://api.telegram.org/bot" + TELEGRAM_BOT_TOKEN + "/sendMessage";
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(org.springframework.http.MediaType.APPLICATION_JSON);
+
+        String payload = String.format("{\"chat_id\":\"%s\", \"text\":\"%s\"}", TELEGRAM_CHAT_ID, message);
+
+        HttpEntity<String> entity = new HttpEntity<>(payload, headers);
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
+        System.out.println("Telegram message sent: " + response.getBody());
     }
-    return phoneNumber; // Returns as-is if format is correct
-}
+
+    private List<String> getStudentPhoneNumbers() {
+        List<String> numbers = new ArrayList<>();
+        try {
+            Connection connection = dataSource.getConnection();
+            String sql = "SELECT studentPhoneNumber FROM public.student WHERE studentPhoneNumber IS NOT NULL";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                String phoneNumber = resultSet.getString("studentPhoneNumber");
+                if (phoneNumber != null && !phoneNumber.isEmpty()) {
+                    numbers.add(phoneNumber);
+                    System.out.println("Student phone number: " + phoneNumber);
+                }
+            }
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return numbers;
+    }
 }
