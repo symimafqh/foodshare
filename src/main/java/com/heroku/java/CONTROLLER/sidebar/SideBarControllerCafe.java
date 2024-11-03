@@ -125,32 +125,32 @@ public class SideBarControllerCafe {
         return "cafeteria_owner/leftover/add_leftover";
     }
 
-    @GetMapping("/update_Leftover")
-    public String updateLeftover(@RequestParam("foodid") String id, Model model, HttpSession session) {
+    // @GetMapping("/update_Leftover")
+    // public String updateLeftover(@RequestParam("foodid") String id, Model model, HttpSession session) {
 
-        String foodid = (String) session.getAttribute("cafeNumber");
-        try {
-            Connection connection = dataSource.getConnection();
-            String sql = "SELECT * FROM public.leftover WHERE \"foodid\"=?";
-            final var statement = connection.prepareStatement(sql);
-            statement.setString(1, foodid);
-            final var resultSet = statement.executeQuery();
+    //     String foodid = (String) session.getAttribute("cafeNumber");
+    //     try {
+    //         Connection connection = dataSource.getConnection();
+    //         String sql = "SELECT * FROM public.leftover WHERE \"foodid\"=?";
+    //         final var statement = connection.prepareStatement(sql);
+    //         statement.setString(1, foodid);
+    //         final var resultSet = statement.executeQuery();
             
-            if (resultSet.next()) {
-                LeftoverBean leftover = new LeftoverBean();
-                leftover.setFoodid(resultSet.getInt("foodid"));
-                leftover.setFoodname(resultSet.getString("foodname"));
-                leftover.setFoodquantity(resultSet.getInt("foodquantity"));
-                leftover.setFooddescription(resultSet.getString("fooddescription"));
-                leftover.setImagePath(resultSet.getString("image_path"));
+    //         if (resultSet.next()) {
+    //             LeftoverBean leftover = new LeftoverBean();
+    //             leftover.setFoodid(resultSet.getInt("foodid"));
+    //             leftover.setFoodname(resultSet.getString("foodname"));
+    //             leftover.setFoodquantity(resultSet.getInt("foodquantity"));
+    //             leftover.setFooddescription(resultSet.getString("fooddescription"));
+    //             leftover.setImagePath(resultSet.getString("image_path"));
 
-                model.addAttribute("leftover", leftover);
-            }
-            connection.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    //             model.addAttribute("leftover", leftover);
+    //         }
+    //         connection.close();
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //     }
 
-        return "cafeteria_owner/leftover/update_leftover"; // Update to your actual view path
-    }
+    //     return "cafeteria_owner/leftover/update_leftover"; // Update to your actual view path
+    // }
 }

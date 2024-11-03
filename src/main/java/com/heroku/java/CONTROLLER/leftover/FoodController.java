@@ -40,7 +40,7 @@ public class FoodController {
 
                 // Add food object to RedirectAttributes
                 redirectAttributes.addFlashAttribute("food", food);
-                return "redirect:/leftover/update_leftover"; // Redirect to the view page
+                return "cafeteria_owner/leftover/foodList"; // Redirect to the view page
             }
         } catch (Exception e) {
             e.printStackTrace();
