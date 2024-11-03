@@ -302,6 +302,14 @@ public class AddLeftoverController {
 private void sendWhatsAppMessage(String apiKey, String apiSecret, String from, String to, String foodName, int quantity, String description) throws Exception {
     String url = "https://api.nexmo.com/v1/messages";
 
+    // Ensure `from` and `to` include `whatsapp:` prefix
+    if (!from.startsWith("whatsapp:")) {
+        from = "whatsapp:" + from;
+    }
+    if (!to.startsWith("whatsapp:")) {
+        to = "whatsapp:" + to;
+    }
+
     RestTemplate restTemplate = new RestTemplate();
     HttpHeaders headers = new HttpHeaders();
     headers.setBasicAuth(apiKey, apiSecret);
@@ -319,11 +327,12 @@ private void sendWhatsAppMessage(String apiKey, String apiSecret, String from, S
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
         System.out.println("WhatsApp message sent to " + to + ": " + response.getBody());
     } catch (HttpClientErrorException e) {
-        // Log full error response
+        // Log the full error response for debugging
         System.err.println("Error Response Body: " + e.getResponseBodyAsString());
         throw e;
     }
 }
+
 
 private String createWhatsAppPayload(String from, String to, String foodName, int quantity, String description) throws Exception {
     
