@@ -248,7 +248,7 @@
                                         class="si si-layers"></i><span class="sidebar-mini-hide">LEFTOVER</span></a>
                                 <ul>
                                     <li><a th:href="@{/add_Leftover}">Add Leftover</a></li>
-                                    <li>Update Leftover</a></li>
+                                    <li><a th:href="@{/update_Leftover}"></a>Update Leftover</a></li>
                                     <li>Delete Leftover</a></li>
                                 </ul>
                             </li>
@@ -358,23 +358,21 @@
             <!-- END Header Loader -->
         </header>
         <!-- END Header -->
-
-        <!-- Main Container -->
         <main id="main-container">
-            <!-- Add Leftover Section -->
+            <!-- Update Leftover Section -->
             <div class="block">
                 <div class="block-header block-header-default">
                     <h3 class="block-title">
-                        <i class="fa fa-plus-circle mr-5 text-muted"></i> Add Leftover
+                        <i class="fa fa-edit mr-5 text-muted"></i> Update Leftover
                     </h3>
                 </div>
                 <div class="block-content">
-                    <form th:action="@{/addLeftover}" modelAttribute="addLeftover"
-                            th:object="(${addLeftover})" method="POST" enctype="multipart/form-data">
+                    <form th:action="@{/updateLeftover(id=${leftover.id})}" modelAttribute="updateLeftover"
+                        th:object="${updateLeftover}" method="POST" enctype="multipart/form-data">
                         <div class="row items-push">
                             <div class="col-lg-3">
                                 <p class="text-muted">
-                                    Add details of the leftover food, including an image.
+                                    Update details of the leftover food, including an image.
                                 </p>
                             </div>
                             <div class="col-lg-7 offset-lg-1">
@@ -382,35 +380,35 @@
                                     <div class="col-12">
                                         <label for="foodname">Food Name</label>
                                         <input type="text" class="form-control form-control-lg" id="foodname"
-                                            name="foodname" placeholder="Enter food name" required>
+                                            th:field="*{foodname}" placeholder="Enter food name" required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-12">
                                         <label for="foodquantity">Food Quantity</label>
                                         <input type="number" class="form-control form-control-lg" id="foodquantity"
-                                            name="foodquantity" placeholder="Enter quantity" min="1" required>
+                                            th:field="*{foodquantity}" placeholder="Enter quantity" min="1" required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-12">
                                         <label for="fooddescription">Food Description</label>
                                         <textarea class="form-control form-control-lg" id="fooddescription"
-                                            name="fooddescription" rows="4"
+                                            th:field="*{fooddescription}" rows="4"
                                             placeholder="Enter a brief description of the leftover food"
                                             required></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-12">
-                                        <label for="image">Food Image</label>
+                                        <label for="image">Food Image (Optional)</label>
                                         <input type="file" class="form-control form-control-lg" id="image" name="image"
-                                            accept="image/*" required>
+                                            accept="image/*">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-12">
-                                        <button type="submit" class="btn btn-alt-primary">Add Leftover</button>
+                                        <button type="submit" class="btn btn-alt-primary">Update Leftover</button>
                                     </div>
                                 </div>
                             </div>
@@ -418,11 +416,9 @@
                     </form>
                 </div>
             </div>
-            <!-- END Add Leftover Section -->
-
+            <!-- END Update Leftover Section -->
         </main>
         <!-- END Main Container -->
-
         <!-- Footer -->
         <footer id="page-footer">
             <div class="content py-20 font-size-sm clearfix">
@@ -431,66 +427,13 @@
                         href="https://1.envato.market/ydb" target="_blank">Syamimi Afiqah</a>
                 </div>
                 <div class="float-left">
-                    <a class="font-w600" href="" target="_blank">Foodshare</a> &copy; <span
-                        class="js-year-copy"></span>
+                    <a class="font-w600" href="" target="_blank">Foodshare</a> &copy; <span class="js-year-copy"></span>
                 </div>
             </div>
         </footer>
         <!-- END Footer -->
     </div>
     <!-- END Page Container -->
-
-    <script>
-        function togglePassword() {
-
-            var x = document.getElementById("password");
-            var icon = document.getElementById("eye-icon");
-
-            if (x.type === "password") {
-                x.type = "text";
-                icon.classList.add("fa-eye-slash");
-                icon.classList.remove("fa-eye");
-            } else {
-                x.type = "password";
-                icon.classList.remove("fa-eye-slash");
-                icon.classList.add("fa-eye");
-            }
-        }  
-    </script>
-
-
-    <!--
-        Codebase JS Core
-
-        Vital libraries and plugins used in all pages. You can choose to not include this file if you would like
-        to handle those dependencies through webpack. Please check out assets/_js/main/bootstrap.js for more info.
-
-        If you like, you could also include them separately directly from the assets/js/core folder in the following
-        order. That can come in handy if you would like to include a few of them (eg jQuery) from a CDN.
-
-        assets/js/core/jquery.min.js
-        assets/js/core/bootstrap.bundle.min.js
-        assets/js/core/simplebar.min.js
-        assets/js/core/jquery-scrollLock.min.js
-        assets/js/core/jquery.appear.min.js
-        assets/js/core/jquery.countTo.min.js
-        assets/js/core/js.cookie.min.js
-    -->
-    <script th:src="@{stylesheets/assets/js/codebase.core.min.js}"></script>
-
-    <!--
-        Codebase JS
-    
-        Custom functionality including Blocks/Layout API as well as other vital and optional helpers
-        webpack is putting everything together at assets/_js/main/app.js
-    -->
-    <script th:src="@{stylesheets/assets/js/codebase.app.min.js}"></script>
-
-    <!-- Page JS Plugins -->
-    <script th:src="@{stylesheets/assets/js/plugins/jquery-validation/jquery.validate.min.js}"></script>
-
-    <!-- Page JS Code -->
-    <script th:src="@{stylesheets/assets/js/pages/op_auth_signin.min.js}"></script>
 </body>
 
 </html>
