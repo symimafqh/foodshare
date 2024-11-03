@@ -241,7 +241,9 @@ import java.sql.ResultSet;
 import javax.sql.DataSource;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class AddLeftoverController {
@@ -299,70 +301,54 @@ public class AddLeftoverController {
     }
 }
 
-private void sendWhatsAppMessage(String apiKey, String apiSecret, String from, String to, String foodName, int quantity, String description) throws Exception {
+private void sendWhatsAppMessage(String apiKey, String apiSecret, String from, String to, String messageBody) throws Exception {
+    // Remove any prefixes from `from` and `to` and ensure they're in plain E.164 format
+    if (from.startsWith("+") || from.startsWith("00")) {
+        from = from.replaceFirst("^\\+|^00", "");
+    }
+    if (to.startsWith("+") || to.startsWith("00")) {
+        to = to.replaceFirst("^\\+|^00", "");
+    }
+
+    // Logging to verify formatting
+    System.out.println("Attempting to send WhatsApp message from: " + from + " to: " + to);
+
     String url = "https://api.nexmo.com/v1/messages";
-
-    // Ensure `from` and `to` include `whatsapp:` prefix
-    if (!from.startsWith("whatsapp:")) {
-        from = "whatsapp:" + from;
-    }
-    if (!to.startsWith("whatsapp:")) {
-        to = "whatsapp:" + to;
-    }
-
     RestTemplate restTemplate = new RestTemplate();
     HttpHeaders headers = new HttpHeaders();
     headers.setBasicAuth(apiKey, apiSecret);
     headers.add("Content-Type", "application/json");
 
-    // Construct JSON payload with the correct structure
-    String payload = createWhatsAppPayload(from, to, foodName, quantity, description);
+    // Construct the JSON payload for WhatsApp message
+    String payload = createWhatsAppPayload(from, to, messageBody);
 
-    // Log the headers and payload separately for better clarity
-    System.out.println("Headers: " + headers);
-    System.out.println("Payload: " + payload);
+    // Log the payload for debugging purposes
+    System.out.println("Sending WhatsApp Payload: " + payload);
 
     HttpEntity<String> entity = new HttpEntity<>(payload, headers);
     try {
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
         System.out.println("WhatsApp message sent to " + to + ": " + response.getBody());
     } catch (HttpClientErrorException e) {
-        // Log the full error response for debugging
         System.err.println("Error Response Body: " + e.getResponseBodyAsString());
         throw e;
     }
 }
 
-
-private String createWhatsAppPayload(String from, String to, String foodName, int quantity, String description) throws Exception {
-    
-    // Ensure "whatsapp:" prefix is only added once for each
-    if (!from.startsWith("whatsapp:")) {
-        from = "whatsapp:" + from;
-    }
-    if (!to.startsWith("whatsapp:")) {
-        to = "whatsapp:" + to;
-    }
-    
+private String createWhatsAppPayload(String from, String to, String text) throws Exception {
     ObjectMapper mapper = new ObjectMapper();
-    
-    // Construct a detailed message
-    String messageText = "New leftover food available!\n" +
-                         "Food Name: " + foodName + "\n" +
-                         "Quantity: " + quantity + "\n" +
-                         "Description: " + description + "\n" +
-                         "Hurry up and reserve it before it's gone!";
-    
-    // Log each individual parameter
-    System.out.println("Creating WhatsApp Payload with:");
-    System.out.println(" - from: " + from);
-    System.out.println(" - to: " + to);
-    System.out.println(" - message_text: " + messageText);
 
-    // Create JSON payload with content type "text"
-    return mapper.writeValueAsString(new WhatsAppMessagePayload(from, to, messageText));
+    // Create the payload according to the API requirements
+    Map<String, Object> payloadMap = new HashMap<>();
+    payloadMap.put("from", from);
+    payloadMap.put("to", to);
+    payloadMap.put("channel", "whatsapp");
+    payloadMap.put("message_type", "text");
+    payloadMap.put("text", text);
+
+    // Convert payload map to JSON string
+    return mapper.writeValueAsString(payloadMap);
 }
-
 private static class WhatsAppMessagePayload {
     public String from;
     public String to;
