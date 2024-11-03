@@ -127,14 +127,33 @@ public class AddLeftoverController {
     }
 
     @PostMapping("/addLeftover")
-    public String addLeftover(@ModelAttribute("addLeftover") LeftoverBean leftover, HttpSession session, Model model) {
+    public String addLeftover(
+            @ModelAttribute("addLeftover") LeftoverBean leftover,
+            @RequestParam("image") MultipartFile imageFile,
+            HttpSession session, Model model) {
 
         System.out.println("Received POST request for adding leftover.");
+
+        String imagePath = "";
         try {
-            // Step 1: Add leftover to the database (similar to before)
+            // Check if the image is provided and save it to the filesystem
+            if (!imageFile.isEmpty()) {
+                String fileName = System.currentTimeMillis() + "_" + imageFile.getOriginalFilename();
+                Path uploadPath = Paths.get("src/main/resources/public/stylesheets/assets/leftover", fileName);
+
+                // Ensure the directory exists
+                Files.createDirectories(uploadPath.getParent());
+                Files.write(uploadPath, imageFile.getBytes());
+
+                // Set the imagePath as a relative path for database storage
+                imagePath = "/stylesheets/assets/leftover/" + fileName;
+                leftover.setImagePath(imagePath); // Update LeftoverBean with the image path
+            }
+
+            // Step 1: Add leftover to the database
             Connection connection = dataSource.getConnection();
             String sql = "INSERT INTO public.leftover (\"foodname\", \"foodquantity\", \"fooddescription\", \"image_path\", \"cafeNumber\") VALUES (?, ?, ?, ?, ?)";
-            final var statement = connection.prepareStatement(sql);
+            PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, leftover.getFoodname());
             statement.setInt(2, leftover.getFoodquantity());
             statement.setString(3, leftover.getFooddescription());
@@ -143,7 +162,8 @@ public class AddLeftoverController {
             statement.setString(5, cafeNumber);
             statement.executeUpdate();
             connection.close();
-            System.out.println("Received request to add leftover");
+
+            System.out.println("Leftover added with image path: " + imagePath);
 
             // Step 2: Send WhatsApp notifications to students
             notifyStudents(leftover);
@@ -155,7 +175,6 @@ public class AddLeftoverController {
             return "redirect:/addLeftover?error=true";
         }
     }
-
     private void notifyStudents(LeftoverBean leftover) {
         // Getting credentials from environment variables securely
         String ACCOUNT_SID = System.getenv("TWILIO_ACCOUNT_SID");
