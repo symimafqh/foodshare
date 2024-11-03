@@ -409,6 +409,7 @@
                                             title="Delete">
                                             <i class="fa fa-trash"></i>
                                         </button>
+
                                     </td>
                                 </tr>
                             </tbody>
@@ -539,10 +540,11 @@
         <script>
             function setFoodIDToDelete(button) {
                 var foodID = button.getAttribute('data-foodid');
-                document.getElementById('foodidToDelete').value = foodID;
+                document.getElementById('foodidToDelete').value = foodID; // Set the food ID in the hidden input
                 $('#delete_food_account').modal('show'); // Show the modal
             }
         </script>
+
 
         <!-- Footer -->
         <footer id="page-footer">

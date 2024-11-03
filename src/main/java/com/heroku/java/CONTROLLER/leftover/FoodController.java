@@ -77,25 +77,17 @@ public class FoodController {
     }
     
     @PostMapping("/deleteFood")
-public String deleteFood(@RequestParam("foodid") int foodID, RedirectAttributes redirectAttributes) {
+public String deleteFood(@RequestParam("foodid") int foodID) {
     try (Connection connection = dataSource.getConnection()) {
         String sql = "DELETE FROM public.leftover WHERE foodid=?";
         final var statement = connection.prepareStatement(sql);
         statement.setInt(1, foodID);
-        
-        int affectedRows = statement.executeUpdate(); // Execute the delete operation
-        
-        if (affectedRows > 0) {
-            redirectAttributes.addFlashAttribute("successMessage", "Food item deleted successfully.");
-        } else {
-            redirectAttributes.addFlashAttribute("errorMessage", "Food item not found.");
-        }
+        statement.executeUpdate();
     } catch (Exception e) {
         e.printStackTrace();
-        redirectAttributes.addFlashAttribute("errorMessage", "Error occurred while deleting food item.");
+        // Handle exception (optional)
     }
-    
-    return "redirect:/foodList"; // Redirect to the food list after deletion
+    return "redirect:/foodList"; // Redirect back to food list
 }
 
 }
