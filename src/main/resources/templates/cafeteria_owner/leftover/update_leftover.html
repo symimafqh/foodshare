@@ -387,7 +387,7 @@
                             </thead>
         
                             <tbody class="bg-white">
-                                <tr th:each="food, iterStat : ${foodList}">
+                                <tr th:each="food, iterStat : ${/foodList}">
                                     <td th:text="${iterStat.index + 1}"></td>
                                     <td th:text="${food.foodid}"></td>
                                     <td th:text="${food.foodname}"></td>
