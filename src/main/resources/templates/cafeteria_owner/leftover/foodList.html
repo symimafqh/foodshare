@@ -506,7 +506,7 @@
                                             </div>
                                         </div>
                                         <div class="block-content">
-                                            <form action="/deleteFood" method="post">
+                                            <form th:action="@{/deleteFood}" method="post">
                                                 <input type="hidden" name="foodid" id="foodidToDelete">
                                                 <div class="form-group row">
                                                     <label class="col-lg-12 col-form-label" for="confirmDelete">
