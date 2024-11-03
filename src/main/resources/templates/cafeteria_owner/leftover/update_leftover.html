@@ -359,66 +359,106 @@
         </header>
         <!-- END Header -->
         <main id="main-container">
-            <!-- Update Leftover Section -->
-            <div class="block">
-                <div class="block-header block-header-default">
-                    <h3 class="block-title">
-                        <i class="fa fa-edit mr-5 text-muted"></i> Update Leftover
-                    </h3>
-                </div>
-                <div class="block-content">
-                    <form th:action="@{/updateLeftover(id=${leftover.id})}" modelAttribute="updateLeftover"
-                        th:object="${updateLeftover}" method="POST" enctype="multipart/form-data">
-                        <div class="row items-push">
-                            <div class="col-lg-3">
-                                <p class="text-muted">
-                                    Update details of the leftover food, including an image.
-                                </p>
+            <!-- Page Content -->
+            <div class="content">
+                <div class="block">
+                    <div class="block-header block-header-default">
+                        <h3 class="block-title">Food List</h3>
+                    </div>
+                    <div class="block-content">
+                        <div class="row">
+                            <div class="col-12 mb-30">
+                                <a type="button" class="btn btn-alt-primary min-width-125 float-right" th:href="@{/addFood}">
+                                    <i class="fa fa-plus mr-10"></i>Add Food
+                                </a>
                             </div>
-                            <div class="col-lg-7 offset-lg-1">
-                                <div class="form-group row">
-                                    <div class="col-12">
-                                        <label for="foodname">Food Name</label>
-                                        <input type="text" class="form-control form-control-lg" id="foodname"
-                                            th:field="*{foodname}" placeholder="Enter food name" required>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-12">
-                                        <label for="foodquantity">Food Quantity</label>
-                                        <input type="number" class="form-control form-control-lg" id="foodquantity"
-                                            th:field="*{foodquantity}" placeholder="Enter quantity" min="1" required>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-12">
-                                        <label for="fooddescription">Food Description</label>
-                                        <textarea class="form-control form-control-lg" id="fooddescription"
-                                            th:field="*{fooddescription}" rows="4"
-                                            placeholder="Enter a brief description of the leftover food"
-                                            required></textarea>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-12">
-                                        <label for="image">Food Image (Optional)</label>
-                                        <input type="file" class="form-control form-control-lg" id="image" name="image"
-                                            accept="image/*">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-12">
-                                        <button type="submit" class="btn btn-alt-primary">Update Leftover</button>
+                        </div>
+                        <table class="table table-bordered table-vcenter js-dataTable-full">
+                            <thead class="thead-light text-center">
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Food ID</th>
+                                    <th>Food Name</th>
+                                    <th>Food Quantity</th>
+                                    <th>Food Description</th>
+                                    <th>Image</th>
+                                    <th class="text-center" style="width: 11%;">Actions</th>
+                                </tr>
+                            </thead>
+        
+                            <tbody class="bg-white">
+                                <tr th:each="food, iterStat : ${foodList}">
+                                    <td th:text="${iterStat.index + 1}"></td>
+                                    <td th:text="${food.foodid}"></td>
+                                    <td th:text="${food.foodname}"></td>
+                                    <td th:text="${food.foodquantity}"></td>
+                                    <td th:text="${food.fooddescription}"></td>
+                                    <td>
+                                        <img th:src="${food.image_path}" alt="Food Image" style="width: 50px;">
+                                    </td>
+                                    <td class="text-center">
+                                        <a type="button" class="btn btn-sm btn-primary"
+                                           th:href="@{/updateFood(foodid=${food.foodid})}" title="Update">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                        <button type="button" class="btn btn-sm btn-danger"
+                                                th:data-foodid="${food.foodid}" onclick="setFoodIDToDelete(this)"
+                                                title="Delete">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- Delete Confirmation Modal -->
+                        <div class="modal fade" id="delete_food_account" tabindex="-1" role="dialog"
+                             aria-labelledby="modal-delete-food" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="block block-themed block-transparent mb-0">
+                                        <div class="block-header bg-primary-dark">
+                                            <h3 class="block-title">Padam Makanan</h3>
+                                            <div class="block-options">
+                                                <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                                                    <i class="si si-close"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="block-content">
+                                            <form action="/deleteFood" method="post"> <!-- Your delete endpoint -->
+                                                <input type="hidden" name="foodid" id="foodidToDelete">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-form-label" for="confirmDelete">
+                                                        <p>Maklumat ini akan <b>dipadam</b>.<br><br />Adakah anda pasti?</p>
+                                                    </label>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-alt-secondary" data-dismiss="modal"><i
+                                                        class="si si-close mr-10"></i>Tutup</button>
+                                                    <button type="submit" class="btn btn-alt-danger"><i class="fa fa-trash"></i> Padam</button>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </form>
+                        <!-- END Modal Delete Account -->
+                    </div>
                 </div>
             </div>
-            <!-- END Update Leftover Section -->
+            <!-- END Page Content -->
         </main>
         <!-- END Main Container -->
+        
+        <script>
+            function setFoodIDToDelete(button) {
+                var foodID = button.getAttribute('data-foodid');
+                document.getElementById('foodidToDelete').value = foodID;
+                $('#delete_food_account').modal('show'); // Show the modal
+            }
+        </script>
+        
         <!-- Footer -->
         <footer id="page-footer">
             <div class="content py-20 font-size-sm clearfix">
