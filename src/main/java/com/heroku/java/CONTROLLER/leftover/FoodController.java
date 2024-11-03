@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.heroku.java.MODEL.leftover.LeftoverBean;
 
@@ -75,18 +76,26 @@ public class FoodController {
         return "redirect:/notFound"; // Redirect if food item was not found
     }
     
-    // Method to delete a food item
     @PostMapping("/deleteFood")
-    public String deleteFood(@RequestParam("foodid") int foodID) {
-        try (Connection connection = dataSource.getConnection()) {
-            String sql = "DELETE FROM public.leftover WHERE foodid=?"; // Adjust to your actual food table name
-            final var statement = connection.prepareStatement(sql);
-            statement.setInt(1, foodID);
-            statement.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "redirect:/error"; // Handle errors gracefully
+public String deleteFood(@RequestParam("foodid") int foodID, RedirectAttributes redirectAttributes) {
+    try (Connection connection = dataSource.getConnection()) {
+        String sql = "DELETE FROM public.leftover WHERE foodid=?";
+        final var statement = connection.prepareStatement(sql);
+        statement.setInt(1, foodID);
+        
+        int affectedRows = statement.executeUpdate(); // Execute the delete operation
+        
+        if (affectedRows > 0) {
+            redirectAttributes.addFlashAttribute("successMessage", "Food item deleted successfully.");
+        } else {
+            redirectAttributes.addFlashAttribute("errorMessage", "Food item not found.");
         }
-        return "redirect:/foodList"; // Redirect to the food list after deletion
+    } catch (Exception e) {
+        e.printStackTrace();
+        redirectAttributes.addFlashAttribute("errorMessage", "Error occurred while deleting food item.");
     }
+    
+    return "redirect:/foodList"; // Redirect to the food list after deletion
+}
+
 }

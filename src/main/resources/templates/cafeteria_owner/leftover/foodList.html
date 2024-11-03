@@ -400,11 +400,13 @@
                                         <img th:src="${food.imagePath}" alt="Food Image" style="width: 50px;">
                                     </td>
                                     <td>
-                                        <a th:href="@{/foodDetails(foodid=${food.foodid})}" class="btn btn-sm btn-primary" title="Update">
+                                        <a th:href="@{/foodDetails(foodid=${food.foodid})}"
+                                            class="btn btn-sm btn-primary" title="Update">
                                             <i class="fa fa-pencil"></i>
                                         </a>
-                                        <button class="btn btn-sm btn-danger" data-foodid="${food.foodid}"
-                                            onclick="setFoodIDToDelete(this)" title="Delete">
+                                        <button type="button" class="btn btn-sm btn-danger"
+                                            th:data-foodid="${food.foodid}" onclick="setFoodIDToDelete(this)"
+                                            title="Delete">
                                             <i class="fa fa-trash"></i>
                                         </button>
                                     </td>
@@ -433,7 +435,7 @@
                                                     <input type="hidden" name="foodid" id="foodid"
                                                         value="${food.foodid}"> <!-- Food ID for update -->
 
-                                                    <!-- <div class="form-group row">
+                        <!-- <div class="form-group row">
                                                         <label class="col-lg-3 col-form-label" for="foodname">Food
                                                             Name<span class="text-danger">*</span></label>
                                                         <div class="col-lg-9">
@@ -495,7 +497,7 @@
                                 <div class="modal-content">
                                     <div class="block block-themed block-transparent mb-0">
                                         <div class="block-header bg-primary-dark">
-                                            <h3 class="block-title">Padam Makanan</h3>
+                                            <h3 class="block-title">Delete Food Item</h3>
                                             <div class="block-options">
                                                 <button type="button" class="btn-block-option" data-dismiss="modal"
                                                     aria-label="Close">
@@ -504,20 +506,20 @@
                                             </div>
                                         </div>
                                         <div class="block-content">
-                                            <form action="" method="post"> <!-- Your delete endpoint -->
+                                            <form action="/deleteFood" method="post">
                                                 <input type="hidden" name="foodid" id="foodidToDelete">
                                                 <div class="form-group row">
                                                     <label class="col-lg-12 col-form-label" for="confirmDelete">
-                                                        <p>Maklumat ini akan <b>dipadam</b>.<br><br />Adakah anda pasti?
-                                                        </p>
+                                                        <p>Are you sure you want to delete this food item? This action
+                                                            cannot be undone.</p>
                                                     </label>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-alt-secondary"
                                                         data-dismiss="modal"><i
-                                                            class="si si-close mr-10"></i>Tutup</button>
+                                                            class="si si-close mr-10"></i>Cancel</button>
                                                     <button type="submit" class="btn btn-alt-danger"><i
-                                                            class="fa fa-trash"></i> Padam</button>
+                                                            class="fa fa-trash"></i> Delete</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -525,7 +527,8 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- END Modal Delete Account -->
+                        <!-- END Modal Delete Food -->
+
                     </div>
                 </div>
             </div>
