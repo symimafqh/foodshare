@@ -223,6 +223,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -280,80 +281,84 @@ public class AddLeftoverController {
         }
     }
 
-    private void notifyStudents(LeftoverBean leftover) {
-        List<String> studentNumbers = getStudentPhoneNumbers();
-        
-        String fromNumber = System.getenv("VONAGE_WHATSAPP_NUMBER");
-        String apiKey = System.getenv("VONAGE_API_KEY");
-        String apiSecret = System.getenv("VONAGE_API_SECRET");
+  private void notifyStudents(LeftoverBean leftover) {
+    List<String> studentNumbers = getStudentPhoneNumbers();
 
-        for (String studentNumber : studentNumbers) {
-            try {
-                // Pass individual fields to sendWhatsAppMessage
-                sendWhatsAppMessage(apiKey, apiSecret, fromNumber, studentNumber, leftover.getFoodname(), leftover.getFoodquantity(), leftover.getFooddescription());
-            } catch (Exception e) {
-                System.err.println("Failed to send WhatsApp message to: " + studentNumber);
-                e.printStackTrace();
-            }
+    String fromNumber = System.getenv("VONAGE_WHATSAPP_NUMBER");
+    String apiKey = System.getenv("VONAGE_API_KEY");
+    String apiSecret = System.getenv("VONAGE_API_SECRET");
+
+    for (String studentNumber : studentNumbers) {
+        try {
+            System.out.println("Attempting to send WhatsApp message to: " + studentNumber);
+            sendWhatsAppMessage(apiKey, apiSecret, fromNumber, studentNumber, leftover.getFoodname(), leftover.getFoodquantity(), leftover.getFooddescription());
+        } catch (Exception e) {
+            System.err.println("Failed to send WhatsApp message to: " + studentNumber);
+            e.printStackTrace();
         }
     }
+}
 
-    private void sendWhatsAppMessage(String apiKey, String apiSecret, String from, String to, String foodName, int quantity, String description) throws Exception {
-        String url = "https://api.nexmo.com/v1/messages";
-    
-        RestTemplate restTemplate = new RestTemplate();
-        HttpHeaders headers = new HttpHeaders();
-        headers.setBasicAuth(apiKey, apiSecret);
-        headers.add("Content-Type", "application/json");
-    
-        // Construct JSON payload with separate fields
-        String payload = createWhatsAppPayload(from, to, foodName, quantity, description);
-    
-        // Log the payload for debugging
-        System.out.println("Sending WhatsApp Payload: " + payload);
-    
-        HttpEntity<String> entity = new HttpEntity<>(payload, headers);
+private void sendWhatsAppMessage(String apiKey, String apiSecret, String from, String to, String foodName, int quantity, String description) throws Exception {
+    String url = "https://api.nexmo.com/v1/messages";
+
+    RestTemplate restTemplate = new RestTemplate();
+    HttpHeaders headers = new HttpHeaders();
+    headers.setBasicAuth(apiKey, apiSecret);
+    headers.add("Content-Type", "application/json");
+
+    // Construct JSON payload with the correct structure
+    String payload = createWhatsAppPayload(from, to, foodName, quantity, description);
+
+    // Log the headers and payload separately for better clarity
+    System.out.println("Headers: " + headers);
+    System.out.println("Payload: " + payload);
+
+    HttpEntity<String> entity = new HttpEntity<>(payload, headers);
+    try {
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
-    
         System.out.println("WhatsApp message sent to " + to + ": " + response.getBody());
+    } catch (HttpClientErrorException e) {
+        // Log full error response
+        System.err.println("Error Response Body: " + e.getResponseBodyAsString());
+        throw e;
     }
-    
-    private String createWhatsAppPayload(String from, String to, String foodName, int quantity, String description) throws Exception {
-        ObjectMapper mapper = new ObjectMapper();
-        
-        // Create a detailed message with separate fields
-        String messageText = "New leftover food available!\n" +
-                             "Food Name: " + foodName + "\n" +
-                             "Quantity: " + quantity + "\n" +
-                             "Description: " + description + "\n" +
-                             "Hurry up and reserve it before it's gone!";
-        
-        // Construct the JSON payload with content type "text"
-        return mapper.writeValueAsString(new WhatsAppMessagePayload(from, to, messageText));
-    }
+}
 
-    private static class WhatsAppMessagePayload {
-        public String from;
-        public String to;
-        public String channel = "whatsapp";
-        public String message_type = "text";
-        public Content content;
+private String createWhatsAppPayload(String from, String to, String foodName, int quantity, String description) throws Exception {
+    ObjectMapper mapper = new ObjectMapper();
     
-        public WhatsAppMessagePayload(String from, String to, String text) {
-            this.from = from;
-            this.to = to;
-            this.content = new Content(text);
-        }
+    // Create a detailed message with separate fields
+    String messageText = "New leftover food available!\n" +
+                         "Food Name: " + foodName + "\n" +
+                         "Quantity: " + quantity + "\n" +
+                         "Description: " + description + "\n" +
+                         "Hurry up and reserve it before it's gone!";
     
-        private static class Content {
-            public String type = "text";
-            public String text; // Ensure this is the actual message content.
-    
-            public Content(String text) {
-                this.text = text;
-            }
-        }
+    // Log each individual parameter before constructing JSON
+    System.out.println("Creating WhatsApp Payload with:");
+    System.out.println(" - from: " + from);
+    System.out.println(" - to: " + to);
+    System.out.println(" - message_text: " + messageText);
+
+    // Construct the JSON payload with content type "text"
+    return mapper.writeValueAsString(new WhatsAppMessagePayload(from, to, messageText));
+}
+
+private static class WhatsAppMessagePayload {
+    public String from;
+    public String to;
+    public String channel = "whatsapp";
+    public String message_type = "text";
+    public String text; // Place the message text directly here
+
+    public WhatsAppMessagePayload(String from, String to, String text) {
+        this.from = "whatsapp:" + from;  // Prefix with "whatsapp:"
+        this.to = "whatsapp:" + to;      // Prefix with "whatsapp:"
+        this.text = text;
     }
+}
+
 
     private List<String> getStudentPhoneNumbers() {
         List<String> numbers = new ArrayList<>();
