@@ -326,22 +326,31 @@ private void sendWhatsAppMessage(String apiKey, String apiSecret, String from, S
 }
 
 private String createWhatsAppPayload(String from, String to, String foodName, int quantity, String description) throws Exception {
+    
+    // Ensure "whatsapp:" prefix is only added once for each
+    if (!from.startsWith("whatsapp:")) {
+        from = "whatsapp:" + from;
+    }
+    if (!to.startsWith("whatsapp:")) {
+        to = "whatsapp:" + to;
+    }
+    
     ObjectMapper mapper = new ObjectMapper();
     
-    // Create a detailed message with separate fields
+    // Construct a detailed message
     String messageText = "New leftover food available!\n" +
                          "Food Name: " + foodName + "\n" +
                          "Quantity: " + quantity + "\n" +
                          "Description: " + description + "\n" +
                          "Hurry up and reserve it before it's gone!";
     
-    // Log each individual parameter before constructing JSON
+    // Log each individual parameter
     System.out.println("Creating WhatsApp Payload with:");
     System.out.println(" - from: " + from);
     System.out.println(" - to: " + to);
     System.out.println(" - message_text: " + messageText);
 
-    // Construct the JSON payload with content type "text"
+    // Create JSON payload with content type "text"
     return mapper.writeValueAsString(new WhatsAppMessagePayload(from, to, messageText));
 }
 
@@ -350,46 +359,45 @@ private static class WhatsAppMessagePayload {
     public String to;
     public String channel = "whatsapp";
     public String message_type = "text";
-    public String text; // Place the message text directly here
+    public String text; // Directly place the message text here
 
     public WhatsAppMessagePayload(String from, String to, String text) {
-        this.from = "whatsapp:" + from;  // Prefix with "whatsapp:"
-        this.to = "whatsapp:" + to;      // Prefix with "whatsapp:"
+        this.from = from;  // Assume "whatsapp:" prefix already added
+        this.to = to;
         this.text = text;
     }
 }
 
+// Gets formatted student phone numbers
+private List<String> getStudentPhoneNumbers() {
+    List<String> numbers = new ArrayList<>();
+    try {
+        Connection connection = dataSource.getConnection();
+        String sql = "SELECT studentPhoneNumber FROM public.student WHERE studentPhoneNumber IS NOT NULL";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        ResultSet resultSet = statement.executeQuery();
 
-    private List<String> getStudentPhoneNumbers() {
-        List<String> numbers = new ArrayList<>();
-        try {
-            Connection connection = dataSource.getConnection();
-            String sql = "SELECT studentPhoneNumber FROM public.student WHERE studentPhoneNumber IS NOT NULL";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            ResultSet resultSet = statement.executeQuery();
-    
-            while (resultSet.next()) {
-                String phoneNumber = resultSet.getString("studentPhoneNumber");
-                if (phoneNumber != null && !phoneNumber.isEmpty()) {
-                    // Adjust the phone number format
-                    phoneNumber = formatPhoneNumber(phoneNumber);
-                    numbers.add(phoneNumber);
-                    System.out.println("Student phone number: " + phoneNumber);
-                }
+        while (resultSet.next()) {
+            String phoneNumber = resultSet.getString("studentPhoneNumber");
+            if (phoneNumber != null && !phoneNumber.isEmpty()) {
+                phoneNumber = formatPhoneNumber(phoneNumber);
+                numbers.add(phoneNumber);
+                System.out.println("Formatted student phone number: " + phoneNumber);
             }
-            connection.close();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-        return numbers;
+        connection.close();
+    } catch (Exception e) {
+        e.printStackTrace();
     }
-    
-    private String formatPhoneNumber(String phoneNumber) {
-        // Check if the phone number starts with "0" and replace it with "+60"
-        if (phoneNumber.startsWith("0")) {
-            return "+60" + phoneNumber.substring(1);
-        }
-        // If the phone number is already in the correct format, return it as is
-        return phoneNumber;
+    return numbers;
+}
+
+// Formats phone number for consistency
+private String formatPhoneNumber(String phoneNumber) {
+    // Convert "0" prefix to "+60" for Malaysian numbers
+    if (phoneNumber.startsWith("0")) {
+        return "+60" + phoneNumber.substring(1);
     }
+    return phoneNumber; // Returns as-is if format is correct
+}
 }
