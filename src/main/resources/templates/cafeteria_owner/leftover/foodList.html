@@ -248,7 +248,7 @@
                                         class="si si-layers"></i><span class="sidebar-mini-hide">LEFTOVER</span></a>
                                 <ul>
                                     <li><a th:href="@{/add_Leftover}">Add Leftover</a></li>
-                                    <li><a th:href="@{/update_Leftover}">Update Leftover</a></li>
+                                    <li><a th:href="@{/foodList}">List Leftover</a></li>
                                     <li>Delete Leftover</a></li>
                                 </ul>
                             </li>
@@ -396,15 +396,12 @@
                                     <td>
                                         <img th:src="${food.image_path}" alt="Food Image" style="width: 50px;">
                                     </td>
-                                    <td class="text-center">
-                                        <a type="button" class="btn btn-sm btn-primary"
-                                           th:href="@{/updateFood(foodid=${food.foodid})}" title="Update">
-                                            <i class="fa fa-pencil"></i>
+                                    <td>
+                                        <a href="" class="btn btn-sm btn-primary" title="Update">
+                                            <i class="fa fa-pencil"></i> Update
                                         </a>
-                                        <button type="button" class="btn btn-sm btn-danger"
-                                                th:data-foodid="${food.foodid}" onclick="setFoodIDToDelete(this)"
-                                                title="Delete">
-                                            <i class="fa fa-trash"></i>
+                                        <button class="btn btn-sm btn-danger" data-foodid="${food.foodid}" onclick="setFoodIDToDelete(this)" title="Delete">
+                                            <i class="fa fa-trash"></i> Delete
                                         </button>
                                     </td>
                                 </tr>
