@@ -73,7 +73,7 @@ public String updateLeftover(
 
         System.out.println("Leftover updated with image path: " + imagePath);
 
-        return "redirect:/dashboardCafe?success=true";
+        return "redirect:/foodList?success=true";
 
     } catch (Exception e) {
         e.printStackTrace();

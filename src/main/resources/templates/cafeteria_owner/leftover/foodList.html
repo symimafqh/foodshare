@@ -370,7 +370,8 @@
                     <div class="block-content">
                         <div class="row">
                             <div class="col-12 mb-30">
-                                <a type="button" class="btn btn-alt-primary min-width-125 float-right" th:href="@{/addFood}">
+                                <a type="button" class="btn btn-alt-primary min-width-125 float-right"
+                                    th:href="@{/addFood}">
                                     <i class="fa fa-plus mr-10"></i>Add Food
                                 </a>
                             </div>
@@ -387,7 +388,7 @@
                                     <th class="text-center" style="width: 11%;">Actions</th>
                                 </tr>
                             </thead>
-        
+
                             <tbody class="bg-white">
                                 <tr th:each="food, iterStat : ${foodList}">
                                     <td th:text="${iterStat.index + 1}"></td>
@@ -399,26 +400,105 @@
                                         <img th:src="${food.imagePath}" alt="Food Image" style="width: 50px;">
                                     </td>
                                     <td>
-                                        <a href="" class="btn btn-sm btn-primary" title="Update">
-                                            <i class="fa fa-pencil"></i> Update
+                                        <a href="@{/foodDetails(foodid=${food.foodid})}" class="btn btn-sm btn-primary" title="Update">
+                                            <i class="fa fa-pencil"></i>
                                         </a>
-                                        <button class="btn btn-sm btn-danger" data-foodid="${food.foodid}" onclick="setFoodIDToDelete(this)" title="Delete">
-                                            <i class="fa fa-trash"></i> Delete
+                                        <button class="btn btn-sm btn-danger" data-foodid="${food.foodid}"
+                                            onclick="setFoodIDToDelete(this)" title="Delete">
+                                            <i class="fa fa-trash"></i>
                                         </button>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
+                        <!-- START Modal Edit Food Details-->
+                        <!-- <div class="modal fade" id="view_food_details" tabindex="-1" role="dialog"
+                            aria-labelledby="modal-edit-food" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="block block-themed block-transparent mb-0">
+                                        <div class="block-header bg-primary-dark">
+                                            <h3 class="block-title">Edit Food Details</h3>
+                                            <div class="block-options">
+                                                <button type="button" class="btn-block-option" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <i class="si si-close"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="block-content">
+                                            <div id="food-details-form">
+                                                <form class="js-validation-bootstrap" action="@{/updateLeftover}" method="post"
+                                                    enctype="multipart/form-data">
+                                                    <input type="hidden" name="foodid" id="foodid"
+                                                        value="${food.foodid}"> <!-- Food ID for update -->
+
+                                                    <!-- <div class="form-group row">
+                                                        <label class="col-lg-3 col-form-label" for="foodname">Food
+                                                            Name<span class="text-danger">*</span></label>
+                                                        <div class="col-lg-9">
+                                                            <input type="text" class="form-control" id="foodname"
+                                                                name="foodname" value="${food.foodname}" required>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label class="col-lg-3 col-form-label" for="foodquantity">Food
+                                                            Quantity<span class="text-danger">*</span></label>
+                                                        <div class="col-lg-9">
+                                                            <input type="number" class="form-control" id="foodquantity"
+                                                                name="foodquantity" value="${food.foodquantity}"
+                                                                required>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label class="col-lg-3 col-form-label"
+                                                            for="fooddescription">Food Description<span
+                                                                class="text-danger">*</span></label>
+                                                        <div class="col-lg-9">
+                                                            <textarea class="form-control" id="fooddescription"
+                                                                name="fooddescription" rows="3"
+                                                                required>${food.fooddescription}</textarea>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label class="col-lg-3 col-form-label" for="image_path">Image
+                                                            Path</label>
+                                                        <div class="col-lg-9">
+                                                            <input type="text" class="form-control" id="image_path"
+                                                                name="image_path" value="${food.imagePath}">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-alt-secondary"
+                                                            data-dismiss="modal"><i
+                                                                class="si si-close mr-10"></i>Close</button>
+                                                        <button type="submit" class="btn btn-alt-info"><i
+                                                                class="fa fa-save mr-10"></i>Save Changes</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                        <!-- <--</div> -->
+                        <!-- END Modal Edit Food Details -->
+
                         <!-- Delete Confirmation Modal -->
                         <div class="modal fade" id="delete_food_account" tabindex="-1" role="dialog"
-                             aria-labelledby="modal-delete-food" aria-hidden="true">
+                            aria-labelledby="modal-delete-food" aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
                                     <div class="block block-themed block-transparent mb-0">
                                         <div class="block-header bg-primary-dark">
                                             <h3 class="block-title">Padam Makanan</h3>
                                             <div class="block-options">
-                                                <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                                                <button type="button" class="btn-block-option" data-dismiss="modal"
+                                                    aria-label="Close">
                                                     <i class="si si-close"></i>
                                                 </button>
                                             </div>
@@ -428,13 +508,16 @@
                                                 <input type="hidden" name="foodid" id="foodidToDelete">
                                                 <div class="form-group row">
                                                     <label class="col-lg-12 col-form-label" for="confirmDelete">
-                                                        <p>Maklumat ini akan <b>dipadam</b>.<br><br />Adakah anda pasti?</p>
+                                                        <p>Maklumat ini akan <b>dipadam</b>.<br><br />Adakah anda pasti?
+                                                        </p>
                                                     </label>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-alt-secondary" data-dismiss="modal"><i
-                                                        class="si si-close mr-10"></i>Tutup</button>
-                                                    <button type="submit" class="btn btn-alt-danger"><i class="fa fa-trash"></i> Padam</button>
+                                                    <button type="button" class="btn btn-alt-secondary"
+                                                        data-dismiss="modal"><i
+                                                            class="si si-close mr-10"></i>Tutup</button>
+                                                    <button type="submit" class="btn btn-alt-danger"><i
+                                                            class="fa fa-trash"></i> Padam</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -449,7 +532,7 @@
             <!-- END Page Content -->
         </main>
         <!-- END Main Container -->
-        
+
         <script>
             function setFoodIDToDelete(button) {
                 var foodID = button.getAttribute('data-foodid');
@@ -457,7 +540,7 @@
                 $('#delete_food_account').modal('show'); // Show the modal
             }
         </script>
-        
+
         <!-- Footer -->
         <footer id="page-footer">
             <div class="content py-20 font-size-sm clearfix">

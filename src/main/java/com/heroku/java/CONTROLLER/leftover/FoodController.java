@@ -64,7 +64,7 @@ public class FoodController {
                 food.setImagePath(resultSet.getString("image_path"));
                 
                 model.addAttribute("food", food); // Add food details to the model for editing
-                return "update_leftover"; // Return the update view
+                return "cafeteria_owner/leftover/update_leftover"; // Return the update view
             }
         } catch (Exception e) {
             e.printStackTrace();
