@@ -20,7 +20,7 @@ public class FoodController {
 
     @GetMapping("/foodlist")
     public String viewFoodDetails(
-            @RequestParam("foodid") String foodID,
+            @RequestParam("foodid") int foodID,
             RedirectAttributes redirectAttributes) {
 
         System.out.println("Received foodID: " + foodID);
@@ -28,11 +28,11 @@ public class FoodController {
         try (Connection connection = dataSource.getConnection()) {
             String sql = "SELECT * FROM public.leftover WHERE \"foodid\"=?"; // Update with your actual food table name
             final var statement = connection.prepareStatement(sql);
-            statement.setString(1, foodID);
+            statement.setInt(1, foodID);
             final var resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 LeftoverBean food = new LeftoverBean(); // Use your existing bean class
-                food.setFoodid(resultSet.getString("foodid"));
+                food.setFoodid(resultSet.getInt("foodid"));
                 food.setFoodname(resultSet.getString("foodname"));
                 food.setFoodquantity(resultSet.getInt("foodquantity"));
                 food.setFooddescription(resultSet.getString("fooddescription"));

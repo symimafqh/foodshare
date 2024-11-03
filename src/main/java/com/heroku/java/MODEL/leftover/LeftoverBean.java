@@ -26,7 +26,7 @@ public class LeftoverBean {
         return foodid;
     }
 
-    public void setFoodid(String foodid) {
+    public void setFoodid(int foodid) {
         this.foodid = foodid;
     }
 
