@@ -126,14 +126,14 @@ public class SideBarControllerCafe {
     }
 
     @GetMapping("/update_Leftover")
-    public String updateLeftover(@RequestParam("foodid") int id, Model model, HttpSession session) {
+    public String updateLeftover(@RequestParam("foodid") String id, Model model, HttpSession session) {
 
         String cafeNumber = (String) session.getAttribute("cafeNumber");
         try {
             Connection connection = dataSource.getConnection();
             String sql = "SELECT * FROM public.leftover WHERE \"foodid\"=?";
             final var statement = connection.prepareStatement(sql);
-            statement.setInt(1, id);
+            statement.setString(1, id);
             final var resultSet = statement.executeQuery();
             
             if (resultSet.next()) {
