@@ -540,6 +540,7 @@
         <script>
             function setFoodIDToDelete(button) {
                 var foodID = button.getAttribute('data-foodid');
+                console.log("Food ID to delete:", foodID); // Check the food ID
                 document.getElementById('foodidToDelete').value = foodID; // Set the food ID in the hidden input
                 $('#delete_food_account').modal('show'); // Show the modal
             }
