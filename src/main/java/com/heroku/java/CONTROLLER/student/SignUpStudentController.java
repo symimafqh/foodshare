@@ -36,7 +36,7 @@ public class SignUpStudentController {
         try (Connection connection = dataSource.getConnection()) {
             String checkSql = "SELECT COUNT(*) FROM public.student WHERE \"studentNumber\" = ?";
             try (PreparedStatement checkStatement = connection.prepareStatement(checkSql)) {
-                System.out.println("Student Number: " + s.getStudentNumber());
+                System.out.println("Student Number check existing: " + s.getStudentNumber());
 
                 checkStatement.setString(1, s.getStudentNumber());
                 try (ResultSet resultSet = checkStatement.executeQuery()) {

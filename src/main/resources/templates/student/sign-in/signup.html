@@ -33,65 +33,13 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,400i,600,700&display=swap">
   <link rel="stylesheet" id="css-main" th:href="@{stylesheets/assets/css/codebase.min.css}">
 
-  <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
-  <!-- <link rel="stylesheet" id="css-theme" th:th:href="../assets/css/themes/corporate.min.css"> -->
+
   <link rel="stylesheet" id="css-theme" th:href="@{stylesheets/assets/css/themes/flat.min.css}">
-  <!-- <link rel="stylesheet" id="css-theme" th:th:href="../assets/css/themes/earth.min.css"> 
-    <!-- <link rel="stylesheet" id="css-theme" th:th:href="../assets/css/themes/elegance.min.css">
-    <link rel="stylesheet" id="css-theme" th:th:href="../assets/css/themes/pulse.min.css"> -->
 
-  <!-- <link rel="stylesheet" id="css-theme" th:th:href="../assets/css/themes/elegance.min.css"> -->
-
-  <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
-  <!-- <link rel="stylesheet" id="css-theme" th:th:href="assets/css/themes/flat.min.css"> -->
-  <!-- END stylesheets -->
 </head>
 
 <body>
-  <!-- Page Container -->
-  <!--
-        Available classes for #page-container:
 
-    GENERIC
-
-        'enable-cookies'                            Remembers active color theme between pages (when set through color theme helper Template._uiHandleTheme())
-
-    SIDEBAR & SIDE OVERLAY
-
-        'sidebar-r'                                 Right Sidebar and left Side Overlay (default is left Sidebar and right Side Overlay)
-        'sidebar-mini'                              Mini hoverable Sidebar (screen width > 991px)
-        'sidebar-o'                                 Visible Sidebar by default (screen width > 991px)
-        'sidebar-o-xs'                              Visible Sidebar by default (screen width < 992px)
-        'sidebar-inverse'                           Dark themed sidebar
-
-        'side-overlay-hover'                        Hoverable Side Overlay (screen width > 991px)
-        'side-overlay-o'                            Visible Side Overlay by default
-
-        'enable-page-overlay'                       Enables a visible clickable Page Overlay (closes Side Overlay on click) when Side Overlay opens
-
-        'side-scroll'                               Enables custom scrolling on Sidebar and Side Overlay instead of native scrolling (screen width > 991px)
-
-    HEADER
-
-        ''                                          Static Header if no class is added
-        'page-header-fixed'                         Fixed Header
-
-    HEADER STYLE
-
-        ''                                          Classic Header style if no class is added
-        'page-header-modern'                        Modern Header style
-        'page-header-inverse'                       Dark themed Header (works only with classic Header style)
-        'page-header-glass'                         Light themed Header with transparency by default
-                                                    (absolute position, perfect for light images underneath - solid light background on scroll if the Header is also set as fixed)
-        'page-header-glass page-header-inverse'     Dark themed Header with transparency by default
-                                                    (absolute position, perfect for dark images underneath - solid dark background on scroll if the Header is also set as fixed)
-
-    MAIN CONTENT LAYOUT
-
-        ''                                          Full width Main Content if no class is added
-        'main-content-boxed'                        Full width Main Content with a specific maximum width (screen width > 1200px)
-        'main-content-narrow'                       Full width Main Content with a percentage width (screen width > 1200px)
-    -->
   <div id="page-container" class="main-content-boxed">
 
     <!-- Main Container -->
@@ -102,10 +50,10 @@
           <div class="hero-static col-md-6 col-xl-8 d-none d-md-flex align-items-md-end">
             <div class="p-30 invisible" data-toggle="appear">
               <p class="font-size-h3 font-w600 text-white mb-5">
-               
+
               </p>
               <p class="font-size-h5 text-white">
-                <i class="fa fa-angles-right"></i> 
+                <i class="fa fa-angles-right"></i>
               </p>
               <p class="font-italic text-white-op">
                 Copyright &copy; <span class="js-year-copy"></span>
@@ -134,10 +82,10 @@
               <div class="form-group">
                 <p class="text-muted">Before registering, please interact with our Telegram bot:</p>
                 <a href="https://t.me/foodshare_bot" class="btn btn-primary" target="_blank">
-                    Open FoodShare Bot
+                  Open FoodShare Bot
                 </a>
-            </div>
-            
+              </div>
+
               <form th:action="@{/signup}" modelAttribute="signup" th:object="(${signup})" enctype="multipart/form-data"
                 method="post">
                 <div class="form-group row">
@@ -159,7 +107,7 @@
                     </div>
                   </div>
                 </div>
-                
+
                 <div class="form-group row">
                   <div class="col-12">
                     <div class="form-material">
@@ -187,11 +135,12 @@
                 </div>
                 <div class="form-group">
                   <div class="custom-control custom-checkbox">
-                      <input type="checkbox" class="custom-control-input" id="interactedWithBot" required>
-                      <label class="custom-control-label" for="interactedWithBot">I have interacted with the <a href="https://t.me/foodshare_bot" target="_blank">FoodShare Bot</a></label>
+                    <input type="checkbox" class="custom-control-input" id="interactedWithBot" required>
+                    <label class="custom-control-label" for="interactedWithBot">I have interacted with the <a
+                        href="https://t.me/foodshare_bot" target="_blank">FoodShare Bot</a></label>
                   </div>
-              </div>
-              
+                </div>
+
                 <div class="form-group">
                   <span id="passwordError" style="color: red; display: none;">Password did not match!</span>
                   <button type="submit" class="btn btn-sm btn-hero btn-alt-success" id="submitBtn">
@@ -232,31 +181,31 @@
                       }
                   });
               </script> -->
-              <script>
-                document.getElementById('openBotBtn').addEventListener('click', function() {
+                <script>
+                  document.getElementById('openBotBtn').addEventListener('click', function () {
                     // Replace with your actual webhook URL
                     fetch('/webhook', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ /* Add any necessary data if needed */ })
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json'
+                      },
+                      body: JSON.stringify({ /* Add necessary data if needed */ })
                     })
-                    .then(response => {
+                      .then(response => {
                         if (response.ok) {
-                            // Open the Telegram bot in a new tab
-                            window.open('https://t.me/foodshare_bot', '_blank');
+                          // Open the Telegram bot in a new tab after successfully capturing the session ID
+                          window.open('https://t.me/foodshare_bot', '_blank');
                         } else {
-                            alert('Failed to capture chat ID. Please try again.');
+                          alert('Failed to capture chat ID. Please try again.');
                         }
-                    })
-                    .catch(error => {
+                      })
+                      .catch(error => {
                         console.error('Error:', error);
-                    });
-                });
-            </script>
-            
-              
+                      });
+                  });
+                </script>
+
+
               </form>
               <!-- END Sign Up Form -->
             </div>
@@ -269,72 +218,9 @@
   </div>
   <!-- END Page Container -->
 
-  <!-- Terms Modal -->
-  <div class="modal fade" id="modal-terms" tabindex="-1" role="dialog" aria-labelledby="modal-terms" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-slidedown" role="document">
-      <div class="modal-content">
-        <div class="block block-themed block-transparent mb-0">
-          <div class="block-header bg-primary-dark">
-            <h3 class="block-title">Terms &amp; Conditions</h3>
-            <div class="block-options">
-              <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
-                <i class="si si-close"></i>
-              </button>
-            </div>
-          </div>
-          <div class="block-content">
-            <p>Potenti elit lectus augue eget iaculis vitae etiam, ullamcorper etiam bibendum ad feugiat magna accumsan
-              dolor, nibh molestie cras hac ac ad massa, fusce ante convallis ante urna molestie vulputate bibendum
-              tempus ante justo arcu erat accumsan adipiscing risus, libero condimentum venenatis sit nisl nisi
-              ultricies sed, fames aliquet consectetur consequat nostra molestie neque nullam scelerisque neque commodo
-              turpis quisque etiam egestas vulputate massa, curabitur tellus massa venenatis congue dolor enim integer
-              luctus, nisi suscipit gravida fames quis vulputate nisi viverra luctus id leo dictum lorem, inceptos nibh
-              orci.</p>
-            <p>Potenti elit lectus augue eget iaculis vitae etiam, ullamcorper etiam bibendum ad feugiat magna accumsan
-              dolor, nibh molestie cras hac ac ad massa, fusce ante convallis ante urna molestie vulputate bibendum
-              tempus ante justo arcu erat accumsan adipiscing risus, libero condimentum venenatis sit nisl nisi
-              ultricies sed, fames aliquet consectetur consequat nostra molestie neque nullam scelerisque neque commodo
-              turpis quisque etiam egestas vulputate massa, curabitur tellus massa venenatis congue dolor enim integer
-              luctus, nisi suscipit gravida fames quis vulputate nisi viverra luctus id leo dictum lorem, inceptos nibh
-              orci.</p>
-            <p>Potenti elit lectus augue eget iaculis vitae etiam, ullamcorper etiam bibendum ad feugiat magna accumsan
-              dolor, nibh molestie cras hac ac ad massa, fusce ante convallis ante urna molestie vulputate bibendum
-              tempus ante justo arcu erat accumsan adipiscing risus, libero condimentum venenatis sit nisl nisi
-              ultricies sed, fames aliquet consectetur consequat nostra molestie neque nullam scelerisque neque commodo
-              turpis quisque etiam egestas vulputate massa, curabitur tellus massa venenatis congue dolor enim integer
-              luctus, nisi suscipit gravida fames quis vulputate nisi viverra luctus id leo dictum lorem, inceptos nibh
-              orci.</p>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-alt-success" data-dismiss="modal">
-            <i class="fa fa-check"></i> Perfect
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- END Terms Modal -->
 
 
-  <!--
-        Codebase JS Core
 
-        Vital libraries and plugins used in all pages. You can choose to not include this file if you would like
-        to handle those dependencies through webpack. Please check out assets/_js/main/bootstrap.js for more info.
-
-        If you like, you could also include them separately directly from the assets/js/core folder in the following
-        order. That can come in handy if you would like to include a few of them (eg jQuery) from a CDN.
-
-        assets/js/core/jquery.min.js
-        assets/js/core/bootstrap.bundle.min.js
-        assets/js/core/simplebar.min.js
-        assets/js/core/jquery-scrollLock.min.js
-        assets/js/core/jquery.appear.min.js
-        assets/js/core/jquery.countTo.min.js
-        assets/js/core/js.cookie.min.js
-    -->
   <script th:src="@{stylesheets/assets/js/codebase.core.min.js}"></script>
 
   <!--
