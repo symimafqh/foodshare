@@ -1,5 +1,11 @@
+*.md
+*.log
+.git
+.gitignore
+.editorconfig
 node_modules/
-.git/
-tests/
-docs/
+build/
 tmp/
+.idea/
+.vscode/
+.DS_Store
