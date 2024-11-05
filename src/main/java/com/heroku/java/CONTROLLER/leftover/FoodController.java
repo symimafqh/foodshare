@@ -10,6 +10,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.heroku.java.MODEL.leftover.LeftoverBean;
 
+import jakarta.servlet.http.HttpSession;
+
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -49,11 +51,14 @@ public class FoodController {
     }
 
     @GetMapping("/foodDetails")
-    public String viewFoodDetails(@RequestParam("foodid") int foodID, Model model) {
+    public String viewFoodDetails(@RequestParam("foodid") int foodID, Model model, HttpSession session) {
+        String cafeNumber = (String) session.getAttribute("cafeNumber");
+        
         try (Connection connection = dataSource.getConnection()) {
-            String sql = "SELECT * FROM public.leftover WHERE foodid=?"; // Correct SQL query
+            String sql = "SELECT * FROM public.leftover WHERE foodid = ? AND cafeNumber = ?"; // Correct SQL query
             final var statement = connection.prepareStatement(sql);
-            statement.setInt(1, foodID); // Set the foodID parameter
+            statement.setInt(1, foodID);
+            statement.setString(1, cafeNumber); // Set the foodID parameter
             final var resultSet = statement.executeQuery();
 
             // Check if a food item was found
