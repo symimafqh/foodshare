@@ -82,6 +82,10 @@ public class FoodController {
             String sql = "DELETE FROM public.leftover WHERE foodid=?";
             final var statement = connection.prepareStatement(sql);
             statement.setInt(1, foodID);
+    
+            // Log SQL execution for debugging
+            System.out.println("Executing query: " + sql + " with foodid: " + foodID);
+    
             statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -89,5 +93,6 @@ public class FoodController {
         }
         return "redirect:/foodList"; // Redirect back to food list
     }
+    
 
 }
