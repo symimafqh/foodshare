@@ -16,33 +16,33 @@ public class TelegramWebhookController {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    @PostMapping("/webhook")
-    public String handleTelegramUpdates(@RequestBody String payload) {
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode rootNode = objectMapper.readTree(payload);
-            JsonNode messageNode = rootNode.path("message");
+   @PostMapping("/webhook")
+public String handleTelegramUpdates(@RequestBody String payload) {
+    try {
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode rootNode = objectMapper.readTree(payload);
+        JsonNode messageNode = rootNode.path("message");
 
-            if (!messageNode.isMissingNode()) {
-                JsonNode chatNode = messageNode.path("chat");
-                String chatId = chatNode.path("id").asText(); // Extract chat ID
-                String username = chatNode.path("username").asText(); // Extract username
+        if (!messageNode.isMissingNode()) {
+            JsonNode chatNode = messageNode.path("chat");
+            String chatId = chatNode.path("id").asText();
+            String username = chatNode.path("username").asText();
 
-                // Store the chat ID and username in the database
-                storeChatIdInDatabase(chatId, username);
-
-                return "Chat ID saved successfully!";
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Error processing the update.";
+            // Store the chat ID in the telegram_users table
+            storeChatIdInDatabase(chatId, username);
+            return "Chat ID saved successfully!";
         }
-
-        return "No message found in the update.";
+    } catch (Exception e) {
+        e.printStackTrace();
+        return "Error processing the update.";
     }
 
-    private void storeChatIdInDatabase(String chatId, String username) {
-        String sql = "INSERT INTO public.student (telegramChatId, username) VALUES (?, ?) ON CONFLICT (telegramChatId) DO NOTHING";
-        jdbcTemplate.update(sql, chatId, username);
-    }
+    return "No message found in the update.";
+}
+
+private void storeChatIdInDatabase(String chatId, String username) {
+    String sql = "INSERT INTO public.telegram_users (telegramChatId, username) VALUES (?, ?) ON CONFLICT (telegramChatId) DO NOTHING";
+    jdbcTemplate.update(sql, chatId, username);
+}
+
 }
