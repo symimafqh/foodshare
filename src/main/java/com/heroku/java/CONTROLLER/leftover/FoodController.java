@@ -40,7 +40,7 @@ public class FoodController {
 
         try (Connection connection = dataSource.getConnection()) {
             // Prepare the SQL statement to fetch food items for the specific cafe
-            String sql = "SELECT * FROM public.leftover WHERE cafeNumber = ?";
+            String sql = "SELECT * FROM public.leftover WHERE leftover.cafeNumber = ?";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setString(1, cafeNumber); // Set the cafeNumber parameter
 
