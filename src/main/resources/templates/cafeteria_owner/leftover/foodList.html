@@ -418,7 +418,6 @@
                         </table>
 
                         <form th:action="@{/deleteFood}" method="post" id="deleteFoodForm" style="display:none;">
-                            <input type="hidden" name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                             <input type="hidden" name="foodid" id="foodIDInput">
                         </form>
                     </div>
