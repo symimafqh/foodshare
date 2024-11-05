@@ -63,7 +63,7 @@ public class SignUpStudentController {
                 statement.setString(2, name); // studentName
                 statement.setString(3, email); // studentEmail
                 statement.setString(4, password); // studentPassword
-                statement.setString(4, phone); // studentPhone
+                statement.setString(5, phone); // studentPhone
 
                 statement.executeUpdate();
 
