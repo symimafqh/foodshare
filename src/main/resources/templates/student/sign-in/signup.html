@@ -221,7 +221,7 @@
                     }
                   }
                 </script>
-                <script>
+                <!-- <script>
                   const form = document.querySelector('form'); // Assuming this is your form element
                   const checkbox = document.getElementById('interactedWithBot');
               
@@ -231,7 +231,31 @@
                           event.preventDefault(); // Prevent form submission
                       }
                   });
-              </script>
+              </script> -->
+              <script>
+                document.getElementById('openBotBtn').addEventListener('click', function() {
+                    // Replace with your actual webhook URL
+                    fetch('/webhook', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ /* Add any necessary data if needed */ })
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            // Open the Telegram bot in a new tab
+                            window.open('https://t.me/foodshare_bot', '_blank');
+                        } else {
+                            alert('Failed to capture chat ID. Please try again.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+                });
+            </script>
+            
               
               </form>
               <!-- END Sign Up Form -->

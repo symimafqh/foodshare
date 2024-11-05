@@ -6,6 +6,8 @@ public class StudentBean {
 	private String studentEmail;
     private String studentPassword;
     private String studentPhone;
+    private String telegramChatId;
+    private String username;
 
     public StudentBean(){
     	
@@ -80,5 +82,34 @@ public class StudentBean {
         this.studentPassword = studentPassword;
     }
 
+
+
+    /**
+     * @return String return the telegramChatId
+     */
+    public String getTelegramChatId() {
+        return telegramChatId;
+    }
+
+    /**
+     * @param telegramChatId the telegramChatId to set
+     */
+    public void setTelegramChatId(String telegramChatId) {
+        this.telegramChatId = telegramChatId;
+    }
+
+    /**
+     * @return String return the username
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * @param username the username to set
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
 }
