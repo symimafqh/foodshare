@@ -46,7 +46,7 @@ public class SignUpStudentController {
                     }
                 }
             }
-            String sql = "INSERT INTO public.student(\"studentNumber\", \"studentName\", \"studentEmail\", \"studentPassword\",\"studentPhoneNumber\" ) VALUES(?,?,?,?)";
+            String sql = "INSERT INTO public.student(\"studentNumber\", \"studentName\", \"studentEmail\", \"studentPassword\",\"studentphonenumber\" ) VALUES(?,?,?,?)";
             try (final var statement = connection.prepareStatement(sql)) {
                 ;
 
