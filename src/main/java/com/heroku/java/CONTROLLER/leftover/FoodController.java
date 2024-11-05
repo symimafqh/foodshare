@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpSession;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -27,38 +28,52 @@ public class FoodController {
 
     // Method to list all food items
     @GetMapping("/foodList")
-    public String listFoodItems(Model model) {
+    public String listFoodItems(Model model, HttpSession session) {
+        // Retrieve the cafeNumber from the session
+        String cafeNumber = (String) session.getAttribute("cafeNumber");
         List<LeftoverBean> foodList = new ArrayList<>();
+
+        // Check if cafeNumber is null or empty
+        if (cafeNumber == null || cafeNumber.isEmpty()) {
+            return "redirect:/error"; // Redirect if no cafeNumber is available
+        }
+
         try (Connection connection = dataSource.getConnection()) {
-            String sql = "SELECT * FROM public.leftover"; // Ensure this matches your DB
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
-            while (resultSet.next()) {
-                LeftoverBean food = new LeftoverBean();
-                food.setFoodid(resultSet.getInt("foodid"));
-                food.setFoodname(resultSet.getString("foodname"));
-                food.setFoodquantity(resultSet.getInt("foodquantity"));
-                food.setFooddescription(resultSet.getString("fooddescription"));
-                food.setImagePath(resultSet.getString("image_path"));
-                foodList.add(food);
+            // Prepare the SQL statement to fetch food items for the specific cafe
+            String sql = "SELECT * FROM public.leftover WHERE cafeNumber = ?";
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setString(1, cafeNumber); // Set the cafeNumber parameter
+
+                ResultSet resultSet = statement.executeQuery(); // Execute the query
+                while (resultSet.next()) {
+                    // Create a new LeftoverBean and populate it with data from the result set
+                    LeftoverBean food = new LeftoverBean();
+                    food.setFoodid(resultSet.getInt("foodid"));
+                    food.setFoodname(resultSet.getString("foodname"));
+                    food.setFoodquantity(resultSet.getInt("foodquantity"));
+                    food.setFooddescription(resultSet.getString("fooddescription"));
+                    food.setImagePath(resultSet.getString("image_path"));
+                    foodList.add(food); // Add the food item to the list
+                }
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            return "redirect:/error"; // Handle errors gracefully
+            e.printStackTrace(); // Log the exception for debugging
+            return "redirect:/error"; // Redirect in case of an error
         }
-        model.addAttribute("foodList", foodList); // Add the food list to the model
+
+        // Add the food list to the model for rendering in the view
+        model.addAttribute("foodList", foodList);
         return "cafeteria_owner/leftover/foodList"; // Return the view name
     }
 
     @GetMapping("/foodDetails")
     public String viewFoodDetails(@RequestParam("foodid") int foodID, Model model, HttpSession session) {
-        String cafeNumber = (String) session.getAttribute("cafeNumber");
-        
+
         try (Connection connection = dataSource.getConnection()) {
-            String sql = "SELECT * FROM public.leftover WHERE foodid = ? AND cafeNumber = ?"; // Correct SQL query
+            String sql = "SELECT * FROM public.leftover WHERE foodid = ?"; // Correct SQL query
             final var statement = connection.prepareStatement(sql);
             statement.setInt(1, foodID);
-            statement.setString(1, cafeNumber); // Set the foodID parameter
+            // Set the foodID parameter
             final var resultSet = statement.executeQuery();
 
             // Check if a food item was found
@@ -87,10 +102,10 @@ public class FoodController {
             String sql = "DELETE FROM public.leftover WHERE foodid=?";
             final var statement = connection.prepareStatement(sql);
             statement.setInt(1, foodID);
-    
+
             // Log SQL execution for debugging
             System.out.println("Executing query: " + sql + " with foodid: " + foodID);
-    
+
             statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -98,6 +113,5 @@ public class FoodController {
         }
         return "redirect:/foodList"; // Redirect back to food list
     }
-    
 
 }
