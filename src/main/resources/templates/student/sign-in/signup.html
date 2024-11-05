@@ -131,6 +131,13 @@
               <!-- Sign Up Form -->
               <!-- jQuery Validation functionality is initialized with .js-validation-signup class in js/pages/op_auth_signup.min.js which was auto compiled from _js/pages/op_auth_signup.js -->
               <!-- For more examples you can check out https://github.com/jzaefferer/jquery-validation -->
+              <div class="form-group">
+                <p class="text-muted">Before registering, please interact with our Telegram bot:</p>
+                <a href="https://t.me/foodshare_bot" class="btn btn-primary" target="_blank">
+                    Open FoodShare Bot
+                </a>
+            </div>
+            
               <form th:action="@{/signup}" modelAttribute="signup" th:object="(${signup})" enctype="multipart/form-data"
                 method="post">
                 <div class="form-group row">
@@ -179,6 +186,13 @@
                   </div>
                 </div>
                 <div class="form-group">
+                  <div class="custom-control custom-checkbox">
+                      <input type="checkbox" class="custom-control-input" id="interactedWithBot" required>
+                      <label class="custom-control-label" for="interactedWithBot">I have interacted with the <a href="https://t.me/foodshare_bot" target="_blank">FoodShare Bot</a></label>
+                  </div>
+              </div>
+              
+                <div class="form-group">
                   <span id="passwordError" style="color: red; display: none;">Password did not match!</span>
                   <button type="submit" class="btn btn-sm btn-hero btn-alt-success" id="submitBtn">
                     <i class="si si-login mr-10"></i> Register Account
@@ -207,6 +221,18 @@
                     }
                   }
                 </script>
+                <script>
+                  const form = document.querySelector('form'); // Assuming this is your form element
+                  const checkbox = document.getElementById('interactedWithBot');
+              
+                  form.addEventListener('submit', function(event) {
+                      if (!checkbox.checked) {
+                          alert('You must interact with the FoodShare Bot before registering!');
+                          event.preventDefault(); // Prevent form submission
+                      }
+                  });
+              </script>
+              
               </form>
               <!-- END Sign Up Form -->
             </div>
