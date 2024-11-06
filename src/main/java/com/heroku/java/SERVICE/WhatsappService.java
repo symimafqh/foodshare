@@ -75,4 +75,9 @@ public class WhatsappService {
             // Handle exceptions here
         }
     }
+
+    public String sendMessage(String chatId, String messageBody) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'sendMessage'");
+    }
 }
