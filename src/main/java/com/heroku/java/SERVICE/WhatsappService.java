@@ -52,7 +52,7 @@ public class WhatsappService {
         this.restTemplate = new RestTemplate();
     }
 
-    public void sendMessage(String message) {
+    public String sendMessage(String message, String messageBody) {
         String url = "https://whatsapp.kwlabs.xyz/api/sendText"; // Replace with actual URL
 
         // Prepare the authorization header (replace YOUR_ACCESS_TOKEN with your actual token)
@@ -79,10 +79,8 @@ public class WhatsappService {
             e.printStackTrace();
             // Handle exceptions here
         }
+                return messageBody;
     }
 
-    public String sendMessage(String chatId, String messageBody) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'sendMessage'");
-    }
+   
 }
