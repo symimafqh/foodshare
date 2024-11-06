@@ -40,37 +40,36 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import jakarta.websocket.server.ServerEndpoint;
-
-
 @Service
 public class WhatsappService {
 
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
+    private final String apiUrl = "https://whatsapp.kwlabs.xyz/api/sendText";
+    
 
     public WhatsappService() {
         this.restTemplate = new RestTemplate();
     }
 
-    public String sendMessage(String message, String messageBody) {
-        String failed = "tak send pun";
-        String url = "https://whatsapp.kwlabs.xyz/api/sendText"; // Replace with actual URL
-
-        // Prepare the authorization header (replace YOUR_ACCESS_TOKEN with your actual token)
+    public String sendMessage(String chatId, String message) {
+        // Prepare headers
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "Bearer " + System.getenv("WHATSAPP_API_KEY")); // or use the actual token
+        headers.set("X-Api-Key", System.getenv("WHATSAPP_API_KEY")); // Use your API key here
+        headers.set("Accept", "application/json");
+        headers.set("Content-Type", "application/json");
+        String failed = "tak send";
 
-        // Prepare the payload for the request (if necessary)
-        String payload = "{\"message\": \"" + message + "\"}"; // Example payload, adapt as necessary
+        // Prepare payload
+        String payload = String.format("{\"chatId\": \"%s@c.us\", \"text\": \"%s\", \"session\": \"default\"}", chatId, message);
 
-        // Wrap the payload and headers into an HttpEntity
+        // Wrap headers and payload in HttpEntity
         HttpEntity<String> entity = new HttpEntity<>(payload, headers);
 
         try {
-            // Send POST request with headers and payload
-            ResponseEntity<String> response = restTemplate.postForEntity(url, entity, String.class);
+            // Send POST request
+            ResponseEntity<String> response = restTemplate.postForEntity(apiUrl, entity, String.class);
 
-            // Handle the response (optional)
+            // Handle the response
             if (response.getStatusCode().is2xxSuccessful()) {
                 System.out.println("Message sent successfully!");
             } else {
@@ -82,6 +81,4 @@ public class WhatsappService {
         }
                 return failed;
     }
-
-   
 }
