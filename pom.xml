@@ -59,7 +59,11 @@
                 <artifactId>selenium-chrome-driver</artifactId>
                 <version>4.0.0</version> <!-- Check for the latest version -->
             </dependency>
-        
+            <dependency>
+                <groupId>org.json</groupId>
+                <artifactId>json</artifactId>
+                <version>20210307</version>
+            </dependency>
     </dependencies>
 
     <build>

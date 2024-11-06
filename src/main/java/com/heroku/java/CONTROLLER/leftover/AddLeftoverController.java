@@ -91,6 +91,11 @@ import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -98,7 +103,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.heroku.java.MODEL.leftover.LeftoverBean;
+import com.heroku.java.SERVICE.WhatsappService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -116,125 +123,125 @@ import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
 
-@Controller
-public class AddLeftoverController {
+// @Controller
+// public class AddLeftoverController {
 
-    private final DataSource dataSource;
+//     private final DataSource dataSource;
 
-    @Autowired
-    public AddLeftoverController(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
+//     @Autowired
+//     public AddLeftoverController(DataSource dataSource) {
+//         this.dataSource = dataSource;
+//     }
 
-    @PostMapping("/addLeftover")
-    public String addLeftover(
-            @ModelAttribute("addLeftover") LeftoverBean leftover,
-            @RequestParam("image") MultipartFile imageFile,
-            HttpSession session, Model model) {
+//     @PostMapping("/addLeftover")
+//     public String addLeftover(
+//             @ModelAttribute("addLeftover") LeftoverBean leftover,
+//             @RequestParam("image") MultipartFile imageFile,
+//             HttpSession session, Model model) {
 
-        System.out.println("Received POST request for adding leftover.");
+//         System.out.println("Received POST request for adding leftover.");
 
-        String imagePath = "";
-        try {
-            // Check if the image is provided and save it to the filesystem
-            if (!imageFile.isEmpty()) {
-                String fileName = System.currentTimeMillis() + "_" + imageFile.getOriginalFilename();
-                Path uploadPath = Paths.get("src/main/resources/public/stylesheets/assets/leftover", fileName);
+//         String imagePath = "";
+//         try {
+//             // Check if the image is provided and save it to the filesystem
+//             if (!imageFile.isEmpty()) {
+//                 String fileName = System.currentTimeMillis() + "_" + imageFile.getOriginalFilename();
+//                 Path uploadPath = Paths.get("src/main/resources/public/stylesheets/assets/leftover", fileName);
 
-                // Ensure the directory exists
-                Files.createDirectories(uploadPath.getParent());
-                Files.write(uploadPath, imageFile.getBytes());
+//                 // Ensure the directory exists
+//                 Files.createDirectories(uploadPath.getParent());
+//                 Files.write(uploadPath, imageFile.getBytes());
 
-                // Set the imagePath as a relative path for database storage
-                imagePath = "/stylesheets/assets/leftover/" + fileName;
-                leftover.setImagePath(imagePath); // Update LeftoverBean with the image path
-            }
+//                 // Set the imagePath as a relative path for database storage
+//                 imagePath = "/stylesheets/assets/leftover/" + fileName;
+//                 leftover.setImagePath(imagePath); // Update LeftoverBean with the image path
+//             }
 
-            // Step 1: Add leftover to the database
-            Connection connection = dataSource.getConnection();
-            String sql = "INSERT INTO public.leftover (\"foodname\", \"foodquantity\", \"fooddescription\", \"image_path\", \"cafeNumber\") VALUES (?, ?, ?, ?, ?)";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, leftover.getFoodname());
-            statement.setInt(2, leftover.getFoodquantity());
-            statement.setString(3, leftover.getFooddescription());
-            statement.setString(4, leftover.getImagePath());
-            String cafeNumber = (String) session.getAttribute("cafeNumber");
-            statement.setString(5, cafeNumber);
-            statement.executeUpdate();
-            connection.close();
+//             // Step 1: Add leftover to the database
+//             Connection connection = dataSource.getConnection();
+//             String sql = "INSERT INTO public.leftover (\"foodname\", \"foodquantity\", \"fooddescription\", \"image_path\", \"cafeNumber\") VALUES (?, ?, ?, ?, ?)";
+//             PreparedStatement statement = connection.prepareStatement(sql);
+//             statement.setString(1, leftover.getFoodname());
+//             statement.setInt(2, leftover.getFoodquantity());
+//             statement.setString(3, leftover.getFooddescription());
+//             statement.setString(4, leftover.getImagePath());
+//             String cafeNumber = (String) session.getAttribute("cafeNumber");
+//             statement.setString(5, cafeNumber);
+//             statement.executeUpdate();
+//             connection.close();
 
-            System.out.println("Leftover added with image path: " + imagePath);
+//             System.out.println("Leftover added with image path: " + imagePath);
 
-            // Step 2: Send WhatsApp notifications to students
-            notifyStudents(leftover);
+//             // Step 2: Send WhatsApp notifications to students
+//             notifyStudents(leftover);
 
-            return "redirect:/dashboardCafe?success=true";
+//             return "redirect:/dashboardCafe?success=true";
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "redirect:/addLeftover?error=true";
-        }
-    }
-    private void notifyStudents(LeftoverBean leftover) {
-        // Getting credentials from environment variables securely
-        String ACCOUNT_SID = System.getenv("TWILIO_ACCOUNT_SID");
-        String AUTH_TOKEN = System.getenv("TWILIO_AUTH_TOKEN");
-        String FROM_WHATSAPP_NUMBER = System.getenv("TWILIO_WHATSAPP_NUMBER");
+//         } catch (Exception e) {
+//             e.printStackTrace();
+//             return "redirect:/addLeftover?error=true";
+//         }
+//     }
+//     private void notifyStudents(LeftoverBean leftover) {
+//         // Getting credentials from environment variables securely
+//         String ACCOUNT_SID = System.getenv("TWILIO_ACCOUNT_SID");
+//         String AUTH_TOKEN = System.getenv("TWILIO_AUTH_TOKEN");
+//         String FROM_WHATSAPP_NUMBER = System.getenv("TWILIO_WHATSAPP_NUMBER");
     
-        // Initialize Twilio SDK
-        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+//         // Initialize Twilio SDK
+//         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
     
-        // Step 1: Get list of student phone numbers
-        List<String> studentNumbers = getStudentPhoneNumbers();
+//         // Step 1: Get list of student phone numbers
+//         List<String> studentNumbers = getStudentPhoneNumbers();
     
-        // Step 2: Create the message to be sent
-        String messageBody = "New leftover food available!\n" +
-                "Food Name: " + leftover.getFoodname() + "\n" +
-                "Quantity: " + leftover.getFoodquantity() + "\n" +
-                "Description: " + leftover.getFooddescription() + "\n" +
-                "Hurry up and reserve it before it's gone!";
+//         // Step 2: Create the message to be sent
+//         String messageBody = "New leftover food available!\n" +
+//                 "Food Name: " + leftover.getFoodname() + "\n" +
+//                 "Quantity: " + leftover.getFoodquantity() + "\n" +
+//                 "Description: " + leftover.getFooddescription() + "\n" +
+//                 "Hurry up and reserve it before it's gone!";
     
-        // Step 3: Send the message to each student
-        for (String studentNumber : studentNumbers) {
-            try {
-                Message message = Message.creator(
-                        new PhoneNumber("whatsapp:" + studentNumber),  // Ensure the 'To' number is formatted for WhatsApp
-                        new PhoneNumber(FROM_WHATSAPP_NUMBER),         // The 'From' number also should be in WhatsApp format
-                        messageBody
-                ).create();
-                System.out.println("Message sent to: " + studentNumber);
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println("Failed to send message to: " + studentNumber);
-            }
-        }
-    }
+//         // Step 3: Send the message to each student
+//         for (String studentNumber : studentNumbers) {
+//             try {
+//                 Message message = Message.creator(
+//                         new PhoneNumber("whatsapp:" + studentNumber),  // Ensure the 'To' number is formatted for WhatsApp
+//                         new PhoneNumber(FROM_WHATSAPP_NUMBER),         // The 'From' number also should be in WhatsApp format
+//                         messageBody
+//                 ).create();
+//                 System.out.println("Message sent to: " + studentNumber);
+//             } catch (Exception e) {
+//                 e.printStackTrace();
+//                 System.out.println("Failed to send message to: " + studentNumber);
+//             }
+//         }
+//     }
     
 
-    private List<String> getStudentPhoneNumbers() {
-        List<String> numbers = new ArrayList<>();
-        try {
-            // Query the student database to get all student phone numbers
-            Connection connection = dataSource.getConnection();
-            String sql = "SELECT studentPhoneNumber FROM public.student WHERE studentPhoneNumber IS NOT NULL";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            ResultSet resultSet = statement.executeQuery();
+//     private List<String> getStudentPhoneNumbers() {
+//         List<String> numbers = new ArrayList<>();
+//         try {
+//             // Query the student database to get all student phone numbers
+//             Connection connection = dataSource.getConnection();
+//             String sql = "SELECT studentPhoneNumber FROM public.student WHERE studentPhoneNumber IS NOT NULL";
+//             PreparedStatement statement = connection.prepareStatement(sql);
+//             ResultSet resultSet = statement.executeQuery();
             
 
-            while (resultSet.next()) {
-                String phoneNumber = resultSet.getString("studentPhoneNumber");
-                if (phoneNumber != null && !phoneNumber.isEmpty()) {
-                    numbers.add(phoneNumber);
-                    System.out.println(phoneNumber);
-                }
-            }
-            connection.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return numbers;
-    }
-}
+//             while (resultSet.next()) {
+//                 String phoneNumber = resultSet.getString("studentPhoneNumber");
+//                 if (phoneNumber != null && !phoneNumber.isEmpty()) {
+//                     numbers.add(phoneNumber);
+//                     System.out.println(phoneNumber);
+//                 }
+//             }
+//             connection.close();
+//         } catch (Exception e) {
+//             e.printStackTrace();
+//         }
+//         return numbers;
+//     }
+// }
 // package com.heroku.java.CONTROLLER.leftover;
 
 // import org.springframework.beans.factory.annotation.Autowired;
@@ -377,3 +384,220 @@ public class AddLeftoverController {
 //         return numbers;
 //     }
 // }
+//---------------------------------------------telegram---------------------------
+// import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.jdbc.core.JdbcTemplate;
+// import org.springframework.jdbc.core.PreparedStatementSetter;
+// import org.springframework.stereotype.Controller;
+// import org.springframework.ui.Model;
+// import org.springframework.web.bind.annotation.PostMapping;
+// import org.springframework.web.bind.annotation.ModelAttribute;
+// import org.springframework.web.bind.annotation.RequestMapping;
+// import org.springframework.web.bind.annotation.RequestParam;
+// import org.springframework.web.bind.annotation.SessionAttributes;
+// import org.springframework.web.client.RestTemplate;
+
+// import javax.servlet.http.HttpSession;
+// import java.util.List;
+// import java.util.Map;
+
+// @Controller
+// @SessionAttributes("cafeNumber") // Ensure cafeNumber is stored in the session
+// public class AddLeftoverController {
+
+//     @Autowired
+//     private JdbcTemplate jdbcTemplate;
+
+//     private static final String TELEGRAM_BOT_TOKEN = "YOUR_BOT_TOKEN"; // Replace with your Telegram bot token
+
+//     @PostMapping("/addLeftover")
+//     public String addLeftover(@ModelAttribute("addLeftover") LeftoverBean leftover, HttpSession session, Model model) {
+//         String cafeNumber = (String) session.getAttribute("cafeNumber"); // Get cafeNumber from session
+//         if (cafeNumber == null) {
+//             return "redirect:/login"; // Redirect if cafeNumber is not available in the session
+//         }
+
+//         // Add leftover to the database
+//         String sql = "INSERT INTO public.leftover (\"foodname\", \"foodquantity\", \"fooddescription\", \"image_path\", \"cafeNumber\") VALUES (?, ?, ?, ?, ?)";
+//         try {
+//             jdbcTemplate.update(sql, leftover.getFoodname(), leftover.getFoodquantity(), leftover.getFooddescription(),
+//                                 leftover.getImagePath(), cafeNumber);
+//             System.out.println("Leftover added to the database.");
+
+//             // Notify students via Telegram
+//             notifyStudents(leftover);
+
+//             return "redirect:/dashboardCafe?success=true";
+
+//         } catch (Exception e) {
+//             e.printStackTrace();
+//             return "redirect:/addLeftover?error=true";
+//         }
+//     }
+
+//     // Send notifications to all students
+//     private void notifyStudents(LeftoverBean leftover) {
+//         List<String> studentChatIds = getStudentChatIds();
+
+//         // Construct the message body
+//         String messageBody = "New leftover food available!\n" +
+//                              "Food Name: " + leftover.getFoodname() + "\n" +
+//                              "Quantity: " + leftover.getFoodquantity() + "\n" +
+//                              "Description: " + leftover.getFooddescription() + "\n" +
+//                              "Hurry up and reserve it before it's gone!";
+
+//         // Loop through each student chat ID and send a message
+//         for (String chatId : studentChatIds) {
+//             try {
+//                 System.out.println("Attempting to send Telegram message to: " + chatId);
+//                 sendTelegramMessage(chatId, messageBody);
+//             } catch (Exception e) {
+//                 System.err.println("Failed to send Telegram message to: " + chatId);
+//                 e.printStackTrace();
+//             }
+//         }
+//     }
+
+//     // Send a message to a specific Telegram chat ID
+//     private void sendTelegramMessage(String chatId, String message) throws Exception {
+//         String url = "https://api.telegram.org/bot" + TELEGRAM_BOT_TOKEN + "/sendMessage";
+
+//         // Prepare the payload to send as JSON
+//         Map<String, Object> payload = Map.of(
+//             "chat_id", chatId,
+//             "text", message
+//         );
+
+//         // Convert the payload to JSON using ObjectMapper
+//         ObjectMapper objectMapper = new ObjectMapper();
+//         String jsonPayload = objectMapper.writeValueAsString(payload);
+
+//         // Send the message using RestTemplate
+//         RestTemplate restTemplate = new RestTemplate();
+//         HttpHeaders headers = new HttpHeaders();
+//         headers.setContentType(MediaType.APPLICATION_JSON);
+
+//         HttpEntity<String> entity = new HttpEntity<>(jsonPayload, headers);
+//         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
+
+//         System.out.println("Telegram message sent: " + response.getBody());
+//     }
+
+//     // Fetch student chat IDs from the database
+//     private List<String> getStudentChatIds() {
+//         String sql = "SELECT telegramChatId FROM public.student WHERE telegramChatId IS NOT NULL";
+//         return jdbcTemplate.queryForList(sql, String.class);
+//     }
+// }
+//---------------------------------------------whatsapp
+@Controller
+public class AddLeftoverController {
+
+    private final DataSource dataSource;
+    private final WhatsappService whatsAppService; // Import your WhatsApp service
+
+    @Autowired
+    public AddLeftoverController(DataSource dataSource, WhatsappService whatsAppService) {
+        this.dataSource = dataSource;
+        this.whatsAppService = whatsAppService; // Inject WhatsApp service
+    }
+
+    @PostMapping("/addLeftover")
+    public String addLeftover(
+            @ModelAttribute("addLeftover") LeftoverBean leftover,
+            @RequestParam("image") MultipartFile imageFile,
+            HttpSession session, Model model) {
+
+        System.out.println("Received POST request for adding leftover.");
+
+        String imagePath = "";
+        try {
+            // Save the image if provided
+            if (!imageFile.isEmpty()) {
+                String fileName = System.currentTimeMillis() + "_" + imageFile.getOriginalFilename();
+                Path uploadPath = Paths.get("src/main/resources/public/stylesheets/assets/leftover", fileName);
+
+                // Ensure the directory exists
+                Files.createDirectories(uploadPath.getParent());
+                Files.write(uploadPath, imageFile.getBytes());
+
+                // Set the imagePath for database storage
+                imagePath = "/stylesheets/assets/leftover/" + fileName;
+                leftover.setImagePath(imagePath); // Update LeftoverBean with the image path
+            }
+
+            // Step 1: Add leftover to the database
+            try (Connection connection = dataSource.getConnection()) { // Use try-with-resources
+                String sql = "INSERT INTO public.leftover (\"foodname\", \"foodquantity\", \"fooddescription\", \"image_path\", \"cafeNumber\") VALUES (?, ?, ?, ?, ?)";
+                try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                    statement.setString(1, leftover.getFoodname());
+                    statement.setInt(2, leftover.getFoodquantity());
+                    statement.setString(3, leftover.getFooddescription());
+                    statement.setString(4, leftover.getImagePath());
+                    String cafeNumber = (String) session.getAttribute("cafeNumber");
+                    statement.setString(5, cafeNumber);
+                    statement.executeUpdate();
+                }
+            }
+
+            System.out.println("Leftover added with image path: " + imagePath);
+
+            // Step 2: Notify students using WhatsApp API
+            notifyStudents(leftover);
+
+            return "redirect:/dashboardCafe?success=true";
+
+        } catch (Exception e) {
+            e.printStackTrace(); // Consider logging this
+            return "redirect:/addLeftover?error=true";
+        }
+    }
+
+    private void notifyStudents(LeftoverBean leftover) {
+        // Step 1: Get list of student phone numbers
+        List<String> studentNumbers = getStudentPhoneNumbers();
+
+        // Step 2: Create the message to be sent
+        String messageBody = "New leftover food available!\n" +
+                "Food Name: " + leftover.getFoodname() + "\n" +
+                "Quantity: " + leftover.getFoodquantity() + "\n" +
+                "Description: " + leftover.getFooddescription() + "\n" +
+                "Hurry up and reserve it before it's gone!";
+
+        // Step 3: Send the message to each student
+        for (String studentNumber : studentNumbers) {
+            try {
+                // Assuming you have a WhatsAppService that handles sending messages
+                String chatId = studentNumber + "@c.us"; // Construct the chat ID
+                String response = whatsAppService.sendMessage(chatId, messageBody);
+                System.out.println("Message sent to: " + studentNumber);
+                System.out.println("WhatsApp Response: " + response);
+            } catch (Exception e) {
+                e.printStackTrace(); // Log the error
+                System.out.println("Failed to send message to: " + studentNumber);
+            }
+        }
+    }
+
+    private List<String> getStudentPhoneNumbers() {
+        List<String> numbers = new ArrayList<>();
+        try (Connection connection = dataSource.getConnection()) { // Use try-with-resources
+            String sql = "SELECT studentPhoneNumber FROM public.student WHERE studentPhoneNumber IS NOT NULL";
+            try (PreparedStatement statement = connection.prepareStatement(sql);
+                 ResultSet resultSet = statement.executeQuery()) {
+
+                while (resultSet.next()) {
+                    String phoneNumber = resultSet.getString("studentPhoneNumber");
+                    if (phoneNumber != null && !phoneNumber.isEmpty()) {
+                        numbers.add(phoneNumber);
+                        System.out.println(phoneNumber);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Log the error
+        }
+        return numbers;
+    }
+}
+
