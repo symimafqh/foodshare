@@ -53,6 +53,7 @@ public class WhatsappService {
     }
 
     public String sendMessage(String message, String messageBody) {
+        String failed = "tak send pun";
         String url = "https://whatsapp.kwlabs.xyz/api/sendText"; // Replace with actual URL
 
         // Prepare the authorization header (replace YOUR_ACCESS_TOKEN with your actual token)
@@ -79,7 +80,7 @@ public class WhatsappService {
             e.printStackTrace();
             // Handle exceptions here
         }
-                return messageBody;
+                return failed;
     }
 
    
