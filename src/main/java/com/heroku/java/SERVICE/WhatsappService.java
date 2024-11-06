@@ -34,6 +34,8 @@ package com.heroku.java.SERVICE;
 //         return response.getBody();
 //     }
 // }
+package com.heroku.java.SERVICE;
+
 import org.json.JSONObject;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -46,6 +48,7 @@ public class WhatsappService {
 
     private final RestTemplate restTemplate;
     private final String apiUrl = "https://whatsapp.kwlabs.xyz/api/sendText";
+    private final String sessionStartUrl = "https://whatsapp.kwlabs.xyz/api/sessions/default/start";
 
     public WhatsappService() {
         this.restTemplate = new RestTemplate();
@@ -54,13 +57,18 @@ public class WhatsappService {
     public String sendMessage(String chatId, String text) {
         String failedResponse = "Failed to send message";
 
+        // Start the session if it is not active
+        if (!startSessionIfNeeded()) {
+            return "Failed to start session";
+        }
+
         // Prepare headers
         HttpHeaders headers = new HttpHeaders();
-        headers.set("X-Api-Key", System.getenv("WHATSAPP_API_KEY")); // Ensure this environment variable is set in Heroku
+        headers.set("X-Api-Key", System.getenv("WHATSAPP_API_KEY"));
         headers.set("Accept", "application/json");
         headers.set("Content-Type", "application/json");
 
-        // Prepare the JSON payload using JSONObject to handle escaping
+        // Prepare the JSON payload
         JSONObject payload = new JSONObject();
         payload.put("chatId", chatId + "@c.us");
         payload.put("reply_to", JSONObject.NULL);
@@ -85,6 +93,30 @@ public class WhatsappService {
         } catch (Exception e) {
             e.printStackTrace();
             return failedResponse;
+        }
+    }
+
+    private boolean startSessionIfNeeded() {
+        try {
+            // Prepare headers
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("X-Api-Key", System.getenv("WHATSAPP_API_KEY"));
+            headers.set("Accept", "application/json");
+
+            // Start the session with a POST request
+            ResponseEntity<String> response = restTemplate.postForEntity(sessionStartUrl, new HttpEntity<>(headers), String.class);
+
+            // Check if the session was started successfully
+            if (response.getStatusCode().is2xxSuccessful()) {
+                System.out.println("Session 'default' started successfully!");
+                return true;
+            } else {
+                System.err.println("Failed to start session: " + response.getStatusCode());
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
     }
 }
