@@ -34,7 +34,6 @@ package com.heroku.java.SERVICE;
 //         return response.getBody();
 //     }
 // }
-package com.heroku.java.SERVICE;
 
 import org.json.JSONObject;
 import org.springframework.http.HttpEntity;
