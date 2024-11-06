@@ -37,8 +37,13 @@ package com.heroku.java.SERVICE;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import jakarta.websocket.server.ServerEndpoint;
+
+
+@Service
 public class WhatsappService {
 
     private RestTemplate restTemplate;
