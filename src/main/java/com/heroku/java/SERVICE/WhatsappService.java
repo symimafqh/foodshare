@@ -38,6 +38,7 @@ package com.heroku.java.SERVICE;
 import org.json.JSONObject;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -57,7 +58,7 @@ public class WhatsappService {
         String failedResponse = "Failed to send message";
 
         // Start the session if it is not active
-        if (!startSessionIfNeeded()) {
+        if (!startSession()) {
             return "Failed to start session";
         }
 
@@ -95,27 +96,29 @@ public class WhatsappService {
         }
     }
 
-    private boolean startSessionIfNeeded() {
-        try {
-            // Prepare headers
-            HttpHeaders headers = new HttpHeaders();
-            headers.set("X-Api-Key", System.getenv("WHATSAPP_API_KEY"));
-            headers.set("Accept", "application/json");
+   // Method to start the session
+private boolean startSession() {
+    HttpHeaders headers = new HttpHeaders();
+    headers.set("X-Api-Key", System.getenv("WHATSAPP_API_KEY"));
+    headers.set("Accept", "application/json");
 
-            // Start the session with a POST request
-            ResponseEntity<String> response = restTemplate.postForEntity(sessionStartUrl, new HttpEntity<>(headers), String.class);
+    // Explicitly set an empty body
+    HttpEntity<String> entity = new HttpEntity<>(null, headers);
 
-            // Check if the session was started successfully
-            if (response.getStatusCode().is2xxSuccessful()) {
-                System.out.println("Session 'default' started successfully!");
-                return true;
-            } else {
-                System.err.println("Failed to start session: " + response.getStatusCode());
-                return false;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+    try {
+        ResponseEntity<String> response = restTemplate.exchange(sessionStartUrl, HttpMethod.POST, entity, String.class);
+
+        if (response.getStatusCode().is2xxSuccessful()) {
+            System.out.println("Session started successfully!");
+            return true;
+        } else {
+            System.err.println("Failed to start session: " + response.getStatusCode());
             return false;
         }
+    } catch (Exception e) {
+        e.printStackTrace();
+        return false;
     }
+}
+
 }
