@@ -65,10 +65,10 @@ public class WhatsappService {
         this.objectMapper = new ObjectMapper();
     }
 
-    @Async
-    public String sendMessageAsync(String chatId, String text) {
-        return sendMessage(chatId, text);
-    }
+    // @Async
+    // public void sendMessageAsync(String chatId, String text) {
+    //     sendMessage(chatId, text); // Call your existing sendMessage method
+    // }
 
     public String sendMessage(String chatId, String text) {
         String failedResponse = "Failed to send message";
