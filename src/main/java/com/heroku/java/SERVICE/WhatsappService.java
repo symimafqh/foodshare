@@ -183,11 +183,11 @@ private boolean retrieveQrCode() {
         if (response.getStatusCode().is2xxSuccessful()) {
             byte[] qrCodeImage = response.getBody();
 
-            // Save QR code to the system's temporary directory
+            // Save QR code to a temporary directory
             Path path = Paths.get(System.getProperty("java.io.tmpdir"), "qr_code.png");
             Files.write(path, qrCodeImage);
 
-            System.out.println("QR code saved to: " + path.toAbsolutePath() + ". Please scan it with WhatsApp.");
+            System.out.println("QR code saved to temporary file: " + path.toAbsolutePath() + ". Please scan it with WhatsApp.");
 
             return true;
         } else {
@@ -200,6 +200,7 @@ private boolean retrieveQrCode() {
         return false;
     }
 }
+
 
 
 
