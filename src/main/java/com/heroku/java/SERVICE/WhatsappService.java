@@ -35,7 +35,7 @@ package com.heroku.java.SERVICE;
 //     }
 // }
 
-import org.json.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -43,82 +43,129 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
 public class WhatsappService {
 
     private final RestTemplate restTemplate;
+    private final ObjectMapper objectMapper;
     private final String apiUrl = "https://whatsapp.kwlabs.xyz/api/sendText";
-    private final String sessionStartUrl = "https://whatsapp.kwlabs.xyz/api/sessions/default/start";
+    private final String sessionApiUrl = "https://whatsapp.kwlabs.xyz/api/sessions";
+    private final String sessionId = "default"; // Define the session ID as 'default' or another ID if required
+    private final String apiKey = System.getenv("WHATSAPP_API_KEY");
 
     public WhatsappService() {
         this.restTemplate = new RestTemplate();
+        this.objectMapper = new ObjectMapper();
     }
 
     public String sendMessage(String chatId, String text) {
         String failedResponse = "Failed to send message";
 
-        // Start the session if it is not active
+        // Ensure session is created and started
+        if (!isSessionAvailable() && !createSession()) {
+            return "Failed to create session";
+        }
+        
         if (!startSession()) {
             return "Failed to start session";
         }
 
         // Prepare headers
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("X-Api-Key", System.getenv("WHATSAPP_API_KEY"));
-        headers.set("Accept", "application/json");
-        headers.set("Content-Type", "application/json");
+        HttpHeaders headers = createHeaders();
 
-        // Prepare the JSON payload
-        JSONObject payload = new JSONObject();
+        // Prepare JSON payload
+        Map<String, Object> payload = new HashMap<>();
         payload.put("chatId", chatId + "@c.us");
-        payload.put("reply_to", JSONObject.NULL);
+        payload.put("reply_to", null);
         payload.put("text", text);
-        payload.put("session", "default");
-
-        // Wrap headers and payload in HttpEntity
-        HttpEntity<String> entity = new HttpEntity<>(payload.toString(), headers);
+        payload.put("session", sessionId);
 
         try {
-            // Send POST request with headers and payload
+            // Convert payload to JSON and wrap in HttpEntity
+            String payloadJson = objectMapper.writeValueAsString(payload);
+            HttpEntity<String> entity = new HttpEntity<>(payloadJson, headers);
+
+            // Send POST request
             ResponseEntity<String> response = restTemplate.postForEntity(apiUrl, entity, String.class);
 
-            // Check the response status
             if (response.getStatusCode().is2xxSuccessful()) {
                 System.out.println("Message sent successfully!");
-                return response.getBody(); // Return the response from the API
+                return response.getBody();
             } else {
                 System.err.println("Failed to send message: " + response.getStatusCode());
                 return failedResponse;
             }
         } catch (Exception e) {
+            System.err.println("Exception while sending message: " + e.getMessage());
             e.printStackTrace();
             return failedResponse;
         }
     }
 
-   // Method to start the session
-private boolean startSession() {
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("X-Api-Key", System.getenv("WHATSAPP_API_KEY"));
-    headers.set("Accept", "application/json");
+    private boolean isSessionAvailable() {
+        HttpHeaders headers = createHeaders();
+        HttpEntity<String> entity = new HttpEntity<>(null, headers);
 
-    // Explicitly set an empty body
-    HttpEntity<String> entity = new HttpEntity<>(null, headers);
-
-    try {
-        ResponseEntity<String> response = restTemplate.exchange(sessionStartUrl, HttpMethod.POST, entity, String.class);
-
-        if (response.getStatusCode().is2xxSuccessful()) {
-            System.out.println("Session started successfully!");
-            return true;
-        } else {
-            System.err.println("Failed to start session: " + response.getStatusCode());
+        try {
+            ResponseEntity<String> response = restTemplate.exchange(sessionApiUrl, HttpMethod.GET, entity, String.class);
+            return response.getStatusCode().is2xxSuccessful();
+        } catch (Exception e) {
+            System.err.println("Failed to check session availability: " + e.getMessage());
             return false;
         }
-    } catch (Exception e) {
-        e.printStackTrace();
-        return false;
     }
-}
 
+    private boolean createSession() {
+        HttpHeaders headers = createHeaders();
+        Map<String, String> sessionData = new HashMap<>();
+        sessionData.put("session", sessionId); // Provide any additional session data if necessary
+
+        try {
+            HttpEntity<Map<String, String>> entity = new HttpEntity<>(sessionData, headers);
+            ResponseEntity<String> response = restTemplate.postForEntity(sessionApiUrl, entity, String.class);
+
+            if (response.getStatusCode().is2xxSuccessful()) {
+                System.out.println("Session created successfully!");
+                return true;
+            } else {
+                System.err.println("Failed to create session: " + response.getStatusCode());
+                return false;
+            }
+        } catch (Exception e) {
+            System.err.println("Exception while creating session: " + e.getMessage());
+            return false;
+        }
+    }
+
+    private boolean startSession() {
+        HttpHeaders headers = createHeaders();
+        HttpEntity<String> entity = new HttpEntity<>(null, headers);
+        String startSessionUrl = sessionApiUrl + "/" + sessionId + "/start";
+
+        try {
+            ResponseEntity<String> response = restTemplate.exchange(startSessionUrl, HttpMethod.POST, entity, String.class);
+
+            if (response.getStatusCode().is2xxSuccessful()) {
+                System.out.println("Session started successfully!");
+                return true;
+            } else {
+                System.err.println("Failed to start session: " + response.getStatusCode());
+                return false;
+            }
+        } catch (Exception e) {
+            System.err.println("Exception while starting session: " + e.getMessage());
+            return false;
+        }
+    }
+
+    private HttpHeaders createHeaders() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("X-Api-Key", apiKey);
+        headers.set("Accept", "application/json");
+        headers.set("Content-Type", "application/json");
+        return headers;
+    }
 }
