@@ -569,7 +569,7 @@ public class AddLeftoverController {
             try {
                 // Assuming you have a WhatsAppService that handles sending messages
                 String chatId = studentNumber + "@c.us"; // Construct the chat ID
-                String response = whatsAppService.sendMessage(chatId, messageBody);
+                String response = whatsAppService.sendMessageAsync(chatId, messageBody);
                 System.out.println("Message try to sent to: " + studentNumber);
                 System.out.println("WhatsApp Response: " + response);
             } catch (Exception e) {
