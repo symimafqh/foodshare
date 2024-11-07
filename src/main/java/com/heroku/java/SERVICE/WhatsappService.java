@@ -43,6 +43,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -140,26 +143,66 @@ public class WhatsappService {
         }
     }
 
-    private boolean startSession() {
-        HttpHeaders headers = createHeaders();
-        HttpEntity<String> entity = new HttpEntity<>(null, headers);
-        String startSessionUrl = sessionApiUrl + "/" + sessionId + "/start";
+   private boolean startSession() {
+    HttpHeaders headers = createHeaders();
+    HttpEntity<String> entity = new HttpEntity<>(null, headers);
+    String startSessionUrl = sessionApiUrl + "/" + sessionId + "/start";
 
-        try {
-            ResponseEntity<String> response = restTemplate.exchange(startSessionUrl, HttpMethod.POST, entity, String.class);
+    try {
+        // Attempt to start the session
+        ResponseEntity<String> response = restTemplate.exchange(startSessionUrl, HttpMethod.POST, entity, String.class);
 
-            if (response.getStatusCode().is2xxSuccessful()) {
-                System.out.println("Session started successfully!");
-                return true;
-            } else {
-                System.err.println("Failed to start session: " + response.getStatusCode());
-                return false;
+        // Check if the session started successfully
+        if (response.getStatusCode().is2xxSuccessful()) {
+            System.out.println("Session started successfully!");
+            return true;
+        } else {
+            System.err.println("Failed to start session: " + response.getStatusCode());
+            // Check if the session requires a QR code scan
+            if (response.getStatusCodeValue() == 422) {
+                System.out.println("Session is in SCAN_QR_CODE status, retrieving QR code...");
+                return retrieveQrCode();
             }
-        } catch (Exception e) {
-            System.err.println("Exception while starting session: " + e.getMessage());
             return false;
         }
+    } catch (Exception e) {
+        System.err.println("Exception while starting session: " + e.getMessage());
+        return false;
     }
+}
+
+// Method to retrieve and display the QR code for authentication
+private boolean retrieveQrCode() {
+    String qrCodeUrl = sessionApiUrl + "/" + sessionId + "/auth/qr?format=image";
+    HttpHeaders headers = createHeaders();
+    HttpEntity<String> entity = new HttpEntity<>(null, headers);
+
+    try {
+        ResponseEntity<byte[]> response = restTemplate.exchange(qrCodeUrl, HttpMethod.GET, entity, byte[].class);
+
+        if (response.getStatusCode().is2xxSuccessful()) {
+            byte[] qrCodeImage = response.getBody();
+
+            // Save QR code to 'static' directory
+            Path path = Paths.get("src/main/resources/static/qr_code.png");
+            Files.createDirectories(path.getParent());
+            Files.write(path, qrCodeImage);
+            System.out.println("QR code saved to qr_code.png. Please scan it with WhatsApp.");
+
+            return true;
+        } else {
+            System.err.println("Failed to retrieve QR code: " + response.getStatusCode());
+            return false;
+        }
+    } catch (Exception e) {
+        System.err.println("Exception while retrieving QR code: " + e.getMessage());
+        e.printStackTrace();
+        return false;
+    }
+}
+
+
+
 
     private HttpHeaders createHeaders() {
         HttpHeaders headers = new HttpHeaders();
