@@ -81,7 +81,7 @@ public class RequestController {
         return "cafeteria_owner/leftover/request_leftover"; // Return the view name
     }
 
-    @PostMapping("request_leftover")
+    @PostMapping("/request_leftover")
     public String requestLeftover(Model model, HttpSession session, LeftoverBean leftover, @RequestParam("foodid") int foodId) {
         String studentNumber = (String) session.getAttribute("studentNumber");
         String status = "Pending";
