@@ -81,7 +81,7 @@ public class RequestController {
     }
 
     @PostMapping("request_leftover")
-    public String requestLeftover(Model model, HttpSession session, LeftoverBean leftover) {
+    public String requestLeftover(Model model, HttpSession session, LeftoverBean leftover, @RequestParam("foodId") int foodId) {
         String studentNumber = (String) session.getAttribute("studentNumber");
         String status = "Pending";
     
@@ -100,7 +100,7 @@ public class RequestController {
     
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setString(1, studentNumber); // Use studentNumber from session
-                statement.setInt(2, leftover.getFoodid());
+                statement.setInt(2,foodId );
                 statement.setString(3, leftover.getCafeNumber());
                 statement.setString(4, status);
                 statement.executeUpdate();
@@ -124,7 +124,7 @@ public class RequestController {
         }
     }
     
-    private void updateFoodQuantity(Connection connection, int foodId) {
+    private void updateFoodQuantity(Connection connection, @RequestParam("foodId") int foodId) {
         String updateSql = "UPDATE public.leftover SET \"foodquantity\" = \"foodquantity\" - 1 WHERE foodid = ?";
     
         try (PreparedStatement statement = connection.prepareStatement(updateSql)) {
