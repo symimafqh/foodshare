@@ -125,7 +125,7 @@ public class RequestController {
     }
     
     private void updateFoodQuantity(Connection connection, int foodId) {
-        String updateSql = "UPDATE public.leftover SET foodquantity = foodquantity - 1 WHERE foodid = ?";
+        String updateSql = "UPDATE public.leftover SET \"foodquantity\" = \"foodquantity\" - 1 WHERE foodid = ?";
     
         try (PreparedStatement statement = connection.prepareStatement(updateSql)) {
             statement.setInt(1, foodId); // Set the foodId for which we want to update the quantity
@@ -140,7 +140,7 @@ public class RequestController {
         StudentBean student = null;
 
         try (Connection connection = dataSource.getConnection()) {
-            String sql = "SELECT studentName, studentEmail FROM public.student WHERE studentNumber = ?";
+            String sql = "SELECT \"studentName\", \"studentEmail\" FROM public.student WHERE \"studentNumber\" = ?";
 
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setString(1, studentNumber); // Set the studentNumber from session
