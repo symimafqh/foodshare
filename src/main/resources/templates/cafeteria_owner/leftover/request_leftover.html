@@ -333,9 +333,13 @@
                                         <img th:src="${food.imagePath}" alt="Food Image" style="width: 50px;">
                                     </td>
                                     <td>
+                                        <img th:src="${food.cafeNumber}" alt="Food Image" style="width: 50px;">
+                                    </td>
+                                
+                                    <td>
                                         <a th:href="#" class="btn btn-sm btn-primary" title="Request"
                                             data-toggle="modal" data-target="#foodDetailModal"
-                                            th:data-foodname="${food.foodname}" th:data-imagepath="${food.imagePath}"
+                                            th:data-foodname="${food.foodid}" th:data-foodname="${food.foodname}" th:data-imagepath="${food.imagePath}"
                                             th:data-description="${food.fooddescription}"
                                             th:data-quantity="${food.foodquantity}" onclick="showFoodDetails(this)">
                                             <i class="fa-external-link"></i>
@@ -404,7 +408,7 @@
         <footer id="page-footer">
             <div class="content py-20 font-size-sm clearfix">
                 <div class="float-right">
-                    Dibangunkan <i class="fa fa-heart text-pulse"></i> oleh <a class="font-w600"
+                    Build <i class="fa fa-heart text-pulse"></i> by <a class="font-w600"
                         href="https://1.envato.market/ydb" target="_blank">Syamimi Afiqah</a>
                 </div>
                 <div class="float-left">

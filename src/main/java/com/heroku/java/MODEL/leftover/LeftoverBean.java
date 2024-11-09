@@ -6,19 +6,21 @@ public class LeftoverBean {
     private String foodname;           // Name of the leftover food item
     private int foodquantity;          // Quantity of the leftover food item
     private String fooddescription;    // Description of the food item
-    private String imagePath;          // Path to the image on the server or URL if stored externally
+    private String imagePath;   
+    private String cafeNumber;       // Path to the image on the server or URL if stored externally
 
     // Default constructor
     public LeftoverBean() {
     }
 
     // Parameterized constructor
-    public LeftoverBean(int foodid, String foodname, int foodquantity, String fooddescription, String imagePath) {
+    public LeftoverBean(int foodid, String foodname, int foodquantity, String fooddescription, String imagePath, String cafeNumber) {
         this.foodid = foodid;
         this.foodname = foodname;
         this.foodquantity = foodquantity;
         this.fooddescription = fooddescription;
         this.imagePath = imagePath;
+        this.cafeNumber = cafeNumber;
     }
 
     // Getters and Setters
@@ -62,6 +64,14 @@ public class LeftoverBean {
         this.imagePath = imagePath;
     }
 
+
+    public String getCafeNumber() {
+        return cafeNumber;
+    }
+
+    public void setCafeNumber(String cafeNumber) {
+        this.cafeNumber = cafeNumber;
+    }
     // Optional: toString method for debugging
     @Override
     public String toString() {
