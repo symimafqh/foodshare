@@ -114,6 +114,7 @@ public class RequestController {
     
             // Step 4: Notify cafe using WhatsApp API
             notifyCafe(leftover, session);
+            
     
             return "redirect:/dashboardCafe?success=true";
         } catch (SQLException e) {
