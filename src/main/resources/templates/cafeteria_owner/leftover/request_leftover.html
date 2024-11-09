@@ -337,7 +337,7 @@
                                         <a class="btn btn-sm btn-primary" title="Request" data-toggle="modal"
                                             data-target="#foodDetailModal" th:data-foodid="${food.foodid}"
                                             th:data-foodname="${food.foodname}" th:data-quantity="${food.foodquantity}"
-                                            th:data-description="${food.fooddescription}"
+                                            th:data-description="${food.fooddescription}" th:text="${food.foodid}"
                                             onclick="showFoodDetails(this)">
                                             <i class="fa-external-link"></i>
                                         </a>
@@ -409,7 +409,7 @@
 
                 // Set the foodId value in the hidden input
                 if (foodId && foodId !== "") {
-                    document.getElementById('foodid').value = foodId;  // Ensure the hidden input is set correctly
+                    document.getElementById('foodid').int = foodId;  // Ensure the hidden input is set correctly
                 } else {
                     alert("Food ID is missing.");
                     return;
