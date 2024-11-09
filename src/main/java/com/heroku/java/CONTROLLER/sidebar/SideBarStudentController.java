@@ -45,7 +45,7 @@ public class SideBarStudentController {
             if (resultSet.next()) {
                 String studentName = resultSet.getString("studentName");
                 String studentEmail = resultSet.getString("studentEmail");
-                String studentPhone = resultSet.getString("studentPhone");
+                String studentPhone = resultSet.getString("studentphonenumber");
                 String studentPassword = resultSet.getString("studentPassword");
 
                 StudentBean s = new StudentBean();
