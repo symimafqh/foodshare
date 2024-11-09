@@ -46,6 +46,7 @@ public class RequestController {
     public String listFoodItems(Model model, HttpSession session) {
         // Retrieve the cafeNumber from the session
         String studentNumber = (String) session.getAttribute("studentNumber");
+        
         List<LeftoverBean> foodList = new ArrayList<>();
 
         // Check if cafeNumber is null or empty
@@ -81,10 +82,11 @@ public class RequestController {
     }
 
     @PostMapping("request_leftover")
-    public String requestLeftover(Model model, HttpSession session, LeftoverBean leftover, @RequestParam("foodId") int foodId) {
+    public String requestLeftover(Model model, HttpSession session, LeftoverBean leftover, @RequestParam("foodid") int foodId) {
         String studentNumber = (String) session.getAttribute("studentNumber");
         String status = "Pending";
-    
+        System.out.print("ni food id untuk insert" + foodId);
+
         // Step 1: Fetch student details using the studentNumber
         StudentBean student = getStudentDetails(studentNumber);
     
@@ -124,7 +126,7 @@ public class RequestController {
         }
     }
     
-    private void updateFoodQuantity(Connection connection, @RequestParam("foodId") int foodId) {
+    private void updateFoodQuantity(Connection connection, @RequestParam("foodid") int foodId) {
         String updateSql = "UPDATE public.leftover SET \"foodquantity\" = \"foodquantity\" - 1 WHERE foodid = ?";
     
         try (PreparedStatement statement = connection.prepareStatement(updateSql)) {
