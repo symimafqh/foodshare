@@ -381,7 +381,7 @@
                     <div class="modal-body">
                         <form action="#" th:action="@{/request_leftover}" method="post" id="requestForm">
                             <!-- Hidden field for food ID -->
-                            <input type="hidden" id="foodId" name="foodId">
+                            <input type="hidden" id="foodid" name="foodid">
 
                             <h5 id="modalFoodName"></h5>
                             <img id="modalFoodImage" src="" alt="Food Image" style="width: 100%; height: auto;">
@@ -422,7 +422,7 @@
                 document.getElementById('modalFoodQuantity').innerText = quantity;
 
                 // Set the hidden foodId in the form
-                document.getElementById('foodId').value = foodId;
+                document.getElementById('food.foodid').value = foodId;
             }
         </script>
 
