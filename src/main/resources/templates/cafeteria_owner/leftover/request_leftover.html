@@ -378,7 +378,7 @@
                     <div class="modal-body">
                         <form th:action="@{/request_leftover}" method="post" id="requestForm">
                             <!-- Hidden field for food ID -->
-                            <input type="hidden" name="foodid" value="${food.foodid}" />
+                            <input type="text" name="foodid" value="${food.foodid}" />
                             <!-- This is important: ensure the 'name' attribute is set -->
 
                             <h5 id="modalFoodName"></h5>
