@@ -317,7 +317,7 @@
                                     <th>Food Name</th>
                                     <th>Food Quantity</th>
                                     <th>Food Description</th>
-                                    <th>Image</th>
+                                    <!-- <th>Image</th> -->
                                     <th class="text-center" style="width: 11%;">Actions</th>
                                 </tr>
                             </thead>
@@ -325,20 +325,20 @@
                             <tbody class="bg-white">
                                 <tr th:each="food, iterStat : ${foodList}">
                                     <td th:text="${iterStat.index + 1}"></td>
-                                    <td th:text="${food.foodid}"></td>
+                                    <td th:number="${food.foodid}"></td>
                                     <td th:text="${food.foodname}"></td>
                                     <td th:text="${food.foodquantity}"></td>
                                     <td th:text="${food.fooddescription}"></td>
-                                    <td>
+                                    <!-- <td>
                                         <img th:src="${food.imagePath}" alt="Food Image" style="width: 50px;">
-                                    </td>
+                                    </td> -->
 
                                     <td>
                                         <a class="btn btn-sm btn-primary" title="Request" data-toggle="modal"
                                             data-target="#foodDetailModal" th:data-foodid="${food.foodid}"
                                             th:data-foodname="${food.foodname}" th:data-quantity="${food.foodquantity}"
                                             th:data-description="${food.fooddescription}"
-                                            th:data-imagepath="${food.imagePath}" onclick="showFoodDetails(this)">
+                                            onclick="showFoodDetails(this)">
                                             <i class="fa-external-link"></i>
                                         </a>
                                     </td>
@@ -408,13 +408,13 @@
             function showFoodDetails(button) {
                 var foodId = button.getAttribute('data-foodid');
                 var foodName = button.getAttribute('data-foodname');
-                var imagePath = button.getAttribute('data-imagepath');
+                // var imagePath = button.getAttribute('data-imagepath');
                 var description = button.getAttribute('data-description');
                 var quantity = button.getAttribute('data-quantity');
 
                 // Set values in the modal
                 document.getElementById('modalFoodName').innerText = foodName;
-                document.getElementById('modalFoodImage').src = imagePath;
+                // document.getElementById('modalFoodImage').src = imagePath;
                 document.getElementById('modalFoodDescription').innerText = description;
                 document.getElementById('modalFoodQuantity').innerText = quantity;
 
