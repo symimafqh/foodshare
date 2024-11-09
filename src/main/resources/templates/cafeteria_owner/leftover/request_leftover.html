@@ -332,16 +332,14 @@
                                     <td>
                                         <img th:src="${food.imagePath}" alt="Food Image" style="width: 50px;">
                                     </td>
-                                
+
                                     <td>
                                         <a th:href="#" class="btn btn-sm btn-primary" title="Request"
                                             data-toggle="modal" data-target="#foodDetailModal"
-                                            th:data-foodid="${food.foodid}" 
-                                            th:data-foodname="${food.foodname}" 
+                                            th:data-foodid="${food.foodid}" th:data-foodname="${food.foodname}"
                                             th:data-quantity="${food.foodquantity}"
                                             th:data-description="${food.fooddescription}"
-                                            th:data-imagepath="${food.imagePath}"
-                                            onclick="showFoodDetails(this)">
+                                            th:data-imagepath="${food.imagePath}" onclick="showFoodDetails(this)">
                                             <i class="fa-external-link"></i>
                                         </a>
 
@@ -368,6 +366,7 @@
             }
         </script> -->
         <!-- Modal -->
+        <!-- Modal -->
         <div class="modal fade" id="foodDetailModal" tabindex="-1" role="dialog" aria-labelledby="foodDetailModalLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -379,27 +378,53 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <h5 id="modalFoodName"></h5>
-                        <img id="modalFoodImage" src="" alt="Food Image" style="width: 100%; height: auto;">
-                        <p id="modalFoodDescription"></p>
-                        <p><strong>Quantity:</strong> <span id="modalFoodQuantity"></span></p>
+                        <form action="#" th:action="@{/request_leftover}" method="post" id="requestForm">
+                            <!-- Hidden field for food ID -->
+                            <input type="hidden" id="foodId" name="foodId">
+
+                            <h5 id="modalFoodName"></h5>
+                            <img id="modalFoodImage" src="" alt="Food Image" style="width: 100%; height: auto;">
+                            <p id="modalFoodDescription"></p>
+                            <!-- <p><strong>Quantity:</strong> <span id="modalFoodQuantity"></span></p>
+
+                            <div class="form-group">
+                                <label for="comment">Additional Comments</label>
+                                <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
+                            </div> -->
+
+                            <!-- <div class="form-group">
+                                <label for="pickupTime">Pickup Time</label>
+                                <input type="text" class="form-control" id="pickupTime" name="pickupTime"
+                                    placeholder="Enter pickup time">
+                            </div> -->
+                            <!-- Submit button for request -->
+                            <button type="submit" class="btn btn-primary">Submit Request</button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
+
         <script>
+            // Function to show food details in the modal and set the form values
             function showFoodDetails(button) {
+                var foodId = button.getAttribute('data-foodid');
                 var foodName = button.getAttribute('data-foodname');
                 var imagePath = button.getAttribute('data-imagepath');
                 var description = button.getAttribute('data-description');
                 var quantity = button.getAttribute('data-quantity');
-            
+
+                // Set values in the modal
                 document.getElementById('modalFoodName').innerText = foodName;
                 document.getElementById('modalFoodImage').src = imagePath;
                 document.getElementById('modalFoodDescription').innerText = description;
                 document.getElementById('modalFoodQuantity').innerText = quantity;
+
+                // Set the hidden foodId in the form
+                document.getElementById('foodId').value = foodId;
             }
-            </script>
+        </script>
+
 
         <script th:src="@{stylesheets/assets/js/codebase.core.min.js}"></script>
 
