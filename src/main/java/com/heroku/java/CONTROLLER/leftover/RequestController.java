@@ -85,6 +85,7 @@ public class RequestController {
     public String requestLeftover(Model model, HttpSession session, LeftoverBean leftover, @RequestParam("foodid") int foodId) {
         String studentNumber = (String) session.getAttribute("studentNumber");
         String status = "Pending";
+    
         System.out.print("ni food id untuk insert" + foodId);
 
         // Step 1: Fetch student details using the studentNumber

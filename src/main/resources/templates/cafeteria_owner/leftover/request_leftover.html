@@ -325,7 +325,7 @@
                             <tbody class="bg-white">
                                 <tr th:each="food, iterStat : ${foodList}">
                                     <td th:text="${iterStat.index + 1}"></td>
-                                    <td th:number="${food.foodid}"></td>
+                                    <td th:text="${food.foodid}"></td>
                                     <td th:text="${food.foodname}"></td>
                                     <td th:text="${food.foodquantity}"></td>
                                     <td th:text="${food.fooddescription}"></td>
@@ -379,22 +379,11 @@
                         <form action="#" th:action="@{/request_leftover}" method="post" id="requestForm">
                             <!-- Hidden field for food ID -->
                             <input type="hidden" id="foodid" name="foodid">
+                            <!-- This is important: ensure the 'name' attribute is set -->
 
                             <h5 id="modalFoodName"></h5>
-                            <!-- <img id="modalFoodImage" src="" alt="Food Image" style="width: 100%; height: auto;"> -->
                             <p id="modalFoodDescription"></p>
-                            <!-- <p><strong>Quantity:</strong> <span id="modalFoodQuantity"></span></p>
 
-                            <div class="form-group">
-                                <label for="comment">Additional Comments</label>
-                                <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
-                            </div> -->
-
-                            <!-- <div class="form-group">
-                                <label for="pickupTime">Pickup Time</label>
-                                <input type="text" class="form-control" id="pickupTime" name="pickupTime"
-                                    placeholder="Enter pickup time">
-                            </div> -->
                             <!-- Submit button for request -->
                             <button type="submit" class="btn btn-primary">Submit Request</button>
                         </form>
@@ -405,27 +394,27 @@
 
         <script>
             // Function to show food details in the modal and set the form values
+            // Function to show food details in the modal and set the form values
             function showFoodDetails(button) {
                 var foodId = button.getAttribute('data-foodid');
                 var foodName = button.getAttribute('data-foodname');
-                // var imagePath = button.getAttribute('data-imagepath');
                 var description = button.getAttribute('data-description');
                 var quantity = button.getAttribute('data-quantity');
 
                 // Set values in the modal
                 document.getElementById('modalFoodName').innerText = foodName;
-                // document.getElementById('modalFoodImage').src = imagePath;
                 document.getElementById('modalFoodDescription').innerText = description;
                 document.getElementById('modalFoodQuantity').innerText = quantity;
 
-                // Ensure the foodId is set correctly in the hidden input
+                // Set the foodId value in the hidden input
                 if (foodId && foodId !== "") {
-                    document.getElementById('foodid').value = foodId;  // Correctly set the hidden foodid
+                    document.getElementById('foodid').value = foodId;  // Ensure the hidden input is set correctly
                 } else {
                     alert("Food ID is missing.");
                     return;
                 }
             }
+
         </script>
 
 
