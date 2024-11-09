@@ -334,18 +334,15 @@
                                     </td>
 
                                     <td>
-                                        <a class="btn btn-sm btn-primary" title="Request"
-                                           data-toggle="modal" data-target="#foodDetailModal"
-                                           th:data-foodid="${food.foodid}" 
-                                           th:data-foodname="${food.foodname}"
-                                           th:data-quantity="${food.foodquantity}"
-                                           th:data-description="${food.fooddescription}"
-                                           th:data-imagepath="${food.imagePath}"
-                                           onclick="showFoodDetails(this)">
+                                        <a class="btn btn-sm btn-primary" title="Request" data-toggle="modal"
+                                            data-target="#foodDetailModal" th:data-foodid="${food.foodid}"
+                                            th:data-foodname="${food.foodname}" th:data-quantity="${food.foodquantity}"
+                                            th:data-description="${food.fooddescription}"
+                                            th:data-imagepath="${food.imagePath}" onclick="showFoodDetails(this)">
                                             <i class="fa-external-link"></i>
                                         </a>
                                     </td>
-                                    
+
                                 </tr>
                             </tbody>
                         </table>
@@ -411,18 +408,23 @@
             function showFoodDetails(button) {
                 var foodId = button.getAttribute('data-foodid');
                 var foodName = button.getAttribute('data-foodname');
-                // var imagePath = button.getAttribute('data-imagepath');
+                var imagePath = button.getAttribute('data-imagepath');
                 var description = button.getAttribute('data-description');
                 var quantity = button.getAttribute('data-quantity');
 
                 // Set values in the modal
                 document.getElementById('modalFoodName').innerText = foodName;
-                //document.getElementById('modalFoodImage').src = imagePath;
+                document.getElementById('modalFoodImage').src = imagePath;
                 document.getElementById('modalFoodDescription').innerText = description;
                 document.getElementById('modalFoodQuantity').innerText = quantity;
 
-                // Set the hidden foodId in the form
-                document.getElementById('foodid').value = foodId;
+                // Ensure the foodId is set correctly in the hidden input
+                if (foodId && foodId !== "") {
+                    document.getElementById('foodid').value = foodId;  // Correctly set the hidden foodid
+                } else {
+                    alert("Food ID is missing.");
+                    return;
+                }
             }
         </script>
 
