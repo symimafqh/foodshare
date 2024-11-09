@@ -337,7 +337,7 @@
                                         <a class="btn btn-sm btn-primary" title="Request" data-toggle="modal"
                                             data-target="#foodDetailModal" th:data-foodid="${food.foodid}"
                                             th:data-foodname="${food.foodname}" th:data-quantity="${food.foodquantity}"
-                                            th:data-description="${food.fooddescription}" th:text="${food.foodid}"
+                                            th:data-description="${food.fooddescription}" 
                                             onclick="showFoodDetails(this)">
                                             <i class="fa-external-link"></i>
                                         </a>
@@ -397,7 +397,7 @@
             // Function to show food details in the modal and set the form values
             // Function to show food details in the modal and set the form values
             function showFoodDetails(button) {
-                var foodId = button.getAttribute('data-foodid');
+                var foodId =  parseInt(button.getAttribute('data-foodid'));
                 var foodName = button.getAttribute('data-foodname');
                 var description = button.getAttribute('data-description');
                 var quantity = button.getAttribute('data-quantity');
