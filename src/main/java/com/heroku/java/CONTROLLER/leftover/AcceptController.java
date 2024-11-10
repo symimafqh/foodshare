@@ -91,11 +91,6 @@ public class AcceptController {
         return "cafeteria_owner/leftover/accept_leftover"; // Return the view name to be rendered
     }
 
-
-
-
-
-
     @PostMapping("/accept")
     private String acceptFood(@RequestParam("foodid") int foodId) {
         String updateSql = "UPDATE public.request SET \"status\" = 'Accepted' WHERE \"foodid\" = ?";
