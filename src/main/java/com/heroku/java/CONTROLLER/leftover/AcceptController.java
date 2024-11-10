@@ -56,7 +56,7 @@ public class AcceptController {
     
         try (Connection connection = dataSource.getConnection()) {
             // Prepare the SQL statement to fetch food items along with student details for the specific cafe
-            String sql = "SELECT l.\"foodid\", l.\"foodname\", l.\"cafeNumber\", s.\"studentName\", s.\"studentNumber\", r.\"status\" " +
+            String sql = "SELECT l.\"foodid\", l.\"foodname\",l.\"fooddescription\", l.\"cafeNumber\", s.\"studentName\", s.\"studentNumber\", r.\"status\" " +
             "FROM public.leftover l " +
             "JOIN public.request r ON l.\"foodid\" = r.\"foodid\" " +
             "JOIN public.student s ON r.\"studentNumber\" = s.\"studentNumber\" " +
@@ -73,6 +73,7 @@ public class AcceptController {
                     FoodRequestDetail detail = new FoodRequestDetail();
                     detail.setFoodid(resultSet.getInt("foodid"));
                     detail.setFoodname(resultSet.getString("foodname"));
+                    detail.setFoodDescription(resultSet.getString("fooddescription"));
                     detail.setCafeNumber(resultSet.getString("cafeNumber"));
                     detail.setStudentName(resultSet.getString("studentName"));
                     detail.setStudentNumber(resultSet.getString("studentNumber"));
@@ -92,7 +93,7 @@ public class AcceptController {
     }
 
     @PostMapping("/accept")
-    private String acceptFood(@RequestParam("foodid") int foodId) {
+    private String acceptFood(@RequestParam("foodid") int foodId, FoodRequestDetail fr) {
         String updateSql = "UPDATE public.request SET \"status\" = 'Accepted' WHERE \"foodid\" = ?";
 
         try (Connection connection = dataSource.getConnection();
@@ -103,6 +104,8 @@ public class AcceptController {
             
             System.out.println("Status updated to 'Accepted' for food ID: " + foodId);
 
+            notifyStudents(fr);
+
             
             return "cafeteria_owner/leftover/accept_leftover";
         } catch (SQLException e) {
@@ -110,4 +113,55 @@ public class AcceptController {
             return "redirect:/cafeteria_owner/leftover/accept_leftover?error=update_failed";
         }
     }
+
+    private void notifyStudents(FoodRequestDetail fr) {
+        // Step 1: Get list of student phone numbers
+        List<String> studentNumbers = getStudentPhoneNumbers();
+
+        // Step 2: Create the message to be sent
+        String messageBody = "Your leftover has been accpeted!\n" +
+                "Food Name: " + fr.getFoodname() + "\n" +
+                "Description: " + fr.getFoodDescription() + "\n" +
+                "You can pickup it follows the description";
+
+        // Step 3: Send the message to each student
+        for (String studentNumber : studentNumbers) {
+            try {
+                // Assuming you have a WhatsAppService that handles sending messages
+                String chatId = studentNumber + "@c.us"; // Construct the chat ID
+                String response = whatsAppService.sendMessage(chatId, messageBody);
+                System.out.println("Message sent to: " + studentNumber);
+                System.out.println("WhatsApp Response: " + response);
+            } catch (Exception e) {
+                e.printStackTrace(); // Log the error
+                System.out.println("Failed to send message to: " + studentNumber);
+            }
+        }
+    }
+
+    private List<String> getStudentPhoneNumbers() {
+        List<String> numbers = new ArrayList<>();
+        
+        String sql = "SELECT s.\"studentphonenumber\" " +
+                     "FROM public.leftover l " +
+                     "JOIN public.request r ON l.\"foodid\" = r.\"foodid\" " +
+                     "JOIN public.student s ON r.\"studentNumber\" = s.\"studentNumber\"";
+    
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql);
+             ResultSet resultSet = statement.executeQuery()) {
+    
+            while (resultSet.next()) {
+                String phoneNumber = resultSet.getString("studentphonenumber");
+                if (phoneNumber != null && !phoneNumber.isEmpty()) {
+                    numbers.add(phoneNumber);
+                    System.out.println(phoneNumber); // Log the phone number
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Log the error
+        }
+        return numbers;
+    }
+    
 }

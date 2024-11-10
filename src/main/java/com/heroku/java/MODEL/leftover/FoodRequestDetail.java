@@ -7,6 +7,7 @@ public class FoodRequestDetail {
     private String studentName;
     private String studentNumber;
     private String status;
+    private String foodDescription;
 
     // Getters and setters for each field
 
@@ -70,4 +71,19 @@ public class FoodRequestDetail {
                 ", status='" + status + '\'' +
                 '}';
     }
+
+    /**
+     * @return String return the foodDescription
+     */
+    public String getFoodDescription() {
+        return foodDescription;
+    }
+
+    /**
+     * @param foodDescription the foodDescription to set
+     */
+    public void setFoodDescription(String foodDescription) {
+        this.foodDescription = foodDescription;
+    }
+
 }
