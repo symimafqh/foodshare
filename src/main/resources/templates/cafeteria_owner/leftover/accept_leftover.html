@@ -35,15 +35,12 @@
     <!-- Fonts and Codebase framework -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,400i,600,700&display=swap">
     <link rel="stylesheet" id="css-main" th:href="@{stylesheets/assets/css/codebase.min.css}">
-
-    <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
-    <!-- <link rel="stylesheet" id="css-theme" th:href="../assets/css/themes/corporate.min.css"> -->
     <link rel="stylesheet" id="css-theme" th:href="@{stylesheets/assets/css/themes/flat.min.css}">
-
+ 
 </head>
 
 <body>
-
+    
     <div id="page-container" class="sidebar-o enable-page-overlay side-scroll page-header-modern main-content-boxed">
         <!-- Side Overlay-->
         <aside id="side-overlay">
@@ -93,7 +90,9 @@
             </div>
             <!-- END Side Content -->
         </aside>
+        <!-- END Side Overlay -->
 
+       
         <nav id="sidebar">
             <!-- Sidebar Content -->
             <div class="sidebar-content">
@@ -175,20 +174,16 @@
 
                     <div class="content-side content-side-full">
                         <ul class="nav-main">
-                            <li>
-                                <a class="active" th:href="@{/dashboardStudent}"><i class="si si-cup"></i><span
-                                        class="sidebar-mini-hide">DASHBOARD</span></a>
-                            </li>
-                            <li>
-                                <a class="active" th:href="@{/edit_profile}"><i class="si si-user"></i><span
-                                        class="sidebar-mini-hide">PROFIL</span></a>
+                            <li><a class="active" th:href="@{/dashboardCafe}"><i class="si si-cup"></i><span
+                                        class="sidebar-mini-hide">DASHBOARD</span></a></li>
+                            <li><a class="active" th:href="@{/profileCafe_edit}"><i class="si si-user"></i><span
+                                        class="sidebar-mini-hide">PROFILE</span></a>
                             </li>
                             <li><a class="nav-submenu" data-toggle="nav-submenu" href="#"><i
                                         class="si si-layers"></i><span class="sidebar-mini-hide">LEFTOVER</span></a>
                                 <ul>
-                                    <li><a th:href="@{/view_leftover}">View Leftover</a></li>
-
-
+                                    <li><a th:href="@{/add_Leftover}">Add Leftover</a></li>
+                                    <li><a th:href="@{/foodList}">List Leftover</a></li>
                                 </ul>
                             </li>
 
@@ -233,13 +228,13 @@
                         <button type="button" class="btn btn-rounded btn-dual-secondary" id="page-header-user-dropdown"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-user d-sm-none"></i>
-                            <span class="d-none d-sm-inline-block" th:text="${session.studentName}"></span>
+                            <span class="d-none d-sm-inline-block" th:text="${session.cafeName}"></span>
                             <i class="fa fa-angle-down ml-5"></i>
                         </button>
                         <div class="dropdown-menu dropdown-menu-right min-width-200"
                             aria-labelledby="page-header-user-dropdown">
                             <h5 class="h6 text-center py-10 mb-5 border-b text-uppercase">User</h5>
-                            <a class="dropdown-item" th:href="@{/edit_profile}">
+                            <a class="dropdown-item" th:href="@{/profileCafe_edit}">
                                 <i class="si si-user mr-5"></i> Profile
                             </a>
                             <div class="dropdown-divider"></div>
@@ -247,7 +242,7 @@
                             <!-- END Side Overlay -->
 
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" th:href="@{/logoutstudent}">
+                            <a class="dropdown-item" th:href="@{/logoutTeacher}">
                                 <i class="si si-logout mr-5"></i> Sign Out
                             </a>
                         </div>
@@ -256,8 +251,6 @@
                 </div>
                 <!-- END Right Section -->
             </div>
-            <!-- END Header Content -->
-
             <!-- END Header Content -->
 
             <!-- Header Search -->
@@ -299,132 +292,41 @@
             <!-- END Header Loader -->
         </header>
         <!-- END Header -->
-
         <!-- Main Container -->
         <main id="main-container">
             <!-- Page Content -->
             <div class="content">
                 <div class="block">
                     <div class="block-header block-header-default">
-                        <h3 class="block-title">Food List</h3>
+                        <h3 class="block-title">Food Request</h3>
                     </div>
                     <div class="block-content">
-                        <table class="table table-bordered table-vcenter js-dataTable-full">
-                            <thead class="thead-light text-center">
+                        <table class="table table-striped">
+                            <thead>
                                 <tr>
-                                    <th>No.</th>
                                     <th>Food ID</th>
                                     <th>Food Name</th>
-                                    <th>Food Quantity</th>
-                                    <th>Food Description</th>
-                                    <th>Action</th>
-                                    <th class="text-center" style="width: 11%;">Actions</th>
+                                    <th>Cafe Number</th>
+                                    <th>Student Name</th>
+                                    <th>Student Number</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white">
-                                <tr th:each="food, iterStat : ${foodList}">
-                                    <td th:text="${iterStat.index + 1}"></td>
-                                    <td th:text="${food.foodid}"></td>
-                                    <td th:text="${food.foodname}"></td>
-                                    <td th:text="${food.foodquantity}"></td>
-                                    <td th:text="${food.fooddescription}"></td>
-                                    <td th:text="${food.cafeNumber}" class="hidden"></td>
-                                    
-                                    <td class="text-center">
-                                        <a class="btn btn-sm btn-primary" title="Request" data-toggle="modal"
-                                            data-target="#foodDetailModal" th:data-foodid="${food.foodid}"
-                                            th:data-foodname="${food.foodname}" th:data-quantity="${food.foodquantity}"
-                                            th:data-description="${food.fooddescription}"  th:data-cafeNumber="${food.cafeNumber}"
-                                            onclick="showFoodDetails(this)">
-                                            <i class="fa fa-external-link"></i>
-                                        </a>
-                                    </td>
+                            <tbody>
+                                <tr th:each="detail : ${foodRequestDetails}">
+                                    <td th:text="${detail.foodid}"></td>
+                                    <td th:text="${detail.foodname}"></td>
+                                    <td th:text="${detail.cafeNumber}"></td>
+                                    <td th:text="${detail.studentName}"></td>
+                                    <td th:text="${detail.studentNumber}"></td>
+                                    <td th:text="${detail.status}"></td>
                                 </tr>
                             </tbody>
                         </table>
+                        
                     </div>
                 </div>
 
-                <!-- Modal -->
-                <div class="modal fade" id="foodDetailModal" tabindex="-1" role="dialog"
-                    aria-labelledby="foodDetailModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="foodDetailModalLabel">Request Food</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="#" th:action="@{/request_leftover}" method="post" id="requestForm">
-                                    <input type="hidden" id="foodidInput" name="foodid">
-                                    <input type="hidden" id="cafeNumber" name="cafenumber">
-                                    <!-- Hidden field for food ID -->
-                                    <!-- <input type="hidden" id="foodid" name="foodid"> -->
-
-                                    <h5 id="modalFoodName"></h5>
-                                    <p id="modalFoodDescription"></p>
-
-
-                                    <!-- Submit button for request -->
-                                    <button type="submit" class="btn btn-primary">Submit Request</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-
-        <!-- JavaScript to handle modal interactions -->
-        <script>
-            // Function to show food details in modal
-            function showFoodDetails(button) {
-                var foodId = $(button).data('foodid');
-                var foodName = $(button).data('foodname');
-                var foodDescription = $(button).data('description');
-                var cafeNumber = $(button).data('cafenumber');
-
-                console.log("Cafe Number:", cafeNumber);
-                console.log("Food ID:", foodId);  // Ensure foodId is correct
-                console.log("Food Name:", foodName);
-
-                // Set values in the modal
-                $('#foodid').text(foodId);
-                $('#modalFoodName').text(foodName);
-                $('#modalFoodDescription').text(foodDescription);
-
-                $('#foodidInput').val(foodId);    
-                $('#cafeNumber').val(cafeNumber);          // Hidden input field value
-                console.log("Hidden input value:", $('#foodidInput').val()); 
-                console.log("Hidden input value:", $('#cafenumber').val());// Verify if value is set
-            }
-        </script>
-
-
-        <script>
-            function showFoodDetailsS(button) {
-                var foodId = button.getAttribute('data-foodid');
-                var foodName = button.getAttribute('data-foodname');
-                var description = button.getAttribute('data-description');
-                var quantity = button.getAttribute('data-quantity');
-
-                // Set values in the modal
-                document.getElementById('modalFoodName').innerText = foodName;
-                document.getElementById('modalFoodDescription').innerText = description;
-                document.getElementById('modalFoodQuantity').innerText = quantity;
-                document.getElementById('foodid').innerText = foodId;
-
-                // // Ensure the foodId is set correctly in the hidden input
-                // if (foodId && foodId !== "") {
-                //     document.getElementById('foodid').value = foodId;  // Ensure this is correct
-                // } else {
-                //     alert("Food ID is missing.");
-                //     return;
-                // }
-            }
-        </script>
 
 
         <script th:src="@{stylesheets/assets/js/codebase.core.min.js}"></script>

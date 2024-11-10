@@ -121,7 +121,7 @@ public class RequestController {
             notifyCafe(leftover,session, cafeNumber);
             
     
-            return "redirect:/dashboardCafe?success=true";
+            return "redirect:/dashboardStudent?success=true";
         } catch (SQLException e) {
             // Log specific SQL errors
             System.err.println("SQL Exception: " + e.getMessage());
