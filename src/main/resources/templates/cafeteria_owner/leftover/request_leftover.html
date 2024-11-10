@@ -356,22 +356,13 @@
                             <div class="modal-body">
                                 <form action="#" th:action="@{/request_leftover}" method="post" id="requestForm">
                                     <!-- Hidden field for food ID -->
-                                    <input type="hidden" id="foodid" name="foodid">
+                                    <!-- <input type="hidden" id="foodid" name="foodid"> -->
 
+                                    <h5 id="foodid"></h5>
                                     <h5 id="modalFoodName"></h5>
                                     <p id="modalFoodDescription"></p>
 
-                                    <div class="form-group">
-                                        <label for="comment">Additional Comments</label>
-                                        <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="pickupTime">Pickup Time</label>
-                                        <input type="text" class="form-control" id="pickupTime" name="pickupTime"
-                                            placeholder="Enter pickup time">
-                                    </div>
-
+                                    
                                     <!-- Submit button for request -->
                                     <button type="submit" class="btn btn-primary">Submit Request</button>
                                 </form>
