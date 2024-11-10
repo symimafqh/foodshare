@@ -206,7 +206,7 @@ public class RequestController {
     private List<String> getCafePhoneNumbers(LeftoverBean leftover) {
         List<String> numbers = new ArrayList<>();
         try (Connection connection = dataSource.getConnection()) {
-            String sql = "SELECT r.\"cafeNumber\", c.phoneNumber "
+            String sql = "SELECT r.\"cafeNumber\", c.\"phoneNumber\" "
                     + "FROM public.request r "
                     + "JOIN public.cafeteria_owner c ON r.\"cafeNumber\" = c.\"cafeNumber\" "
                     + "WHERE r.\"cafeNumber\" = ?"; // Use '?' for parameter placeholder
