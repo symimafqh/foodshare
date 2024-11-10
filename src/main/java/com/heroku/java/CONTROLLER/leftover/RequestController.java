@@ -144,6 +144,28 @@ public class RequestController {
             e.printStackTrace(); // Log any error that occurs during the update
         }
     }
+
+    private String getFoodName(Connection connection, int foodId) {
+        String foodName = null;
+        String querySql = "SELECT \"foodaname\" FROM public.leftover WHERE foodid = ?";
+    
+        try (PreparedStatement statement = connection.prepareStatement(querySql)) {
+            statement.setInt(1, foodId); // Set the foodId parameter
+    
+            try (ResultSet resultSet = statement.executeQuery()) { // Use executeQuery for SELECT
+                if (resultSet.next()) {
+                    foodName = resultSet.getString("foodaname"); // Retrieve the food name
+                }
+            }
+            
+            System.out.println("Food name retrieved: " + foodName);
+        } catch (SQLException e) {
+            e.printStackTrace(); // Log any SQL error that occurs
+        }
+    
+        return foodName; // Return the retrieved food name
+    }
+    
     
     private StudentBean getStudentDetails(String studentNumber) {
         StudentBean student = null;
@@ -173,32 +195,41 @@ public class RequestController {
     }
 
     private void notifyCafe(LeftoverBean leftover, HttpSession session, String cafeNumber) {
-        // Set the cafeNumber to the leftover object
+        // Print cafe number for debugging
         System.out.println(cafeNumber + "cafenumber dekat method notify");
         leftover.setCafeNumber(cafeNumber);
-        
     
         // Step 1: Get list of cafe phone numbers
-        List<String> cafeNumbers = getCafePhoneNumbers(cafeNumber); // Now it will get the correct cafeNumber from leftover
-        
+        List<String> cafeNumbers = getCafePhoneNumbers(cafeNumber); // Now it will get the correct cafeNumber
+    
         // Step 2: Retrieve student details using the studentNumber from the session
         String studentNumber = (String) session.getAttribute("studentNumber"); // Get studentNumber from session
         StudentBean student = getStudentDetails(studentNumber); // Fetch student details
-        
+    
         // Check if student details were successfully retrieved
         if (student == null) {
             System.out.println("Student not found.");
-            return;  // Exit the method if student details are not found
+            return; // Exit the method if student details are not found
         }
-        
-        // Step 3: Create the message to be sent
+    
+        // Step 3: Get the food name from the database
+        String foodName = null;
+        try (Connection connection = dataSource.getConnection()) {
+            foodName = getFoodName(connection, leftover.getFoodid()); // Call the getFoodName method
+        } catch (SQLException e) {
+            e.printStackTrace(); // Log any SQL error
+            System.out.println("Failed to fetch the food name.");
+            return; // Exit the method if the food name cannot be fetched
+        }
+    
+        // Step 4: Create the message to be sent
         String messageBody = "New request by the student!\n" +
                 "Student Name: " + student.getStudentName() + "\n" +  // Use studentName from StudentBean
                 "Student Number: " + student.getStudentNumber() + "\n" +  // Use studentNumber from StudentBean
-                "Food Name: " + leftover.getFoodname() + "\n" +
+                "Food Name: " + (foodName != null ? foodName : "Unknown") + "\n" + // Use the fetched food name
                 "Hurry up and accept the request";
-        
-        // Step 4: Send the message to each cafe
+    
+        // Step 5: Send the message to each cafe
         for (String cafeNumberr : cafeNumbers) {
             try {
                 // Assuming you have a WhatsAppService that handles sending messages
@@ -212,6 +243,7 @@ public class RequestController {
             }
         }
     }
+    
     private List<String> getCafePhoneNumbers(String cafeNumber) {
         List<String> numbers = new ArrayList<>();
     
