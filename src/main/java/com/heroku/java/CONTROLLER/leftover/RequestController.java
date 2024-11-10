@@ -86,7 +86,7 @@ public class RequestController {
     }
 
     @PostMapping("/request_leftover")
-    public String requestLeftover(Model model, HttpSession session, LeftoverBean leftover, @RequestParam("foodid") int foodId, @RequestParam("cafeNumber") String cafeNumberr) {
+    public String requestLeftover(Model model, HttpSession session, LeftoverBean leftover, @RequestParam("foodid") int foodId, @RequestParam("cafenumber") String cafeNumber) {
         String studentNumber = (String) session.getAttribute("studentNumber");
         String status = "Pending";
 
@@ -118,7 +118,7 @@ public class RequestController {
             updateFoodQuantity(connection, leftover.getFoodid());
     
             // Step 4: Notify cafe using WhatsApp API
-            notifyCafe(leftover,session, cafeNumberr);
+            notifyCafe(leftover,session, cafeNumber);
             
     
             return "redirect:/dashboardCafe?success=true";
