@@ -355,6 +355,7 @@
                             </div>
                             <div class="modal-body">
                                 <form action="#" th:action="@{/request_leftover}" method="post" id="requestForm">
+                                    <input type="hidden" id="foodidInput" name="foodid">
                                     <!-- Hidden field for food ID -->
                                     <!-- <input type="hidden" id="foodid" name="foodid"> -->
 
@@ -388,6 +389,9 @@
                 $('#foodid').text(foodId);
                 $('#modalFoodName').text(foodName);
                 $('#modalFoodDescription').text(foodDescription);
+
+                $('#foodidInput').val(foodId);             // Hidden input field value
+                console.log("Hidden input value:", $('#foodidInput').val()); // Verify if value is set
             }
         </script>
 
