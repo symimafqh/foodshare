@@ -365,9 +365,9 @@
                                 <input type="hidden" name="fooddescription" id="modal-fooddescription">
 
                                 <!-- Displaying Information in Modal -->
-                                <p><strong>Food Name:</strong> <span id="display-foodname"></span></p>
-                                <p><strong>Quantity:</strong> <span id="display-foodquantity"></span></p>
-                                <p><strong>Description:</strong> <span id="display-fooddescription"></span></p>
+                                <p><strong>Description:</strong> <span id="modalFoodID"></span></p>
+                                <p><strong>Food Name:</strong> <span id="modalFoodName"></span></p>
+                                <p><strong>Description:</strong> <span id="modalFoodDescription"></span></p>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -396,9 +396,12 @@
                 $('#modal-fooddescription').val(foodDescription);
 
                 // Display data in the modal
-                $('#display-foodname').text(foodName);
-                $('#display-foodquantity').text(foodQuantity);
-                $('#display-fooddescription').text(foodDescription);
+                document.getElementById('modalFoodName').innerText = foodName;
+                document.getElementById('modalFoodDescription').innerText = description;
+                document.getElementById('modalFoodQuantity').innerText = quantity;
+                document.getElementById('modalFoodID').innerText = foodId;
+
+
             });
 
         </script>
