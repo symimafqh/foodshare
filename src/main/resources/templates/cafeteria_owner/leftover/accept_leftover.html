@@ -311,6 +311,7 @@
                                     <th>Student Name</th>
                                     <th>Student Number</th>
                                     <th>Status</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -320,7 +321,20 @@
                                     <td th:text="${detail.cafeNumber}"></td>
                                     <td th:text="${detail.studentName}"></td>
                                     <td th:text="${detail.studentNumber}"></td>
-                                    <td th:text="${detail.status}"></td>
+                                    <td>
+                                        <span th:if="${detail.status == 'Approved'}" class="badge badge-success">Approved</span>
+                                        <span th:if="${detail.status == 'Pending'}" class="badge badge-warning">Pending</span>
+                                        <span th:if="${detail.status == 'Rejected'}" class="badge badge-danger">Rejected</span>
+                                    </td>
+                                    <td class="text-center">
+                                        <a class="btn btn-sm btn-circle btn-outline-success mr-5 mb-5" title="Accept">
+                                            <i class="fa fa-check"></i>
+                                        </a>
+                                        <a class="btn btn-sm btn-circle btn-alt-danger mr-5 mb-5" title="Accept">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                    </td>
+
                                 </tr>
                             </tbody>
                         </table>
