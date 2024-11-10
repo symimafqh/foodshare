@@ -208,7 +208,7 @@ public class RequestController {
         try (Connection connection = dataSource.getConnection()) {
             String sql = "SELECT r.\"cafeNumber\", c.phoneNumber "
                     + "FROM public.request r "
-                    + "JOIN public.cafe c ON r.\"cafeNumber\" = c.\"cafeNumber\" "
+                    + "JOIN public.cafe_owner c ON r.\"cafeNumber\" = c.\"cafeNumber\" "
                     + "WHERE r.\"cafeNumber\" = ?"; // Use '?' for parameter placeholder
 
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
