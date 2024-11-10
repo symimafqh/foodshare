@@ -333,7 +333,7 @@
                                         <a class="btn btn-sm btn-primary" title="Request" data-toggle="modal"
                                             data-target="#foodDetailModal" th:data-foodid="${food.foodid}"
                                             th:data-foodname="${food.foodname}" th:data-quantity="${food.foodquantity}"
-                                            th:data-description="${food.fooddescription}"  th:data-cafeNumber="${food.cafeNumber}" 
+                                            th:data-description="${food.fooddescription}"  th:data-cafeNumber="${food.cafeNumber}"
                                             onclick="showFoodDetails(this)">
                                             <i class="fa fa-external-link"></i>
                                         </a>
@@ -358,7 +358,7 @@
                             <div class="modal-body">
                                 <form action="#" th:action="@{/request_leftover}" method="post" id="requestForm">
                                     <input type="hidden" id="foodidInput" name="foodid">
-                                    <input type="hidden" id="cafeNumber" name="cafeNumber">
+                                    <input type="hidden" id="cafeNumber" name="cafenumber">
                                     <!-- Hidden field for food ID -->
                                     <!-- <input type="hidden" id="foodid" name="foodid"> -->
 
@@ -384,7 +384,7 @@
                 var foodId = $(button).data('foodid');
                 var foodName = $(button).data('foodname');
                 var foodDescription = $(button).data('description');
-                var cafeNumber = $(button).data('cafeNumber');
+                var cafeNumber = $(button).data('cafenumber');
 
                 console.log("Cafe Number:", cafeNumber);
                 console.log("Food ID:", foodId);  // Ensure foodId is correct
@@ -398,7 +398,7 @@
                 $('#foodidInput').val(foodId);    
                 $('#cafeNumber').val(cafeNumber);          // Hidden input field value
                 console.log("Hidden input value:", $('#foodidInput').val()); 
-                console.log("Hidden input value:", $('#cafeNumber').val());// Verify if value is set
+                console.log("Hidden input value:", $('#cafenumber').val());// Verify if value is set
             }
         </script>
 
