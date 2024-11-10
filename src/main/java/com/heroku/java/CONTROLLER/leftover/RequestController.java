@@ -147,7 +147,7 @@ public class RequestController {
 
     private String getFoodName(Connection connection, int foodId) {
         String foodName = null;
-        String querySql = "SELECT \"foodaname\" FROM public.leftover WHERE foodid = ?";
+        String querySql = "SELECT \"foodname\" FROM public.leftover WHERE foodid = ?";
     
         try (PreparedStatement statement = connection.prepareStatement(querySql)) {
             statement.setInt(1, foodId); // Set the foodId parameter
@@ -261,7 +261,13 @@ public class RequestController {
                 ResultSet rs = statement.executeQuery();
                 while (rs.next()) {
                     String phoneNumber = rs.getString("phoneNumber");
-                    numbers.add(phoneNumber);  // Add phone number to the list
+    
+                    // Add '6' prefix if the phone number does not start with '6'
+                    if (!phoneNumber.startsWith("6")) {
+                        phoneNumber = "6" + phoneNumber;
+                    }
+    
+                    numbers.add(phoneNumber); // Add phone number to the list
                     System.out.println("Cafe Number: " + rs.getString("cafeNumber") + ", Phone Number: " + phoneNumber);
                 }
             }
@@ -271,6 +277,7 @@ public class RequestController {
     
         return numbers;
     }
+    
     
     
     
