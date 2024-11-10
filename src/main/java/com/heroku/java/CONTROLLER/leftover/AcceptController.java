@@ -90,4 +90,28 @@ public class AcceptController {
         model.addAttribute("foodRequestDetails", foodRequestDetails);
         return "cafeteria_owner/leftover/accept_leftover"; // Return the view name to be rendered
     }
+
+
+
+
+
+
+    @PostMapping("/accept")
+    private String acceptFood(@RequestParam("foodid") int foodId) {
+        String updateSql = "UPDATE public.request SET \"status\" = 'Accepted' WHERE \"foodid\" = ?";
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(updateSql)) {
+            
+            statement.setInt(1, foodId); // Set the foodId for which we want to update the status
+            statement.executeUpdate(); // Execute the update
+            
+            System.out.println("Status updated to 'Accepted' for food ID: " + foodId);
+
+            return "redirect:/cafeteria_owner/leftover/accept_leftover?success=updated";
+        } catch (SQLException e) {
+            e.printStackTrace(); // Log any error that occurs during the update
+            return "redirect:/cafeteria_owner/leftover/accept_leftover?error=update_failed";
+        }
+    }
 }
