@@ -88,6 +88,6 @@ public class AcceptController {
     
         // Add the foodRequestDetails list to the model
         model.addAttribute("foodRequestDetails", foodRequestDetails);
-        return "view_request"; // Return the view name to be rendered
+        return "cafeteria_owner/leftover/view_request"; // Return the view name to be rendered
     }
 }
