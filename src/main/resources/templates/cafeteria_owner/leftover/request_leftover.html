@@ -327,11 +327,13 @@
                                     <td th:text="${food.foodname}"></td>
                                     <td th:text="${food.foodquantity}"></td>
                                     <td th:text="${food.fooddescription}"></td>
+                                    <td th:text="${food.cafeNumber}" class="hidden"></td>
+                                    
                                     <td class="text-center">
                                         <a class="btn btn-sm btn-primary" title="Request" data-toggle="modal"
                                             data-target="#foodDetailModal" th:data-foodid="${food.foodid}"
                                             th:data-foodname="${food.foodname}" th:data-quantity="${food.foodquantity}"
-                                            th:data-description="${food.fooddescription}"
+                                            th:data-description="${food.fooddescription}"  th:data-cafeNumber="${food.cafeNumber}" 
                                             onclick="showFoodDetails(this)">
                                             <i class="fa fa-external-link"></i>
                                         </a>
@@ -356,6 +358,7 @@
                             <div class="modal-body">
                                 <form action="#" th:action="@{/request_leftover}" method="post" id="requestForm">
                                     <input type="hidden" id="foodidInput" name="foodid">
+                                    <input type="hidden" id="cafeNumber" name="cafeNumber">
                                     <!-- Hidden field for food ID -->
                                     <!-- <input type="hidden" id="foodid" name="foodid"> -->
 
@@ -381,6 +384,8 @@
                 var foodId = $(button).data('foodid');
                 var foodName = $(button).data('foodname');
                 var foodDescription = $(button).data('description');
+                var cafeNumber = $(button).data('cafeNumber');
+
 
                 console.log("Food ID:", foodId);  // Ensure foodId is correct
                 console.log("Food Name:", foodName);
@@ -390,8 +395,10 @@
                 $('#modalFoodName').text(foodName);
                 $('#modalFoodDescription').text(foodDescription);
 
-                $('#foodidInput').val(foodId);             // Hidden input field value
-                console.log("Hidden input value:", $('#foodidInput').val()); // Verify if value is set
+                $('#foodidInput').val(foodId);    
+                $('#cafeNumber').val(cafeNumber);          // Hidden input field value
+                console.log("Hidden input value:", $('#foodidInput').val()); 
+                console.log("Hidden input value:", $('#cafeNumber').val());// Verify if value is set
             }
         </script>
 

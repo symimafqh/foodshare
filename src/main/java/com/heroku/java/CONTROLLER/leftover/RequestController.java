@@ -68,6 +68,7 @@ public class RequestController {
                     food.setFoodquantity(resultSet.getInt("foodquantity"));
                     food.setFooddescription(resultSet.getString("fooddescription"));
                     food.setImagePath(resultSet.getString("image_path"));
+                    food.setCafeNumber(resultSet.getString("cafeNumber"));
                     foodList.add(food); // Add the food item to the list
                 }
             }
@@ -82,11 +83,12 @@ public class RequestController {
     }
 
     @PostMapping("/request_leftover")
-    public String requestLeftover(Model model, HttpSession session, LeftoverBean leftover, @RequestParam("foodid") int foodId) {
+    public String requestLeftover(Model model, HttpSession session, LeftoverBean leftover, @RequestParam("foodid") int foodId, @RequestParam("cafeNumber") String cafeNumberr) {
         String studentNumber = (String) session.getAttribute("studentNumber");
         String status = "Pending";
+
     
-        System.out.print("ni food id untuk insert" + foodId);
+        System.out.print("ni food id untuk insert " + foodId);
 
         // Step 1: Fetch student details using the studentNumber
         StudentBean student = getStudentDetails(studentNumber);
@@ -113,7 +115,7 @@ public class RequestController {
             updateFoodQuantity(connection, leftover.getFoodid());
     
             // Step 4: Notify cafe using WhatsApp API
-            notifyCafe(leftover, session);
+            notifyCafe(leftover,session, cafeNumberr);
             
     
             return "redirect:/dashboardCafe?success=true";
@@ -134,7 +136,7 @@ public class RequestController {
         try (PreparedStatement statement = connection.prepareStatement(updateSql)) {
             statement.setInt(1, foodId); // Set the foodId for which we want to update the quantity
             statement.executeUpdate(); // Execute the update to reduce the food quantity by 1
-            System.out.print("done tolak");
+            System.out.println("done tolak");
         } catch (SQLException e) {
             e.printStackTrace(); // Log any error that occurs during the update
         }
@@ -167,27 +169,30 @@ public class RequestController {
         return student;
     }
 
-    private void notifyCafe(LeftoverBean leftover, HttpSession session) {
-        // Step 1: Get list of cafe phone numbers
-        List<String> cafeNumbers = getCafePhoneNumbers(leftover);
+    private void notifyCafe(LeftoverBean leftover, HttpSession session, String cafeNumberr) {
+        // Set the cafeNumber to the leftover object
+        leftover.setCafeNumber(cafeNumberr);
     
+        // Step 1: Get list of cafe phone numbers
+        List<String> cafeNumbers = getCafePhoneNumbers(leftover); // Now it will get the correct cafeNumber from leftover
+        
         // Step 2: Retrieve student details using the studentNumber from the session
         String studentNumber = (String) session.getAttribute("studentNumber"); // Get studentNumber from session
         StudentBean student = getStudentDetails(studentNumber); // Fetch student details
-    
+        
         // Check if student details were successfully retrieved
         if (student == null) {
             System.out.println("Student not found.");
             return;  // Exit the method if student details are not found
         }
-    
+        
         // Step 3: Create the message to be sent
         String messageBody = "New request by the student!\n" +
                 "Student Name: " + student.getStudentName() + "\n" +  // Use studentName from StudentBean
                 "Student Number: " + student.getStudentNumber() + "\n" +  // Use studentNumber from StudentBean
                 "Food Name: " + leftover.getFoodname() + "\n" +
                 "Hurry up and accept the request";
-    
+        
         // Step 4: Send the message to each cafe
         for (String cafeNumber : cafeNumbers) {
             try {
@@ -203,8 +208,12 @@ public class RequestController {
         }
     }
     
+    
     private List<String> getCafePhoneNumbers(LeftoverBean leftover) {
         List<String> numbers = new ArrayList<>();
+
+        System.out.println(" current cafeNumber"+ leftover.getCafeNumber());
+        
         try (Connection connection = dataSource.getConnection()) {
             String sql = "SELECT r.\"cafeNumber\", c.\"phoneNumber\" "
                     + "FROM public.request r "
