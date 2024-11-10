@@ -327,83 +327,98 @@
                                     <td th:text="${food.foodname}"></td>
                                     <td th:text="${food.foodquantity}"></td>
                                     <td th:text="${food.fooddescription}"></td>
-                                    <td>
-                                        <!-- Button to open modal -->
-                                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
-                                            data-target="#requestModal" th:attr="data-foodid=${food.foodid}, 
-                                                         data-foodname=${food.foodname}, 
-                                                         data-foodquantity=${food.foodquantity}, 
-                                                         data-fooddescription=${food.fooddescription}">
-                                            <i class="fa fa-external-link"></i> Request
-                                        </button>
+                                    <td class="text-center">
+                                        <a class="btn btn-sm btn-primary" title="Request" data-toggle="modal"
+                                            data-target="#foodDetailModal" th:data-foodid="${food.foodid}"
+                                            th:data-foodname="${food.foodname}" th:data-quantity="${food.foodquantity}"
+                                            th:data-description="${food.fooddescription}"
+                                            onclick="showFoodDetails(this)">
+                                            <i class="fa fa-external-link"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
-            </div>
 
-            <!-- Modal Structure -->
-            <div class="modal fade" id="requestModal" tabindex="-1" role="dialog" aria-labelledby="requestModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="requestModalLabel">Request Food</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <!-- Thymeleaf form action and method -->
-                        <form th:action="@{/request_leftover}" method="post">
+                <!-- Modal -->
+                <div class="modal fade" id="foodDetailModal" tabindex="-1" role="dialog"
+                    aria-labelledby="foodDetailModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="foodDetailModalLabel">Request Food</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
                             <div class="modal-body">
-                                <!-- Hidden Inputs to Pass Food Details -->
-                                <input type="hidden" name="foodid" id="modal-foodid">
-                                <input type="hidden" name="foodname" id="modal-foodname">
-                                <input type="hidden" name="foodquantity" id="modal-foodquantity">
-                                <input type="hidden" name="fooddescription" id="modal-fooddescription">
+                                <form action="#" th:action="@{/request_leftover}" method="post" id="requestForm">
+                                    <!-- Hidden field for food ID -->
+                                    <input type="hidden" id="foodid" name="foodid">
 
-                                <!-- Displaying Information in Modal -->
-                                <p><strong>Description:</strong> <span id="modalFoodID"></span></p>
-                                <p><strong>Food Name:</strong> <span id="modalFoodName"></span></p>
-                                <p><strong>Description:</strong> <span id="modalFoodDescription"></span></p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                <button type="submit" class="btn btn-primary">Confirm Request</button>
-                            </div>
-                        </form>
+                                    <h5 id="modalFoodName"></h5>
+                                    <p id="modalFoodDescription"></p>
 
+                                    <div class="form-group">
+                                        <label for="comment">Additional Comments</label>
+                                        <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="pickupTime">Pickup Time</label>
+                                        <input type="text" class="form-control" id="pickupTime" name="pickupTime"
+                                            placeholder="Enter pickup time">
+                                    </div>
+
+                                    <!-- Submit button for request -->
+                                    <button type="submit" class="btn btn-primary">Submit Request</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </main>
 
+        <!-- JavaScript to handle modal interactions -->
+        <script>
+            // Function to show food details in modal
+            function showFoodDetails(button) {
+                var foodId = $(button).data('foodid');
+                var foodName = $(button).data('foodname');
+                var foodDescription = $(button).data('description');
+
+                // Set values in the modal
+                $('#foodid').val(foodId);
+                $('#modalFoodName').text(foodName);
+                $('#modalFoodDescription').text(foodDescription);
+            }
+        </script>
+
 
         <script>
-            $('#requestModal').on('show.bs.modal', function (event) {
-                var button = $(event.relatedTarget);
-                var foodId = parseInt(button.getAttribute('data-foodid'));
+            function showFoodDetailsS(button) {
+                var foodId = button.getAttribute('data-foodid');
                 var foodName = button.getAttribute('data-foodname');
                 var description = button.getAttribute('data-description');
                 var quantity = button.getAttribute('data-quantity');
 
-                // Set data in the hidden fields
-                $('#modal-foodid').val(foodId);
-                $('#modal-foodname').val(foodName);
-                $('#modal-foodquantity').val(foodQuantity);
-                $('#modal-fooddescription').val(foodDescription);
-
-                // Display data in the modal
+                // Set values in the modal
                 document.getElementById('modalFoodName').innerText = foodName;
                 document.getElementById('modalFoodDescription').innerText = description;
                 document.getElementById('modalFoodQuantity').innerText = quantity;
-                document.getElementById('modalFoodID').innerText = foodId;
+                document.getElementById('foodid').innerText = foodId;
 
-
-            });
-
+                // // Ensure the foodId is set correctly in the hidden input
+                // if (foodId && foodId !== "") {
+                //     document.getElementById('foodid').value = foodId;  // Ensure this is correct
+                // } else {
+                //     alert("Food ID is missing.");
+                //     return;
+                // }
+            }
         </script>
 
 
