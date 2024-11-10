@@ -109,7 +109,7 @@ public class RequestController {
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setString(1, studentNumber); // Use studentNumber from session
                 statement.setInt(2,foodId );
-                statement.setString(3, leftover.getCafeNumber());
+                statement.setString(3, cafeNumber);
                 statement.setString(4, status);
                 statement.executeUpdate();
             }
@@ -139,7 +139,7 @@ public class RequestController {
         try (PreparedStatement statement = connection.prepareStatement(updateSql)) {
             statement.setInt(1, foodId); // Set the foodId for which we want to update the quantity
             statement.executeUpdate(); // Execute the update to reduce the food quantity by 1
-            System.out.println("done tolak");
+            System.out.println("done tolak dekat quantity food");
         } catch (SQLException e) {
             e.printStackTrace(); // Log any error that occurs during the update
         }
@@ -172,12 +172,14 @@ public class RequestController {
         return student;
     }
 
-    private void notifyCafe(LeftoverBean leftover, HttpSession session, String cafeNumberr) {
+    private void notifyCafe(LeftoverBean leftover, HttpSession session, String cafeNumber) {
         // Set the cafeNumber to the leftover object
-        leftover.setCafeNumber(cafeNumberr);
+        System.out.println(cafeNumber + "cafenumber dekat method notify");
+        leftover.setCafeNumber(cafeNumber);
+        
     
         // Step 1: Get list of cafe phone numbers
-        List<String> cafeNumbers = getCafePhoneNumbers(leftover); // Now it will get the correct cafeNumber from leftover
+        List<String> cafeNumbers = getCafePhoneNumbers(cafeNumber); // Now it will get the correct cafeNumber from leftover
         
         // Step 2: Retrieve student details using the studentNumber from the session
         String studentNumber = (String) session.getAttribute("studentNumber"); // Get studentNumber from session
@@ -197,51 +199,79 @@ public class RequestController {
                 "Hurry up and accept the request";
         
         // Step 4: Send the message to each cafe
-        for (String cafeNumber : cafeNumbers) {
+        for (String cafeNumberr : cafeNumbers) {
             try {
                 // Assuming you have a WhatsAppService that handles sending messages
-                String chatId = cafeNumber + "@c.us"; // Construct the chat ID for WhatsApp
+                String chatId = cafeNumberr + "@c.us"; // Construct the chat ID for WhatsApp
                 String response = whatsAppService.sendMessage(chatId, messageBody);
-                System.out.println("Message sent to: " + cafeNumber);
+                System.out.println("Message sent to: " + cafeNumberr);
                 System.out.println("WhatsApp Response: " + response);
             } catch (Exception e) {
                 e.printStackTrace(); // Log the error
-                System.out.println("Failed to send message to: " + cafeNumber);
+                System.out.println("Failed to send message to: " + cafeNumberr);
             }
         }
     }
-    
-    
-    private List<String> getCafePhoneNumbers(LeftoverBean leftover) {
+    private List<String> getCafePhoneNumbers(String cafeNumber) {
         List<String> numbers = new ArrayList<>();
-
-        System.out.println(" current cafeNumber"+ leftover.getCafeNumber());
-        
+    
+        System.out.println("Current cafeNumber: " + cafeNumber);
+    
         try (Connection connection = dataSource.getConnection()) {
             String sql = "SELECT r.\"cafeNumber\", c.\"phoneNumber\" "
-                    + "FROM public.request r "
-                    + "JOIN public.cafeteria_owner c ON r.\"cafeNumber\" = c.\"cafeNumber\" "
-                    + "WHERE r.\"cafeNumber\" = ?"; // Use '?' for parameter placeholder
-
+                       + "FROM public.request r "
+                       + "JOIN public.cafeteria_owner c ON r.\"cafeNumber\" = c.\"cafeNumber\" "
+                       + "WHERE r.\"cafeNumber\" = ?";
+    
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                // Set the cafeNumber dynamically
-                statement.setString(1, leftover.getCafeNumber()); // Assuming leftover.getCafeNumber() is the value you
-                                                                  // want
-
-                // Execute the query
+                statement.setString(1, cafeNumber);
+    
                 ResultSet rs = statement.executeQuery();
-
                 while (rs.next()) {
-                    String cafeNumber = rs.getString("cafeNumber");
                     String phoneNumber = rs.getString("phoneNumber");
-                    // Handle the result (e.g., print, process)
-                    System.out.println("Cafe Number: " + cafeNumber + ", Phone Number: " + phoneNumber);
+                    numbers.add(phoneNumber);  // Add phone number to the list
+                    System.out.println("Cafe Number: " + rs.getString("cafeNumber") + ", Phone Number: " + phoneNumber);
                 }
             }
         } catch (Exception e) {
             e.printStackTrace(); // Log the error
         }
+    
         return numbers;
     }
+    
+    
+    
+    // private List<String> getCafePhoneNumbers(String cafeNumber) {
+    //     List<String> numbers = new ArrayList<>();
+
+    //     System.out.println(" current cafeNumber untuk getCafePhoneNumbers"+ cafeNumber);
+        
+    //     try (Connection connection = dataSource.getConnection()) {
+    //         String sql = "SELECT r.\"cafeNumber\", c.\"phoneNumber\" "
+    //                 + "FROM public.request r "
+    //                 + "JOIN public.cafeteria_owner c ON r.\"cafeNumber\" = c.\"cafeNumber\" "
+    //                 + "WHERE r.\"cafeNumber\" = ?"; // Use '?' for parameter placeholder
+
+    //         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+    //             // Set the cafeNumber dynamically
+    //             statement.setString(1, cafeNumber); // Assuming leftover.getCafeNumber() is the value you
+    //                                                               // want
+
+    //             // Execute the query
+    //             ResultSet rs = statement.executeQuery();
+
+    //             while (rs.next()) {
+    //                 String cafeNumberr = rs.getString("cafeNumber");
+    //                 String phoneNumber = rs.getString("phoneNumber");
+    //                 // Handle the result (e.g., print, process)
+    //                 System.out.println("Cafe Number: " + cafeNumberr + ", Phone Number: " + phoneNumber);
+    //             }
+    //         }
+    //     } catch (Exception e) {
+    //         e.printStackTrace(); // Log the error
+    //     }
+    //     return numbers;
+    // }
 
 }
