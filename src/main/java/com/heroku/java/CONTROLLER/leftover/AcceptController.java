@@ -103,7 +103,8 @@ public class AcceptController {
             
             System.out.println("Status updated to 'Accepted' for food ID: " + foodId);
 
-            return "redirect:/cafeteria_owner/leftover/accept_leftover?success=updated";
+            
+            return "cafeteria_owner/leftover/accept_leftover";
         } catch (SQLException e) {
             e.printStackTrace(); // Log any error that occurs during the update
             return "redirect:/cafeteria_owner/leftover/accept_leftover?error=update_failed";
