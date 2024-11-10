@@ -384,10 +384,10 @@
         <script>
             $('#requestModal').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget);
-                var foodId = button.data('foodid');
-                var foodName = button.data('foodname');
-                var foodQuantity = button.data('foodquantity');
-                var foodDescription = button.data('fooddescription');
+                var foodId = parseInt(button.getAttribute('data-foodid'));
+                var foodName = button.getAttribute('data-foodname');
+                var description = button.getAttribute('data-description');
+                var quantity = button.getAttribute('data-quantity');
 
                 // Set data in the hidden fields
                 $('#modal-foodid').val(foodId);
