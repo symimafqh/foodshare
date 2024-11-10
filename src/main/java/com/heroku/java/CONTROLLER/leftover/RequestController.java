@@ -70,8 +70,8 @@ public class RequestController {
                     food.setImagePath(resultSet.getString("image_path"));
                     food.setCafeNumber(resultSet.getString("cafeNumber"));
 
-                    System.out.println("Cafe Number: " + resultSet.getString("cafe_number"));
-                    
+                    System.out.println("Cafe Number: " + resultSet.getString("cafeNumber"));
+
                     foodList.add(food); // Add the food item to the list
                 }
             }
