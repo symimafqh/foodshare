@@ -362,7 +362,7 @@
                                     <h5 id="modalFoodName"></h5>
                                     <p id="modalFoodDescription"></p>
 
-                                    
+
                                     <!-- Submit button for request -->
                                     <button type="submit" class="btn btn-primary">Submit Request</button>
                                 </form>
@@ -380,6 +380,9 @@
                 var foodId = $(button).data('foodid');
                 var foodName = $(button).data('foodname');
                 var foodDescription = $(button).data('description');
+
+                console.log("Food ID:", foodId);  // Ensure foodId is correct
+                console.log("Food Name:", foodName);
 
                 // Set values in the modal
                 $('#foodid').text(foodId);
