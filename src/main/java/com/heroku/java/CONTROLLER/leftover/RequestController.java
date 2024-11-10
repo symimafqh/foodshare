@@ -69,6 +69,9 @@ public class RequestController {
                     food.setFooddescription(resultSet.getString("fooddescription"));
                     food.setImagePath(resultSet.getString("image_path"));
                     food.setCafeNumber(resultSet.getString("cafeNumber"));
+
+                    System.out.println("Cafe Number: " + resultSet.getString("cafe_number"));
+                    
                     foodList.add(food); // Add the food item to the list
                 }
             }
