@@ -317,11 +317,9 @@
                                     <th>Food Name</th>
                                     <th>Food Quantity</th>
                                     <th>Food Description</th>
-                                    <!-- <th>Image</th> -->
                                     <th class="text-center" style="width: 11%;">Actions</th>
                                 </tr>
                             </thead>
-
                             <tbody class="bg-white">
                                 <tr th:each="food, iterStat : ${foodList}">
                                     <td th:text="${iterStat.index + 1}"></td>
@@ -329,88 +327,80 @@
                                     <td th:text="${food.foodname}"></td>
                                     <td th:text="${food.foodquantity}"></td>
                                     <td th:text="${food.fooddescription}"></td>
-                                    <!-- <td>
-                                        <img th:src="${food.imagePath}" alt="Food Image" style="width: 50px;">
-                                    </td> -->
-
                                     <td>
-                                        <a class="btn btn-sm btn-primary" title="Request" data-toggle="modal"
-                                            data-target="#foodDetailModal" th:data-foodid="${food.foodid}"
-                                            th:data-foodname="${food.foodname}" th:data-quantity="${food.foodquantity}"
-                                            th:data-description="${food.fooddescription}"
-                                            onclick="showFoodDetails(this)" th:text="data-foodid"> 
-                                            <i class="fa-external-link"></i>
-                                        </a>
+                                        <!-- Button to open modal -->
+                                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" 
+                                                data-target="#requestModal" 
+                                                th:attr="data-foodid=${food.foodid}, 
+                                                         data-foodname=${food.foodname}, 
+                                                         data-foodquantity=${food.foodquantity}, 
+                                                         data-fooddescription=${food.fooddescription}">
+                                            <i class="fa fa-external-link"></i> Request
+                                        </button>
                                     </td>
-
                                 </tr>
                             </tbody>
                         </table>
-
                     </div>
                 </div>
             </div>
-
-
-        </main>
-        <!-- END Main Container -->
-
-        <!-- <script>
-            function setFoodIDToDelete(button) {
-                var foodID = button.getAttribute('data-foodid');
-                console.log("Food ID to delete:", foodID); // Check the food ID
-                document.getElementById('foodidToDelete').value = foodID; // Set the food ID in the hidden input
-                jQuery('#delete_food_account').modal('show');; // Show the modal
-            }
-        </script> -->
-        <!-- Modal -->
-        <!-- Modal -->
-        <div class="modal fade" id="foodDetailModal" tabindex="-1" role="dialog" aria-labelledby="foodDetailModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="foodDetailModalLabel">Request</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form th:action="@{/request_leftover}" method="post" id="requestForm">
-                            <!-- Hidden field for food ID -->
-                            <input type="text" name="foodid" id="foodid" />
-                            <!-- This is important: ensure the 'name' attribute is set -->
-
-                            <h5 id="modalFoodName"></h5>
-                            <p id="modalFoodDescription"></p>
-
-                            <!-- Submit button for request -->
-                            <button type="submit" class="btn btn-primary">Submit Request</button>
+        
+            <!-- Modal Structure -->
+            <div class="modal fade" id="requestModal" tabindex="-1" role="dialog" aria-labelledby="requestModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="requestModalLabel">Request Food</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <!-- Thymeleaf form action and method -->
+                        <form th:action="@{/request_leftover}" method="post">
+                            <div class="modal-body">
+                                <!-- Hidden Inputs to Pass Food Details -->
+                                <input type="hidden" name="foodid" id="modal-foodid" th:value="${food.foodid}">
+                                <input type="hidden" name="foodname" id="modal-foodname" th:value="${food.foodname}">
+                                <input type="hidden" name="foodquantity" id="modal-foodquantity" th:value="${food.foodquantity}">
+                                <input type="hidden" name="fooddescription" id="modal-fooddescription" th:value="${food.fooddescription}">
+        
+                                <!-- Displaying Information in Modal -->
+                                <p><strong>Food Name:</strong> <span id="display-foodname" th:text="${food.foodname}"></span></p>
+                                <p><strong>Quantity:</strong> <span id="display-foodquantity" th:text="${food.foodquantity}"></span></p>
+                                <p><strong>Description:</strong> <span id="display-fooddescription" th:text="${food.fooddescription}"></span></p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Confirm Request</button>
+                            </div>
                         </form>
                     </div>
                 </div>
             </div>
-        </div>
+        </main>
+        
 
         <script>
-            function showFoodDetails(button) {
-                var foodId = parseInt(button.getAttribute('data-foodid'));
-                var foodName = button.getAttribute('data-foodname');
-                var description = button.getAttribute('data-description');
-                var quantity = button.getAttribute('data-quantity');
-
-                // Set values in the modal
-                document.getElementById('modalFoodName').innerText = foodName;
-                document.getElementById('modalFoodDescription').innerText = description;
-                document.getElementById('modalFoodQuantity').innerText = quantity;
-
-                    document.getElementById('foodid').value = foodId;  // Correct way to set the value
-               
-            }
-
-
+            $('#requestModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var foodId = button.data('foodid');
+                var foodName = button.data('foodname');
+                var foodQuantity = button.data('foodquantity');
+                var foodDescription = button.data('fooddescription');
+        
+                // Set data in the hidden fields
+                $('#modal-foodid').val(foodId);
+                $('#modal-foodname').val(foodName);
+                $('#modal-foodquantity').val(foodQuantity);
+                $('#modal-fooddescription').val(foodDescription);
+        
+                // Display data in the modal
+                $('#display-foodname').text(foodName);
+                $('#display-foodquantity').text(foodQuantity);
+                $('#display-fooddescription').text(foodDescription);
+            });
         </script>
-
+        
 
         <script th:src="@{stylesheets/assets/js/codebase.core.min.js}"></script>
 
