@@ -154,7 +154,7 @@ public class RequestController {
     
             try (ResultSet resultSet = statement.executeQuery()) { // Use executeQuery for SELECT
                 if (resultSet.next()) {
-                    foodName = resultSet.getString("foodaname"); // Retrieve the food name
+                    foodName = resultSet.getString("foodname"); // Retrieve the food name
                 }
             }
             
@@ -250,7 +250,7 @@ public class RequestController {
         System.out.println("Current cafeNumber: " + cafeNumber);
     
         try (Connection connection = dataSource.getConnection()) {
-            String sql = "SELECT r.\"cafeNumber\", c.\"phoneNumber\" "
+            String sql = "SELECT  DISTINCT r.\"cafeNumber\", c.\"phoneNumber\" "
                        + "FROM public.request r "
                        + "JOIN public.cafeteria_owner c ON r.\"cafeNumber\" = c.\"cafeNumber\" "
                        + "WHERE r.\"cafeNumber\" = ?";
