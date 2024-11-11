@@ -326,17 +326,19 @@
                                         <span th:if="${detail.status == 'Pending'}" class="badge badge-warning">Pending</span>
                                         <span th:if="${detail.status == 'Rejected'}" class="badge badge-danger">Rejected</span>
                                     </td>
-                                    <td class="text-center">
+                                    <td th:if="${detail.status != 'Accepted' && detail.status != 'Rejected'}" class="text-center">
                                         <form th:action="@{/accept}" method="post" style="display: inline;">
                                             <input type="hidden" name="foodid" th:value="${detail.foodid}" />
-                                            <button type="submit" class="btn btn-sm btn-circle btn-outline-success mr-5 mb-5" title="Accept"
-                                                    th:disabled="${detail.status == 'Accepted'}">
+                                            <button type="submit" class="btn btn-sm btn-circle btn-outline-success mr-5 mb-5" title="Accept">
                                                 <i class="fa fa-check"></i>
                                             </button>
                                         </form>
-                                        <a class="btn btn-sm btn-circle btn-alt-danger mr-5 mb-5" title="Accept">
-                                            <i class="fa fa-times"></i>
-                                        </a>
+                                        <form th:action="@{/reject}" method="post" style="display: inline;">
+                                            <input type="hidden" name="foodid" th:value="${detail.foodid}" />
+                                            <button type="submit" class="btn btn-sm btn-circle btn-outline-danger mr-5 mb-5" title="Reject">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </form>
                                     </td>
 
                                 </tr>
