@@ -91,7 +91,7 @@ public class AcceptController {
         model.addAttribute("foodRequestDetails", foodRequestDetails);
         return "cafeteria_owner/leftover/accept_leftover"; // Return the view name to be rendered
     }
-
+//--------------------------------------------------------approved-------------------------------------
     @PostMapping("/accept")
     private String acceptFood(@RequestParam("foodid") int foodId, FoodRequestDetail fr) {
         String updateSql = "UPDATE public.request SET \"status\" = 'Accepted' WHERE \"foodid\" = ?";
@@ -104,8 +104,12 @@ public class AcceptController {
             
             System.out.println("Status updated to 'Accepted' for food ID: " + foodId);
 
-            notifyStudents(fr);
-
+            fr = getFoodRequestDetailById(foodId); // Ensure this method populates all fields
+            if (fr != null && fr.getFoodname() != null && fr.getFoodDescription() != null) {
+                notifyStudents(foodId, fr);
+            } else {
+                System.out.println("Failed to fetch required food details.");
+            }
             
             return "cafeteria_owner/leftover/accept_leftover";
         } catch (SQLException e) {
@@ -114,9 +118,9 @@ public class AcceptController {
         }
     }
 
-    private void notifyStudents(FoodRequestDetail fr) {
+    private void notifyStudents(@RequestParam("foodid") int foodId, FoodRequestDetail fr) {
         // Step 1: Get list of student phone numbers
-        List<String> studentNumbers = getStudentPhoneNumbers();
+        List<String> studentNumbers = getStudentPhoneNumbers(foodId);
 
         // Step 2: Create the message to be sent
         String messageBody = "Your leftover has been accpeted!\n" +
@@ -138,8 +142,32 @@ public class AcceptController {
             }
         }
     }
+    public FoodRequestDetail getFoodRequestDetailById(int foodId) {
+        FoodRequestDetail fr = new FoodRequestDetail();
+        String sql = "SELECT l.\"foodname\", l.\"fooddescription\", l.\"cafeNumber\" " +
+                     "FROM public.leftover l " +
+                     "WHERE l.\"foodid\" = ?";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+             
+            statement.setInt(1, foodId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    fr.setFoodid(foodId);
+                    fr.setFoodname(resultSet.getString("foodname"));
+                    fr.setFoodDescription(resultSet.getString("fooddescription"));
+                    fr.setCafeNumber(resultSet.getString("cafeNumber"));
+                    // Populate other fields as necessary
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return fr;
+    }
+    
 
-    private List<String> getStudentPhoneNumbers() {
+    private List<String> getStudentPhoneNumbers(int food) {
         List<String> numbers = new ArrayList<>();
         
         String sql = "SELECT s.\"studentphonenumber\" " +
@@ -163,5 +191,58 @@ public class AcceptController {
         }
         return numbers;
     }
+
+    //------------------------------------------------rejected----------------------------
+    @PostMapping("/reject")
+private String rejectFood(@RequestParam("foodid") int foodId, FoodRequestDetail fr) {
+    String updateSql = "UPDATE public.request SET \"status\" = 'Rejected' WHERE \"foodid\" = ?";
+
+    try (Connection connection = dataSource.getConnection();
+         PreparedStatement statement = connection.prepareStatement(updateSql)) {
+        
+        statement.setInt(1, foodId); // Set the foodId for which we want to update the status
+        statement.executeUpdate(); // Execute the update
+        
+        System.out.println("Status updated to 'Rejected' for food ID: " + foodId);
+
+        fr = getFoodRequestDetailById(foodId); // Ensure this method populates all fields
+        if (fr != null && fr.getFoodname() != null && fr.getFoodDescription() != null) {
+            notifyRejection(foodId, fr);
+        } else {
+            System.out.println("Failed to fetch required food details.");
+        }
+        
+        return "cafeteria_owner/leftover/accept_leftover";
+    } catch (SQLException e) {
+        e.printStackTrace(); // Log any error that occurs during the update
+        return "redirect:/cafeteria_owner/leftover/accept_leftover?error=update_failed";
+    }
+}
+
+private void notifyRejection(int foodId, FoodRequestDetail fr) {
+    // Step 1: Get list of student phone numbers
+    List<String> studentNumbers = getStudentPhoneNumbers(foodId);
+
+    // Step 2: Create the rejection message to be sent
+    String messageBody = "Unfortunately, your leftover request has been rejected.\n" +
+            "Food Name: " + fr.getFoodname() + "\n" +
+            "Description: " + fr.getFoodDescription() + "\n" +
+            "Thank you for understanding.";
+
+    // Step 3: Send the message to each student
+    for (String studentNumber : studentNumbers) {
+        try {
+            // Assuming you have a WhatsAppService that handles sending messages
+            String chatId = studentNumber + "@c.us"; // Construct the chat ID
+            String response = whatsAppService.sendMessage(chatId, messageBody);
+            System.out.println("Rejection message sent to: " + studentNumber);
+            System.out.println("WhatsApp Response: " + response);
+        } catch (Exception e) {
+            e.printStackTrace(); // Log the error
+            System.out.println("Failed to send rejection message to: " + studentNumber);
+        }
+    }
+}
+
     
 }

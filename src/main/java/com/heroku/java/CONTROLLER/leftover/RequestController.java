@@ -82,7 +82,7 @@ public class RequestController {
 
         // Add the food list to the model for rendering in the view
         model.addAttribute("foodList", foodList);
-        return "cafeteria_owner/leftover/request_leftover"; // Return the view name
+        return "student/leftover/request_leftover"; // Return the view name
     }
 
     @PostMapping("/request_leftover")
