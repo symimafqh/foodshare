@@ -170,7 +170,7 @@ public class AcceptController {
     private List<String> getStudentPhoneNumbers(int food) {
         List<String> numbers = new ArrayList<>();
         
-        String sql = "SELECT s.\"studentphonenumber\" " +
+        String sql = "SELECT DISTINCT s.\"studentphonenumber\" " +
                      "FROM public.leftover l " +
                      "JOIN public.request r ON l.\"foodid\" = r.\"foodid\" " +
                      "JOIN public.student s ON r.\"studentNumber\" = s.\"studentNumber\"";
