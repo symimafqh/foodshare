@@ -32,13 +32,13 @@ public class SideBarControllerCafe {
     public SideBarControllerCafe(DataSource dataSource) {
         this.dataSource = dataSource;
     }
-     @GetMapping("/signupshow")
+     @GetMapping("/cafeRegisterr")
     public String showSignupPage(Model model) {
         // Create an empty StudentBean to bind form data to it
         StudentBean newStudent = new StudentBean();
         model.addAttribute("student", newStudent);
 
-        return "student/sign-in/ownerRegister"; // Redirects to the signup page template
+        return "cafeteria_owner/sign-in/ownerRegister"; // Redirects to the signup page template
     }
 
     
