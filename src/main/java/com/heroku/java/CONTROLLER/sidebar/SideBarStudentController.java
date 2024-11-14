@@ -36,7 +36,7 @@ public class SideBarStudentController {
         StudentBean newStudent = new StudentBean();
         model.addAttribute("student", newStudent);
 
-        return "student/signup"; // Redirects to the signup page template
+        return "student/sign-in/signup"; // Redirects to the signup page template
     }
 
     @GetMapping("/dashboardStudent")
