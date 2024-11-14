@@ -30,7 +30,7 @@ public class SideBarStudentController {
         this.dataSource = dataSource;
     }
 
-    @GetMapping("/signupshow")
+    @GetMapping("/cafeRegisterr")
     public String showSignupPage(Model model) {
         // Create an empty StudentBean to bind form data to it
         StudentBean newStudent = new StudentBean();

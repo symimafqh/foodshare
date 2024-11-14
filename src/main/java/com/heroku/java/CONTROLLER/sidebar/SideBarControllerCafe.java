@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.heroku.java.MODEL.cafe.CafeBean;
 import com.heroku.java.MODEL.leftover.LeftoverBean;
+import com.heroku.java.MODEL.student.StudentBean;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -30,6 +31,14 @@ public class SideBarControllerCafe {
     @Autowired
     public SideBarControllerCafe(DataSource dataSource) {
         this.dataSource = dataSource;
+    }
+     @GetMapping("/signupshow")
+    public String showSignupPage(Model model) {
+        // Create an empty StudentBean to bind form data to it
+        StudentBean newStudent = new StudentBean();
+        model.addAttribute("student", newStudent);
+
+        return "student/sign-in/ownerRegister"; // Redirects to the signup page template
     }
 
     
