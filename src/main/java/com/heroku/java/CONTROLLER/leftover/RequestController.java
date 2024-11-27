@@ -44,21 +44,20 @@ public class RequestController {
     // Method to list all food items
     @GetMapping("/view_leftover")
     public String listFoodItems(Model model, HttpSession session) {
-        // Retrieve the cafeNumber from the session
+        // Retrieve the studentNumber from the session
         String studentNumber = (String) session.getAttribute("studentNumber");
-        
         List<LeftoverBean> foodList = new ArrayList<>();
-
-        // Check if cafeNumber is null or empty
+    
+        // Check if studentNumber is null or empty
         if (studentNumber == null || studentNumber.isEmpty()) {
-            return "redirect:/error"; // Redirect if no cafeNumber is available
+            return "redirect:/error"; // Redirect if no studentNumber is available
         }
-
+    
         try (Connection connection = dataSource.getConnection()) {
-            // Prepare the SQL statement to fetch food items for the specific cafe
-            String sql = "SELECT * FROM public.leftover";
+            // SQL query to fetch food items for today (CURRENT_DATE)
+            String sql = "SELECT * FROM public.leftover WHERE DATE(\"created_at\") = CURRENT_DATE";
+            
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
-
                 ResultSet resultSet = statement.executeQuery(); // Execute the query
                 while (resultSet.next()) {
                     // Create a new LeftoverBean and populate it with data from the result set
@@ -69,9 +68,9 @@ public class RequestController {
                     food.setFooddescription(resultSet.getString("fooddescription"));
                     food.setImagePath(resultSet.getString("image_path"));
                     food.setCafeNumber(resultSet.getString("cafeNumber"));
-
+    
                     System.out.println("Cafe Number: " + resultSet.getString("cafeNumber"));
-
+    
                     foodList.add(food); // Add the food item to the list
                 }
             }
@@ -79,11 +78,12 @@ public class RequestController {
             e.printStackTrace(); // Log the exception for debugging
             return "redirect:/error"; // Redirect in case of an error
         }
-
+    
         // Add the food list to the model for rendering in the view
         model.addAttribute("foodList", foodList);
         return "cafeteria_owner/leftover/request_leftover"; // Return the view name
     }
+    
 
     @PostMapping("/request_leftover")
     public String requestLeftover(Model model, HttpSession session, LeftoverBean leftover, @RequestParam("foodid") int foodId, @RequestParam("cafenumber") String cafeNumber) {
