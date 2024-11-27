@@ -72,20 +72,19 @@ public class FoodController {
         // Retrieve the cafeNumber from the session
         String cafeNumber = (String) session.getAttribute("cafeNumber");
         List<LeftoverBean> foodList = new ArrayList<>();
-
+    
         // Check if cafeNumber is null or empty
         if (cafeNumber == null || cafeNumber.isEmpty()) {
             return "redirect:/error"; // Redirect if no cafeNumber is available
         }
-
+    
         try (Connection connection = dataSource.getConnection()) {
-            // Prepare the SQL statement to fetch food items for the specific cafe and
-            // current date
-            String sql = "SELECT * FROM public.leftover WHERE \"cafeNumber\" = ? AND \"created_at\" = ?";
+            // SQL query to fetch food items for the specific cafe and today’s date
+            String sql = "SELECT * FROM public.leftover WHERE \"cafeNumber\" = ? AND DATE(\"created_at\") = CURRENT_DATE";
+            
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setString(1, cafeNumber); // Set the cafeNumber parameter
-                statement.setDate(2, java.sql.Date.valueOf(LocalDate.now())); // Set today's date
-
+    
                 ResultSet resultSet = statement.executeQuery(); // Execute the query
                 while (resultSet.next()) {
                     // Create a new LeftoverBean and populate it with data from the result set
@@ -102,7 +101,7 @@ public class FoodController {
             e.printStackTrace(); // Log the exception for debugging
             return "redirect:/error"; // Redirect in case of an error
         }
-
+    
         // Add the food list to the model for rendering in the view
         model.addAttribute("foodList", foodList);
         return "cafeteria_owner/leftover/foodList"; // Return the view name

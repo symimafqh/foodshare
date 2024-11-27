@@ -159,6 +159,7 @@ public class AddLeftoverController {
     
             // Set the current timestamp for created_at (optional, if not using DB default)
             LocalDateTime createdAt = LocalDateTime.now();
+            System.out.println("DATE FETCH" + createdAt);
     
             // Step 1: Add leftover to the database
             try (Connection connection = dataSource.getConnection()) {
