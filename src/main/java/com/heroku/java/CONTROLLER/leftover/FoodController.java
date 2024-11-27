@@ -81,7 +81,7 @@ public class FoodController {
         try (Connection connection = dataSource.getConnection()) {
             // Prepare the SQL statement to fetch food items for the specific cafe and
             // current date
-            String sql = "SELECT * FROM public.leftover WHERE \"cafeNumber\" = ? AND \"leftover_date\" = ?";
+            String sql = "SELECT * FROM public.leftover WHERE \"cafeNumber\" = ? AND \"created_at\" = ?";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setString(1, cafeNumber); // Set the cafeNumber parameter
                 statement.setDate(2, java.sql.Date.valueOf(LocalDate.now())); // Set today's date
