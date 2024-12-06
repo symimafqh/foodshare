@@ -70,7 +70,7 @@ public class BookingController {
 
     @PostMapping("/approveOrder")
     public String approveOrder(@RequestParam("bookingID") int bookingID) {
-        String updateSql = "UPDATE public.booking SET \"status\" = 'Approved' WHERE \"bookingID\" = ?";
+        String updateSql = "UPDATE public.booking SET \"status\" = 'Approved' WHERE \"bookingid\" = ?";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(updateSql)) {
@@ -90,7 +90,7 @@ public class BookingController {
 
     @PostMapping("/rejectOrder")
     public String rejectOrder(@RequestParam("bookingID") int bookingID) {
-        String updateSql = "UPDATE public.booking SET \"status\" = 'Rejected' WHERE \"bookingID\" = ?";
+        String updateSql = "UPDATE public.booking SET \"status\" = 'Rejected' WHERE \"bookingid\" = ?";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(updateSql)) {
