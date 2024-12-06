@@ -27,11 +27,12 @@ public class CreateOrderController {
     public String addBooking(
             @ModelAttribute("addBooking") BookingBean booking, // Booking details from the form
             HttpSession session, Model model) {
+            String status = "Pending";    
 
         try {
             // Insert booking into the database
             try (Connection connection = dataSource.getConnection()) {
-                String sql = "INSERT INTO public.booking (\"bookingmenu\", \"bookingquantity\", \"bookingdate\", \"cafeNumber\", \"studentNumber\") VALUES (?, ?, ?, ?, ?)";
+                String sql = "INSERT INTO public.booking (\"bookingmenu\", \"bookingquantity\", \"bookingdate\", \"cafeNumber\", \"studentNumber\", \"status\") VALUES (?, ?, ?, ?, ?,?)";
                 try (PreparedStatement statement = connection.prepareStatement(sql)) {
                     statement.setString(1, booking.getBookingmenu()); // Menu item
                     statement.setInt(2, booking.getBookingquantity()); // Quantity
@@ -45,6 +46,8 @@ public class CreateOrderController {
                         return "redirect:/login"; // Redirect to login if session is invalid
                     }
                     statement.setString(5, studentNumber); // Student number from session
+                    statement.setString(6, status); // Student number from session
+
 
                     statement.executeUpdate();
                 }

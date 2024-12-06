@@ -10,6 +10,10 @@ public class BookingBean {
     private Date bookingdate;
     private String cafeNumber;
     private String studentNumber;
+    private String status;
+
+
+
 
     // Getter and Setter for bookingID
     public int getBookingID() {
@@ -63,6 +67,14 @@ public class BookingBean {
 
     public void setStudentNumber(String studentNumber) {
         this.studentNumber = studentNumber;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+    
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
 
