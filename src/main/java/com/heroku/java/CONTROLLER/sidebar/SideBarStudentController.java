@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.heroku.java.MODEL.booking.BookingBean;
+import com.heroku.java.MODEL.cafe.CafeBean;
 import com.heroku.java.MODEL.student.StudentBean;
 
 import jakarta.servlet.http.HttpSession;
@@ -77,6 +80,47 @@ public class SideBarStudentController {
         return "student/dashboardStudent";
     }
 
+    @GetMapping("/add_Booking")
+    public String bookingAdd(@RequestParam(name = "success", required = false) Boolean success, Model model,
+                             HttpSession session) {
+        String studentNumber = (String) session.getAttribute("studentNumber");
+        System.out.println("Session studentNumber in add booking: " + studentNumber);
+    
+        try {
+            if (studentNumber != null) {
+                // Create an empty Booking bean for the form
+                BookingBean booking = new BookingBean();
+                model.addAttribute("booking", booking);
+    
+                // Adding cafeNumber to the model
+                model.addAttribute("cafeNumber", studentNumber);
+    
+                // Fetch the list of cafeterias from the database
+                List<CafeBean> cafeterias = new ArrayList<>();
+                try (Connection connection = dataSource.getConnection()) {
+                    String sql = "SELECT \"cafeNumber\", \"cafeName\" FROM public.cafeteria_owner";
+                    try (PreparedStatement statement = connection.prepareStatement(sql);
+                         ResultSet resultSet = statement.executeQuery()) {
+    
+                        while (resultSet.next()) {
+                            CafeBean cafe = new CafeBean();
+                            cafe.setCafeNumber(resultSet.getString("cafeNumber"));
+                            cafe.setCafeName(resultSet.getString("cafeName"));
+                            cafeterias.add(cafe);
+                        }
+                    }
+                }
+    
+                // Add the list of cafeterias to the model
+                model.addAttribute("cafeterias", cafeterias);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    
+        return "student/order/create_order"; // Adjust the path as necessary
+    }
+    
     // @GetMapping("/edit_profile")
     // public String editProfile(@RequestParam(name = "success", required = false)
     // Boolean success, HttpSession session,
@@ -115,6 +159,7 @@ public class SideBarStudentController {
     // return "student/profile/edit_profile";
     // }
     @GetMapping("/edit_profile")
+
     public String editProfile(@RequestParam(name = "success", required = false) Boolean success, HttpSession session,
             Model model) {
         String studentNumber = (String) session.getAttribute("studentNumber");

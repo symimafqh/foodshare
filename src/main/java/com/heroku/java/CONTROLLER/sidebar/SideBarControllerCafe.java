@@ -137,6 +137,8 @@ public class SideBarControllerCafe {
         return "cafeteria_owner/leftover/add_leftover";
     }
 
+     // Get Mapping for Add Leftover Page
+    
     // @GetMapping("/update_Leftover")
     // public String updateLeftover(@RequestParam("foodid") String id, Model model, HttpSession session) {
 
