@@ -65,7 +65,7 @@ public class BookingController {
         }
     
         model.addAttribute("bookings", bookings);
-        return "cafeteria_owner/leftover/accept_bookings"; // Name of the Thymeleaf HTML template
+        return "cafeteria_owner/booking/accept_bookings"; // Name of the Thymeleaf HTML template
     }
 
     @PostMapping("/approveOrder")
