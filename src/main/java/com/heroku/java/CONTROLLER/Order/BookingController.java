@@ -65,9 +65,9 @@ public class BookingController {
         }
     
         model.addAttribute("bookings", bookings);
-        return "accept_bookings"; // Name of the Thymeleaf HTML template
+        return "cafeteria_owner/leftover/accept_bookings"; // Name of the Thymeleaf HTML template
     }
-    
+
     @PostMapping("/approveOrder")
     public String approveOrder(@RequestParam("bookingID") int bookingID) {
         String updateSql = "UPDATE public.booking SET \"status\" = 'Approved' WHERE \"bookingID\" = ?";
