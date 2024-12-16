@@ -34,13 +34,13 @@ public class BookingController {
         // Retrieve the cafeNumber from the session
         String cafeNumber = (String) session.getAttribute("cafeNumber");
         List<BookingBean> bookings = new ArrayList<>();
-    
+
         // Check if cafeNumber is valid
         if (cafeNumber == null || cafeNumber.isEmpty()) {
             model.addAttribute("error", "No valid cafeNumber found in session.");
             return "error_page"; // Redirect to an error page if cafeNumber is missing
         }
-    
+
         try (Connection connection = dataSource.getConnection()) {
             // SQL query to fetch orders specific to the cafe owner
             String sql = "SELECT * FROM public.booking WHERE \"cafeNumber\" = ?";
@@ -63,7 +63,7 @@ public class BookingController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    
+
         model.addAttribute("bookings", bookings);
         return "cafeteria_owner/booking/accept_bookings"; // Name of the Thymeleaf HTML template
     }
@@ -73,7 +73,7 @@ public class BookingController {
         String updateSql = "UPDATE public.booking SET \"status\" = 'Approved' WHERE \"bookingid\" = ?";
 
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement(updateSql)) {
+                PreparedStatement statement = connection.prepareStatement(updateSql)) {
 
             statement.setInt(1, bookingID); // Set the booking ID to update
             statement.executeUpdate(); // Execute the update
@@ -93,7 +93,7 @@ public class BookingController {
         String updateSql = "UPDATE public.booking SET \"status\" = 'Rejected' WHERE \"bookingid\" = ?";
 
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement(updateSql)) {
+                PreparedStatement statement = connection.prepareStatement(updateSql)) {
 
             statement.setInt(1, bookingID); // Set the booking ID to update
             statement.executeUpdate(); // Execute the update
@@ -107,4 +107,25 @@ public class BookingController {
             return "redirect:/viewBookings?error=update_failed";
         }
     }
+
+    @PostMapping("/saveUpdatedOrder")
+    public String saveUpdatedOrder(BookingBean booking) {
+        try (Connection connection = dataSource.getConnection()) {
+            String sql = "UPDATE public.bookings SET \"bookingmenu\" = ?, \"bookingquantity\" = ?, \"bookingdate\" = ? WHERE \"bookingID\" = ?";
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setString(1, booking.getBookingmenu());
+                statement.setInt(2, booking.getBookingquantity());
+                statement.setDate(3, booking.getBookingdate());
+                statement.setInt(4, booking.getBookingID());
+
+                statement.executeUpdate();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "redirect:/viewBookings?error=update_failed";
+        }
+
+        return "redirect:/viewBookings?success=updated";
+    }
+
 }

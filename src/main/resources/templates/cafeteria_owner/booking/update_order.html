@@ -302,65 +302,32 @@
         <!-- END Header -->
         <!-- Main Container -->
         <main id="main-container">
-            <!-- Page Content -->
             <div class="content">
                 <div class="block">
                     <div class="block-header block-header-default">
-                        <h3 class="block-title">Orders</h3>
+                        <h3 class="block-title">Update Order</h3>
                     </div>
                     <div class="block-content">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Order ID</th>
-                                    <th>Menu Item</th>
-                                    <th>Quantity</th>
-                                    <th>Order Date</th>
-                                    <th>Cafe Number</th>
-                                    <th>Student Number</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr th:each="booking : ${bookings}">
-                                    <td th:text="${booking.bookingID}"></td>
-                                    <td th:text="${booking.bookingmenu}"></td>
-                                    <td th:text="${booking.bookingquantity}"></td>
-                                    <td th:text="${booking.bookingdate}"></td>
-                                    <td th:text="${booking.cafeNumber}"></td>
-                                    <td th:text="${booking.studentNumber}"></td>
-                                    <td>
-                                        <span th:if="${booking.status == 'Approved'}" class="badge badge-success">Approved</span>
-                                        <span th:if="${booking.status == 'Pending'}" class="badge badge-warning">Pending</span>
-                                        <span th:if="${booking.status == 'Rejected'}" class="badge badge-danger">Rejected</span>
-                                    </td>
-                                    <td class="text-center">
-                                        <!-- Approve Button -->
-                                        <form th:if="${booking.status == 'Pending'}" th:action="@{/approveOrder}" method="post" style="display: inline;">
-                                            <input type="hidden" name="bookingID" th:value="${booking.bookingID}" />
-                                            <button type="submit" class="btn btn-sm btn-circle btn-outline-success mr-5 mb-5" title="Approve">
-                                                <i class="fa fa-check"></i>
-                                            </button>
-                                        </form>
-                                        <!-- Reject Button -->
-                                        <form th:if="${booking.status == 'Pending'}" th:action="@{/rejectOrder}" method="post" style="display: inline;">
-                                            <input type="hidden" name="bookingID" th:value="${booking.bookingID}" />
-                                            <button type="submit" class="btn btn-sm btn-circle btn-outline-danger mr-5 mb-5" title="Reject">
-                                                <i class="fa fa-times"></i>
-                                            </button>
-                                        </form>
-                                        <!-- Update Button -->
-                                        <form th:action="@{/updateOrder}" method="get" style="display: inline;">
-                                            <input type="hidden" name="bookingID" th:value="${booking.bookingID}" />
-                                            <button type="submit" class="btn btn-sm btn-circle btn-outline-primary mr-5 mb-5" title="Update">
-                                                <i class="fa fa-pencil"></i>
-                                            </button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <form th:action="@{/saveUpdatedOrder}" method="post">
+                            <input type="hidden" name="bookingID" th:value="${booking.bookingID}" />
+                            
+                            <div class="form-group">
+                                <label for="bookingmenu">Menu Item</label>
+                                <input type="text" class="form-control" id="bookingmenu" name="bookingmenu" th:value="${booking.bookingmenu}" required />
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="bookingquantity">Quantity</label>
+                                <input type="number" class="form-control" id="bookingquantity" name="bookingquantity" th:value="${booking.bookingquantity}" required />
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="bookingdate">Order Date</label>
+                                <input type="date" class="form-control" id="bookingdate" name="bookingdate" th:value="${booking.bookingdate}" required />
+                            </div>
+        
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </form>
                     </div>
                 </div>
             </div>
