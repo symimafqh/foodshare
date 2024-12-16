@@ -138,7 +138,7 @@ public class BookingController {
 
    // Save Updated Booking
    @PostMapping("/saveUpdatedBooking")
-   public String saveUpdatedBooking(BookingBean booking) {
+   public String saveUpdatedBooking(BookingBean booking, @RequestParam("bookingID") int bookingID) {
        String updateSql = "UPDATE public.booking SET \"bookingmenu\" = ?, \"bookingquantity\" = ?, \"bookingdate\" = ? WHERE \"bookingid\" = ?";
        try (Connection connection = dataSource.getConnection();
             PreparedStatement statement = connection.prepareStatement(updateSql)) {
