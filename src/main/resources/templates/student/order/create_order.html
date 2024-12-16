@@ -345,15 +345,16 @@
                                 <div class="form-group row">
                                     <div class="col-12">
                                         <label for="cafeNumber">Cafe Number</label>
-                                        <select class="form-control form-control-lg" id="cafeNumber" name="cafeNumber"
-                                            required>
+                                        <select class="form-control form-control-lg" id="cafeNumber" name="cafeNumber" required>
                                             <option value="">Select a cafeteria</option>
-                                            <option th:each="cafe : ${cafeterias}" th:value="${cafe.cafeNumber}"
-                                                th:text="${cafe.cafeName}">
+                                            <option th:each="cafe : ${cafeterias}" 
+                                                    th:value="${cafe.cafeNumber}" 
+                                                    th:text="${cafe.cafeNumber + ' - ' + cafe.cafeName}">
                                             </option>
                                         </select>
                                     </div>
                                 </div>
+                                
                                 <!-- <div class="form-group row">
                                     <div class="col-12">
                                         <label for="studentNumber">Student Number</label>
