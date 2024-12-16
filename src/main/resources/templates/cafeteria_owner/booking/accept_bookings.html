@@ -331,29 +331,43 @@
                                     <td th:text="${booking.cafeNumber}"></td>
                                     <td th:text="${booking.studentNumber}"></td>
                                     <td>
-                                        <span th:if="${booking.status == 'Approved'}" class="badge badge-success">Approved</span>
-                                        <span th:if="${booking.status == 'Pending'}" class="badge badge-warning">Pending</span>
-                                        <span th:if="${booking.status == 'Rejected'}" class="badge badge-danger">Rejected</span>
+                                        <span th:if="${booking.status == 'Approved'}"
+                                            class="badge badge-success">Approved</span>
+                                        <span th:if="${booking.status == 'Pending'}"
+                                            class="badge badge-warning">Pending</span>
+                                        <span th:if="${booking.status == 'Rejected'}"
+                                            class="badge badge-danger">Rejected</span>
                                     </td>
                                     <td class="text-center">
                                         <!-- Approve Button -->
-                                        <form th:if="${booking.status == 'Pending'}" th:action="@{/approveOrder}" method="post" style="display: inline;">
+                                        <form th:if="${booking.status == 'Pending'}" th:action="@{/approveOrder}"
+                                            method="post" style="display: inline;">
                                             <input type="hidden" name="bookingID" th:value="${booking.bookingID}" />
-                                            <button type="submit" class="btn btn-sm btn-circle btn-outline-success mr-5 mb-5" title="Approve">
+                                            <button type="submit"
+                                                class="btn btn-sm btn-circle btn-outline-success mr-5 mb-5"
+                                                title="Approve">
                                                 <i class="fa fa-check"></i>
                                             </button>
                                         </form>
+
                                         <!-- Reject Button -->
-                                        <form th:if="${booking.status == 'Pending'}" th:action="@{/rejectOrder}" method="post" style="display: inline;">
+                                        <form th:if="${booking.status == 'Pending'}" th:action="@{/rejectOrder}"
+                                            method="post" style="display: inline;">
                                             <input type="hidden" name="bookingID" th:value="${booking.bookingID}" />
-                                            <button type="submit" class="btn btn-sm btn-circle btn-outline-danger mr-5 mb-5" title="Reject">
+                                            <button type="submit"
+                                                class="btn btn-sm btn-circle btn-outline-danger mr-5 mb-5"
+                                                title="Reject">
                                                 <i class="fa fa-times"></i>
                                             </button>
                                         </form>
+
                                         <!-- Update Button -->
-                                        <form th:action="@{/updateBooking}" method="get" style="display: inline;">
+                                        <form th:if="${booking.status == 'Pending'}" th:action="@{/updateBooking}"
+                                            method="get" style="display: inline;">
                                             <input type="hidden" name="bookingID" th:value="${booking.bookingID}" />
-                                            <button type="submit" class="btn btn-sm btn-circle btn-outline-primary mr-5 mb-5" title="Update">
+                                            <button type="submit"
+                                                class="btn btn-sm btn-circle btn-outline-primary mr-5 mb-5"
+                                                title="Update">
                                                 <i class="fa fa-pencil"></i>
                                             </button>
                                         </form>
@@ -365,29 +379,28 @@
                 </div>
             </div>
         </main>
-        
 
 
 
-                <script th:src="@{stylesheets/assets/js/codebase.core.min.js}"></script>
+
+        <script th:src="@{stylesheets/assets/js/codebase.core.min.js}"></script>
 
 
-                <!-- Footer -->
-                <footer id="page-footer">
-                    <div class="content py-20 font-size-sm clearfix">
-                        <div class="float-right">
-                            Developed <i class="fa fa-heart text-pulse"></i> by <a class="font-w600"
-                                href="https://1.envato.market/ydb" target="_blank">Syamimi Afiqah</a>
-                        </div>
-                        <div class="float-left">
-                            <a class="font-w600" href="" target="_blank">Foodshare</a> &copy; <span
-                                class="js-year-copy"></span>
-                        </div>
-                    </div>
-                </footer>
-                <!-- END Footer -->
+        <!-- Footer -->
+        <footer id="page-footer">
+            <div class="content py-20 font-size-sm clearfix">
+                <div class="float-right">
+                    Developed <i class="fa fa-heart text-pulse"></i> by <a class="font-w600"
+                        href="https://1.envato.market/ydb" target="_blank">Syamimi Afiqah</a>
+                </div>
+                <div class="float-left">
+                    <a class="font-w600" href="" target="_blank">Foodshare</a> &copy; <span class="js-year-copy"></span>
+                </div>
             </div>
-            <!-- END Page Container -->
+        </footer>
+        <!-- END Footer -->
+    </div>
+    <!-- END Page Container -->
 </body>
 
 </html>
