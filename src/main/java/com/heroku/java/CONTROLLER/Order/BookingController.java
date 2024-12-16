@@ -133,7 +133,7 @@ public class BookingController {
            e.printStackTrace();
            return "redirect:/viewBookings?error=load_failed";
        }
-       return "cafeteria_owner/booking/update_booking"; // Thymeleaf template for updating booking
+       return "cafeteria_owner/booking/update_order"; // Thymeleaf template for updating booking
    }
 
    // Save Updated Booking
