@@ -108,24 +108,50 @@ public class BookingController {
         }
     }
 
-    @PostMapping("/saveUpdatedOrder")
-    public String saveUpdatedOrder(BookingBean booking) {
-        try (Connection connection = dataSource.getConnection()) {
-            String sql = "UPDATE public.bookings SET \"bookingmenu\" = ?, \"bookingquantity\" = ?, \"bookingdate\" = ? WHERE \"bookingID\" = ?";
-            try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                statement.setString(1, booking.getBookingmenu());
-                statement.setInt(2, booking.getBookingquantity());
-                statement.setDate(3, booking.getBookingdate());
-                statement.setInt(4, booking.getBookingID());
+   // Load Update Booking Form
+   @GetMapping("/updateBooking")
+   public String updateBookingForm(@RequestParam("bookingID") int bookingID, Model model) {
+       try (Connection connection = dataSource.getConnection()) {
+           String sql = "SELECT * FROM public.booking WHERE \"bookingid\" = ?";
+           try (PreparedStatement statement = connection.prepareStatement(sql)) {
+               statement.setInt(1, bookingID);
+               try (ResultSet resultSet = statement.executeQuery()) {
+                   if (resultSet.next()) {
+                       BookingBean booking = new BookingBean();
+                       booking.setBookingID(resultSet.getInt("bookingID"));
+                       booking.setBookingmenu(resultSet.getString("bookingmenu"));
+                       booking.setBookingquantity(resultSet.getInt("bookingquantity"));
+                       booking.setBookingdate(resultSet.getDate("bookingdate"));
+                       booking.setCafeNumber(resultSet.getString("cafeNumber"));
+                       booking.setStudentNumber(resultSet.getString("studentNumber"));
+                       booking.setStatus(resultSet.getString("status"));
+                       model.addAttribute("booking", booking);
+                   }
+               }
+           }
+       } catch (SQLException e) {
+           e.printStackTrace();
+           return "redirect:/viewBookings?error=load_failed";
+       }
+       return "cafeteria_owner/booking/update_booking"; // Thymeleaf template for updating booking
+   }
 
-                statement.executeUpdate();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "redirect:/viewBookings?error=update_failed";
-        }
-
-        return "redirect:/viewBookings?success=updated";
-    }
-
+   // Save Updated Booking
+   @PostMapping("/saveUpdatedBooking")
+   public String saveUpdatedBooking(BookingBean booking) {
+       String updateSql = "UPDATE public.booking SET \"bookingmenu\" = ?, \"bookingquantity\" = ?, \"bookingdate\" = ? WHERE \"bookingid\" = ?";
+       try (Connection connection = dataSource.getConnection();
+            PreparedStatement statement = connection.prepareStatement(updateSql)) {
+           statement.setString(1, booking.getBookingmenu());
+           statement.setInt(2, booking.getBookingquantity());
+           statement.setDate(3, booking.getBookingdate());
+           statement.setInt(4, booking.getBookingID());
+           statement.executeUpdate();
+           return "redirect:/viewBookings?success=updated";
+       } catch (SQLException e) {
+           e.printStackTrace();
+           return "redirect:/viewBookings?error=update_failed";
+       }
+   }
+}
 }
