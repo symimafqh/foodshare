@@ -161,35 +161,40 @@ public class SideBarStudentController {
 
         return "student/profile/edit_profile";
     }
-
     @GetMapping("/cafeteria_owners")
     public String listCafeteriaOwners(Model model) {
         List<CafeBean> ownersList = new ArrayList<>();
-
+    
         try (Connection connection = dataSource.getConnection()) {
-            // Query to fetch all cafeteria owners
-            String sql = "SELECT * FROM public.cafeteria_owner"; // Adjust table name if needed
-            
+            System.out.println("Database Connection Established");
+    
+            String sql = "SELECT * FROM public.cafeteria_owner"; // Verify correct table name
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 ResultSet resultSet = statement.executeQuery();
                 
-                // Process the result set
+                System.out.println("Executing Query...");
+                int count = 0; // To count rows fetched
+                
                 while (resultSet.next()) {
                     CafeBean owner = new CafeBean();
                     owner.setCafeName(resultSet.getString("cafeName"));
                     owner.setCafeNumber(resultSet.getString("cafeNumber"));
                     owner.setCafeEmail(resultSet.getString("cafeEmail"));
                     owner.setCafePhone(resultSet.getString("phoneNumber"));
-
+    
                     ownersList.add(owner);
+                    count++;
+                    System.out.println("Row " + count + ": " + owner.getCafeName());
                 }
+                System.out.println("Total Rows Fetched: " + count);
             }
         } catch (Exception e) {
-            e.printStackTrace(); // Log any errors
+            e.printStackTrace();
         }
-
-        // Pass the list of cafeteria owners to the model
+    
+        // Add the list to the model
         model.addAttribute("ownersList", ownersList);
         return "student/dashboardStudent"; // View file name
     }
+    
 }
