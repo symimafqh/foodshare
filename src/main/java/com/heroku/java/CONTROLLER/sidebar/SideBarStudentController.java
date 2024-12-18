@@ -250,7 +250,7 @@ public class SideBarStudentController {
 
     // return false;
     // }
-}
+
 // @GetMapping("/registration")
 // public String registration(HttpSession session, Model model) {
 // String studentNumber = (String) session.getAttribute("studentNumber");
