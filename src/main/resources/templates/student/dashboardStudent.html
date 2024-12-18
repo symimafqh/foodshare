@@ -371,28 +371,7 @@
           </div>
           
           <div class="block-content mb-10">
-            <h1>List of Cafeteria Owners</h1>
-
-            <table border="1" style="width: 100%; text-align: center;">
-                <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>Cafe Name</th>
-                        <th>Cafe Number</th>
-                        <th>Email</th>
-                        <th>Phone Number</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="owner, iterStat : ${ownersList}">
-                        <td th:text="${iterStat.index + 1}"></td>
-                        <td th:text="${owner.cafeName}"></td>
-                        <td th:text="${owner.cafeNumber}"></td>
-                        <td th:text="${owner.cafeEmail}"></td>
-                        <td th:text="${owner.cafePhone}"></td>
-                    </tr>
-                </tbody>
-            </table>
+            <img th:src="@{stylesheets/assets/pictures/list.png}" style="width: 1091px; height:700px;">
           </div>
           <!-- END Row #1 -->
         </div>
