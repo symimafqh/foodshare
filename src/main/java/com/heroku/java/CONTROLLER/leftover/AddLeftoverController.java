@@ -118,9 +118,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-
-
+import java.util.Map;
 import java.time.LocalDateTime;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
+import java.util.Map;
 
 //---------------------------------------------whatsapp
 @Controller
@@ -145,23 +147,24 @@ public class AddLeftoverController {
     
         String imagePath = "";
         try {
-            // Save the image if provided
-            if (!imageFile.isEmpty()) {
-                String fileName = System.currentTimeMillis() + "_" + imageFile.getOriginalFilename();
-                Path uploadPath = Paths.get("src/main/resources/public/stylesheets/assets/leftover", fileName);
-                Files.createDirectories(uploadPath.getParent());
-                Files.write(uploadPath, imageFile.getBytes());
+            // Cloudinary Configuration (inline setup)
+            Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
+                "cloud_name", "dp0ybfl6r",
+                "api_key", "225921615428341",
+                "api_secret", "yG49PPviB8bWBE0YaQNd-i9B5SU"
+            ));
     
-                // Set the imagePath for database storage
-                imagePath = "/stylesheets/assets/leftover/" + fileName;
-                leftover.setImagePath(imagePath); // Update LeftoverBean with the image path
+            // Upload the image to Cloudinary
+            if (!imageFile.isEmpty()) {
+                Map uploadResult = cloudinary.uploader().upload(imageFile.getBytes(), ObjectUtils.emptyMap());
+                imagePath = uploadResult.get("secure_url").toString(); // Cloudinary URL
+                leftover.setImagePath(imagePath); // Save the image path in the bean
             }
     
-            // Set the current timestamp for created_at (optional, if not using DB default)
+            // Set the current timestamp for created_at
             LocalDateTime createdAt = LocalDateTime.now();
-            System.out.println("DATE FETCH" + createdAt);
     
-            // Step 1: Add leftover to the database
+            // Insert data into the database
             try (Connection connection = dataSource.getConnection()) {
                 String sql = "INSERT INTO public.leftover (\"foodname\", \"foodquantity\", \"fooddescription\", \"image_path\", \"cafeNumber\", \"created_at\") VALUES (?, ?, ?, ?, ?, ?)";
                 try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -171,14 +174,13 @@ public class AddLeftoverController {
                     statement.setString(4, leftover.getImagePath());
                     String cafeNumber = (String) session.getAttribute("cafeNumber");
                     statement.setString(5, cafeNumber);
-                    statement.setObject(6, createdAt);  // Add created_at timestamp
+                    statement.setObject(6, createdAt);
                     statement.executeUpdate();
                 }
             }
     
-            System.out.println("Leftover added with image path: " + imagePath);
-    
-            // Step 2: Notify students using WhatsApp API (optional)
+            System.out.println("Leftover added with Cloudinary image path: " + imagePath);
+
             notifyStudents(leftover);
     
             return "redirect:/dashboardCafe?success=true";
