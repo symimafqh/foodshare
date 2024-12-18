@@ -34,7 +34,7 @@ public class SignUpCafeteria {
     public String registerCafe(@ModelAttribute("cafeRegister")CafeBean t){
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "INSERT INTO public.cafeteria_owner(\"cafeNumber\", \"cafeName\", \"cafeEmail\",\"phoneNumber\", \"cafePassword\") VALUES(?,?,?,?)";
+            String sql = "INSERT INTO public.cafeteria_owner(\"cafeNumber\", \"cafeName\", \"cafeEmail\",\"phoneNumber\", \"cafePassword\") VALUES(?,?,?,?,?)";
             final var statement = connection.prepareStatement(sql);
 
             String name= t.getCafeName();
