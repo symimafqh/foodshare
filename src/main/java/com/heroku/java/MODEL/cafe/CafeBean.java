@@ -5,6 +5,7 @@ public class CafeBean {
     private String cafeName;
     private String cafeEmail;
     private String cafePassword;
+    private String cafePhone;
     ;
 	public CafeBean() {
 		
@@ -64,6 +65,23 @@ public class CafeBean {
      */
     public void setCafePassword(String cafePassword) {
         this.cafePassword = cafePassword;
+    }
+
+   
+
+
+    /**
+     * @return String return the cafePhone
+     */
+    public String getCafePhone() {
+        return cafePhone;
+    }
+
+    /**
+     * @param cafePhone the cafePhone to set
+     */
+    public void setCafePhone(String cafePhone) {
+        this.cafePhone = cafePhone;
     }
 
 }
