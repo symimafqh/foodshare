@@ -198,6 +198,38 @@ public class SideBarStudentController {
         return "student/profile/edit_profile";
     }
 
+    @GetMapping("/cafeteria_owners")
+    public String listCafeteriaOwners(Model model) {
+        List<CafeBean> ownersList = new ArrayList<>();
+
+        try (Connection connection = dataSource.getConnection()) {
+            // Query to fetch all cafeteria owners
+            String sql = "SELECT * FROM public.cafeteria_owners"; // Adjust table name if needed
+            
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                ResultSet resultSet = statement.executeQuery();
+                
+                // Process the result set
+                while (resultSet.next()) {
+                    CafeBean owner = new CafeBean();
+                    owner.setCafeName(resultSet.getString("cafeName"));
+                    owner.setCafeNumber(resultSet.getString("cafeNumber"));
+                    owner.setCafeEmail(resultSet.getString("cafeEmail"));
+                    owner.setCafePhone(resultSet.getString("phoneNumber"));
+
+                    ownersList.add(owner);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Log any errors
+        }
+
+        // Pass the list of cafeteria owners to the model
+        model.addAttribute("ownersList", ownersList);
+        return "student/dashboardStudent"; // View file name
+    }
+}
+
     // // method to check dah register ke belum
     // public boolean isStudentRegistered(String studentNumber) {
     // try (Connection connection = dataSource.getConnection();
