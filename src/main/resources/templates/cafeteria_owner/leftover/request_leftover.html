@@ -176,23 +176,26 @@
                     <div class="content-side content-side-full">
                         <ul class="nav-main">
                             <li>
-                                <a class="active" th:href="@{/dashboardStudent}"><i class="si si-cup"></i><span
-                                        class="sidebar-mini-hide">DASHBOARD</span></a>
+                              <a class="active" th:href="@{/dashboardStudent}"><i class="si si-cup"></i><span
+                                  class="sidebar-mini-hide">DASHBOARD</span></a>
                             </li>
                             <li>
-                                <a class="active" th:href="@{/edit_profile}"><i class="si si-user"></i><span
-                                        class="sidebar-mini-hide">PROFIL</span></a>
+                              <a class="active" th:href="@{/edit_profile}"><i class="si si-user"></i><span
+                                  class="sidebar-mini-hide">PROFIL</span></a>
                             </li>
-                            <li><a class="nav-submenu" data-toggle="nav-submenu" href="#"><i
-                                        class="si si-layers"></i><span class="sidebar-mini-hide">LEFTOVER</span></a>
-                                <ul>
-                                    <li><a th:href="@{/view_leftover}">View Leftover</a></li>
-
-
-                                </ul>
+                            <li><a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-layers"></i><span
+                                  class="sidebar-mini-hide">LEFTOVER</span></a>
+                              <ul>
+                                <li><a th:href="@{/view_leftover}">View Leftover</a></li>
+                              </ul>
+                            <li><a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-layers"></i><span
+                                  class="sidebar-mini-hide">ORDER</span></a>
+                              <ul>
+                                <li><a th:href="@{/add_Booking}">Create order</a></li>
+                              </ul>
                             </li>
-
-                        </ul>
+                            </li>
+                          </ul>
                     </div>
                     <!-- END Side Navigation -->
                 </div>
@@ -317,7 +320,7 @@
                                     <th>Food Name</th>
                                     <th>Food Quantity</th>
                                     <th>Food Description</th>
-                                    <th>Action</th>
+                                    <th>Image</th>
                                     <th class="text-center" style="width: 11%;">Actions</th>
                                 </tr>
                             </thead>
@@ -328,6 +331,10 @@
                                     <td th:text="${food.foodname}"></td>
                                     <td th:text="${food.foodquantity}"></td>
                                     <td th:text="${food.fooddescription}"></td>
+                                    <td>
+                                        <img th:src="${food.imagePath}" alt="Food Image" style="width: 150px;">
+
+                                    </td>
                                     <td th:text="${food.cafeNumber}" class="hidden"></td>
                                     
                                     <td class="text-center">

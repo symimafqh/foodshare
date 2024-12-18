@@ -28,6 +28,9 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.web.bind.annotation.RequestBody;
 import com.heroku.java.SERVICE.WhatsappService;
+import com.cloudinary.*;
+import com.cloudinary.utils.ObjectUtils;
+import io.github.cdimascio.dotenv.Dotenv;
 
 @Controller
 public class RequestController {
@@ -47,16 +50,16 @@ public class RequestController {
         // Retrieve the studentNumber from the session
         String studentNumber = (String) session.getAttribute("studentNumber");
         List<LeftoverBean> foodList = new ArrayList<>();
-    
+
         // Check if studentNumber is null or empty
         if (studentNumber == null || studentNumber.isEmpty()) {
             return "redirect:/error"; // Redirect if no studentNumber is available
         }
-    
+
         try (Connection connection = dataSource.getConnection()) {
             // SQL query to fetch food items for today (CURRENT_DATE)
             String sql = "SELECT * FROM public.leftover WHERE DATE(\"created_at\") = CURRENT_DATE";
-            
+
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 ResultSet resultSet = statement.executeQuery(); // Execute the query
                 while (resultSet.next()) {
@@ -66,11 +69,19 @@ public class RequestController {
                     food.setFoodname(resultSet.getString("foodname"));
                     food.setFoodquantity(resultSet.getInt("foodquantity"));
                     food.setFooddescription(resultSet.getString("fooddescription"));
-                    food.setImagePath(resultSet.getString("image_path"));
+
+                    // Set the Cloudinary image path from the database
+                    String imagePath = resultSet.getString("image_path");
+                    if (imagePath != null && !imagePath.isEmpty()) {
+                        food.setImagePath(imagePath); // Cloudinary URL
+                    } else {
+                        // Default image if no image path is provided
+                        food.setImagePath("/default/image/path.jpg");
+                    }
+
                     food.setCafeNumber(resultSet.getString("cafeNumber"));
-    
                     System.out.println("Cafe Number: " + resultSet.getString("cafeNumber"));
-    
+
                     foodList.add(food); // Add the food item to the list
                 }
             }
@@ -78,49 +89,47 @@ public class RequestController {
             e.printStackTrace(); // Log the exception for debugging
             return "redirect:/error"; // Redirect in case of an error
         }
-    
+
         // Add the food list to the model for rendering in the view
         model.addAttribute("foodList", foodList);
         return "cafeteria_owner/leftover/request_leftover"; // Return the view name
     }
-    
 
     @PostMapping("/request_leftover")
-    public String requestLeftover(Model model, HttpSession session, LeftoverBean leftover, @RequestParam("foodid") int foodId, @RequestParam("cafenumber") String cafeNumber) {
+    public String requestLeftover(Model model, HttpSession session, LeftoverBean leftover,
+            @RequestParam("foodid") int foodId, @RequestParam("cafenumber") String cafeNumber) {
         String studentNumber = (String) session.getAttribute("studentNumber");
         String status = "Pending";
 
-    
         System.out.print("ni food id untuk insert " + foodId);
 
         // Step 1: Fetch student details using the studentNumber
         StudentBean student = getStudentDetails(studentNumber);
-    
+
         // Check if student details were fetched successfully
         if (student == null) {
             // If not found, handle the error and return a failure page or message
             return "redirect:/error?studentNotFound=true";
         }
-    
+
         // Step 2: Add request to the database
         try (Connection connection = dataSource.getConnection()) {
             String sql = "INSERT INTO public.request (\"studentNumber\", \"foodid\", \"cafeNumber\", \"status\") VALUES (?, ?, ?, ?)";
-    
+
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setString(1, studentNumber); // Use studentNumber from session
-                statement.setInt(2,foodId );
+                statement.setInt(2, foodId);
                 statement.setString(3, cafeNumber);
                 statement.setString(4, status);
                 statement.executeUpdate();
             }
-    
+
             // Step 3: Deduct 1 from the food quantity in the leftover table
             updateFoodQuantity(connection, leftover.getFoodid());
-    
+
             // Step 4: Notify cafe using WhatsApp API
-            notifyCafe(leftover,session, cafeNumber);
-            
-    
+            notifyCafe(leftover, session, cafeNumber);
+
             return "redirect:/dashboardStudent?success=true";
         } catch (SQLException e) {
             // Log specific SQL errors
@@ -132,10 +141,10 @@ public class RequestController {
             return "redirect:/request_leftover?error=true";
         }
     }
-    
+
     private void updateFoodQuantity(Connection connection, @RequestParam("foodid") int foodId) {
         String updateSql = "UPDATE public.leftover SET \"foodquantity\" = \"foodquantity\" - 1 WHERE foodid = ?";
-    
+
         try (PreparedStatement statement = connection.prepareStatement(updateSql)) {
             statement.setInt(1, foodId); // Set the foodId for which we want to update the quantity
             statement.executeUpdate(); // Execute the update to reduce the food quantity by 1
@@ -148,25 +157,24 @@ public class RequestController {
     private String getFoodName(Connection connection, int foodId) {
         String foodName = null;
         String querySql = "SELECT \"foodname\" FROM public.leftover WHERE foodid = ?";
-    
+
         try (PreparedStatement statement = connection.prepareStatement(querySql)) {
             statement.setInt(1, foodId); // Set the foodId parameter
-    
+
             try (ResultSet resultSet = statement.executeQuery()) { // Use executeQuery for SELECT
                 if (resultSet.next()) {
                     foodName = resultSet.getString("foodname"); // Retrieve the food name
                 }
             }
-            
+
             System.out.println("Food name retrieved: " + foodName);
         } catch (SQLException e) {
             e.printStackTrace(); // Log any SQL error that occurs
         }
-    
+
         return foodName; // Return the retrieved food name
     }
-    
-    
+
     private StudentBean getStudentDetails(String studentNumber) {
         StudentBean student = null;
 
@@ -198,20 +206,20 @@ public class RequestController {
         // Print cafe number for debugging
         System.out.println(cafeNumber + "cafenumber dekat method notify");
         leftover.setCafeNumber(cafeNumber);
-    
+
         // Step 1: Get list of cafe phone numbers
         List<String> cafeNumbers = getCafePhoneNumbers(cafeNumber); // Now it will get the correct cafeNumber
-    
+
         // Step 2: Retrieve student details using the studentNumber from the session
         String studentNumber = (String) session.getAttribute("studentNumber"); // Get studentNumber from session
         StudentBean student = getStudentDetails(studentNumber); // Fetch student details
-    
+
         // Check if student details were successfully retrieved
         if (student == null) {
             System.out.println("Student not found.");
             return; // Exit the method if student details are not found
         }
-    
+
         // Step 3: Get the food name from the database
         String foodName = null;
         try (Connection connection = dataSource.getConnection()) {
@@ -221,14 +229,14 @@ public class RequestController {
             System.out.println("Failed to fetch the food name.");
             return; // Exit the method if the food name cannot be fetched
         }
-    
+
         // Step 4: Create the message to be sent
         String messageBody = "New request by the student!\n" +
-                "Student Name: " + student.getStudentName() + "\n" +  // Use studentName from StudentBean
-                "Student Number: " + student.getStudentNumber() + "\n" +  // Use studentNumber from StudentBean
+                "Student Name: " + student.getStudentName() + "\n" + // Use studentName from StudentBean
+                "Student Number: " + student.getStudentNumber() + "\n" + // Use studentNumber from StudentBean
                 "Food Name: " + (foodName != null ? foodName : "Unknown") + "\n" + // Use the fetched food name
                 "Hurry up and accept the request";
-    
+
         // Step 5: Send the message to each cafe
         for (String cafeNumberr : cafeNumbers) {
             try {
@@ -243,30 +251,30 @@ public class RequestController {
             }
         }
     }
-    
+
     private List<String> getCafePhoneNumbers(String cafeNumber) {
         List<String> numbers = new ArrayList<>();
-    
+
         System.out.println("Current cafeNumber: " + cafeNumber);
-    
+
         try (Connection connection = dataSource.getConnection()) {
             String sql = "SELECT  DISTINCT r.\"cafeNumber\", c.\"phoneNumber\" "
-                       + "FROM public.request r "
-                       + "JOIN public.cafeteria_owner c ON r.\"cafeNumber\" = c.\"cafeNumber\" "
-                       + "WHERE r.\"cafeNumber\" = ?";
-    
+                    + "FROM public.request r "
+                    + "JOIN public.cafeteria_owner c ON r.\"cafeNumber\" = c.\"cafeNumber\" "
+                    + "WHERE r.\"cafeNumber\" = ?";
+
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setString(1, cafeNumber);
-    
+
                 ResultSet rs = statement.executeQuery();
                 while (rs.next()) {
                     String phoneNumber = rs.getString("phoneNumber");
-    
+
                     // Add '6' prefix if the phone number does not start with '6'
                     if (!phoneNumber.startsWith("6")) {
                         phoneNumber = "6" + phoneNumber;
                     }
-    
+
                     numbers.add(phoneNumber); // Add phone number to the list
                     System.out.println("Cafe Number: " + rs.getString("cafeNumber") + ", Phone Number: " + phoneNumber);
                 }
@@ -274,43 +282,43 @@ public class RequestController {
         } catch (Exception e) {
             e.printStackTrace(); // Log the error
         }
-    
+
         return numbers;
     }
-    
-    
-    
-    
+
     // private List<String> getCafePhoneNumbers(String cafeNumber) {
-    //     List<String> numbers = new ArrayList<>();
+    // List<String> numbers = new ArrayList<>();
 
-    //     System.out.println(" current cafeNumber untuk getCafePhoneNumbers"+ cafeNumber);
-        
-    //     try (Connection connection = dataSource.getConnection()) {
-    //         String sql = "SELECT r.\"cafeNumber\", c.\"phoneNumber\" "
-    //                 + "FROM public.request r "
-    //                 + "JOIN public.cafeteria_owner c ON r.\"cafeNumber\" = c.\"cafeNumber\" "
-    //                 + "WHERE r.\"cafeNumber\" = ?"; // Use '?' for parameter placeholder
+    // System.out.println(" current cafeNumber untuk getCafePhoneNumbers"+
+    // cafeNumber);
 
-    //         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-    //             // Set the cafeNumber dynamically
-    //             statement.setString(1, cafeNumber); // Assuming leftover.getCafeNumber() is the value you
-    //                                                               // want
+    // try (Connection connection = dataSource.getConnection()) {
+    // String sql = "SELECT r.\"cafeNumber\", c.\"phoneNumber\" "
+    // + "FROM public.request r "
+    // + "JOIN public.cafeteria_owner c ON r.\"cafeNumber\" = c.\"cafeNumber\" "
+    // + "WHERE r.\"cafeNumber\" = ?"; // Use '?' for parameter placeholder
 
-    //             // Execute the query
-    //             ResultSet rs = statement.executeQuery();
+    // try (PreparedStatement statement = connection.prepareStatement(sql)) {
+    // // Set the cafeNumber dynamically
+    // statement.setString(1, cafeNumber); // Assuming leftover.getCafeNumber() is
+    // the value you
+    // // want
 
-    //             while (rs.next()) {
-    //                 String cafeNumberr = rs.getString("cafeNumber");
-    //                 String phoneNumber = rs.getString("phoneNumber");
-    //                 // Handle the result (e.g., print, process)
-    //                 System.out.println("Cafe Number: " + cafeNumberr + ", Phone Number: " + phoneNumber);
-    //             }
-    //         }
-    //     } catch (Exception e) {
-    //         e.printStackTrace(); // Log the error
-    //     }
-    //     return numbers;
+    // // Execute the query
+    // ResultSet rs = statement.executeQuery();
+
+    // while (rs.next()) {
+    // String cafeNumberr = rs.getString("cafeNumber");
+    // String phoneNumber = rs.getString("phoneNumber");
+    // // Handle the result (e.g., print, process)
+    // System.out.println("Cafe Number: " + cafeNumberr + ", Phone Number: " +
+    // phoneNumber);
+    // }
+    // }
+    // } catch (Exception e) {
+    // e.printStackTrace(); // Log the error
+    // }
+    // return numbers;
     // }
 
 }

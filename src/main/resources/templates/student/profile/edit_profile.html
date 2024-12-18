@@ -177,10 +177,20 @@
               </li>
               <li>
                 <a class="active" th:href="@{/edit_profile}"><i class="si si-user"></i><span
-                    class="sidebar-mini-hide">PROFILE</span></a>
+                    class="sidebar-mini-hide">PROFIL</span></a>
               </li>
-
-
+              <li><a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-layers"></i><span
+                    class="sidebar-mini-hide">LEFTOVER</span></a>
+                <ul>
+                  <li><a th:href="@{/view_leftover}">View Leftover</a></li>
+                </ul>
+              <li><a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-layers"></i><span
+                    class="sidebar-mini-hide">ORDER</span></a>
+                <ul>
+                  <li><a th:href="@{/add_Booking}">Create order</a></li>
+                </ul>
+              </li>
+              </li>
             </ul>
           </div>
           <!-- END Side Navigation -->
