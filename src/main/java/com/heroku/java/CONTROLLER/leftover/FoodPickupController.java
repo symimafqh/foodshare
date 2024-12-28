@@ -25,6 +25,7 @@ public class FoodPickupController {
     public String getPickupForm(HttpSession session, Model model) {
         // Retrieve the studentNumber from the session
         String studentNumber = (String) session.getAttribute("studentNumber");
+        System.out.println("masuk picup form"+studentNumber);
 
         if (studentNumber == null) {
             // Redirect to login or error page if studentNumber is not in session
@@ -45,6 +46,7 @@ public class FoodPickupController {
                 statement.setString(1, studentNumber); // Set the studentNumber parameter
 
                 try (ResultSet resultSet = statement.executeQuery()) {
+                    System.out.println("dah masuk untuk display");
                     // Check if records are found
                     if (resultSet.next()) {
                         // Create beans to hold the fetched data
