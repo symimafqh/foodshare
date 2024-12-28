@@ -38,7 +38,7 @@ public class FoodPickupController {
         try (Connection connection = dataSource.getConnection()) {
             // SQL query to join requests, student, and leftover tables
             String sql = "SELECT r.\"studentnumber\", s.\"studentname\", f.foodname, f.foodquantity " +
-                    "FROM public.requests r " +
+                    "FROM public.request r " +
                     "JOIN public.student s ON r.\"studentnumber\" = s.\"studentnumber\" " +
                     "JOIN public.leftover f ON r.foodid = f.foodid " +
                     "WHERE r.\"studentnumber\" = ? AND r.status = 'Accepted' " +
