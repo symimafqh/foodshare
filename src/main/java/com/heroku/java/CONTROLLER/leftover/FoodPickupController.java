@@ -61,7 +61,7 @@ public class FoodPickupController {
                         model.addAttribute("leftover", leftover);
 
                         // Return the view name for the pickup form
-                        return "pickup_form"; // Match this with your Thymeleaf template name
+                        return "pickup_status"; // Match this with your Thymeleaf template name
                     }
                 }
             }
