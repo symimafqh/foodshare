@@ -39,7 +39,7 @@ public class FoodPickupController {
             // SQL query to join requests, student, and leftover tables
             String sql = "SELECT r.\"studentNumber\", s.\"studentName\", f.foodname, f.foodquantity " +
                     "FROM public.request r " +
-                    "JOIN public.student s ON r.\"studentNumber\" = s.\"studentnumber\" " +
+                    "JOIN public.student s ON r.\"studentNumber\" = s.\"studentNumber\" " +
                     "JOIN public.leftover f ON r.foodid = f.foodid " +
                     "WHERE r.\"studentNumber\" = ? AND r.status = 'Accepted' " +
                     "AND f.created_at::date = CURRENT_DATE";
