@@ -315,8 +315,7 @@
                     </h3>
                 </div>
                 <div class="block-content">
-                    <form th:action="@{/pickup_status}" modelAttribute="pickup_status"
-                        th:object="(${pickup_status})" method="POST" enctype="multipart/form-data">
+                    <form th:action="@{/pickup_post}" method="POST" enctype="multipart/form-data">
                         <div class="row items-push">
                             <div class="col-lg-3">
                                 <p class="text-muted">
@@ -329,15 +328,15 @@
                                     <div class="col-12">
                                         <label for="studentname">Student Name</label>
                                         <input type="text" class="form-control form-control-lg" id="studentname"
-                                        name="studentName" th:value="${s.studentName}">
+                                               name="studentName" th:value="${s.studentName}" readonly>
                                     </div>
                                 </div>
-                                <!-- Student ID -->
+                                <!-- Student Number -->
                                 <div class="form-group row">
                                     <div class="col-12">
                                         <label for="studentid">Student Number</label>
                                         <input type="text" class="form-control form-control-lg" id="studentid"
-                                        name="studentNumber" th:value="${s.studentNumber}">
+                                               name="studentNumber" th:value="${s.studentNumber}" readonly>
                                     </div>
                                 </div>
                                 <!-- Pickup Time -->
@@ -345,15 +344,15 @@
                                     <div class="col-12">
                                         <label for="pickuptime">Pickup Time</label>
                                         <input type="datetime-local" class="form-control form-control-lg" id="pickuptime"
-                                            name="pickuptime" required>
+                                               name="pickuptime" required>
                                     </div>
                                 </div>
                                 <!-- Evidence Image -->
                                 <div class="form-group row">
                                     <div class="col-12">
-                                        <label for="evidenceimage">Upload Evidence (optional)</label>
+                                        <label for="evidenceimage">Upload Evidence</label>
                                         <input type="file" class="form-control form-control-lg" id="evidenceimage" name="evidenceimage"
-                                            accept="image/*">
+                                               accept="image/*" required>
                                     </div>
                                 </div>
                                 <!-- Food Name -->
@@ -361,7 +360,7 @@
                                     <div class="col-12">
                                         <label for="foodname">Food Name</label>
                                         <input type="text" class="form-control form-control-lg" id="foodname"
-                                        name="foodname" th:value="${leftover.foodname}" readonly>
+                                               name="foodname" th:value="${leftover.foodname}" readonly>
                                     </div>
                                 </div>
                                 <!-- Food Quantity -->
@@ -369,7 +368,7 @@
                                     <div class="col-12">
                                         <label for="foodquantity">Food Quantity</label>
                                         <input type="number" class="form-control form-control-lg" id="foodquantity"
-                                        name="foodquantity" th:value="${leftover.foodquantity}" readonly>
+                                               name="foodquantity" th:value="${leftover.foodquantity}" readonly>
                                     </div>
                                 </div>
                                 <!-- Confirmation -->
@@ -377,9 +376,9 @@
                                     <div class="col-12">
                                         <label for="confirmation">Confirmation</label>
                                         <textarea class="form-control form-control-lg" id="confirmation"
-                                            name="confirmation" rows="4"
-                                            placeholder="Please ensure that you take the food and do not leave it unattended."></textarea>
-                                            required></textarea>
+                                                  name="confirmation" rows="4"
+                                                  placeholder="Please ensure that you take the food and do not leave it unattended."
+                                                  required></textarea>
                                     </div>
                                 </div>
                                 <!-- Submit Button -->
@@ -393,7 +392,6 @@
                     </form>
                 </div>
                 
-        </main>
         <!-- END Main Container -->
 
         <!-- Footer -->
