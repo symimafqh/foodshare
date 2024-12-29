@@ -26,7 +26,6 @@ import com.heroku.java.MODEL.student.StudentBean;
 
 import jakarta.servlet.http.HttpSession;
 
-
 @Controller
 public class FoodPickupController {
 
@@ -37,7 +36,7 @@ public class FoodPickupController {
     public String getPickupForm(HttpSession session, Model model) {
         // Retrieve the studentNumber from the session
         String studentNumber = (String) session.getAttribute("studentNumber");
-        System.out.println("masuk picup form"+studentNumber);
+        System.out.println("masuk picup form" + studentNumber);
 
         if (studentNumber == null) {
             // Redirect to login or error page if studentNumber is not in session
@@ -98,40 +97,43 @@ public class FoodPickupController {
             @RequestParam("foodquantity") int foodQuantity,
             @RequestParam("confirmation") String confirmation,
             HttpSession session, Model model) {
-    
-        // Debug log for inputs
+
         System.out.println("Student Name: " + studentName);
         System.out.println("Student Number: " + studentNumber);
         System.out.println("Pickup Time: " + pickupTime);
         System.out.println("Food Name: " + foodName);
         System.out.println("Food Quantity: " + foodQuantity);
         System.out.println("Confirmation: " + confirmation);
-    
+
         String imagePath = "";
         try (Connection connection = dataSource.getConnection()) {
             // Cloudinary Configuration
             Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
-                "cloud_name", "dp0ybfl6r",
-                "api_key", "225921615428341",
-                "api_secret", "yG49PPviB8bWBE0YaQNd-i9B5SU"
-            ));
-    
+                    "cloud_name", "dp0ybfl6r",
+                    "api_key", "225921615428341",
+                    "api_secret", "yG49PPviB8bWBE0YaQNd-i9B5SU"));
+
             // Upload the image to Cloudinary
             if (!evidenceImage.isEmpty()) {
                 Map uploadResult = cloudinary.uploader().upload(evidenceImage.getBytes(), ObjectUtils.emptyMap());
                 imagePath = uploadResult.get("secure_url").toString(); // Cloudinary URL
             }
-    
-            // Fetch foodid directly based on studentNumber, status, and created_at
+
+            // Convert pickupTime to Timestamp
+            String formattedTime = pickupTime.replace("T", " ") + ":00"; // Convert 'yyyy-MM-ddTHH:mm' to 'yyyy-MM-dd
+                                                                         // HH:mm:ss'
+            Timestamp timestamp = Timestamp.valueOf(formattedTime);
+
+            // Fetch foodid based on studentNumber and foodName
             String fetchFoodIdSQL = "SELECT f.foodid FROM public.request r " +
-                                    "JOIN public.leftover f ON r.foodid = f.foodid " +
-                                    "WHERE r.\"studentNumber\" = ? AND r.status = 'Accepted' " +
-                                    "AND f.foodname = ? AND f.created_at::date = CURRENT_DATE";
-    
+                    "JOIN public.leftover f ON r.foodid = f.foodid " +
+                    "WHERE r.\"studentNumber\" = ? AND r.status = 'Accepted' " +
+                    "AND f.foodname = ? AND f.created_at::date = CURRENT_DATE";
+
             int foodId = 0;
             try (PreparedStatement fetchFoodIdStmt = connection.prepareStatement(fetchFoodIdSQL)) {
-                fetchFoodIdStmt.setString(1, studentNumber); // Filter by studentNumber
-                fetchFoodIdStmt.setString(2, foodName); // Filter by foodName
+                fetchFoodIdStmt.setString(1, studentNumber);
+                fetchFoodIdStmt.setString(2, foodName);
                 try (ResultSet resultSet = fetchFoodIdStmt.executeQuery()) {
                     if (resultSet.next()) {
                         foodId = resultSet.getInt("foodid");
@@ -140,35 +142,23 @@ public class FoodPickupController {
                     }
                 }
             }
-    
-            // SQL query to insert the pickup details into the "pickup" table
+
+            // Insert into the pickup table
             String sql = "INSERT INTO public.pickup (timepickup, imagepath, studentnumber, foodid) " +
-                         "VALUES (?, ?, ?, ?)";
+                    "VALUES (?, ?, ?, ?)";
             final var statement = connection.prepareStatement(sql);
-    
-            // Set the parameters for the prepared statement
-            statement.setTimestamp(1, Timestamp.valueOf(pickupTime)); // Convert string to Timestamp
-            statement.setString(2, imagePath); // Image path from Cloudinary
-            statement.setString(3, studentNumber); // Student number from the form
-            statement.setInt(4, foodId); // Food ID fetched from SQL query
-    
-            // Debug log for SQL execution
-            System.out.println("Pickup Time: " + pickupTime);
-            System.out.println("Image Path: " + imagePath);
-            System.out.println("Student Number: " + studentNumber);
-            System.out.println("Food ID: " + foodId);
-    
-            // Execute the SQL insert
+            statement.setTimestamp(1, timestamp);
+            statement.setString(2, imagePath);
+            statement.setString(3, studentNumber);
+            statement.setInt(4, foodId);
+
             statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace(); // Print stack trace for debugging
-            return "redirect:/pickupForm?error=true"; // Redirect with error flag
+            return "redirect:/pickupForm?error=true";
         }
-    
-        // Redirect to success page or confirmation
+
         return "redirect:/pickupForm?success=true";
     }
-    
-
 
 }
