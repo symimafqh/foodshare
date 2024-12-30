@@ -13,79 +13,80 @@
 
   <!-- Add Custom Inline CSS Here -->
   <style>
-    /* Styling for the modal */
-    .modal-dialog-popout {
-      margin: 2rem auto;
-      animation: popout 0.3s ease-out;
+    /* General Styling */
+    body {
+      font-family: 'Nunito Sans', sans-serif;
     }
   
-    @keyframes popout {
-      from {
-        transform: scale(0.9);
-        opacity: 0;
-      }
-      to {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
-  
-    .block-header.bg-primary-dark {
-      background-color: #2c3e50 !important;
-      color: #fff;
-    }
-  
-    .block-title {
-      font-weight: bold;
-    }
-  
-    .btn-alt-secondary {
-      background-color: #f4f4f4;
-      border: 1px solid #ddd;
-      color: #333;
-      transition: all 0.3s ease;
-    }
-  
-    .btn-alt-secondary:hover {
-      background-color: #e0e0e0;
-      color: #000;
-    }
-  
-    /* Highlight Content in the Guide */
+    /* Guide Block Styling */
     .guide-block {
       margin: 20px 0;
       padding: 20px;
-      background-color: #f9f9f9;
-      border: 1px solid #e0e0e0;
-      border-radius: 8px;
+      background-color: #ffe6e9; /* Light pink background */
+      border: 1px solid #f5c2c7; /* Light pink border */
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 1s ease-in-out;
+    }
+  
+    .block-header {
+      background-color: #ff6f91 !important; /* Pink header */
+      color: #fff !important;
+      padding: 15px;
+      border-radius: 10px 10px 0 0;
+      font-weight: bold;
+      text-align: center;
     }
   
     .guide-step {
       padding: 15px;
       margin: 10px 0;
-      border: 1px dashed #dcdcdc;
+      border: 1px dashed #f5c2c7; /* Dashed pink border */
       border-radius: 5px;
-      background-color: #ffffff;
+      background-color: #fff; /* White background for contrast */
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+  
+    .guide-step:hover {
+      transform: scale(1.02);
+      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
     }
   
     .guide-step-title {
       font-weight: bold;
-      font-size: 16px;
-      color: #34495e;
+      font-size: 18px;
+      color: #e6005c; /* Deep pink */
+      margin-bottom: 5px;
     }
   
     .guide-step p {
-      margin: 5px 0 0;
+      margin: 0;
       font-size: 14px;
       color: #555;
     }
   
-    .block-content.mb-10 img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 8px;
+    /* Footer Styling */
+    #page-footer {
+      background-color: #ffe6e9;
+      color: #e6005c;
+      text-align: center;
+      padding: 10px;
+      border-top: 1px solid #f5c2c7;
+    }
+  
+    /* Animation for the guide block */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
+  
   
 </head>
 
@@ -415,40 +416,39 @@
               <b>Welcome to FoodShare! Let’s connect surplus with those in need.</b>
             </h3>
           </div>
+<!-- Interactive Guide -->
+<div class="block guide-block">
+  <div class="block-header">
+    <h3 class="block-title">How to Request Leftover Food</h3>
+  </div>
+  <div class="block-content">
+    <div class="guide-step">
+      <p class="guide-step-title">1. Navigate to "View Leftover"</p>
+      <p>Find the "View Leftover" option in the sidebar menu to see the available leftover food.</p>
+    </div>
+    <div class="guide-step">
+      <p class="guide-step-title">2. Request Food</p>
+      <p>
+        Hover over the <b>Action</b> column where the "Request" button will appear. Click on it to make a
+        request.
+      </p>
+    </div>
+    <div class="guide-step">
+      <p class="guide-step-title">3. Wait for Notification</p>
+      <p>
+        Once your request is approved by the cafeteria, you will receive a notification. Please wait patiently.
+      </p>
+    </div>
+    <div class="guide-step">
+      <p class="guide-step-title">4. Pickup the Leftover</p>
+      <p>
+        Go to the "Pickup Leftover" menu and fill out the required form to confirm your pickup. Submit the form
+        to complete the process.
+      </p>
+    </div>
+  </div>
+</div>
 
-        <!-- Interactive Guide -->
-        <div class="block guide-block">
-          <div class="block-header bg-primary-dark text-white">
-            <h3 class="block-title">How to Request Leftover Food</h3>
-          </div>
-          <div class="block-content">
-            <div class="guide-step">
-              <p class="guide-step-title">1. Navigate to "View Leftover"</p>
-              <p>Find the "View Leftover" option in the sidebar menu to see the available leftover food.</p>
-            </div>
-            <div class="guide-step">
-              <p class="guide-step-title">2. Request Food</p>
-              <p>
-                Hover over the <b>Action</b> column where the "Request" button will appear. Click on it to make a
-                request.
-              </p>
-            </div>
-            <div class="guide-step">
-              <p class="guide-step-title">3. Wait for Notification</p>
-              <p>
-                Once your request is approved by the cafeteria, you will receive a notification. Please wait patiently.
-              </p>
-            </div>
-            <div class="guide-step">
-              <p class="guide-step-title">4. Pickup the Leftover</p>
-              <p>
-                Go to the "Pickup Leftover" menu and fill out the required form to confirm your pickup. Submit the form
-                to complete the process.
-              </p>
-            </div>
-          </div>
-        </div>
-        
         <!-- END Interactive Guide -->
       </div>
       <!-- END Page Content -->
