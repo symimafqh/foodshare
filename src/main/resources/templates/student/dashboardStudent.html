@@ -450,45 +450,39 @@
       <style>
         .card-header {
             background-color: #f8d7da !important; /* Keeps the pink background */
-            border: 1px solid #f5c6cb !important; /* Keeps the border */
+            border: 1px solid #f5c6cb !important;
             border-radius: 5px !important;
             cursor: pointer;
             padding: 10px 15px !important;
-            color: #000000 !important; /* Change text color to black for maximum contrast */
+            color: #000 !important; /* Force black text for maximum visibility */
             font-weight: bold !important;
             font-size: 16px !important; /* Larger font for readability */
-            opacity: 1 !important; /* Force full opacity for text */
-            text-shadow: none !important; /* Remove any text shadow */
+            text-shadow: none !important;
+            opacity: 1 !important; /* Ensure no transparency */
         }
     
         .card-body {
-            background-color: #ffffff !important; /* White background for the body text */
+            background-color: #ffffff !important; /* White background for better text visibility */
             border: 1px solid #f5c6cb !important;
             border-top: none !important;
             border-radius: 0 0 5px 5px !important;
             padding: 15px !important;
-            color: #000000 !important; /* Black text for body content */
+            color: #000 !important; /* Black text for body content */
             font-size: 14px !important;
-            opacity: 1 !important; /* Force full opacity for text */
-            text-shadow: none !important; /* Remove any text shadow */
+            text-shadow: none !important;
+            opacity: 1 !important; /* Remove any transparency */
         }
     
-        .fa-chevron-right {
-            transition: transform 0.3s ease-in-out;
-            color: #000000 !important; /* Make chevron icon black */
-            opacity: 1 !important; /* Force full opacity for icons */
+        .accordion .card-header a {
+            color: #000 !important; /* Force black text for links inside headers */
+            font-weight: bold !important;
+            text-decoration: none !important;
         }
     
-        .collapse.show .fa-chevron-right {
-            transform: rotate(90deg);
+        .accordion .card-header a:hover {
+            color: #333 !important; /* Slightly lighter black for hover effect */
         }
     </style>
-    
-    
-    
-    
-
-      
       
       </div>
       <!-- END Page Content -->
