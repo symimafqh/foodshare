@@ -18,7 +18,7 @@
       margin: 2rem auto;
       animation: popout 0.3s ease-out;
     }
-
+  
     @keyframes popout {
       from {
         transform: scale(0.9);
@@ -29,42 +29,64 @@
         opacity: 1;
       }
     }
-
+  
     .block-header.bg-primary-dark {
       background-color: #2c3e50 !important;
       color: #fff;
     }
-
+  
     .block-title {
       font-weight: bold;
     }
-
+  
     .btn-alt-secondary {
       background-color: #f4f4f4;
       border: 1px solid #ddd;
       color: #333;
       transition: all 0.3s ease;
     }
-
+  
     .btn-alt-secondary:hover {
       background-color: #e0e0e0;
       color: #000;
     }
-
+  
     /* Highlight Content in the Guide */
+    .guide-block {
+      margin: 20px 0;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+    }
+  
     .guide-step {
-      padding: 10px;
+      padding: 15px;
       margin: 10px 0;
       border: 1px dashed #dcdcdc;
       border-radius: 5px;
-      background-color: #fafafa;
+      background-color: #ffffff;
     }
-
+  
     .guide-step-title {
       font-weight: bold;
-      color: #2c3e50;
+      font-size: 16px;
+      color: #34495e;
+    }
+  
+    .guide-step p {
+      margin: 5px 0 0;
+      font-size: 14px;
+      color: #555;
+    }
+  
+    .block-content.mb-10 img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
     }
   </style>
+  
 </head>
 
 <body th:attr="data-no-request-message=${noRequestMessage}">
@@ -394,14 +416,8 @@
             </h3>
           </div>
 
-          <div class="block-content mb-10">
-            <img th:src="@{stylesheets/assets/pictures/list.png}" style="width: 100%; height: auto;">
-          </div>
-          <!-- END Row #1 -->
-        </div>
-
         <!-- Interactive Guide -->
-        <div class="block">
+        <div class="block guide-block">
           <div class="block-header bg-primary-dark text-white">
             <h3 class="block-title">How to Request Leftover Food</h3>
           </div>
@@ -432,6 +448,7 @@
             </div>
           </div>
         </div>
+        
         <!-- END Interactive Guide -->
       </div>
       <!-- END Page Content -->
