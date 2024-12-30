@@ -376,13 +376,14 @@
                         name="studentPhone" th:value="${s.studentPhone}">
                     </div>
                   </div>
-                </div>
-
-                <div class="form-group row">
-                  <div class="col-12">
-                    <button type="submit" class="btn btn-alt-primary">Update</button>
+                  <div class="form-group row">
+                    <div class="col-12">
+                      <button type="submit" class="btn btn-alt-primary">Update</button>
+                    </div>
                   </div>
                 </div>
+
+                
               </div>
           </div>
           </form>
@@ -393,7 +394,6 @@
       <!-- Connections -->
       <!-- END Connections -->
 
-      <!-- Change Password -->
       <div class="block">
         <div class="block-header block-header-default">
           <h3 class="block-title">
@@ -401,19 +401,20 @@
           </h3>
         </div>
         <div class="block-content">
-          <form th:action="@{/edit_password}" modelAttribute="edit_password" th:object="(${edit_password})"
-            method="post">
+          <form th:action="@{/edit_password}" modelAttribute="edit_password" th:object="(${edit_password})" method="post">
             <div class="row items-push">
+              <!-- Left Column -->
               <div class="col-lg-3">
                 <p class="text-muted">
-                  Change current Password
+                  Update your password details below.
                 </p>
               </div>
+              <!-- Right Column -->
               <div class="col-lg-7 offset-lg-1">
                 <div class="form-group row">
                   <div class="col-12">
                     <label for="profile-settings-password">Current Password</label>
-                    <input type="password" class="form-control form-control-lg" id="password" name="password"
+                    <input type="password" class="form-control form-control-lg" id="password" name="password" 
                       th:value="${s.studentPassword}">
                     <span class="eye" onclick="togglePassword()">
                       <i id="eye-icon" class="fa fa-eye"></i>
@@ -423,46 +424,47 @@
                 <div class="form-group row">
                   <div class="col-12">
                     <label for="profile-settings-password-new">New Password</label>
-                    <input type="password" class="form-control form-control-lg" id="studentPassword"
-                      name="studentPassword">
+                    <input type="password" class="form-control form-control-lg" id="studentPassword" name="studentPassword">
                   </div>
                 </div>
                 <div class="form-group row">
                   <div class="col-12">
                     <label for="profile-settings-password-new-confirm">Confirmation New Password</label>
-                    <input type="password" class="form-control form-control-lg" id="studentPasswordConfirmation"
+                    <input type="password" class="form-control form-control-lg" id="studentPasswordConfirmation" 
                       name="studentpassword">
                   </div>
                 </div>
                 <div class="form-group row">
                   <div class="col-12">
-                    <span id="passwordError" style="color: red; display: none;">Password did not match</span>
+                    <span id="passwordError" style="color: red; display: none;">Passwords did not match</span>
                     <button type="submit" class="btn btn-alt-primary" id="submitBtn">Update</button>
                   </div>
                 </div>
-                <script>
-                  const passwordInput = document.getElementById('studentPassword');
-                  const confirmPasswordInput = document.getElementById('studentPasswordConfirmation');
-                  const passwordErrorMessage = document.getElementById('passwordError');
-                  const submitButton = document.getElementById('submitBtn');
-
-                  confirmPasswordInput.addEventListener('input', validatePasswords);
-
-                  function validatePasswords() {
-                    if (passwordInput.value !== confirmPasswordInput.value) {
-                      passwordErrorMessage.style.display = 'inline';
-                      submitButton.disabled = true;
-                    } else {
-                      passwordErrorMessage.style.display = 'none';
-                      submitButton.disabled = false;
-                    }
-                  }
-                </script>
               </div>
             </div>
           </form>
         </div>
       </div>
+      
+
+      <script>
+        const passwordInput = document.getElementById('studentPassword');
+        const confirmPasswordInput = document.getElementById('studentPasswordConfirmation');
+        const passwordErrorMessage = document.getElementById('passwordError');
+        const submitButton = document.getElementById('submitBtn');
+
+        confirmPasswordInput.addEventListener('input', validatePasswords);
+
+        function validatePasswords() {
+          if (passwordInput.value !== confirmPasswordInput.value) {
+            passwordErrorMessage.style.display = 'inline';
+            submitButton.disabled = true;
+          } else {
+            passwordErrorMessage.style.display = 'none';
+            submitButton.disabled = false;
+          }
+        }
+      </script>
       <!-- END Change Password -->
 
       <!-- Billing Information -->
