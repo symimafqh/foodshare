@@ -369,59 +369,57 @@
       <!-- Page Content -->
       <div class="content">
         <style>
-          /* Card Header Styles */
+          /* Base styling for the card header */
           .card-header {
               background-color: #f8d7da; /* Light pink background */
               border: 1px solid #f5c6cb; /* Pink border */
               border-radius: 5px;
-              padding: 10px 15px;
+              padding: 15px;
               font-weight: bold;
               font-size: 16px; /* Larger text for better clarity */
+              position: relative; /* For the hover effect */
+              color: #721c24; /* Darker red text color */
+              overflow: hidden; /* To clip text during animation */
+              cursor: pointer;
               display: flex;
               align-items: center;
-              position: relative; /* For pseudo-element positioning */
-              overflow: hidden; /* Ensure hidden animations */
-              color: #721c24; /* Darker red text color for readability */
-              cursor: pointer;
-          }
-      
-          .card-header:hover {
-              background-color: #f5c2c7; /* Slightly darker pink on hover */
+              justify-content: space-between; /* Align icon to the right */
           }
       
           /* Text Swapping Effect */
-          .card-header span {
+          .card-header .text-swap {
               display: inline-block;
-              transition: transform 0.4s ease, color 0.4s ease;
+              position: relative;
+              overflow: hidden;
           }
       
-          .card-header:hover span {
-              transform: translateY(-100%); /* Move the visible text up */
-              color: #721c24;
+          /* Default visible text */
+          .card-header .text-swap span.default-text {
+              display: block;
+              transition: transform 0.3s ease;
           }
       
-          /* Text Swapping Animation (Hover Text) */
-          .card-header::after {
-              content: attr(data-hover); /* Set the hover text */
+          /* Hover text */
+          .card-header .text-swap span.hover-text {
+              display: block;
               position: absolute;
+              top: 100%; /* Start below the default text */
               left: 0;
-              top: 100%; /* Start below the visible text */
               width: 100%;
-              text-align: left;
-              padding-left: 15px;
-              color: #495057; /* Neutral dark text for hover text */
-              font-weight: bold;
-              transform: translateY(0);
-              transition: transform 0.4s ease, color 0.4s ease;
+              transition: transform 0.3s ease;
           }
       
-          .card-header:hover::after {
-              transform: translateY(-100%); /* Move the hover text into view */
+          /* On hover, swap the text */
+          .card-header:hover .text-swap span.default-text {
+              transform: translateY(-100%);
+          }
+      
+          .card-header:hover .text-swap span.hover-text {
+              transform: translateY(-100%);
           }
       
           /* Chevron Icon Animation */
           .fa-chevron-right {
-              margin-left: auto; /* Push to the right */
               transition: transform 0.3s ease-in-out;
               color: #721c24; /* Match icon color with header text */
           }
@@ -431,7 +429,7 @@
           }
       </style>
       
-      <!-- Accordion with Swapping Hover Effect -->
+      <!-- Accordion Structure with the Text Swap Effect -->
       <div class="block">
           <div class="block-header block-header-default text-center">
               <h3 class="block-title">
@@ -442,13 +440,12 @@
               <div id="interactive-guide" class="accordion" role="tablist" aria-multiselectable="true" style="max-width: 800px; margin: 0 auto; border-radius: 10px; padding: 20px;">
                   <!-- Step 1 -->
                   <div class="card mb-3">
-                      <div class="card-header" data-hover="Find the 'View Leftover' menu option." role="tab" id="step1-header">
-                          <h5 class="mb-0">
-                              <a class="d-flex align-items-center text-decoration-none" data-toggle="collapse" href="#step1" aria-expanded="true" aria-controls="step1">
-                                  <span>Step 1: Navigate to "View Leftover"</span>
-                                  <i class="fa fa-chevron-right"></i>
-                              </a>
-                          </h5>
+                      <div class="card-header" role="tab" id="step1-header">
+                          <div class="text-swap">
+                              <span class="default-text">Step 1: Navigate to "View Leftover"</span>
+                              <span class="hover-text">Find the 'View Leftover' menu option.</span>
+                          </div>
+                          <i class="fa fa-chevron-right"></i>
                       </div>
                       <div id="step1" class="collapse show" role="tabpanel" aria-labelledby="step1-header">
                           <div class="card-body">
@@ -459,13 +456,12 @@
       
                   <!-- Step 2 -->
                   <div class="card mb-3">
-                      <div class="card-header" data-hover="Click on the 'Request' button." role="tab" id="step2-header">
-                          <h5 class="mb-0">
-                              <a class="d-flex align-items-center text-decoration-none" data-toggle="collapse" href="#step2" aria-expanded="false" aria-controls="step2">
-                                  <span>Step 2: Request Food</span>
-                                  <i class="fa fa-chevron-right"></i>
-                              </a>
-                          </h5>
+                      <div class="card-header" role="tab" id="step2-header">
+                          <div class="text-swap">
+                              <span class="default-text">Step 2: Request Food</span>
+                              <span class="hover-text">Click on the 'Request' button.</span>
+                          </div>
+                          <i class="fa fa-chevron-right"></i>
                       </div>
                       <div id="step2" class="collapse" role="tabpanel" aria-labelledby="step2-header">
                           <div class="card-body">
@@ -476,13 +472,12 @@
       
                   <!-- Step 3 -->
                   <div class="card mb-3">
-                      <div class="card-header" data-hover="Wait for notification approval." role="tab" id="step3-header">
-                          <h5 class="mb-0">
-                              <a class="d-flex align-items-center text-decoration-none" data-toggle="collapse" href="#step3" aria-expanded="false" aria-controls="step3">
-                                  <span>Step 3: Wait for Notification</span>
-                                  <i class="fa fa-chevron-right"></i>
-                              </a>
-                          </h5>
+                      <div class="card-header" role="tab" id="step3-header">
+                          <div class="text-swap">
+                              <span class="default-text">Step 3: Wait for Notification</span>
+                              <span class="hover-text">Wait for notification approval.</span>
+                          </div>
+                          <i class="fa fa-chevron-right"></i>
                       </div>
                       <div id="step3" class="collapse" role="tabpanel" aria-labelledby="step3-header">
                           <div class="card-body">
@@ -493,13 +488,12 @@
       
                   <!-- Step 4 -->
                   <div class="card mb-3">
-                      <div class="card-header" data-hover="Confirm and pick up leftover food." role="tab" id="step4-header">
-                          <h5 class="mb-0">
-                              <a class="d-flex align-items-center text-decoration-none" data-toggle="collapse" href="#step4" aria-expanded="false" aria-controls="step4">
-                                  <span>Step 4: Pickup the Leftover</span>
-                                  <i class="fa fa-chevron-right"></i>
-                              </a>
-                          </h5>
+                      <div class="card-header" role="tab" id="step4-header">
+                          <div class="text-swap">
+                              <span class="default-text">Step 4: Pickup the Leftover</span>
+                              <span class="hover-text">Confirm and pick up leftover food.</span>
+                          </div>
+                          <i class="fa fa-chevron-right"></i>
                       </div>
                       <div id="step4" class="collapse" role="tabpanel" aria-labelledby="step4-header">
                           <div class="card-body">
@@ -510,6 +504,7 @@
               </div>
           </div>
       </div>
+      
       
       
       
