@@ -388,63 +388,61 @@
           </div>
           </form>
         </div>
+        <div class="block">
+          <div class="block-header block-header-default">
+            <h3 class="block-title">
+              <i class="fa fa-asterisk mr-5 text-muted"></i> Change Password
+            </h3>
+          </div>
+          <div class="block-content">
+            <form th:action="@{/edit_password}" modelAttribute="edit_password" th:object="(${edit_password})" method="post">
+              <div class="row items-push">
+                <!-- Left Column -->
+                <div class="col-lg-3">
+                  <p class="text-muted">
+                    Update your password details below.
+                  </p>
+                </div>
+                <!-- Right Column -->
+                <div class="col-lg-7 offset-lg-1">
+                  <div class="form-group row">
+                    <div class="col-12">
+                      <label for="profile-settings-password">Current Password</label>
+                      <input type="password" class="form-control form-control-lg" id="password" name="password" 
+                        th:value="${s.studentPassword}">
+                      <span class="eye" onclick="togglePassword()">
+                        <i id="eye-icon" class="fa fa-eye"></i>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-12">
+                      <label for="profile-settings-password-new">New Password</label>
+                      <input type="password" class="form-control form-control-lg" id="studentPassword" name="studentPassword">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-12">
+                      <label for="profile-settings-password-new-confirm">Confirmation New Password</label>
+                      <input type="password" class="form-control form-control-lg" id="studentPasswordConfirmation" 
+                        name="studentpassword">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-12">
+                      <span id="passwordError" style="color: red; display: none;">Passwords did not match</span>
+                      <button type="submit" class="btn btn-alt-primary" id="submitBtn">Update</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
       <!-- END User Profile -->
 
-      <!-- Connections -->
-      <!-- END Connections -->
-
-      <div class="block">
-        <div class="block-header block-header-default">
-          <h3 class="block-title">
-            <i class="fa fa-asterisk mr-5 text-muted"></i> Change Password
-          </h3>
-        </div>
-        <div class="block-content">
-          <form th:action="@{/edit_password}" modelAttribute="edit_password" th:object="(${edit_password})" method="post">
-            <div class="row items-push">
-              <!-- Left Column -->
-              <div class="col-lg-3">
-                <p class="text-muted">
-                  Update your password details below.
-                </p>
-              </div>
-              <!-- Right Column -->
-              <div class="col-lg-7 offset-lg-1">
-                <div class="form-group row">
-                  <div class="col-12">
-                    <label for="profile-settings-password">Current Password</label>
-                    <input type="password" class="form-control form-control-lg" id="password" name="password" 
-                      th:value="${s.studentPassword}">
-                    <span class="eye" onclick="togglePassword()">
-                      <i id="eye-icon" class="fa fa-eye"></i>
-                    </span>
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <div class="col-12">
-                    <label for="profile-settings-password-new">New Password</label>
-                    <input type="password" class="form-control form-control-lg" id="studentPassword" name="studentPassword">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <div class="col-12">
-                    <label for="profile-settings-password-new-confirm">Confirmation New Password</label>
-                    <input type="password" class="form-control form-control-lg" id="studentPasswordConfirmation" 
-                      name="studentpassword">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <div class="col-12">
-                    <span id="passwordError" style="color: red; display: none;">Passwords did not match</span>
-                    <button type="submit" class="btn btn-alt-primary" id="submitBtn">Update</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
+     
       
 
       <script>
