@@ -36,11 +36,11 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,400i,600,700&display=swap">
     <link rel="stylesheet" id="css-main" th:href="@{stylesheets/assets/css/codebase.min.css}">
     <link rel="stylesheet" id="css-theme" th:href="@{stylesheets/assets/css/themes/flat.min.css}">
- 
+
 </head>
 
 <body>
-    
+
     <div id="page-container" class="sidebar-o enable-page-overlay side-scroll page-header-modern main-content-boxed">
         <!-- Side Overlay-->
         <aside id="side-overlay">
@@ -92,7 +92,7 @@
         </aside>
         <!-- END Side Overlay -->
 
-       
+
         <nav id="sidebar">
             <!-- Sidebar Content -->
             <div class="sidebar-content">
@@ -172,7 +172,7 @@
 
                     <!-- Side Navigation -->
                     <h2 class="h3 text-white font-w500 mb-10"><span class="d-none d-sm-inline-block"
-                        th:text="${session.studentNumber}"></span></h2>
+                            th:text="${session.studentNumber}"></span></h2>
 
                     <div class="content-side content-side-full">
                         <ul class="nav-main">
@@ -305,7 +305,6 @@
         </header>
         <!-- END Header -->
 
-        <!-- Main Container -->
         <main id="main-container">
             <!-- Add Leftover Section -->
             <div class="block">
@@ -328,7 +327,7 @@
                                     <div class="col-12">
                                         <label for="studentname">Student Name</label>
                                         <input type="text" class="form-control form-control-lg" id="studentname"
-                                               name="studentName" th:value="${s.studentName}" readonly>
+                                            name="studentName" th:value="${s.studentName}" readonly>
                                     </div>
                                 </div>
                                 <!-- Student Number -->
@@ -336,23 +335,23 @@
                                     <div class="col-12">
                                         <label for="studentid">Student Number</label>
                                         <input type="text" class="form-control form-control-lg" id="studentid"
-                                               name="studentNumber" th:value="${s.studentNumber}" readonly>
+                                            name="studentNumber" th:value="${s.studentNumber}" readonly>
                                     </div>
                                 </div>
                                 <!-- Pickup Time -->
                                 <div class="form-group row">
                                     <div class="col-12">
                                         <label for="pickuptime">Pickup Time</label>
-                                        <input type="datetime-local" class="form-control form-control-lg" id="pickuptime"
-                                               name="pickuptime" required>
+                                        <input type="datetime-local" class="form-control form-control-lg"
+                                            id="pickuptime" name="pickuptime" required>
                                     </div>
                                 </div>
                                 <!-- Evidence Image -->
                                 <div class="form-group row">
                                     <div class="col-12">
                                         <label for="evidenceimage">Upload Evidence</label>
-                                        <input type="file" class="form-control form-control-lg" id="evidenceimage" name="evidenceimage"
-                                               accept="image/*" required>
+                                        <input type="file" class="form-control form-control-lg" id="evidenceimage"
+                                            name="evidenceimage" accept="image/*" required>
                                     </div>
                                 </div>
                                 <!-- Food Name -->
@@ -360,7 +359,7 @@
                                     <div class="col-12">
                                         <label for="foodname">Food Name</label>
                                         <input type="text" class="form-control form-control-lg" id="foodname"
-                                               name="foodname" th:value="${leftover.foodname}" readonly>
+                                            name="foodname" th:value="${leftover.foodname}" readonly>
                                     </div>
                                 </div>
                                 <!-- Food Quantity -->
@@ -368,7 +367,7 @@
                                     <div class="col-12">
                                         <label for="foodquantity">Food Quantity</label>
                                         <input type="number" class="form-control form-control-lg" id="foodquantity"
-                                               name="foodquantity" th:value="${leftover.foodquantity}" readonly>
+                                            name="foodquantity" th:value="${leftover.foodquantity}" readonly>
                                     </div>
                                 </div>
                                 <!-- Confirmation -->
@@ -376,22 +375,24 @@
                                     <div class="col-12">
                                         <label for="confirmation">Confirmation</label>
                                         <textarea class="form-control form-control-lg" id="confirmation"
-                                                  name="confirmation" rows="4"
-                                                  placeholder="Please ensure that you take the food and do not leave it unattended."
-                                                  required></textarea>
+                                            name="confirmation" rows="4"
+                                            placeholder="Please ensure that you take the food and do not leave it unattended."
+                                            required></textarea>
                                     </div>
                                 </div>
                                 <!-- Submit Button -->
                                 <div class="form-group row">
                                     <div class="col-12">
-                                        <button type="submit" class="btn btn-alt-primary">Submit Pickup Evidence</button>
+                                        <button type="submit" class="btn btn-alt-primary">Submit Pickup
+                                            Evidence</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </form>
                 </div>
-                
+            </div>
+        </main>
         <!-- END Main Container -->
 
         <!-- Footer -->
@@ -402,8 +403,7 @@
                         href="https://1.envato.market/ydb" target="_blank">Syamimi Afiqah</a>
                 </div>
                 <div class="float-left">
-                    <a class="font-w600" href="" target="_blank">Foodshare</a> &copy; <span
-                        class="js-year-copy"></span>
+                    <a class="font-w600" href="" target="_blank">Foodshare</a> &copy; <span class="js-year-copy"></span>
                 </div>
             </div>
         </footer>
@@ -411,41 +411,39 @@
     </div>
     <!-- END Page Container -->
 
+    <!-- Modal for No Requests -->
+    <div class="modal fade" id="noRequestModal" tabindex="-1" role="dialog" aria-labelledby="noRequestModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="noRequestModalLabel">No Requests Found</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p th:text="${noRequestMessage}">No requests available for today.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Okay</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Bootstrap JS for Modal -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Trigger Modal Script -->
     <script>
-        function togglePassword() {
-
-            var x = document.getElementById("password");
-            var icon = document.getElementById("eye-icon");
-
-            if (x.type === "password") {
-                x.type = "text";
-                icon.classList.add("fa-eye-slash");
-                icon.classList.remove("fa-eye");
-            } else {
-                x.type = "password";
-                icon.classList.remove("fa-eye-slash");
-                icon.classList.add("fa-eye");
+        document.addEventListener("DOMContentLoaded", function () {
+            // Get the `noRequestMessage` from the data attribute on the <body> tag
+            const noRequestMessage = document.body.getAttribute('data-no-request-message');
+            if (noRequestMessage) {
+                const modal = new bootstrap.Modal(document.getElementById('noRequestModal'));
+                modal.show();
             }
-        }  
+        });
     </script>
-
-
-   
-    <script th:src="@{stylesheets/assets/js/codebase.core.min.js}"></script>
-
-    <!--
-        Codebase JS
-    
-        Custom functionality including Blocks/Layout API as well as other vital and optional helpers
-        webpack is putting everything together at assets/_js/main/app.js
-    -->
-    <script th:src="@{stylesheets/assets/js/codebase.app.min.js}"></script>
-
-    <!-- Page JS Plugins -->
-    <script th:src="@{stylesheets/assets/js/plugins/jquery-validation/jquery.validate.min.js}"></script>
-
-    <!-- Page JS Code -->
-    <script th:src="@{stylesheets/assets/js/pages/op_auth_signin.min.js}"></script>
 </body>
 
 </html>
