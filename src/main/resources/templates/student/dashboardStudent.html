@@ -368,30 +368,112 @@
       <!-- Page Content -->
       <div class="content">
         <div class="block">
-          <div class="block-header block-header-default">
-              <h3 class="block-title text-center">
+          <div class="block-header block-header-default text-center">
+              <h3 class="block-title">
                   <b>How to Request Leftover Food</b>
               </h3>
           </div>
           <div class="block-content">
-              <div class="text-center" style="background-color: #ffe6e6; padding: 20px; border-radius: 10px;">
-                  <ol style="list-style: decimal; text-align: left; max-width: 800px; margin: 0 auto;">
-                      <li><b>Navigate to "View Leftover"</b>
-                          <p>Find the "View Leftover" option in the sidebar menu to see the available leftover food.</p>
-                      </li>
-                      <li><b>Request Food</b>
-                          <p>Hover over the Action column where the "Request" button will appear. Click on it to make a request.</p>
-                      </li>
-                      <li><b>Wait for Notification</b>
-                          <p>Once your request is approved by the cafeteria, you will receive a notification. Please wait patiently.</p>
-                      </li>
-                      <li><b>Pickup the Leftover</b>
-                          <p>Go to the "Pickup Leftover" menu and fill out the required form to confirm your pickup. Submit the form to complete the process.</p>
-                      </li>
-                  </ol>
+              <!-- Interactive Guide -->
+              <div id="interactive-guide" class="accordion" role="tablist" aria-multiselectable="true" style="max-width: 800px; margin: 0 auto; background-color: #ffe6e6; border-radius: 10px; padding: 20px;">
+                  <!-- Step 1 -->
+                  <div class="card mb-3">
+                      <div class="card-header" role="tab" id="step1-header">
+                          <h5 class="mb-0">
+                              <a class="d-flex align-items-center text-decoration-none" data-toggle="collapse" href="#step1" aria-expanded="true" aria-controls="step1">
+                                  <i class="fa fa-chevron-right mr-2"></i>
+                                  Step 1: Navigate to "View Leftover"
+                              </a>
+                          </h5>
+                      </div>
+                      <div id="step1" class="collapse" role="tabpanel" aria-labelledby="step1-header">
+                          <div class="card-body">
+                              Find the "View Leftover" option in the sidebar menu to see the available leftover food.
+                          </div>
+                      </div>
+                  </div>
+      
+                  <!-- Step 2 -->
+                  <div class="card mb-3">
+                      <div class="card-header" role="tab" id="step2-header">
+                          <h5 class="mb-0">
+                              <a class="d-flex align-items-center text-decoration-none" data-toggle="collapse" href="#step2" aria-expanded="false" aria-controls="step2">
+                                  <i class="fa fa-chevron-right mr-2"></i>
+                                  Step 2: Request Food
+                              </a>
+                          </h5>
+                      </div>
+                      <div id="step2" class="collapse" role="tabpanel" aria-labelledby="step2-header">
+                          <div class="card-body">
+                              Hover over the Action column where the "Request" button will appear. Click on it to make a request.
+                          </div>
+                      </div>
+                  </div>
+      
+                  <!-- Step 3 -->
+                  <div class="card mb-3">
+                      <div class="card-header" role="tab" id="step3-header">
+                          <h5 class="mb-0">
+                              <a class="d-flex align-items-center text-decoration-none" data-toggle="collapse" href="#step3" aria-expanded="false" aria-controls="step3">
+                                  <i class="fa fa-chevron-right mr-2"></i>
+                                  Step 3: Wait for Notification
+                              </a>
+                          </h5>
+                      </div>
+                      <div id="step3" class="collapse" role="tabpanel" aria-labelledby="step3-header">
+                          <div class="card-body">
+                              Once your request is approved by the cafeteria, you will receive a notification. Please wait patiently.
+                          </div>
+                      </div>
+                  </div>
+      
+                  <!-- Step 4 -->
+                  <div class="card mb-3">
+                      <div class="card-header" role="tab" id="step4-header">
+                          <h5 class="mb-0">
+                              <a class="d-flex align-items-center text-decoration-none" data-toggle="collapse" href="#step4" aria-expanded="false" aria-controls="step4">
+                                  <i class="fa fa-chevron-right mr-2"></i>
+                                  Step 4: Pickup the Leftover
+                              </a>
+                          </h5>
+                      </div>
+                      <div id="step4" class="collapse" role="tabpanel" aria-labelledby="step4-header">
+                          <div class="card-body">
+                              Go to the "Pickup Leftover" menu and fill out the required form to confirm your pickup. Submit the form to complete the process.
+                          </div>
+                      </div>
+                  </div>
               </div>
           </div>
       </div>
+      
+      <!-- Optional CSS for better styling -->
+      <style>
+          .card-header {
+              background-color: #f8d7da;
+              border: 1px solid #f5c6cb;
+              border-radius: 5px;
+              cursor: pointer;
+              padding: 10px 15px;
+          }
+      
+          .card-body {
+              background-color: #fff;
+              border: 1px solid #f5c6cb;
+              border-top: none;
+              border-radius: 0 0 5px 5px;
+              padding: 15px;
+          }
+      
+          .fa-chevron-right {
+              transition: transform 0.3s ease-in-out;
+          }
+      
+          .collapse.show .fa-chevron-right {
+              transform: rotate(90deg);
+          }
+      </style>
+      
       
       </div>
       <!-- END Page Content -->
