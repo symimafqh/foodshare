@@ -5,52 +5,71 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
-  <title>Codebase - Bootstrap 4 Admin Template &amp; UI Framework</title>
+  <title>Dashboard - FoodShare</title>
 
-  <meta name="description"
-    content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
-  <meta name="author" content="pixelcave">
-  <meta name="robots" content="noindex, nofollow">
-
-  <!-- Open Graph Meta -->
-  <meta property="og:title" content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework">
-  <meta property="og:site_name" content="Codebase">
-  <meta property="og:description"
-    content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="">
-  <meta property="og:image" content="">
-
-  <!-- Icons -->
-  <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
-  <link rel="shortcut icon" th:href="@{stylesheets/assets/media/favicons/favicon.png}">
-  <link rel="icon" type="image/png" sizes="192x192" th:href="@{stylesheets/assets/media/favicons/favicon-192x192.png}">
-  <link rel="apple-touch-icon" sizes="180x180"
-    th:href="@{stylesheets/assets/media/favicons/apple-touch-icon-180x180.png}">
-  <!-- END Icons -->
-
-  <!-- stylesheets -->
-
-  <!-- Fonts and Codebase framework -->
+  <!-- Fonts and Framework -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,400i,600,700&display=swap">
   <link rel="stylesheet" id="css-main" th:href="@{stylesheets/assets/css/codebase.min.css}">
 
-  <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
-  <!-- <link rel="stylesheet" id="css-theme" th:href="../assets/css/themes/corporate.min.css"> -->
-  <link rel="stylesheet" id="css-theme" th:href="@{stylesheets/assets/css/themes/flat.min.css}">
-  <!-- <link rel="stylesheet" id="css-theme" th:href="../assets/css/themes/earth.min.css"> 
-    <!-- <link rel="stylesheet" id="css-theme" th:href="../assets/css/themes/elegance.min.css">
-    <link rel="stylesheet" id="css-theme" th:href="../assets/css/themes/pulse.min.css"> -->
+  <!-- Add Custom Inline CSS Here -->
+  <style>
+    /* Styling for the modal */
+    .modal-dialog-popout {
+      margin: 2rem auto;
+      animation: popout 0.3s ease-out;
+    }
 
-  <!-- <link rel="stylesheet" id="css-theme" th:href="../assets/css/themes/elegance.min.css"> -->
+    @keyframes popout {
+      from {
+        transform: scale(0.9);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
 
-  <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
-  <!-- <link rel="stylesheet" id="css-theme" th:href="assets/css/themes/flat.min.css"> -->
-  <!-- END stylesheets -->
+    .block-header.bg-primary-dark {
+      background-color: #2c3e50 !important;
+      color: #fff;
+    }
+
+    .block-title {
+      font-weight: bold;
+    }
+
+    .btn-alt-secondary {
+      background-color: #f4f4f4;
+      border: 1px solid #ddd;
+      color: #333;
+      transition: all 0.3s ease;
+    }
+
+    .btn-alt-secondary:hover {
+      background-color: #e0e0e0;
+      color: #000;
+    }
+
+    /* Highlight Content in the Guide */
+    .guide-step {
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px dashed #dcdcdc;
+      border-radius: 5px;
+      background-color: #fafafa;
+    }
+
+    .guide-step-title {
+      font-weight: bold;
+      color: #2c3e50;
+    }
+  </style>
 </head>
 
 <body th:attr="data-no-request-message=${noRequestMessage}">
   <!-- Page Container -->
+  <div id="page-container" class="sidebar-o enable-page-overlay side-scroll page-header-modern main-content-boxed">
   <!--
         Available classes for #page-container:
 
@@ -371,24 +390,49 @@
           <!-- Row #1 -->
           <div class="block-header block-header-default">
             <h3 class="block-title">
-              <b> Welcome to FoodShare! Let’s connect surplus with those in need.</b>
+              <b>Welcome to FoodShare! Let’s connect surplus with those in need.</b>
             </h3>
           </div>
-          
+
           <div class="block-content mb-10">
-            <img th:src="@{stylesheets/assets/pictures/list.png}" style="width: 1091px; height:700px;">
+            <img th:src="@{stylesheets/assets/pictures/list.png}" style="width: 100%; height: auto;">
           </div>
           <!-- END Row #1 -->
         </div>
-        <div class="row invisible" data-toggle="appear">
-          <!-- Row #2 -->
-          <!-- END Row #2 -->
-        </div>
 
-        <div class="row invisible" data-toggle="appear">
-          <!-- Row #4 -->
-          <!-- END Row #4 -->
+        <!-- Interactive Guide -->
+        <div class="block">
+          <div class="block-header bg-primary-dark text-white">
+            <h3 class="block-title">How to Request Leftover Food</h3>
+          </div>
+          <div class="block-content">
+            <div class="guide-step">
+              <p class="guide-step-title">1. Navigate to "View Leftover"</p>
+              <p>Find the "View Leftover" option in the sidebar menu to see the available leftover food.</p>
+            </div>
+            <div class="guide-step">
+              <p class="guide-step-title">2. Request Food</p>
+              <p>
+                Hover over the <b>Action</b> column where the "Request" button will appear. Click on it to make a
+                request.
+              </p>
+            </div>
+            <div class="guide-step">
+              <p class="guide-step-title">3. Wait for Notification</p>
+              <p>
+                Once your request is approved by the cafeteria, you will receive a notification. Please wait patiently.
+              </p>
+            </div>
+            <div class="guide-step">
+              <p class="guide-step-title">4. Pickup the Leftover</p>
+              <p>
+                Go to the "Pickup Leftover" menu and fill out the required form to confirm your pickup. Submit the form
+                to complete the process.
+              </p>
+            </div>
+          </div>
         </div>
+        <!-- END Interactive Guide -->
       </div>
       <!-- END Page Content -->
     </main>
@@ -421,14 +465,12 @@
     </div>
     <!-- END Modal for No Requests -->
 
-  
-
     <!-- Footer -->
     <footer id="page-footer">
       <div class="content py-20 font-size-sm clearfix">
         <div class="float-right">
-          Developed <i class="fa fa-heart text-pulse"></i> by <a class="font-w600"
-            href="https://1.envato.market/ydb" target="_blank">Syamimi Afiqah</a>
+          Developed <i class="fa fa-heart text-pulse"></i> by <a class="font-w600" href="https://1.envato.market/ydb"
+            target="_blank">Syamimi Afiqah</a>
         </div>
         <div class="float-left">
           <a class="font-w600" href="" target="_blank">Foodshare</a> &copy; <span class="js-year-copy"></span>
@@ -439,12 +481,9 @@
   </div>
   <!-- END Page Container -->
 
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
-
-
-  <script th:src="@{stylesheets/assets/js/codebase.core.min.js}"></script>
-
-  <!-- Modal Trigger Script -->
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       // Check if the "noRequestMessage" is set in the body attribute
@@ -456,20 +495,6 @@
       }
     });
   </script>
-
-  <!--
-        Codebase JS
-    
-        Custom functionality including Blocks/Layout API as well as other vital and optional helpers
-        webpack is putting everything together at assets/_js/main/app.js
-    -->
-  <script th:src="@{stylesheets/assets/js/codebase.app.min.js}"></script>
-
-  <!-- Page JS Plugins -->
-  <script th:src="@{stylesheets/assets/js/plugins/jquery-validation/jquery.validate.min.js}"></script>
-
-  <!-- Page JS Code -->
-  <script th:src="@{stylesheets/assets/js/pages/op_auth_signin.min.js}"></script>
 </body>
 
 </html>
