@@ -449,34 +449,41 @@
       
       <style>
         .card-header {
-            background-color: #f8d7da; /* Keeps the pink background */
-            border: 1px solid #f5c6cb; /* Keeps the border */
-            border-radius: 5px;
+            background-color: #f8d7da !important; /* Keeps the pink background */
+            border: 1px solid #f5c6cb !important; /* Keeps the border */
+            border-radius: 5px !important;
             cursor: pointer;
-            padding: 10px 15px;
-            color: #000000; /* Change text color to black for maximum contrast */
-            font-weight: bold;
-            font-size: 16px; /* Slightly larger font for readability */
+            padding: 10px 15px !important;
+            color: #000000 !important; /* Change text color to black for maximum contrast */
+            font-weight: bold !important;
+            font-size: 16px !important; /* Larger font for readability */
+            opacity: 1 !important; /* Force full opacity for text */
+            text-shadow: none !important; /* Remove any text shadow */
         }
     
         .card-body {
-            background-color: #ffffff; /* White background for the body text */
-            border: 1px solid #f5c6cb;
-            border-top: none;
-            border-radius: 0 0 5px 5px;
-            padding: 15px;
-            color: #000000; /* Black text for body content */
-            font-size: 14px;
+            background-color: #ffffff !important; /* White background for the body text */
+            border: 1px solid #f5c6cb !important;
+            border-top: none !important;
+            border-radius: 0 0 5px 5px !important;
+            padding: 15px !important;
+            color: #000000 !important; /* Black text for body content */
+            font-size: 14px !important;
+            opacity: 1 !important; /* Force full opacity for text */
+            text-shadow: none !important; /* Remove any text shadow */
         }
     
         .fa-chevron-right {
             transition: transform 0.3s ease-in-out;
+            color: #000000 !important; /* Make chevron icon black */
+            opacity: 1 !important; /* Force full opacity for icons */
         }
     
         .collapse.show .fa-chevron-right {
             transform: rotate(90deg);
         }
     </style>
+    
     
     
     
