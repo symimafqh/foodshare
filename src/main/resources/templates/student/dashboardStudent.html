@@ -375,7 +375,7 @@
           </div>
           <div class="block-content">
               <!-- Interactive Guide -->
-              <div id="interactive-guide" class="accordion" role="tablist" aria-multiselectable="true" style="max-width: 800px; margin: 0 auto; background-color: #ffe6e6; border-radius: 10px; padding: 20px;">
+              <div id="interactive-guide" class="accordion" role="tablist" aria-multiselectable="true" style="max-width: 800px; margin: 0 auto; border-radius: 10px; padding: 20px;">
                   <!-- Step 1 -->
                   <div class="card mb-3">
                       <div class="card-header" role="tab" id="step1-header">
@@ -386,7 +386,7 @@
                               </a>
                           </h5>
                       </div>
-                      <div id="step1" class="collapse" role="tabpanel" aria-labelledby="step1-header">
+                      <div id="step1" class="collapse show" role="tabpanel" aria-labelledby="step1-header">
                           <div class="card-body">
                               Find the "View Leftover" option in the sidebar menu to see the available leftover food.
                           </div>
@@ -447,41 +447,42 @@
           </div>
       </div>
       
-      <!-- Optional CSS for better styling -->
+      <!-- Using your specified colors -->
       <style>
-        .card-header {
-            background-color: #f8d7da; /* Light pink background */
-            border: 1px solid #f5c6cb; /* Pink border */
-            border-radius: 5px;
-            cursor: pointer;
-            padding: 10px 15px;
-            color: #000; /* Black text for maximum readability */
-            font-weight: bold; /* Make the text stand out */
-            font-size: 16px; /* Slightly larger text for better clarity */
-        }
-    
-        .card-body {
-            background-color: #fff; /* White background for clarity */
-            border: 1px solid #f5c6cb; /* Match border color with header */
-            border-top: none;
-            border-radius: 0 0 5px 5px;
-            padding: 15px;
-            color: #000; /* Black text for clear visibility */
-            font-size: 15px; /* Slightly larger text size for better readability */
-            line-height: 1.6; /* Improve spacing for better readability */
-        }
-    
-        .fa-chevron-right {
-            transition: transform 0.3s ease-in-out;
-            color: #000; /* Black chevron icon for visibility */
-        }
-    
-        .collapse.show .fa-chevron-right {
-            transform: rotate(90deg);
-        }
-    </style>
-    
-    
+          .card-header {
+              background-color: #f8d7da; /* Light pink background */
+              border: 1px solid #f5c6cb; /* Pink border */
+              border-radius: 5px;
+              cursor: pointer;
+              padding: 10px 15px;
+              color: #721c24; /* Dark red text color for readability */
+              font-weight: bold; /* Make the text stand out */
+              font-size: 16px; /* Larger text for better clarity */
+              display: flex;
+              align-items: center;
+          }
+      
+          .card-body {
+              background-color: #fff; /* White background for clarity */
+              border: 1px solid #f5c6cb; /* Border matches header */
+              border-top: none;
+              border-radius: 0 0 5px 5px;
+              padding: 15px;
+              color: #495057; /* Neutral dark text for body */
+              font-size: 15px; /* Slightly larger text size for readability */
+              line-height: 1.6; /* Improve spacing for readability */
+          }
+      
+          .fa-chevron-right {
+              transition: transform 0.3s ease-in-out;
+              color: #721c24; /* Match icon color with header text */
+          }
+      
+          .collapse.show .fa-chevron-right {
+              transform: rotate(90deg);
+          }
+      </style>
+      
       
       
       </div>
