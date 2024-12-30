@@ -84,8 +84,8 @@ public String getPickupForm(HttpSession session, Model model) {
 
     // No requests found; add an attribute to trigger the popup
     model.addAttribute("noRequestMessage", "You have not making any request");
-    System.out.println("tak de request");
-    return "student/pickup/pickup_status";
+    System.out.println("tak de request so pergi dashboard");
+    return "student/dashboardStudent";
 }
 
     @PostMapping("/pickup_post")
