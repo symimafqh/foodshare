@@ -5,101 +5,52 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
-  <title>Dashboard - FoodShare</title>
+  <title>Codebase - Bootstrap 4 Admin Template &amp; UI Framework</title>
 
-  <!-- Fonts and Framework -->
+  <meta name="description"
+    content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
+  <meta name="author" content="pixelcave">
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Open Graph Meta -->
+  <meta property="og:title" content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework">
+  <meta property="og:site_name" content="Codebase">
+  <meta property="og:description"
+    content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+
+  <!-- Icons -->
+  <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
+  <link rel="shortcut icon" th:href="@{stylesheets/assets/media/favicons/favicon.png}">
+  <link rel="icon" type="image/png" sizes="192x192" th:href="@{stylesheets/assets/media/favicons/favicon-192x192.png}">
+  <link rel="apple-touch-icon" sizes="180x180"
+    th:href="@{stylesheets/assets/media/favicons/apple-touch-icon-180x180.png}">
+  <!-- END Icons -->
+
+  <!-- stylesheets -->
+
+  <!-- Fonts and Codebase framework -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,400i,600,700&display=swap">
   <link rel="stylesheet" id="css-main" th:href="@{stylesheets/assets/css/codebase.min.css}">
 
-  <!-- Add Custom Inline CSS Here -->
-  <style>
-    /* General Styling */
-    body {
-      font-family: 'Nunito Sans', sans-serif;
-    }
-  
-    /* Guide Block Styling */
-    .guide-block {
-      margin: 20px 0;
-      padding: 20px;
-      background-color: #ffe6e9; /* Light pink background */
-      border: 1px solid #f5c2c7; /* Light pink border */
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      animation: fadeIn 1s ease-in-out;
-    }
-  
-    .block-header {
-      background-color: #ff6f91 !important; /* Pink header */
-      color: #fff !important;
-      padding: 10px 15px; /* Reduced padding to remove the gap */
-      border-radius: 10px 10px 0 0;
-      font-weight: bold;
-      text-align: center;
-      margin-bottom: 0; /* Removed default margin */
-    }
-  
-    .block-content {
-      margin: 0; /* Removed default margin */
-      padding: 15px; /* Adjusted padding */
-    }
-  
-    .guide-step {
-      padding: 10px 15px; /* Reduced padding */
-      margin: 5px 0; /* Reduced margin to remove unnecessary gaps */
-      border: 1px dashed #f5c2c7; /* Dashed pink border */
-      border-radius: 5px;
-      background-color: #fff; /* White background for contrast */
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-  
-    .guide-step:hover {
-      transform: scale(1.02);
-      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
-    }
-  
-    .guide-step-title {
-      font-weight: bold;
-      font-size: 16px;
-      color: #ffdeeb; /* Deep pink */
-      margin-bottom: 3px; /* Reduced margin for better spacing */
-    }
-  
-    .guide-step p {
-      margin: 0;
-      font-size: 14px;
-      color: #555;
-    }
-  
-    /* Footer Styling */
-    #page-footer {
-      background-color: #ffe6e9;
-      color: #f7b5d0;
-      text-align: center;
-      padding: 10px;
-      border-top: 1px solid #f5c2c7;
-    }
-  
-    /* Animation for the guide block */
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-  </style>
-  
-  
-  
+  <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
+  <!-- <link rel="stylesheet" id="css-theme" th:href="../assets/css/themes/corporate.min.css"> -->
+  <link rel="stylesheet" id="css-theme" th:href="@{stylesheets/assets/css/themes/flat.min.css}">
+  <!-- <link rel="stylesheet" id="css-theme" th:href="../assets/css/themes/earth.min.css"> 
+    <!-- <link rel="stylesheet" id="css-theme" th:href="../assets/css/themes/elegance.min.css">
+    <link rel="stylesheet" id="css-theme" th:href="../assets/css/themes/pulse.min.css"> -->
+
+  <!-- <link rel="stylesheet" id="css-theme" th:href="../assets/css/themes/elegance.min.css"> -->
+
+  <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
+  <!-- <link rel="stylesheet" id="css-theme" th:href="assets/css/themes/flat.min.css"> -->
+  <!-- END stylesheets -->
 </head>
 
 <body th:attr="data-no-request-message=${noRequestMessage}">
   <!-- Page Container -->
-  <div id="page-container" class="sidebar-o enable-page-overlay side-scroll page-header-modern main-content-boxed">
   <!--
         Available classes for #page-container:
 
@@ -417,46 +368,31 @@
       <!-- Page Content -->
       <div class="content">
         <div class="block">
-          <!-- Row #1 -->
           <div class="block-header block-header-default">
-            <h3 class="block-title">
-              <b>Welcome to FoodShare! Let’s connect surplus with those in need.</b>
-            </h3>
+              <h3 class="block-title text-center">
+                  <b>How to Request Leftover Food</b>
+              </h3>
           </div>
-<!-- Interactive Guide -->
-<div class="block guide-block">
-  <div class="block-header">
-    <h3 class="block-title">How to Request Leftover Food</h3>
-  </div>
-  <div class="block-content">
-    <div class="guide-step">
-      <p class="guide-step-title">1. Navigate to "View Leftover"</p>
-      <p>Find the "View Leftover" option in the sidebar menu to see the available leftover food.</p>
-    </div>
-    <div class="guide-step">
-      <p class="guide-step-title">2. Request Food</p>
-      <p>
-        Hover over the <b>Action</b> column where the "Request" button will appear. Click on it to make a
-        request.
-      </p>
-    </div>
-    <div class="guide-step">
-      <p class="guide-step-title">3. Wait for Notification</p>
-      <p>
-        Once your request is approved by the cafeteria, you will receive a notification. Please wait patiently.
-      </p>
-    </div>
-    <div class="guide-step">
-      <p class="guide-step-title">4. Pickup the Leftover</p>
-      <p>
-        Go to the "Pickup Leftover" menu and fill out the required form to confirm your pickup. Submit the form
-        to complete the process.
-      </p>
-    </div>
-  </div>
-</div>
-
-        <!-- END Interactive Guide -->
+          <div class="block-content">
+              <div class="text-center" style="background-color: #ffe6e6; padding: 20px; border-radius: 10px;">
+                  <ol style="list-style: decimal; text-align: left; max-width: 800px; margin: 0 auto;">
+                      <li><b>Navigate to "View Leftover"</b>
+                          <p>Find the "View Leftover" option in the sidebar menu to see the available leftover food.</p>
+                      </li>
+                      <li><b>Request Food</b>
+                          <p>Hover over the Action column where the "Request" button will appear. Click on it to make a request.</p>
+                      </li>
+                      <li><b>Wait for Notification</b>
+                          <p>Once your request is approved by the cafeteria, you will receive a notification. Please wait patiently.</p>
+                      </li>
+                      <li><b>Pickup the Leftover</b>
+                          <p>Go to the "Pickup Leftover" menu and fill out the required form to confirm your pickup. Submit the form to complete the process.</p>
+                      </li>
+                  </ol>
+              </div>
+          </div>
+      </div>
+      
       </div>
       <!-- END Page Content -->
     </main>
@@ -489,12 +425,14 @@
     </div>
     <!-- END Modal for No Requests -->
 
+  
+
     <!-- Footer -->
     <footer id="page-footer">
       <div class="content py-20 font-size-sm clearfix">
         <div class="float-right">
-          Developed <i class="fa fa-heart text-pulse"></i> by <a class="font-w600" href="https://1.envato.market/ydb"
-            target="_blank">Syamimi Afiqah</a>
+          Developed <i class="fa fa-heart text-pulse"></i> by <a class="font-w600"
+            href="https://1.envato.market/ydb" target="_blank">Syamimi Afiqah</a>
         </div>
         <div class="float-left">
           <a class="font-w600" href="" target="_blank">Foodshare</a> &copy; <span class="js-year-copy"></span>
@@ -505,9 +443,12 @@
   </div>
   <!-- END Page Container -->
 
-  <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
+
+
+  <script th:src="@{stylesheets/assets/js/codebase.core.min.js}"></script>
+
+  <!-- Modal Trigger Script -->
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       // Check if the "noRequestMessage" is set in the body attribute
@@ -519,6 +460,20 @@
       }
     });
   </script>
+
+  <!--
+        Codebase JS
+    
+        Custom functionality including Blocks/Layout API as well as other vital and optional helpers
+        webpack is putting everything together at assets/_js/main/app.js
+    -->
+  <script th:src="@{stylesheets/assets/js/codebase.app.min.js}"></script>
+
+  <!-- Page JS Plugins -->
+  <script th:src="@{stylesheets/assets/js/plugins/jquery-validation/jquery.validate.min.js}"></script>
+
+  <!-- Page JS Code -->
+  <script th:src="@{stylesheets/assets/js/pages/op_auth_signin.min.js}"></script>
 </body>
 
 </html>
