@@ -84,6 +84,7 @@ public String getPickupForm(HttpSession session, Model model) {
 
     // No requests found; add an attribute to trigger the popup
     model.addAttribute("noRequestMessage", "You have not making any request");
+    System.out.println("tak de request");
     return "student/dashboardStudent";
 }
 
