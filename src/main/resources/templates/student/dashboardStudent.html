@@ -50,7 +50,6 @@
 </head>
 
 <body th:attr="data-no-request-message=${noRequestMessage}">
-  
   <!-- Page Container -->
   <!--
         Available classes for #page-container:
@@ -368,86 +367,26 @@
     <main id="main-container">
       <!-- Page Content -->
       <div class="content">
-        <style>
-          /* Base styling for the card header */
-          .card-header {
-              background-color: #f8d7da; /* Light pink background */
-              border: 1px solid #f5c6cb; /* Pink border */
-              border-radius: 5px;
-              padding: 15px;
-              font-weight: bold;
-              font-size: 16px; /* Larger text for better clarity */
-              position: relative; /* For the hover effect */
-              color: #721c24; /* Darker red text color */
-              overflow: hidden; /* To clip text during animation */
-              cursor: pointer;
-              display: flex;
-              align-items: center;
-              justify-content: space-between; /* Align icon to the right */
-          }
-      
-          /* Text Swapping Effect */
-          .card-header .text-swap {
-              display: inline-block;
-              position: relative;
-              overflow: hidden;
-          }
-      
-          /* Default visible text */
-          .card-header .text-swap span.default-text {
-              display: block;
-              transition: transform 0.3s ease;
-          }
-      
-          /* Hover text */
-          .card-header .text-swap span.hover-text {
-              display: block;
-              position: absolute;
-              top: 100%; /* Start below the default text */
-              left: 0;
-              width: 100%;
-              transition: transform 0.3s ease;
-          }
-      
-          /* On hover, swap the text */
-          .card-header:hover .text-swap span.default-text {
-              transform: translateY(-100%);
-          }
-      
-          .card-header:hover .text-swap span.hover-text {
-              transform: translateY(-100%);
-          }
-      
-          /* Chevron Icon Animation */
-          .fa-chevron-right {
-              transition: transform 0.3s ease-in-out;
-              color: #721c24; /* Match icon color with header text */
-          }
-      
-          .collapse.show .fa-chevron-right {
-              transform: rotate(90deg); /* Rotate on expand */
-          }
-      </style>
-      
-      <!-- Accordion Structure with the Text Swap Effect -->
-      <div class="block">
+        <div class="block">
           <div class="block-header block-header-default text-center">
               <h3 class="block-title">
                   <b>How to Request Leftover Food</b>
               </h3>
           </div>
           <div class="block-content">
-              <div id="interactive-guide" class="accordion" role="tablist" aria-multiselectable="true" style="max-width: 800px; margin: 0 auto; border-radius: 10px; padding: 20px;">
+              <!-- Interactive Guide -->
+              <div id="interactive-guide" class="accordion" role="tablist" aria-multiselectable="true" style="max-width: 800px; margin: 0 auto; background-color: #ffe6e6; border-radius: 10px; padding: 20px;">
                   <!-- Step 1 -->
                   <div class="card mb-3">
                       <div class="card-header" role="tab" id="step1-header">
-                          <div class="text-swap">
-                              <span class="default-text">Step 1: Navigate to "View Leftover"</span>
-                              <span class="hover-text">Find the 'View Leftover' menu option.</span>
-                          </div>
-                          <i class="fa fa-chevron-right"></i>
+                          <h5 class="mb-0">
+                              <a class="d-flex align-items-center text-decoration-none" data-toggle="collapse" href="#step1" aria-expanded="true" aria-controls="step1">
+                                  <i class="fa fa-chevron-right mr-2"></i>
+                                  Step 1: Navigate to "View Leftover"
+                              </a>
+                          </h5>
                       </div>
-                      <div id="step1" class="collapse show" role="tabpanel" aria-labelledby="step1-header">
+                      <div id="step1" class="collapse" role="tabpanel" aria-labelledby="step1-header">
                           <div class="card-body">
                               Find the "View Leftover" option in the sidebar menu to see the available leftover food.
                           </div>
@@ -457,11 +396,12 @@
                   <!-- Step 2 -->
                   <div class="card mb-3">
                       <div class="card-header" role="tab" id="step2-header">
-                          <div class="text-swap">
-                              <span class="default-text">Step 2: Request Food</span>
-                              <span class="hover-text">Click on the 'Request' button.</span>
-                          </div>
-                          <i class="fa fa-chevron-right"></i>
+                          <h5 class="mb-0">
+                              <a class="d-flex align-items-center text-decoration-none" data-toggle="collapse" href="#step2" aria-expanded="false" aria-controls="step2">
+                                  <i class="fa fa-chevron-right mr-2"></i>
+                                  Step 2: Request Food
+                              </a>
+                          </h5>
                       </div>
                       <div id="step2" class="collapse" role="tabpanel" aria-labelledby="step2-header">
                           <div class="card-body">
@@ -473,11 +413,12 @@
                   <!-- Step 3 -->
                   <div class="card mb-3">
                       <div class="card-header" role="tab" id="step3-header">
-                          <div class="text-swap">
-                              <span class="default-text">Step 3: Wait for Notification</span>
-                              <span class="hover-text">Wait for notification approval.</span>
-                          </div>
-                          <i class="fa fa-chevron-right"></i>
+                          <h5 class="mb-0">
+                              <a class="d-flex align-items-center text-decoration-none" data-toggle="collapse" href="#step3" aria-expanded="false" aria-controls="step3">
+                                  <i class="fa fa-chevron-right mr-2"></i>
+                                  Step 3: Wait for Notification
+                              </a>
+                          </h5>
                       </div>
                       <div id="step3" class="collapse" role="tabpanel" aria-labelledby="step3-header">
                           <div class="card-body">
@@ -489,11 +430,12 @@
                   <!-- Step 4 -->
                   <div class="card mb-3">
                       <div class="card-header" role="tab" id="step4-header">
-                          <div class="text-swap">
-                              <span class="default-text">Step 4: Pickup the Leftover</span>
-                              <span class="hover-text">Confirm and pick up leftover food.</span>
-                          </div>
-                          <i class="fa fa-chevron-right"></i>
+                          <h5 class="mb-0">
+                              <a class="d-flex align-items-center text-decoration-none" data-toggle="collapse" href="#step4" aria-expanded="false" aria-controls="step4">
+                                  <i class="fa fa-chevron-right mr-2"></i>
+                                  Step 4: Pickup the Leftover
+                              </a>
+                          </h5>
                       </div>
                       <div id="step4" class="collapse" role="tabpanel" aria-labelledby="step4-header">
                           <div class="card-body">
@@ -505,7 +447,36 @@
           </div>
       </div>
       
-      
+      <!-- Optional CSS for better styling -->
+     <style>
+    .card-header {
+        background-color: #f8d7da;
+        border: 1px solid #f5c6cb;
+        border-radius: 5px;
+        cursor: pointer;
+        padding: 10px 15px;
+        color: #721c24; /* Darker text color for better readability */
+        font-weight: bold;
+    }
+
+    .card-body {
+        background-color: #fff;
+        border: 1px solid #f5c6cb;
+        border-top: none;
+        border-radius: 0 0 5px 5px;
+        padding: 15px;
+        color: #495057; /* Neutral dark text color for body */
+    }
+
+    .fa-chevron-right {
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .collapse.show .fa-chevron-right {
+        transform: rotate(90deg);
+    }
+</style>
+
       
       
       </div>
