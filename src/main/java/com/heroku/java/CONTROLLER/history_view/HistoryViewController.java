@@ -73,8 +73,9 @@ public class HistoryViewController {
                         // Convert LocalDateTime to formatted String and set it
                         if (requestTime != null) {
                             String formattedTime = requestTime.format(formatter);
-                            history.setFormattedRequestTime(formattedTime); // Set formatted time
+                            history.setFormattedRequestTime(formattedTime); // This will now work
                         }
+                        
 
                         historyList.add(history);
                     }

@@ -2,13 +2,15 @@ package com.heroku.java.MODEL.leftover;
 
 import java.time.LocalDateTime;
 
+
 public class HistoryBean {
     private String foodName;
     private LocalDateTime requestTime;
+    private String formattedRequestTime; // New Field
     private String status;
     private String pickupStatus;
 
-    // Getters and setters
+    // Getters and Setters
     public String getFoodName() {
         return foodName;
     }
@@ -25,6 +27,14 @@ public class HistoryBean {
         this.requestTime = requestTime;
     }
 
+    public String getFormattedRequestTime() { // Getter for formattedRequestTime
+        return formattedRequestTime;
+    }
+
+    public void setFormattedRequestTime(String formattedRequestTime) { // Setter for formattedRequestTime
+        this.formattedRequestTime = formattedRequestTime;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -39,10 +49,5 @@ public class HistoryBean {
 
     public void setPickupStatus(String pickupStatus) {
         this.pickupStatus = pickupStatus;
-    }
-
-    public void setFormattedRequestTime(String formattedTime) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setFormattedRequestTime'");
     }
 }
