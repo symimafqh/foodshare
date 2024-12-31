@@ -86,7 +86,7 @@ public String getRequestHistory(HttpSession session, Model model) {
                 model.addAttribute("historyList", historyList);
 
                 // Return the view name for the request history page
-                return "student/history/request_history"; // Match this with your Thymeleaf template name
+                return "student/pickup/viewHistoryRequest"; // Match this with your Thymeleaf template name
             }
         }
     } catch (Exception e) {
