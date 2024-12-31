@@ -38,11 +38,11 @@
   <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
   <!-- <link rel="stylesheet" id="css-theme" th:href="../assets/css/themes/corporate.min.css"> -->
   <link rel="stylesheet" id="css-theme" th:href="@{stylesheets/assets/css/themes/flat.min.css}">
-  
+
 </head>
 
 <body>
-  
+
   <div id="page-container" class="sidebar-o enable-page-overlay side-scroll page-header-modern main-content-boxed">
     <!-- Side Overlay-->
     <aside id="side-overlay">
@@ -183,14 +183,16 @@
                     class="sidebar-mini-hide">LEFTOVER</span></a>
                 <ul>
                   <li><a th:href="@{/view_leftover}">View Leftover</a></li>
+                  <li><a th:href="@{/pickupForm}">Pickup Leftover</a></li>
                 </ul>
+              </li>
               <li><a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-layers"></i><span
                     class="sidebar-mini-hide">ORDER</span></a>
                 <ul>
                   <li><a th:href="@{/add_Booking}">Create order</a></li>
                 </ul>
               </li>
-              </li>
+
             </ul>
           </div>
           <!-- END Side Navigation -->
@@ -383,7 +385,7 @@
                   </div>
                 </div>
 
-                
+
               </div>
           </div>
           </form>
@@ -395,7 +397,8 @@
             </h3>
           </div>
           <div class="block-content">
-            <form th:action="@{/edit_password}" modelAttribute="edit_password" th:object="(${edit_password})" method="post">
+            <form th:action="@{/edit_password}" modelAttribute="edit_password" th:object="(${edit_password})"
+              method="post">
               <div class="row items-push">
                 <!-- Left Column -->
                 <div class="col-lg-3">
@@ -408,7 +411,7 @@
                   <div class="form-group row">
                     <div class="col-12">
                       <label for="profile-settings-password">Current Password</label>
-                      <input type="password" class="form-control form-control-lg" id="password" name="password" 
+                      <input type="password" class="form-control form-control-lg" id="password" name="password"
                         th:value="${s.studentPassword}">
                       <span class="eye" onclick="togglePassword()">
                         <i id="eye-icon" class="fa fa-eye"></i>
@@ -418,13 +421,14 @@
                   <div class="form-group row">
                     <div class="col-12">
                       <label for="profile-settings-password-new">New Password</label>
-                      <input type="password" class="form-control form-control-lg" id="studentPassword" name="studentPassword">
+                      <input type="password" class="form-control form-control-lg" id="studentPassword"
+                        name="studentPassword">
                     </div>
                   </div>
                   <div class="form-group row">
                     <div class="col-12">
                       <label for="profile-settings-password-new-confirm">Confirmation New Password</label>
-                      <input type="password" class="form-control form-control-lg" id="studentPasswordConfirmation" 
+                      <input type="password" class="form-control form-control-lg" id="studentPasswordConfirmation"
                         name="studentpassword">
                     </div>
                   </div>
@@ -442,8 +446,8 @@
       </div>
       <!-- END User Profile -->
 
-     
-      
+
+
 
       <script>
         const passwordInput = document.getElementById('studentPassword');

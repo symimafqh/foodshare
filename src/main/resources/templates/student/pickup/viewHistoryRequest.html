@@ -249,7 +249,6 @@
                 <ul>
                   <li><a th:href="@{/view_leftover}">View Leftover</a></li>
                   <li><a th:href="@{/pickupForm}">Pickup Leftover</a></li>
-                  <li><a th:href="@{/requestHistory}">View History Request</a></li>
                 </ul>
               </li>
               <li><a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-layers"></i><span
@@ -368,172 +367,38 @@
     <!-- Main Container -->
     <main id="main-container">
       <!-- Page Content -->
-      <div class="content">
-        <div class="block">
-          <div class="block-header block-header-default text-center">
-            <h3 class="block-title">
-              <b>How to Request Leftover Food</b>
-            </h3>
-          </div>
-          <div class="block-content">
-            <!-- Interactive Guide -->
-            <div id="interactive-guide" class="accordion" role="tablist" aria-multiselectable="true"
-              style="max-width: 800px; margin: 0 auto; background-color: #ffe6e6; border-radius: 10px; padding: 20px;">
-              <!-- Step 1 -->
-              <div class="card mb-3">
-                <div class="card-header" role="tab" id="step1-header">
-                  <h5 class="mb-0">
-                    <a class="d-flex align-items-center text-decoration-none" data-toggle="collapse" href="#step1"
-                      aria-expanded="true" aria-controls="step1">
-                      <i class="fa fa-chevron-right mr-2"></i>
-                      Step 1: Navigate to "View Leftover"
-                    </a>
-                  </h5>
-                </div>
-                <div id="step1" class="collapse" role="tabpanel" aria-labelledby="step1-header">
-                  <div class="card-body">
-                    Find the "View Leftover" option in the sidebar menu to see the available leftover food.
-                  </div>
-                </div>
-              </div>
-
-              <!-- Step 2 -->
-              <div class="card mb-3">
-                <div class="card-header" role="tab" id="step2-header">
-                  <h5 class="mb-0">
-                    <a class="d-flex align-items-center text-decoration-none" data-toggle="collapse" href="#step2"
-                      aria-expanded="false" aria-controls="step2">
-                      <i class="fa fa-chevron-right mr-2"></i>
-                      Step 2: Request Food
-                    </a>
-                  </h5>
-                </div>
-                <div id="step2" class="collapse" role="tabpanel" aria-labelledby="step2-header">
-                  <div class="card-body">
-                    Hover over the Action column where the "Request" button will appear. Click on it to make a request.
-                  </div>
-                </div>
-              </div>
-
-              <!-- Step 3 -->
-              <div class="card mb-3">
-                <div class="card-header" role="tab" id="step3-header">
-                  <h5 class="mb-0">
-                    <a class="d-flex align-items-center text-decoration-none" data-toggle="collapse" href="#step3"
-                      aria-expanded="false" aria-controls="step3">
-                      <i class="fa fa-chevron-right mr-2"></i>
-                      Step 3: Wait for Notification
-                    </a>
-                  </h5>
-                </div>
-                <div id="step3" class="collapse" role="tabpanel" aria-labelledby="step3-header">
-                  <div class="card-body">
-                    Once your request is approved by the cafeteria, you will receive a notification. Please wait
-                    patiently.
-                  </div>
-                </div>
-              </div>
-
-              <!-- Step 4 -->
-              <div class="card mb-3">
-                <div class="card-header" role="tab" id="step4-header">
-                  <h5 class="mb-0">
-                    <a class="d-flex align-items-center text-decoration-none" data-toggle="collapse" href="#step4"
-                      aria-expanded="false" aria-controls="step4">
-                      <i class="fa fa-chevron-right mr-2"></i>
-                      Step 4: Pickup the Leftover
-                    </a>
-                  </h5>
-                </div>
-                <div id="step4" class="collapse" role="tabpanel" aria-labelledby="step4-header">
-                  <div class="card-body">
-                    Go to the "Pickup Leftover" menu and fill out the required form to confirm your pickup. Submit the
-                    form to complete the process.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <style>
-          .card-header {
-            background-color: #f8d7da !important;
-            /* Keeps the pink background */
-            border: 1px solid #f5c6cb !important;
-            border-radius: 5px !important;
-            cursor: pointer;
-            padding: 10px 15px !important;
-            color: #8b3c44 !important;
-            /* A darker pink/red for contrast */
-            font-weight: bold !important;
-            font-size: 16px !important;
-            /* Larger font for readability */
-            text-shadow: none !important;
-            opacity: 1 !important;
-            /* Ensure no transparency */
-          }
-
-          .card-body {
-            background-color: #ffffff !important;
-            /* White background for better text visibility */
-            border: 1px solid #f5c6cb !important;
-            border-top: none !important;
-            border-radius: 0 0 5px 5px !important;
-            padding: 15px !important;
-            color: #8b3c44 !important;
-            /* Matches the darker pink/red */
-            font-size: 14px !important;
-            text-shadow: none !important;
-            opacity: 1 !important;
-            /* Remove any transparency */
-          }
-
-          .accordion .card-header a {
-            color: #8b3c44 !important;
-            /* Same darker pink for links */
-            font-weight: bold !important;
-            text-decoration: none !important;
-          }
-
-          .accordion .card-header a:hover {
-            color: #a54551 !important;
-            /* Slightly brighter for hover effect */
-          }
-        </style>
-
-
-      </div>
+      <div class="container mt-5">
+        <h2 class="mb-4">Request History</h2>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Food Name</th>
+                    <th>Request Time</th>
+                    <th>Status</th>
+                    <th>Pickup Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Display a message when historyList is empty -->
+                <tr th:if="${#lists.isEmpty(historyList)}">
+                    <td colspan="4" class="text-center">No requests found.</td>
+                </tr>
+        
+                <!-- Iterate over the historyList -->
+                <tr th:each="history : ${historyList}">
+                    <td th:text="${history.foodName}"></td>
+                    <td th:text="${#dates.format(history.requestTime, 'yyyy-MM-dd HH:mm')}"></td>
+                    <td th:text="${history.status}"></td>
+                    <td th:text="${history.pickupStatus}"></td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </div>
       <!-- END Page Content -->
     </main>
     <!-- END Main Container -->
 
-    <!-- Modal for No Requests -->
-    <div class="modal fade" id="modal-popout" tabindex="-1" role="dialog" aria-labelledby="modal-popout"
-      aria-hidden="true">
-      <div class="modal-dialog modal-dialog-popout" role="document">
-        <div class="modal-content">
-          <div class="block block-themed block-transparent mb-0">
-            <div class="block-header bg-primary-dark">
-              <h3 class="block-title">Notice</h3>
-              <div class="block-options">
-                <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
-                  <i class="si si-close"></i>
-                </button>
-              </div>
-            </div>
-            <div class="block-content">
-              <!-- Display the noRequestMessage dynamically -->
-              <p th:text="${noRequestMessage}">No requests found for today.</p>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- END Modal for No Requests -->
 
 
 
