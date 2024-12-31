@@ -231,9 +231,10 @@
           <!-- END Side User -->
 
           <!-- Side Navigation -->
-          <div class="content-side content-side-full">
-          <h2 class="h3 text-white font-w500 mb-10"><span class="d-none d-sm-inline-block"
-              th:text="${session.studentNumber}"></span></h2>
+          <h2 class="h3 text-white font-w500 mb-10" style="display: none;">
+            <span th:text="${session.studentNumber}"></span>
+          </h2>
+          
             <ul class="nav-main">
               <li>
                 <a class="active" th:href="@{/dashboardStudent}"><i class="si si-cup"></i><span
