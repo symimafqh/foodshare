@@ -173,32 +173,41 @@
 
                     <!-- Side Navigation -->
 
+                    <!-- Side Navigation -->
+                    <h2 class="h3 text-white font-w500 mb-10" style="display: none;">
+                        <span th:text="${session.studentNumber}"></span>
+                    </h2>
+
                     <div class="content-side content-side-full">
                         <ul class="nav-main">
                             <li>
-                              <a class="active" th:href="@{/dashboardStudent}"><i class="si si-cup"></i><span
-                                  class="sidebar-mini-hide">DASHBOARD</span></a>
+                                <a class="active" th:href="@{/dashboardStudent}"><i class="si si-cup"></i><span
+                                        class="sidebar-mini-hide">DASHBOARD</span></a>
                             </li>
                             <li>
-                              <a class="active" th:href="@{/edit_profile}"><i class="si si-user"></i><span
-                                  class="sidebar-mini-hide">PROFIL</span></a>
+                                <a class="active" th:href="@{/edit_profile}"><i class="si si-user"></i><span
+                                        class="sidebar-mini-hide">PROFIL</span></a>
                             </li>
-                            <li><a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-layers"></i><span
-                                  class="sidebar-mini-hide">LEFTOVER</span></a>
-                              <ul>
-                                <li><a th:href="@{/view_leftover}">View Leftover</a></li>
-                                <li><a th:href="@{/pickupForm}">Pickup Leftover</a></li>
-                              </ul>
+                            <li><a class="nav-submenu" data-toggle="nav-submenu" href="#"><i
+                                        class="si si-layers"></i><span class="sidebar-mini-hide">LEFTOVER</span></a>
+                                <ul>
+                                    <li><a th:href="@{/view_leftover}">View Leftover</a></li>
+                                    <li><a th:href="@{/pickupForm}">Pickup Leftover</a></li>
+                                    <li><a th:href="@{/requestHistory}">View History Request</a></li>
+                                </ul>
                             </li>
-                            <li><a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-layers"></i><span
-                                  class="sidebar-mini-hide">ORDER</span></a>
-                              <ul>
-                                <li><a th:href="@{/add_Booking}">Create order</a></li>
-                              </ul>
+                            <li><a class="nav-submenu" data-toggle="nav-submenu" href="#"><i
+                                        class="si si-layers"></i><span class="sidebar-mini-hide">ORDER</span></a>
+                                <ul>
+                                    <li><a th:href="@{/add_Booking}">Create order</a></li>
+
+
+                                </ul>
                             </li>
-              
-                          </ul>
+
+                        </ul>
                     </div>
+                    <!-- END Side Navigation -->
                     <!-- END Side Navigation -->
                 </div>
                 <!-- END Sidebar Scrolling -->
@@ -343,16 +352,16 @@
                                 <div class="form-group row">
                                     <div class="col-12">
                                         <label for="cafeNumber">Cafe Number</label>
-                                        <select class="form-control form-control-lg" id="cafeNumber" name="cafeNumber" required>
+                                        <select class="form-control form-control-lg" id="cafeNumber" name="cafeNumber"
+                                            required>
                                             <option value="">Select a cafeteria</option>
-                                            <option th:each="cafe : ${cafeterias}" 
-                                                    th:value="${cafe.cafeNumber}" 
-                                                    th:text="${cafe.cafeNumber + ' - ' + cafe.cafeName}">
+                                            <option th:each="cafe : ${cafeterias}" th:value="${cafe.cafeNumber}"
+                                                th:text="${cafe.cafeNumber + ' - ' + cafe.cafeName}">
                                             </option>
                                         </select>
                                     </div>
                                 </div>
-                                
+
                                 <!-- <div class="form-group row">
                                     <div class="col-12">
                                         <label for="studentNumber">Student Number</label>
@@ -373,14 +382,14 @@
             </div>
             <!-- END Add Booking Section -->
         </main>
-        </main>
+ 
         <!-- END Main Container -->
 
         <!-- Footer -->
         <footer id="page-footer">
             <div class="content py-20 font-size-sm clearfix">
                 <div class="float-right">
-                    Dibangunkan <i class="fa fa-heart text-pulse"></i> oleh <a class="font-w600"
+                    Developed <i class="fa fa-heart text-pulse"></i> By <a class="font-w600"
                         href="https://1.envato.market/ydb" target="_blank">Syamimi Afiqah</a>
                 </div>
                 <div class="float-left">

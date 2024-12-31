@@ -169,6 +169,11 @@
 
           <!-- Side Navigation -->
 
+          <!-- Side Navigation -->
+          <h2 class="h3 text-white font-w500 mb-10" style="display: none;">
+            <span th:text="${session.studentNumber}"></span>
+          </h2>
+
           <div class="content-side content-side-full">
             <ul class="nav-main">
               <li>
@@ -184,17 +189,21 @@
                 <ul>
                   <li><a th:href="@{/view_leftover}">View Leftover</a></li>
                   <li><a th:href="@{/pickupForm}">Pickup Leftover</a></li>
+                  <li><a th:href="@{/requestHistory}">View History Request</a></li>
                 </ul>
               </li>
               <li><a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-layers"></i><span
                     class="sidebar-mini-hide">ORDER</span></a>
                 <ul>
                   <li><a th:href="@{/add_Booking}">Create order</a></li>
+
+
                 </ul>
               </li>
 
             </ul>
           </div>
+          <!-- END Side Navigation -->
           <!-- END Side Navigation -->
         </div>
         <!-- END Sidebar Scrolling -->
