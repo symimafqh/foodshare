@@ -40,4 +40,9 @@ public class HistoryBean {
     public void setPickupStatus(String pickupStatus) {
         this.pickupStatus = pickupStatus;
     }
+
+    public void setFormattedRequestTime(String formattedTime) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setFormattedRequestTime'");
+    }
 }
