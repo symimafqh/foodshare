@@ -231,8 +231,9 @@
           <!-- END Side User -->
 
           <!-- Side Navigation -->
-          <h2 class="h3 text-white font-w500 mb-10"><span class="d-none d-sm-inline-block"
-              th:text="${session.studentNumber}"></span></h2>
+          <h2 class="h3 text-white font-w500 mb-10" style="display: none;">
+            <span th:text="${session.studentNumber}"></span>
+          </h2>
 
           <div class="content-side content-side-full">
             <ul class="nav-main">
@@ -376,25 +377,32 @@
                     <th>Request Time</th>
                     <th>Status</th>
                     <th>Pickup Status</th>
+                    <th>Current Status</th> <!-- New column -->
                 </tr>
             </thead>
             <tbody>
                 <!-- Display a message when historyList is empty -->
                 <tr th:if="${#lists.isEmpty(historyList)}">
-                    <td colspan="4" class="text-center">No requests found.</td>
+                    <td colspan="5" class="text-center">No requests found.</td>
                 </tr>
-        
+            
                 <!-- Iterate over the historyList -->
                 <tr th:each="history : ${historyList}">
                     <td th:text="${history.foodName}"></td>
                     <td th:text="${history.formattedRequestTime}"></td>
                     <td th:text="${history.status}"></td>
                     <td th:text="${history.pickupStatus}"></td>
+                    <td>
+                        <!-- Dynamically set the badge class based on date -->
+                        <span th:classappend="${history.requestTime.isAfter(T(java.time.LocalDateTime).now())} ? 'badge badge-success' : 'badge badge-info'"
+                              th:text="${history.requestTime.isAfter(T(java.time.LocalDateTime).now()) ? 'Active' : 'Expired'}">
+                        </span>
+                    </td>
                 </tr>
             </tbody>
         </table>
-        
     </div>
+    
       <!-- END Page Content -->
     </main>
     <!-- END Main Container -->
