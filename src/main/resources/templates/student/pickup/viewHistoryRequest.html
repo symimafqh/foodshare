@@ -387,7 +387,7 @@
                 <!-- Iterate over the historyList -->
                 <tr th:each="history : ${historyList}">
                     <td th:text="${history.foodName}"></td>
-                    <td th:text="${#dates.format(history.requestTime, 'yyyy-MM-dd HH:mm')}"></td>
+                    <td th:text="${history.formattedRequestTime}"></td>
                     <td th:text="${history.status}"></td>
                     <td th:text="${history.pickupStatus}"></td>
                 </tr>
