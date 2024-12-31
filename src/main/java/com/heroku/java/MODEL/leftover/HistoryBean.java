@@ -50,4 +50,7 @@ public class HistoryBean {
     public void setPickupStatus(String pickupStatus) {
         this.pickupStatus = pickupStatus;
     }
+
+
+  
 }

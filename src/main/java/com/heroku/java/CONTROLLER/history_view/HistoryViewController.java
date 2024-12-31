@@ -1,4 +1,5 @@
 package com.heroku.java.CONTROLLER.history_view;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,68 +29,56 @@ public class HistoryViewController {
 
     @GetMapping("/requestHistory")
     public String getRequestHistory(HttpSession session, Model model) {
-        // Retrieve the studentNumber from the session
         String studentNumber = (String) session.getAttribute("studentNumber");
-        System.out.println("Fetching request history for student: " + studentNumber);
 
         if (studentNumber == null) {
-            // Redirect to login or error page if studentNumber is not in session
             return "redirect:/login";
         }
 
         try (Connection connection = dataSource.getConnection()) {
-            // SQL query to join request, leftover, and pickup tables
             String sql = """
-                SELECT 
-                    l.foodname,
-                    r.request_time,
-                    r.status,
-                    CASE
-                        WHEN p.studentnumber IS NOT NULL THEN 'Picked Up'
-                        ELSE 'Pending Pickup'
-                    END AS pickup_status
-                FROM request r
-                JOIN leftover l ON r.foodid = l.foodid
-                LEFT JOIN pickup p ON r.foodid = p.foodid
-                WHERE r."studentNumber" = ?
-                ORDER BY r.request_time DESC
-            """;
+                        SELECT
+                            l.foodname,
+                            r.request_time,
+                            r.status,
+                            CASE
+                                WHEN p.studentnumber IS NOT NULL THEN 'Picked Up'
+                                ELSE 'Pending Pickup'
+                            END AS pickup_status
+                        FROM request r
+                        JOIN leftover l ON r.foodid = l.foodid
+                        LEFT JOIN pickup p ON r.foodid = p.foodid
+                        WHERE r."studentNumber" = ?
+                        ORDER BY r.request_time DESC
+                    """;
 
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                statement.setString(1, studentNumber); // Set the studentNumber parameter
+                statement.setString(1, studentNumber);
 
                 try (ResultSet resultSet = statement.executeQuery()) {
                     List<HistoryBean> historyList = new ArrayList<>();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-                    // Process each row of the result set
                     while (resultSet.next()) {
                         HistoryBean history = new HistoryBean();
                         history.setFoodName(resultSet.getString("foodname"));
                         LocalDateTime requestTime = resultSet.getTimestamp("request_time").toLocalDateTime();
                         history.setRequestTime(requestTime);
+                        history.setFormattedRequestTime(requestTime.format(formatter)); // Format here
                         history.setStatus(resultSet.getString("status"));
                         history.setPickupStatus(resultSet.getString("pickup_status"));
-
-                        // Convert LocalDateTime to formatted String and set it
-                        if (requestTime != null) {
-                            String formattedTime = requestTime.format(formatter);
-                            history.setFormattedRequestTime(formattedTime); // This will now work
-                        }
-                        
 
                         historyList.add(history);
                     }
 
-                    // Add the history list to the model
                     model.addAttribute("historyList", historyList);
-
-                    // Return the view name for the request history page
-                    return "student/pickup/viewHistoryRequest"; // Match this with your Thymeleaf template name
+                    return "student/pickup/viewHistoryRequest";
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace(); // Log the exception for debugging
-            return "redirect:/error"; // Redirect to an error page if an exception occurs
+            e.printStackTrace();
+            return "redirect:/error";
         }
     }
+
 }
