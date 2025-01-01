@@ -78,13 +78,6 @@ public class BookingBean {
         this.status = status;
     }
 
-    public LocalDate getBookingDate() {
-        return bookingDate;
-    }
-
-    public void setBookingDate(LocalDate bookingDate) {
-        this.bookingDate = bookingDate;
-    }
 
 }
 

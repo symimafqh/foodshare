@@ -189,7 +189,7 @@ public class BookingController {
                         booking.setBookingID(resultSet.getInt("bookingid"));
                         booking.setBookingmenu(resultSet.getString("bookingmenu"));
                         booking.setBookingquantity(resultSet.getInt("bookingquantity"));
-                        booking.setBookingDate(resultSet.getDate("bookingdate").toLocalDate());
+                        booking.setBookingdate(resultSet.getDate("bookingdate"));
                         booking.setStatus(resultSet.getString("status"));
 
                         bookingHistoryList.add(booking);
