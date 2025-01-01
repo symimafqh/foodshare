@@ -337,10 +337,10 @@
                             </tr>
                             <!-- Iterate over the bookingHistoryList -->
                             <tr th:each="booking : ${bookingHistoryList}">
-                                <td th:text="${booking.bookingId}"></td>
-                                <td th:text="${booking.bookingMenu}"></td>
-                                <td th:text="${booking.bookingQuantity}"></td>
-                                <td th:text="${booking.bookingDate}"></td>
+                                <td th:text="${booking.bookingID}"></td>
+                                <td th:text="${booking.bookingmenu}"></td>
+                                <td th:text="${booking.bookingquantity}"></td>
+                                <td th:text="${booking.bookingdate}"></td>
                                 <td th:text="${booking.status}"></td>
                             </tr>
                         </tbody>
