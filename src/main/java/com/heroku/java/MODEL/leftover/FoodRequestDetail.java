@@ -8,6 +8,8 @@ public class FoodRequestDetail {
     private String studentNumber;
     private String status;
     private String foodDescription;
+    private int quantity;
+    
 
     // Getters and setters for each field
 
@@ -84,6 +86,21 @@ public class FoodRequestDetail {
      */
     public void setFoodDescription(String foodDescription) {
         this.foodDescription = foodDescription;
+    }
+
+
+    /**
+     * @return int return the quantity
+     */
+    public int getQuantity() {
+        return quantity;
+    }
+
+    /**
+     * @param quantity the quantity to set
+     */
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
 }

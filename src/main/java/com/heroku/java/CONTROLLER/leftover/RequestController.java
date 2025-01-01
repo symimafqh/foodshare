@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.heroku.java.MODEL.leftover.FoodRequestDetail;
 import com.heroku.java.MODEL.leftover.LeftoverBean;
 import com.heroku.java.MODEL.student.StudentBean;
 
@@ -24,6 +25,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -96,63 +99,96 @@ public class RequestController {
     }
 
     @PostMapping("/request_leftover")
-    public String requestLeftover(Model model, HttpSession session, LeftoverBean leftover,
-            @RequestParam("foodid") int foodId, @RequestParam("cafenumber") String cafeNumber) {
-        String studentNumber = (String) session.getAttribute("studentNumber");
-        String status = "Pending";
+public String requestLeftover(
+        Model model,
+        HttpSession session,
+        @RequestParam("foodid") int foodId,
+        @RequestParam("cafenumber") String cafeNumber,
+        @RequestParam("quantity") int requestedQuantity) {
+    String studentNumber = (String) session.getAttribute("studentNumber");
+    String status = "Pending";
 
-        System.out.print("ni food id untuk insert " + foodId);
+    // Set the current timestamp for request_time
+    LocalDateTime requestTime = LocalDateTime.now();
 
-        // Step 1: Fetch student details using the studentNumber
-        StudentBean student = getStudentDetails(studentNumber);
-
-        // Check if student details were fetched successfully
-        if (student == null) {
-            // If not found, handle the error and return a failure page or message
-            return "redirect:/error?studentNotFound=true";
+    try (Connection connection = dataSource.getConnection()) {
+        int availableQuantity = getAvailableFoodQuantity(connection, foodId);
+        if (availableQuantity < requestedQuantity) {
+            // Redirect with an error message if requested quantity exceeds available quantity
+            return "redirect:/dashboardStudent?error=InsufficientQuantity";
         }
 
-        // Step 2: Add request to the database
-        try (Connection connection = dataSource.getConnection()) {
-            String sql = "INSERT INTO public.request (\"studentNumber\", \"foodid\", \"cafeNumber\", \"status\") VALUES (?, ?, ?, ?)";
+        // Step 1: Add request to the database
+        String sql = "INSERT INTO public.request (\"studentNumber\", \"foodid\", \"cafeNumber\", \"quantityrequest\", \"status\", \"request_time\") VALUES (?, ?, ?, ?, ?, ?)";
 
-            try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                statement.setString(1, studentNumber); // Use studentNumber from session
-                statement.setInt(2, foodId);
-                statement.setString(3, cafeNumber);
-                statement.setString(4, status);
-                statement.executeUpdate();
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, studentNumber);
+            statement.setInt(2, foodId);
+            statement.setString(3, cafeNumber);
+            statement.setInt(4, requestedQuantity);
+            statement.setString(5, status);
+            statement.setObject(6, requestTime); // Set LocalDateTime
+            statement.executeUpdate();
+        }
+
+        // Step 2: Deduct the requested quantity from the leftover table
+        updateFoodQuantity(connection, foodId, requestedQuantity);
+
+        // Step 3: Populate the FoodRequestDetail bean
+        FoodRequestDetail leftover = new FoodRequestDetail();
+        leftover.setFoodid(foodId); // Set the food ID
+        leftover.setCafeNumber(cafeNumber); // Set the cafe number
+        leftover.setQuantity(requestedQuantity); // Set the requested quantity
+        //leftover.setRequestTime(requestTime); // Save the request time to the bean
+
+        // Step 4: Notify the cafeteria
+        notifyCafe(leftover, session, cafeNumber);
+
+        return "redirect:/dashboardStudent?success=true";
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return "redirect:/dashboardStudent?error=true";
+    }
+}
+
+    
+    
+    // Method to get the available quantity of food
+    private int getAvailableFoodQuantity(Connection connection, int foodId) throws SQLException {
+        String query = "SELECT \"foodquantity\" FROM public.leftover WHERE foodid = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, foodId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt("foodquantity");
+                }
             }
-
-            // Step 3: Deduct 1 from the food quantity in the leftover table
-            updateFoodQuantity(connection, leftover.getFoodid());
-
-            // Step 4: Notify cafe using WhatsApp API
-            notifyCafe(leftover, session, cafeNumber);
-
-            return "redirect:/dashboardStudent?success=true";
-        } catch (SQLException e) {
-            // Log specific SQL errors
-            System.err.println("SQL Exception: " + e.getMessage());
-            return "redirect:/request_leftover?error=true";
-        } catch (Exception e) {
-            // Log general exceptions
-            System.err.println("General Exception: " + e.getMessage());
-            return "redirect:/request_leftover?error=true";
         }
+        return 0; // Default to 0 if food ID not found
     }
-
-    private void updateFoodQuantity(Connection connection, @RequestParam("foodid") int foodId) {
-        String updateSql = "UPDATE public.leftover SET \"foodquantity\" = \"foodquantity\" - 1 WHERE foodid = ?";
-
+    
+    // Update the food quantity based on the requested amount
+    private void updateFoodQuantity(Connection connection, int foodId, int requestedQuantity) throws SQLException {
+        String updateSql = "UPDATE public.leftover SET \"foodquantity\" = \"foodquantity\" - ? WHERE foodid = ?";
         try (PreparedStatement statement = connection.prepareStatement(updateSql)) {
-            statement.setInt(1, foodId); // Set the foodId for which we want to update the quantity
-            statement.executeUpdate(); // Execute the update to reduce the food quantity by 1
-            System.out.println("done tolak dekat quantity food");
-        } catch (SQLException e) {
-            e.printStackTrace(); // Log any error that occurs during the update
+            statement.setInt(1, requestedQuantity);
+            statement.setInt(2, foodId);
+            statement.executeUpdate();
         }
     }
+    
+
+    // private void updateFoodQuantity(Connection connection, @RequestParam("foodid") int foodId) {
+    //     String updateSql = "UPDATE public.leftover SET \"foodquantity\" = \"foodquantity\" - 1 WHERE foodid = ?";
+
+    //     try (PreparedStatement statement = connection.prepareStatement(updateSql)) {
+    //         statement.setInt(1, foodId); // Set the foodId for which we want to update the quantity
+    //         statement.executeUpdate(); // Execute the update to reduce the food quantity by 1
+    //         System.out.println("done tolak dekat quantity food");
+    //     } catch (SQLException e) {
+    //         e.printStackTrace(); // Log any error that occurs during the update
+    //     }
+    // }
 
     private String getFoodName(Connection connection, int foodId) {
         String foodName = null;
@@ -202,7 +238,7 @@ public class RequestController {
         return student;
     }
 
-    private void notifyCafe(LeftoverBean leftover, HttpSession session, String cafeNumber) {
+    private void notifyCafe(FoodRequestDetail leftover, HttpSession session, String cafeNumber) {
         // Print cafe number for debugging
         System.out.println(cafeNumber + "cafenumber dekat method notify");
         leftover.setCafeNumber(cafeNumber);

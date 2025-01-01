@@ -176,26 +176,26 @@
                     <div class="content-side content-side-full">
                         <ul class="nav-main">
                             <li>
-                              <a class="active" th:href="@{/dashboardStudent}"><i class="si si-cup"></i><span
-                                  class="sidebar-mini-hide">DASHBOARD</span></a>
+                                <a class="active" th:href="@{/dashboardStudent}"><i class="si si-cup"></i><span
+                                        class="sidebar-mini-hide">DASHBOARD</span></a>
                             </li>
                             <li>
-                              <a class="active" th:href="@{/edit_profile}"><i class="si si-user"></i><span
-                                  class="sidebar-mini-hide">PROFIL</span></a>
+                                <a class="active" th:href="@{/edit_profile}"><i class="si si-user"></i><span
+                                        class="sidebar-mini-hide">PROFIL</span></a>
                             </li>
-                            <li><a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-layers"></i><span
-                                  class="sidebar-mini-hide">LEFTOVER</span></a>
-                              <ul>
-                                <li><a th:href="@{/view_leftover}">View Leftover</a></li>
-                              </ul>
-                            <li><a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-layers"></i><span
-                                  class="sidebar-mini-hide">ORDER</span></a>
-                              <ul>
-                                <li><a th:href="@{/add_Booking}">Create order</a></li>
-                              </ul>
+                            <li><a class="nav-submenu" data-toggle="nav-submenu" href="#"><i
+                                        class="si si-layers"></i><span class="sidebar-mini-hide">LEFTOVER</span></a>
+                                <ul>
+                                    <li><a th:href="@{/view_leftover}">View Leftover</a></li>
+                                </ul>
+                            <li><a class="nav-submenu" data-toggle="nav-submenu" href="#"><i
+                                        class="si si-layers"></i><span class="sidebar-mini-hide">ORDER</span></a>
+                                <ul>
+                                    <li><a th:href="@{/add_Booking}">Create order</a></li>
+                                </ul>
                             </li>
                             </li>
-                          </ul>
+                        </ul>
                     </div>
                     <!-- END Side Navigation -->
                 </div>
@@ -307,6 +307,13 @@
         <main id="main-container">
             <!-- Page Content -->
             <div class="content">
+                    <div th:if="${param.success}" class="alert alert-success">
+                        Your request has been submitted successfully!
+                    </div>
+                    <div th:if="${param.error}" class="alert alert-danger">
+                        <span th:if="${param.error == 'InsufficientQuantity'}">Requested quantity exceeds available quantity.</span>
+                        <span th:if="${param.error != 'InsufficientQuantity'}">An error occurred while processing your request.</span>
+                    </div>
                 <div class="block">
                     <div class="block-header block-header-default">
                         <h3 class="block-title">Food List</h3>
@@ -335,13 +342,13 @@
                                         <img th:src="${food.imagePath}" alt="Food Image" style="width: 150px;">
 
                                     </td>
-                                    
+
                                     <td class="text-center">
                                         <a class="btn btn-sm btn-primary" title="Request" data-toggle="modal"
                                             data-target="#foodDetailModal" th:data-foodid="${food.foodid}"
                                             th:data-foodname="${food.foodname}" th:data-quantity="${food.foodquantity}"
-                                            th:data-description="${food.fooddescription}"  th:data-cafeNumber="${food.cafeNumber}"
-                                            onclick="showFoodDetails(this)">
+                                            th:data-description="${food.fooddescription}"
+                                            th:data-cafeNumber="${food.cafeNumber}" onclick="showFoodDetails(this)">
                                             <i class="fa fa-external-link"></i>
                                         </a>
                                     </td>
@@ -351,6 +358,7 @@
                     </div>
                 </div>
 
+                <!-- Modal -->
                 <!-- Modal -->
                 <div class="modal fade" id="foodDetailModal" tabindex="-1" role="dialog"
                     aria-labelledby="foodDetailModalLabel" aria-hidden="true">
@@ -366,20 +374,25 @@
                                 <form action="#" th:action="@{/request_leftover}" method="post" id="requestForm">
                                     <input type="hidden" id="foodidInput" name="foodid">
                                     <input type="hidden" id="cafeNumber" name="cafenumber">
-                                    <!-- Hidden field for food ID -->
-                                    <!-- <input type="hidden" id="foodid" name="foodid"> -->
 
                                     <h5 id="modalFoodName"></h5>
                                     <p id="modalFoodDescription"></p>
 
+                                    <!-- Quantity input -->
+                                    <div class="form-group">
+                                        <label for="quantityInput">Enter Quantity:</label>
+                                        <input type="number" class="form-control" id="quantityInput" name="quantity"
+                                            min="1" required>
+                                    </div>
 
-                                    <!-- Submit button for request -->
+                                    <!-- Submit button -->
                                     <button type="submit" class="btn btn-primary">Submit Request</button>
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </main>
 
@@ -392,19 +405,14 @@
                 var foodDescription = $(button).data('description');
                 var cafeNumber = $(button).data('cafenumber');
 
-                console.log("Cafe Number:", cafeNumber);
-                console.log("Food ID:", foodId);  // Ensure foodId is correct
-                console.log("Food Name:", foodName);
-
                 // Set values in the modal
-                $('#foodid').text(foodId);
                 $('#modalFoodName').text(foodName);
                 $('#modalFoodDescription').text(foodDescription);
+                $('#foodidInput').val(foodId);
+                $('#cafeNumber').val(cafeNumber);
 
-                $('#foodidInput').val(foodId);    
-                $('#cafeNumber').val(cafeNumber);          // Hidden input field value
-                console.log("Hidden input value:", $('#foodidInput').val()); 
-                console.log("Hidden input value:", $('#cafenumber').val());// Verify if value is set
+                // Clear the quantity input
+                $('#quantityInput').val('');
             }
         </script>
 
