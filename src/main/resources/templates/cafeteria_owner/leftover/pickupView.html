@@ -332,7 +332,8 @@
                             <td th:text="${status.cafeNumber}"></td>
                             <td th:text="${status.requestStatus}"></td>
                             <td th:text="${status.quantityRequest}"></td>
-                            <td th:text="${#dates.format(status.requestTime, 'yyyy-MM-dd HH:mm')}"></td>
+                            <td th:text="${status.formattedRequestTime}"></td>
+
                             <td>
                                 <span
                                     th:classappend="${status.pickupStatus == 'Already Pickup'} ? 'badge bg-success' : 'badge bg-danger'"

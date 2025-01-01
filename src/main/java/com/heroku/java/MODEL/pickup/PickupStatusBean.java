@@ -67,4 +67,14 @@ public class PickupStatusBean {
     public void setPickupStatus(String pickupStatus) {
         this.pickupStatus = pickupStatus;
     }
+
+    private String formattedRequestTime;
+
+    public String getFormattedRequestTime() {
+        return formattedRequestTime;
+    }
+
+    public void setFormattedRequestTime(String formattedRequestTime) {
+        this.formattedRequestTime = formattedRequestTime;
+    }
 }
