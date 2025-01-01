@@ -44,6 +44,31 @@
 
 <body>
 
+    <!-- Error Popup Modal -->
+    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p th:if="${param.error == 'InsufficientQuantity'}">Requested quantity exceeds available quantity.
+                    </p>
+                    <p th:if="${param.error != 'InsufficientQuantity'}">An error occurred while processing your request.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div id="page-container" class="sidebar-o enable-page-overlay side-scroll page-header-modern main-content-boxed">
         <!-- Side Overlay-->
         <aside id="side-overlay">
@@ -307,13 +332,15 @@
         <main id="main-container">
             <!-- Page Content -->
             <div class="content">
-                    <div th:if="${param.success}" class="alert alert-success">
-                        Your request has been submitted successfully!
-                    </div>
-                    <div th:if="${param.error}" class="alert alert-danger">
-                        <span th:if="${param.error == 'InsufficientQuantity'}">Requested quantity exceeds available quantity.</span>
-                        <span th:if="${param.error != 'InsufficientQuantity'}">An error occurred while processing your request.</span>
-                    </div>
+                <div th:if="${param.success}" class="alert alert-success">
+                    Your request has been submitted successfully!
+                </div>
+                <div th:if="${param.error}" class="alert alert-danger">
+                    <span th:if="${param.error == 'InsufficientQuantity'}">Requested quantity exceeds available
+                        quantity.</span>
+                    <span th:if="${param.error != 'InsufficientQuantity'}">An error occurred while processing your
+                        request.</span>
+                </div>
                 <div class="block">
                     <div class="block-header block-header-default">
                         <h3 class="block-title">Food List</h3>
@@ -459,6 +486,20 @@
         <!-- END Footer -->
     </div>
     <!-- END Page Container -->
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Check if there is an error parameter in the URL
+            let errorParam = /*[[${param.error}]]*/ 'false'; // Thymeleaf will replace this
+            if (errorParam && errorParam !== 'false') {
+                // Show the error modal
+                $('#errorModal').modal('show');
+            }
+        });
+    </script>
+
 </body>
+
+
 
 </html>
