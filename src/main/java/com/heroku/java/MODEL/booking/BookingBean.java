@@ -1,6 +1,7 @@
 package com.heroku.java.MODEL.booking;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class BookingBean {
 
@@ -76,6 +77,15 @@ public class BookingBean {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public LocalDate getBookingDate() {
+        return bookingDate;
+    }
+
+    public void setBookingDate(LocalDate bookingDate) {
+        this.bookingDate = bookingDate;
+    }
+
 }
 
 

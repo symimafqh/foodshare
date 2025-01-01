@@ -16,6 +16,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -153,5 +154,56 @@ public class BookingController {
            return "redirect:/viewBookings?error=update_failed";
        }
    }
+
+   private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+    @GetMapping("/bookingHistory")
+    public String getBookingHistory(HttpSession session, Model model) {
+        String studentNumber = (String) session.getAttribute("studentNumber");
+
+        if (studentNumber == null) {
+            return "redirect:/login";
+        }
+
+        try (Connection connection = dataSource.getConnection()) {
+            String sql = """
+                        SELECT
+                            bookingid,
+                            bookingmenu,
+                            bookingquantity,
+                            bookingdate,
+                            status
+                        FROM booking
+                        WHERE \"studentNumber\" = ?
+                        ORDER BY bookingdate DESC
+                    """;
+
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setString(1, studentNumber);
+
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    List<BookingBean> bookingHistoryList = new ArrayList<>();
+
+                    while (resultSet.next()) {
+                        BookingBean booking = new BookingBean();
+                        booking.setBookingID(resultSet.getInt("bookingid"));
+                        booking.setBookingmenu(resultSet.getString("bookingmenu"));
+                        booking.setBookingquantity(resultSet.getInt("bookingquantity"));
+                        booking.setBookingDate(resultSet.getDate("bookingdate").toLocalDate());
+                        booking.setStatus(resultSet.getString("status"));
+
+                        bookingHistoryList.add(booking);
+                    }
+
+                    model.addAttribute("bookingHistoryList", bookingHistoryList);
+                    return "student/order/viewBookingHistory";
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "redirect:/error";
+        }
+    }
+}
 }
 
