@@ -74,7 +74,7 @@ public String getPickupStatus(HttpSession session, Model model) {
                 }
 
                 model.addAttribute("pickupStatusList", pickupStatusList);
-                return "cafeteria/leftover/pickupView";
+                return "cafeteria_owner/leftover/pickupView";
             }
         }
     } catch (Exception e) {
