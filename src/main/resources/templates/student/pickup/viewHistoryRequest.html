@@ -395,9 +395,9 @@
                     <td th:text="${history.pickupStatus}"></td>
                     <td>
                         <!-- Dynamically set the badge class based on date -->
-                        <span th:classappend="${history.requestTime.isAfter(T(java.time.LocalDateTime).now())} ? 'badge badge-success' : 'badge badge-danger'"
-                              th:text="${history.requestTime.isAfter(T(java.time.LocalDateTime).now()) ? 'Active' : 'Expired'}">
-                        </span>
+                        <span th:classappend="${history.requestTime.toLocalDate().isEqual(T(java.time.LocalDate).now())} ? 'badge badge-success' : 'badge badge-danger'"
+                        th:text="${history.requestTime.toLocalDate().isEqual(T(java.time.LocalDate).now()) ? 'Active' : 'Expired'}">
+                  </span>
                     </td>
                 </tr>
             </tbody>
