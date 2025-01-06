@@ -73,7 +73,7 @@ public String getPickupForm(HttpSession session, Model model) {
                     model.addAttribute("leftover", leftover);
 
                     // Return the view name for the pickup form
-                    return "student/pickup/viewHistoryRequest"; // Match this with your Thymeleaf template name
+                    return "student/pickup/pickup_status"; // Match this with your Thymeleaf template name
                 }
             }
         }
