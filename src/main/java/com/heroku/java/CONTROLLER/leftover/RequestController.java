@@ -71,7 +71,8 @@ public class RequestController {
                     food.setFoodid(resultSet.getInt("foodid"));
                     food.setFoodname(resultSet.getString("foodname"));
                     food.setFoodquantity(resultSet.getInt("foodquantity"));
-                    food.setFooddescription(resultSet.getString("fooddescription"));
+                    food.setPickupPlace(resultSet.getString("place_to_pickup"));
+                    food.setPickupTime(resultSet.getString("pickup_time"));
 
                     // Set the Cloudinary image path from the database
                     String imagePath = resultSet.getString("image_path");

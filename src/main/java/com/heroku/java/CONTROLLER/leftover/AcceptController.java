@@ -123,7 +123,7 @@ public class AcceptController {
         List<String> studentNumbers = getStudentPhoneNumbers(foodId);
 
         // Step 2: Create the message to be sent
-        String messageBody = "Your leftover has been accpeted!\n" +
+        String messageBody = "Your leftover has been accepted!\n" +
                 "Food Name: " + fr.getFoodname() + "\n" +
                 "Description: " + fr.getFoodDescription() + "\n" +
                 "You can pickup it follows the description";

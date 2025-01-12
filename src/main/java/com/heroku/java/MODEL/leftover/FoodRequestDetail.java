@@ -9,6 +9,8 @@ public class FoodRequestDetail {
     private String status;
     private String foodDescription;
     private int quantity;
+    private String pickupPlace;
+    private String pickupTime;
     
 
     // Getters and setters for each field
@@ -103,4 +105,33 @@ public class FoodRequestDetail {
         this.quantity = quantity;
     }
 
+    
+    /**
+     * @return String return the pickupPlace
+     */
+    public String getPickupPlace() {
+        return pickupPlace;
+    }
+
+
+       /**
+     * @param pickupPlace the pickupPlace to set
+     */
+    public void setPickupPlace(String pickupPlace) {
+        this.pickupPlace = pickupPlace;
+    }
+
+     /**
+     * @return String return the pickupPlace
+     */
+    public String getPickupTime() {
+        return pickupTime;
+    }
+
+    /**
+     * @param pickupTime the pickupPlace to set
+     */
+    public void setPickupTime(String pickupTime) {
+        this.pickupTime = pickupTime;
+    }
 }

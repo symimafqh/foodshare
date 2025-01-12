@@ -60,12 +60,13 @@ public String updateLeftover(
 
         // Step 1: Update leftover in the database
         Connection connection = dataSource.getConnection();
-        String sql = "UPDATE public.leftover SET \"foodname\"=?, \"foodquantity\"=?, \"fooddescription\"=?, \"image_path\"=? WHERE \"foodid\"=?";
+        String sql = "UPDATE public.leftover SET \"foodname\"=?, \"foodquantity\"=?, \"image_path\"=? , \"place_to_pickup\"=? , \"pickup_time\"=? WHERE \"foodid\"=?";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, leftover.getFoodname());
         statement.setInt(2, leftover.getFoodquantity());
-        statement.setString(3, leftover.getFooddescription());
-        statement.setString(4, leftover.getImagePath());
+        statement.setString(3, leftover.getImagePath());
+        statement.setString(4, leftover.getPickupPlace());
+        statement.setString(5, leftover.getPickupTime());
         statement.setInt(5, leftover.getFoodid()); // Assuming there's an ID field to identify the leftover
 
         statement.executeUpdate();
