@@ -56,7 +56,7 @@ public class AcceptController {
     
         try (Connection connection = dataSource.getConnection()) {
             // Prepare the SQL statement to fetch food items along with student details for the specific cafe
-            String sql = "SELECT l.\"foodid\", l.\"foodname\",l.\"fooddescription\", l.\"cafeNumber\", s.\"studentName\", s.\"studentNumber\", r.\"status\" " +
+            String sql = "SELECT l.\"foodid\", l.\"foodname\",l.\"place_to_pickup\",l.\"pickup_time\", l.\"cafeNumber\", s.\"studentName\", s.\"studentNumber\", r.\"status\" " +
             "FROM public.leftover l " +
             "JOIN public.request r ON l.\"foodid\" = r.\"foodid\" " +
             "JOIN public.student s ON r.\"studentNumber\" = s.\"studentNumber\" " +
@@ -73,7 +73,8 @@ public class AcceptController {
                     FoodRequestDetail detail = new FoodRequestDetail();
                     detail.setFoodid(resultSet.getInt("foodid"));
                     detail.setFoodname(resultSet.getString("foodname"));
-                    detail.setFoodDescription(resultSet.getString("fooddescription"));
+                    detail.setPickupPlace(resultSet.getString("place_to_pickup"));
+                    detail.setPickupTime(resultSet.getString("pickup_time"));
                     detail.setCafeNumber(resultSet.getString("cafeNumber"));
                     detail.setStudentName(resultSet.getString("studentName"));
                     detail.setStudentNumber(resultSet.getString("studentNumber"));
@@ -125,7 +126,8 @@ public class AcceptController {
         // Step 2: Create the message to be sent
         String messageBody = "Your leftover has been accepted!\n" +
                 "Food Name: " + fr.getFoodname() + "\n" +
-                "Description: " + fr.getFoodDescription() + "\n" +
+                "Pickup Place: " + fr.getPickupPlace() + "\n" +
+                "Pickup Time: " + fr.getPickupTime() + "\n" +
                 "You can pickup it follows the description";
 
         // Step 3: Send the message to each student
@@ -144,7 +146,7 @@ public class AcceptController {
     }
     public FoodRequestDetail getFoodRequestDetailById(int foodId) {
         FoodRequestDetail fr = new FoodRequestDetail();
-        String sql = "SELECT l.\"foodname\", l.\"fooddescription\", l.\"cafeNumber\" " +
+        String sql = "SELECT l.\"foodname\", l.\"place_to_pickup\",l.\"pickup_time\", l.\"cafeNumber\" " +
                      "FROM public.leftover l " +
                      "WHERE l.\"foodid\" = ?";
         try (Connection connection = dataSource.getConnection();
@@ -155,7 +157,8 @@ public class AcceptController {
                 if (resultSet.next()) {
                     fr.setFoodid(foodId);
                     fr.setFoodname(resultSet.getString("foodname"));
-                    fr.setFoodDescription(resultSet.getString("fooddescription"));
+                    fr.setPickupPlace(resultSet.getString("place_to_pickup"));
+                    fr.setPickupTime(resultSet.getString("pickup_time"));
                     fr.setCafeNumber(resultSet.getString("cafeNumber"));
                     // Populate other fields as necessary
                 }
@@ -206,7 +209,7 @@ private String rejectFood(@RequestParam("foodid") int foodId, FoodRequestDetail 
         System.out.println("Status updated to 'Rejected' for food ID: " + foodId);
 
         fr = getFoodRequestDetailById(foodId); // Ensure this method populates all fields
-        if (fr != null && fr.getFoodname() != null && fr.getFoodDescription() != null) {
+        if (fr != null && fr.getFoodname() != null && fr.getPickupPlace() != null  && fr.getPickupTime() != null) {
             notifyRejection(foodId, fr);
         } else {
             System.out.println("Failed to fetch required food details.");
@@ -226,7 +229,8 @@ private void notifyRejection(int foodId, FoodRequestDetail fr) {
     // Step 2: Create the rejection message to be sent
     String messageBody = "Unfortunately, your leftover request has been rejected.\n" +
             "Food Name: " + fr.getFoodname() + "\n" +
-            "Description: " + fr.getFoodDescription() + "\n" +
+            "Pickup Place: " + fr.getPickupPlace() + "\n" +
+            "Pickup Time: " + fr.getPickupTime() + "\n" +
             "Thank you for understanding.";
 
     // Step 3: Send the message to each student
