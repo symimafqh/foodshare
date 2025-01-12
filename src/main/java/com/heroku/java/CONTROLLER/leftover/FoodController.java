@@ -92,7 +92,8 @@ public class FoodController {
                     food.setFoodid(resultSet.getInt("foodid"));
                     food.setFoodname(resultSet.getString("foodname"));
                     food.setFoodquantity(resultSet.getInt("foodquantity"));
-                    food.setFooddescription(resultSet.getString("fooddescription"));
+                    food.setPickupPlace(resultSet.getString("place_to_pickup"));
+                    food.setPickupTime(resultSet.getString("pickup_time"));
                     food.setImagePath(resultSet.getString("image_path"));
                     foodList.add(food); // Add the food item to the list
                 }
@@ -123,7 +124,8 @@ public class FoodController {
                 food.setFoodid(resultSet.getInt("foodid"));
                 food.setFoodname(resultSet.getString("foodname"));
                 food.setFoodquantity(resultSet.getInt("foodquantity"));
-                food.setFooddescription(resultSet.getString("fooddescription"));
+                food.setPickupPlace(resultSet.getString("place_to_pickup"));
+                food.setPickupTime(resultSet.getString("pickup_time"));
                 food.setImagePath(resultSet.getString("image_path"));
 
                 model.addAttribute("food", food); // Add the food details to the model

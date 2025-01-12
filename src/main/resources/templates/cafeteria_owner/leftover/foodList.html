@@ -252,7 +252,7 @@
                             <!-- END Side Overlay -->
 
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" th:href="@{/logoutTeacher}">
+                            <a class="dropdown-item" th:href="@{/logoutcafe}">
                                 <i class="si si-logout mr-5"></i> Sign Out
                             </a>
                         </div>
@@ -327,7 +327,8 @@
                                     <th>Food ID</th>
                                     <th>Food Name</th>
                                     <th>Food Quantity</th>
-                                    <th>Food Description</th>
+                                    <th>Place to Pickup</th>
+                                    <th>Pickup Time</th>
                                     <th>Image</th>
                                     <th class="text-center" style="width: 11%;">Actions</th>
                                 </tr>
@@ -339,7 +340,8 @@
                                     <td th:text="${food.foodid}"></td>
                                     <td th:text="${food.foodname}"></td>
                                     <td th:text="${food.foodquantity}"></td>
-                                    <td th:text="${food.fooddescription}"></td>
+                                    <td th:text="${food.pickupPlace}"></td>
+                                    <td th:text="${food.pickupTime}"></td>
                                     <td>
                                         <img th:src="${food.imagePath}" alt="Food Image" style="width: 150px;">
 

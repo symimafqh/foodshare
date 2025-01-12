@@ -358,7 +358,8 @@
                                     <th>Food ID</th>
                                     <th>Food Name</th>
                                     <th>Food Quantity</th>
-                                    <th>Food Description</th>
+                                    <th>Place to Pickup</th>
+                                    <th>Pickup Time</th>
                                     <th>Image</th>
                                     <th class="text-center" style="width: 11%;">Actions</th>
                                 </tr>
@@ -369,7 +370,8 @@
                                     <td th:text="${food.foodid}"></td>
                                     <td th:text="${food.foodname}"></td>
                                     <td th:text="${food.foodquantity}"></td>
-                                    <td th:text="${food.fooddescription}"></td>
+                                    <td th:text="${food.pickupPlace}"></td>
+                                    <td th:text="${food.pickupTime}"></td>
                                     <td>
                                         <img th:src="${food.imagePath}" alt="Food Image" style="width: 150px;">
 
@@ -379,7 +381,7 @@
                                         <a class="btn btn-sm btn-primary" title="Request" data-toggle="modal"
                                             data-target="#foodDetailModal" th:data-foodid="${food.foodid}"
                                             th:data-foodname="${food.foodname}" th:data-quantity="${food.foodquantity}"
-                                            th:data-description="${food.fooddescription}"
+                                            th:data-place="${food.pikcupPlace}" th:data-time="${food.pikcupTime}"
                                             th:data-cafeNumber="${food.cafeNumber}" onclick="showFoodDetails(this)">
                                             <i class="fa fa-external-link"></i>
                                         </a>
@@ -408,7 +410,8 @@
                                     <input type="hidden" id="cafeNumber" name="cafenumber">
 
                                     <h5 id="modalFoodName"></h5>
-                                    <p id="modalFoodDescription"></p>
+                                    <p id="modalFoodPlace"></p>
+                                    <p id="modalFoodTime"></p>
 
                                     <!-- Quantity input -->
                                     <div class="form-group">
@@ -434,12 +437,14 @@
             function showFoodDetails(button) {
                 var foodId = $(button).data('foodid');
                 var foodName = $(button).data('foodname');
-                var foodDescription = $(button).data('description');
+                var foodPlace = $(button).data('place');
+                var foodTime = $(button).data('time');
                 var cafeNumber = $(button).data('cafenumber');
 
                 // Set values in the modal
                 $('#modalFoodName').text(foodName);
-                $('#modalFoodDescription').text(foodDescription);
+                $('#modalFoodPlace').text(foodPlace);
+                $('#modalFoodTime').text(foodTime);
                 $('#foodidInput').val(foodId);
                 $('#cafeNumber').val(cafeNumber);
 
@@ -453,12 +458,14 @@
             function showFoodDetailsS(button) {
                 var foodId = button.getAttribute('data-foodid');
                 var foodName = button.getAttribute('data-foodname');
-                var description = button.getAttribute('data-description');
+                var place = button.getAttribute('data-place');
+                var time = button.getAttribute('data-time');
                 var quantity = button.getAttribute('data-quantity');
 
                 // Set values in the modal
                 document.getElementById('modalFoodName').innerText = foodName;
-                document.getElementById('modalFoodDescription').innerText = description;
+                document.getElementById('modalFoodPlace').innerText = place;
+                document.getElementById('modalFoodTime').innerText = time;
                 document.getElementById('modalFoodQuantity').innerText = quantity;
                 document.getElementById('foodid').innerText = foodId;
 
@@ -480,7 +487,7 @@
         <footer id="page-footer">
             <div class="content py-20 font-size-sm clearfix">
                 <div class="float-right">
-                    Build <i class="fa fa-heart text-pulse"></i> by <a class="font-w600"
+                    Developed <i class="fa fa-heart text-pulse"></i> by <a class="font-w600"
                         href="https://1.envato.market/ydb" target="_blank">Syamimi Afiqah</a>
                 </div>
                 <div class="float-left">

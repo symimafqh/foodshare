@@ -166,15 +166,16 @@ public class AddLeftoverController {
     
             // Insert data into the database
             try (Connection connection = dataSource.getConnection()) {
-                String sql = "INSERT INTO public.leftover (\"foodname\", \"foodquantity\", \"fooddescription\", \"image_path\", \"cafeNumber\", \"created_at\") VALUES (?, ?, ?, ?, ?, ?)";
+                String sql = "INSERT INTO public.leftover (\"foodname\", \"foodquantity\", \"image_path\", \"cafeNumber\", \"created_at\", \"place_to_pickup\", \"pickup_time\") VALUES (?, ?, ?, ?, ?, ?,?)";
                 try (PreparedStatement statement = connection.prepareStatement(sql)) {
                     statement.setString(1, leftover.getFoodname());
                     statement.setInt(2, leftover.getFoodquantity());
-                    statement.setString(3, leftover.getFooddescription());
-                    statement.setString(4, leftover.getImagePath());
+                    statement.setString(3, leftover.getImagePath());
                     String cafeNumber = (String) session.getAttribute("cafeNumber");
-                    statement.setString(5, cafeNumber);
-                    statement.setObject(6, createdAt);
+                    statement.setString(4, cafeNumber);
+                    statement.setObject(5, createdAt);
+                    statement.setObject(6, leftover.getPickupPlace());
+                    statement.setObject(7, leftover.getPickupTime());
                     statement.executeUpdate();
                 }
             }
@@ -200,7 +201,8 @@ public class AddLeftoverController {
         String messageBody = "New leftover food available!\n" +
                 "Food Name: " + leftover.getFoodname() + "\n" +
                 "Quantity: " + leftover.getFoodquantity() + "\n" +
-                "Description: " + leftover.getFooddescription() + "\n" +
+                "Pickup Place: " + leftover.getPickupPlace() + "\n" +
+                "Pickup Time: " + leftover.getPickupTime() + "\n" +
                 "Hurry up and reserve it before it's gone!";
 
         // Step 3: Send the message to each student
