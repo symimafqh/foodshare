@@ -1,6 +1,7 @@
 package com.heroku.java.CONTROLLER.Order;
 
 import com.heroku.java.MODEL.booking.BookingBean;
+import com.heroku.java.SERVICE.WhatsappService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -22,12 +23,13 @@ import java.util.List;
 
 @Controller
 public class BookingController {
-
-    private final DataSource dataSource;
+private final DataSource dataSource;
+    private final WhatsappService whatsAppService; // Import your WhatsApp service
 
     @Autowired
-    public BookingController(DataSource dataSource) {
+    public BookingController (DataSource dataSource, WhatsappService whatsAppService) {
         this.dataSource = dataSource;
+        this.whatsAppService = whatsAppService; // Inject WhatsApp service
     }
 
     @GetMapping("/viewBookings")
@@ -137,23 +139,56 @@ public class BookingController {
        return "cafeteria_owner/booking/update_order"; // Thymeleaf template for updating booking
    }
 
-   // Save Updated Booking
    @PostMapping("/saveUpdatedBooking")
-   public String saveUpdatedBooking(BookingBean booking, @RequestParam("bookingID") int bookingID) {
-       String updateSql = "UPDATE public.booking SET \"bookingmenu\" = ?, \"bookingquantity\" = ?, \"bookingdate\" = ? WHERE \"bookingid\" = ?";
-       try (Connection connection = dataSource.getConnection();
-            PreparedStatement statement = connection.prepareStatement(updateSql)) {
-           statement.setString(1, booking.getBookingmenu());
-           statement.setInt(2, booking.getBookingquantity());
-           statement.setDate(3, booking.getBookingdate());
-           statement.setInt(4, booking.getBookingID());
-           statement.executeUpdate();
-           return "redirect:/viewBookings?success=updated";
-       } catch (SQLException e) {
-           e.printStackTrace();
-           return "redirect:/viewBookings?error=update_failed";
-       }
-   }
+public String saveUpdatedBooking(BookingBean booking, @RequestParam("bookingID") int bookingID) {
+    String updateSql = "UPDATE public.booking SET \"bookingmenu\" = ?, \"bookingquantity\" = ?, \"bookingdate\" = ? WHERE \"bookingid\" = ?";
+    try (Connection connection = dataSource.getConnection();
+         PreparedStatement statement = connection.prepareStatement(updateSql)) {
+         
+        // Update the booking details in the database
+        statement.setString(1, booking.getBookingmenu());
+        statement.setInt(2, booking.getBookingquantity());
+        statement.setDate(3, booking.getBookingdate());
+        statement.setInt(4, booking.getBookingID());
+        statement.executeUpdate();
+
+        // Notify the student who made the booking
+        notifyStudent(booking);
+
+        return "redirect:/viewBookings?success=updated";
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return "redirect:/viewBookings?error=update_failed";
+    }
+}
+
+// Notify the student about the updated booking
+private void notifyStudent(BookingBean booking) {
+    String studentNumber = booking.getStudentNumber(); // Get the student's phone number
+    if (studentNumber != null && !studentNumber.isEmpty()) {
+        try {
+            // Create the WhatsApp message
+            String messageBody = "Your booking details have been updated:\n" +
+                    "Menu: " + booking.getBookingmenu() + "\n" +
+                    "Quantity: " + booking.getBookingquantity() + "\n" +
+                    "Date: " + booking.getBookingdate() + "\n" +
+                    "Please contact the cafeteria for more information if needed.";
+
+            // Send the message using WhatsAppService
+            String chatId = studentNumber + "@c.us"; // Format the phone number for WhatsApp
+            String response = whatsAppService.sendMessage(chatId, messageBody);
+
+            System.out.println("Notification sent to student: " + studentNumber);
+            System.out.println("WhatsApp Response: " + response);
+        } catch (Exception e) {
+            e.printStackTrace(); // Log any errors
+            System.out.println("Failed to send notification to student: " + studentNumber);
+        }
+    } else {
+        System.out.println("Student phone number is not available for booking ID: " + booking.getBookingID());
+    }
+}
+
 
    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
