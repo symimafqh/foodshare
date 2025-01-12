@@ -149,45 +149,52 @@ public String saveUpdatedBooking(BookingBean booking, @RequestParam("bookingID")
         statement.setString(1, booking.getBookingmenu());
         statement.setInt(2, booking.getBookingquantity());
         statement.setDate(3, booking.getBookingdate());
-        statement.setInt(4, booking.getBookingID());
+        statement.setInt(4, bookingID); // Use the passed bookingID
         statement.executeUpdate();
 
         // Notify the student who made the booking
-        notifyStudent(booking);
+        notifyStudent(connection, bookingID, booking);
 
         return "redirect:/viewBookings?success=updated";
-    } catch (SQLException e) {
+    } catch (Exception e) {
         e.printStackTrace();
         return "redirect:/viewBookings?error=update_failed";
     }
 }
 
 // Notify the student about the updated booking
-private void notifyStudent(BookingBean booking) {
-    String studentNumber = booking.getStudentNumber(); // Get the student's phone number
-    if (studentNumber != null && !studentNumber.isEmpty()) {
-        try {
-            // Create the WhatsApp message
-            String messageBody = "Your booking details have been updated:\n" +
-                    "Menu: " + booking.getBookingmenu() + "\n" +
-                    "Quantity: " + booking.getBookingquantity() + "\n" +
-                    "Date: " + booking.getBookingdate() + "\n" +
-                    "Please contact the cafeteria for more information if needed.";
+private void notifyStudent(Connection connection, int bookingID, BookingBean booking) {
+    String studentPhoneQuery = "SELECT s.studentphonenumber FROM student s JOIN booking b ON s.\"studentNumber\" = b.\"studentNumber\" WHERE b.\"bookingid\" = ?";
+    try (PreparedStatement studentStatement = connection.prepareStatement(studentPhoneQuery)) {
+        studentStatement.setInt(1, bookingID);
 
-            // Send the message using WhatsAppService
-            String chatId = studentNumber + "@c.us"; // Format the phone number for WhatsApp
-            String response = whatsAppService.sendMessage(chatId, messageBody);
+        try (ResultSet resultSet = studentStatement.executeQuery()) {
+            if (resultSet.next()) {
+                String studentPhoneNumber = resultSet.getString("studentphonenumber");
 
-            System.out.println("Notification sent to student: " + studentNumber);
-            System.out.println("WhatsApp Response: " + response);
-        } catch (Exception e) {
-            e.printStackTrace(); // Log any errors
-            System.out.println("Failed to send notification to student: " + studentNumber);
+                // Create the WhatsApp message
+                String messageBody = "Your booking details have been updated:\n" +
+                        "Menu: " + booking.getBookingmenu() + "\n" +
+                        "Quantity: " + booking.getBookingquantity() + "\n" +
+                        "Date: " + booking.getBookingdate() + "\n" +
+                        "Please contact the cafeteria for more information if needed.";
+
+                // Send the message using WhatsAppService
+                String chatId = studentPhoneNumber + "@c.us"; // Format the phone number for WhatsApp
+                String response = whatsAppService.sendMessage(chatId, messageBody);
+
+                System.out.println("Notification sent to student: " + studentPhoneNumber);
+                System.out.println("WhatsApp Response: " + response);
+            } else {
+                System.out.println("No student found for booking ID: " + bookingID);
+            }
         }
-    } else {
-        System.out.println("Student phone number is not available for booking ID: " + booking.getBookingID());
+    } catch (Exception e) {
+        e.printStackTrace(); // Log any errors
+        System.out.println("Failed to send notification for booking ID: " + bookingID);
     }
 }
+
 
 
    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
