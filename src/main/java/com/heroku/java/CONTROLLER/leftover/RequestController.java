@@ -70,6 +70,7 @@ public class RequestController {
                     LeftoverBean food = new LeftoverBean();
                     food.setFoodid(resultSet.getInt("foodid"));
                     food.setFoodname(resultSet.getString("foodname"));
+                    food.setInitialQuantity(resultSet.getInt("initial_quantity"));
                     food.setFoodquantity(resultSet.getInt("foodquantity"));
                     food.setPickupPlace(resultSet.getString("place_to_pickup"));
                     food.setPickupTime(resultSet.getString("pickup_time"));

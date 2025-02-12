@@ -357,7 +357,8 @@
                                     <th>No.</th>
                                     <th>Food ID</th>
                                     <th>Food Name</th>
-                                    <th>Food Quantity</th>
+                                    <th>Initial Quantity</th>
+                                    <th>Remaining Balance</th>
                                     <th>Place to Pickup</th>
                                     <th>Pickup Time</th>
                                     <th>Image</th>
@@ -369,6 +370,7 @@
                                     <td th:text="${iterStat.index + 1}"></td>
                                     <td th:text="${food.foodid}"></td>
                                     <td th:text="${food.foodname}"></td>
+                                    <td th:text="${food.initialQuantity}"></td>
                                     <td th:text="${food.foodquantity}"></td>
                                     <td th:text="${food.pickupPlace}"></td>
                                     <td th:text="${food.pickupTime}"></td>
