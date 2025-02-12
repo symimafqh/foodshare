@@ -5,7 +5,7 @@ public class LeftoverBean {
     private int foodid;                // Unique identifier for each leftover item
     private String foodname;           // Name of the leftover food item
     private int foodquantity;     
-    private int initialquantity;     // Quantity of the leftover food item
+    private int initialQuantity;     // Quantity of the leftover food item
     private String fooddescription;    // Description of the food item
     private String imagePath;   
     private String cafeNumber;  
@@ -17,11 +17,11 @@ public class LeftoverBean {
     }
 
     // Parameterized constructor
-    public LeftoverBean(int foodid, String foodname, int initialquantity, int foodquantity, String fooddescription, String imagePath, String cafeNumber) {
+    public LeftoverBean(int foodid, String foodname, int initialQuantity, int foodquantity, String fooddescription, String imagePath, String cafeNumber) {
         this.foodid = foodid;
         this.foodname = foodname;
         this.foodquantity = foodquantity;
-        this.initialquantity = initialquantity;
+        this.initialQuantity = initialQuantity;
         this.fooddescription = fooddescription;
         this.imagePath = imagePath;
         this.cafeNumber = cafeNumber;
@@ -115,11 +115,11 @@ public class LeftoverBean {
     }
 
     public int getInitialQuantity() {
-        return initialquantity;
+        return initialQuantity;
     }
 
     public void setInitialQuantity(int initialquantity) {
-        this.initialquantity = initialquantity;
+        this.initialQuantity = initialQuantity;
     }
 
 
