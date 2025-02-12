@@ -315,9 +315,9 @@
                                 <tr>
                                     <th>Food ID</th>
                                     <th>Food Name</th>
-                                    <th>Cafe Number</th>
                                     <th>Student Name</th>
                                     <th>Student Number</th>
+                                    <th>Quantity Request</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -326,9 +326,9 @@
                                 <tr th:each="detail : ${foodRequestDetails}">
                                     <td th:text="${detail.foodid}"></td>
                                     <td th:text="${detail.foodname}"></td>
-                                    <td th:text="${detail.cafeNumber}"></td>
                                     <td th:text="${detail.studentName}"></td>
                                     <td th:text="${detail.studentNumber}"></td>
+                                    <td th:text="${detail.quantity}"></td>
                                     <td>
                                         <span th:if="${detail.status == 'Accepted'}" class="badge badge-success">Approved</span>
                                         <span th:if="${detail.status == 'Pending'}" class="badge badge-warning">Pending</span>

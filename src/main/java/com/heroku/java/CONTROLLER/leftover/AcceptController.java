@@ -56,7 +56,7 @@ public class AcceptController {
     
         try (Connection connection = dataSource.getConnection()) {
             // Prepare the SQL statement to fetch food items along with student details for the specific cafe
-            String sql = "SELECT l.\"foodid\", l.\"foodname\",l.\"place_to_pickup\",l.\"pickup_time\", l.\"cafeNumber\", s.\"studentName\", s.\"studentNumber\", r.\"status\" " +
+            String sql = "SELECT l.\"foodid\", l.\"foodname\",l.\"place_to_pickup\",l.\"pickup_time\", r.\"quantityrequest\", s.\"studentName\", s.\"studentNumber\", r.\"status\" " +
             "FROM public.leftover l " +
             "JOIN public.request r ON l.\"foodid\" = r.\"foodid\" " +
             "JOIN public.student s ON r.\"studentNumber\" = s.\"studentNumber\" " +
@@ -75,7 +75,7 @@ public class AcceptController {
                     detail.setFoodname(resultSet.getString("foodname"));
                     detail.setPickupPlace(resultSet.getString("place_to_pickup"));
                     detail.setPickupTime(resultSet.getString("pickup_time"));
-                    detail.setCafeNumber(resultSet.getString("cafeNumber"));
+                    detail.setQuantity(resultSet.getInt("requestquantity"));
                     detail.setStudentName(resultSet.getString("studentName"));
                     detail.setStudentNumber(resultSet.getString("studentNumber"));
                     detail.setStatus(resultSet.getString("status"));

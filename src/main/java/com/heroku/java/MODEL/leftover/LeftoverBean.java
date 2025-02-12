@@ -4,7 +4,8 @@ package com.heroku.java.MODEL.leftover;
 public class LeftoverBean {
     private int foodid;                // Unique identifier for each leftover item
     private String foodname;           // Name of the leftover food item
-    private int foodquantity;          // Quantity of the leftover food item
+    private int foodquantity;     
+    private int initialquantity;     // Quantity of the leftover food item
     private String fooddescription;    // Description of the food item
     private String imagePath;   
     private String cafeNumber;  
@@ -16,10 +17,11 @@ public class LeftoverBean {
     }
 
     // Parameterized constructor
-    public LeftoverBean(int foodid, String foodname, int foodquantity, String fooddescription, String imagePath, String cafeNumber) {
+    public LeftoverBean(int foodid, String foodname, int initialquantity, int foodquantity, String fooddescription, String imagePath, String cafeNumber) {
         this.foodid = foodid;
         this.foodname = foodname;
         this.foodquantity = foodquantity;
+        this.initialquantity = initialquantity;
         this.fooddescription = fooddescription;
         this.imagePath = imagePath;
         this.cafeNumber = cafeNumber;
@@ -113,6 +115,22 @@ public class LeftoverBean {
     public void setPickupTime(String pickupTime) {
         this.pickupTime = pickupTime;
     }
+
+     /**
+     * @return String return the pickupPlace
+     */
+    public int getInitialQuantity() {
+        return initialquantity;
+    }
+
+    /**
+     * @param pickupTime the pickupPlace to set
+     */
+    public void setInitialQuantity(int initialquantity) {
+        this.initialquantity = initialquantity;
+    }
+
+
 
 
 }

@@ -166,7 +166,7 @@ public class AddLeftoverController {
     
             // Insert data into the database
             try (Connection connection = dataSource.getConnection()) {
-                String sql = "INSERT INTO public.leftover (\"foodname\", \"foodquantity\", \"image_path\", \"cafeNumber\", \"created_at\", \"place_to_pickup\", \"pickup_time\") VALUES (?, ?, ?, ?, ?, ?,?)";
+                String sql = "INSERT INTO public.leftover (\"foodname\", \"foodquantity\", \"image_path\", \"cafeNumber\", \"created_at\", \"place_to_pickup\", \"pickup_time\", \"initial_quantity\") VALUES (?, ?, ?, ?, ?, ?,?,?)";
                 try (PreparedStatement statement = connection.prepareStatement(sql)) {
                     statement.setString(1, leftover.getFoodname());
                     statement.setInt(2, leftover.getFoodquantity());
@@ -176,6 +176,7 @@ public class AddLeftoverController {
                     statement.setObject(5, createdAt);
                     statement.setObject(6, leftover.getPickupPlace());
                     statement.setObject(7, leftover.getPickupTime());
+                    statement.setInt(8, leftover.getFoodquantity());
                     statement.executeUpdate();
                 }
             }
