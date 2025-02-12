@@ -118,7 +118,7 @@ public class LeftoverBean {
         return initialQuantity;
     }
 
-    public void setInitialQuantity(int initialquantity) {
+    public void setInitialQuantity(int initialQuantity) {
         this.initialQuantity = initialQuantity;
     }
 
