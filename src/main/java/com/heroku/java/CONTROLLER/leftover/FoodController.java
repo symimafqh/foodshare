@@ -97,6 +97,8 @@ public class FoodController {
                     food.setPickupTime(resultSet.getString("pickup_time"));
                     food.setImagePath(resultSet.getString("image_path"));
                     foodList.add(food); // Add the food item to the list
+
+                    System.out.println("Initial Quantity: " + food.getInitialQuantity());
                 }
             }
         } catch (Exception e) {

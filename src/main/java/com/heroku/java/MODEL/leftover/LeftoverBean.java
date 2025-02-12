@@ -109,23 +109,15 @@ public class LeftoverBean {
         return pickupTime;
     }
 
-    /**
-     * @param pickupTime the pickupPlace to set
-     */
+ /
     public void setPickupTime(String pickupTime) {
         this.pickupTime = pickupTime;
     }
 
-     /**
-     * @return String return the pickupPlace
-     */
     public int getInitialQuantity() {
         return initialquantity;
     }
 
-    /**
-     * @param pickupTime the pickupPlace to set
-     */
     public void setInitialQuantity(int initialquantity) {
         this.initialquantity = initialquantity;
     }
