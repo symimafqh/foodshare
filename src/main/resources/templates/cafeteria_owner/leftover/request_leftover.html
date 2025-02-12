@@ -201,31 +201,31 @@
                     <div class="content-side content-side-full">
                         <ul class="nav-main">
                             <li>
-                              <a class="active" th:href="@{/dashboardStudent}"><i class="si si-cup"></i><span
-                                  class="sidebar-mini-hide">DASHBOARD</span></a>
+                                <a class="active" th:href="@{/dashboardStudent}"><i class="si si-cup"></i><span
+                                        class="sidebar-mini-hide">DASHBOARD</span></a>
                             </li>
                             <li>
-                              <a class="active" th:href="@{/edit_profile}"><i class="si si-user"></i><span
-                                  class="sidebar-mini-hide">PROFIL</span></a>
+                                <a class="active" th:href="@{/edit_profile}"><i class="si si-user"></i><span
+                                        class="sidebar-mini-hide">PROFIL</span></a>
                             </li>
-                            <li><a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-layers"></i><span
-                                  class="sidebar-mini-hide">LEFTOVER</span></a>
-                              <ul>
-                                <li><a th:href="@{/view_leftover}">View Leftover</a></li>
-                                <li><a th:href="@{/pickupForm}">Pickup Leftover</a></li>
-                                <li><a th:href="@{/requestHistory}">View History Request</a></li>
-                              </ul>
+                            <li><a class="nav-submenu" data-toggle="nav-submenu" href="#"><i
+                                        class="si si-layers"></i><span class="sidebar-mini-hide">LEFTOVER</span></a>
+                                <ul>
+                                    <li><a th:href="@{/view_leftover}">View Leftover</a></li>
+                                    <li><a th:href="@{/pickupForm}">Pickup Leftover</a></li>
+                                    <li><a th:href="@{/requestHistory}">View History Request</a></li>
+                                </ul>
                             </li>
-                            <li><a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-layers"></i><span
-                                  class="sidebar-mini-hide">ORDER</span></a>
-                              <ul>
-                                <li><a th:href="@{/add_Booking}">Create order</a></li>
-                                <li><a th:href="@{/bookingHistory}">Order History</a></li>
-                                
-                              </ul>
+                            <li><a class="nav-submenu" data-toggle="nav-submenu" href="#"><i
+                                        class="si si-layers"></i><span class="sidebar-mini-hide">ORDER</span></a>
+                                <ul>
+                                    <li><a th:href="@{/add_Booking}">Create order</a></li>
+                                    <li><a th:href="@{/bookingHistory}">Order History</a></li>
+
+                                </ul>
                             </li>
-              
-                          </ul>
+
+                        </ul>
                     </div>
                     <!-- END Side Navigation -->
                 </div>
@@ -335,17 +335,36 @@
 
         <!-- Main Container -->
         <main id="main-container">
-            <!-- Page Content -->
             <div class="content">
-                <div th:if="${param.success}" class="alert alert-success">
-                    Your request has been submitted successfully!
+                <!-- Success Modal -->
+                <div th:if="${param.success}" class="modal fade" id="successModal" tabindex="-1" role="dialog"
+                    aria-labelledby="successModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="successModalLabel">Request Submitted Successfully</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Your request has been submitted successfully! Thank you for your submission.
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Error Modal -->
                 <div th:if="${param.error}" class="alert alert-danger">
                     <span th:if="${param.error == 'InsufficientQuantity'}">Requested quantity exceeds available
                         quantity.</span>
                     <span th:if="${param.error != 'InsufficientQuantity'}">An error occurred while processing your
                         request.</span>
                 </div>
+
                 <div class="block">
                     <div class="block-header block-header-default">
                         <h3 class="block-title">Food List</h3>
@@ -376,7 +395,6 @@
                                     <td th:text="${food.pickupTime}"></td>
                                     <td>
                                         <img th:src="${food.imagePath}" alt="Food Image" style="width: 150px;">
-
                                     </td>
 
                                     <td class="text-center">
@@ -394,8 +412,7 @@
                     </div>
                 </div>
 
-                <!-- Modal -->
-                <!-- Modal -->
+                <!-- Modal for Food Request Details -->
                 <div class="modal fade" id="foodDetailModal" tabindex="-1" role="dialog"
                     aria-labelledby="foodDetailModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -429,13 +446,20 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </main>
 
-        <!-- JavaScript to handle modal interactions -->
+        <!-- JavaScript to show the success modal when the success parameter is passed -->
         <script>
-            // Function to show food details in modal
+            document.addEventListener("DOMContentLoaded", function () {
+                let successParam = /*[[${param.success}]]*/ 'false'; // Thymeleaf will replace this
+                if (successParam && successParam !== 'false') {
+                    // Show the success modal
+                    $('#successModal').modal('show');
+                }
+            });
+
+            // Function to show food details in the modal
             function showFoodDetails(button) {
                 var foodId = $(button).data('foodid');
                 var foodName = $(button).data('foodname');
@@ -455,35 +479,7 @@
             }
         </script>
 
-
-        <script>
-            function showFoodDetailsS(button) {
-                var foodId = button.getAttribute('data-foodid');
-                var foodName = button.getAttribute('data-foodname');
-                var place = button.getAttribute('data-place');
-                var time = button.getAttribute('data-time');
-                var quantity = button.getAttribute('data-quantity');
-
-                // Set values in the modal
-                document.getElementById('modalFoodName').innerText = foodName;
-                document.getElementById('modalFoodPlace').innerText = place;
-                document.getElementById('modalFoodTime').innerText = time;
-                document.getElementById('modalFoodQuantity').innerText = quantity;
-                document.getElementById('foodid').innerText = foodId;
-
-                // // Ensure the foodId is set correctly in the hidden input
-                // if (foodId && foodId !== "") {
-                //     document.getElementById('foodid').value = foodId;  // Ensure this is correct
-                // } else {
-                //     alert("Food ID is missing.");
-                //     return;
-                // }
-            }
-        </script>
-
-
         <script th:src="@{stylesheets/assets/js/codebase.core.min.js}"></script>
-
 
         <!-- Footer -->
         <footer id="page-footer">
@@ -498,22 +494,17 @@
             </div>
         </footer>
         <!-- END Footer -->
-    </div>
-    <!-- END Page Container -->
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Check if there is an error parameter in the URL
-            let errorParam = /*[[${param.error}]]*/ 'false'; // Thymeleaf will replace this
-            if (errorParam && errorParam !== 'false') {
-                // Show the error modal
-                $('#errorModal').modal('show');
-            }
-        });
-    </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                let errorParam = /*[[${param.error}]]*/ 'false'; // Thymeleaf will replace this
+                if (errorParam && errorParam !== 'false') {
+                    // Show the error modal
+                    $('#errorModal').modal('show');
+                }
+            });
+        </script>
 
 </body>
-
-
 
 </html>
