@@ -100,8 +100,8 @@ public class RequestController {
         return "cafeteria_owner/leftover/request_leftover"; // Return the view name
     }
 
-    @PostMapping("/request_leftover")
-public String requestLeftover(
+    @PostMapping("/submit_leftover")
+public String submitLeftover(
         Model model,
         HttpSession session,
         @RequestParam("foodid") int foodId,
