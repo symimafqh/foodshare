@@ -146,10 +146,10 @@ public String submitLeftover(
         // Step 4: Notify the cafeteria
         notifyCafe(leftover, session, cafeNumber);
 
-        return "redirect:/request_leftover?success=true";
+        return "redirect:/view_leftover?success=true";
     } catch (SQLException e) {
         e.printStackTrace();
-        return "redirect:/request_leftover?error=true";
+        return "redirect:/view_leftover?error=true";
     }
 }
 
