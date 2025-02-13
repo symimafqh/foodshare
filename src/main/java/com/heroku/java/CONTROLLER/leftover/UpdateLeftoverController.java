@@ -71,7 +71,7 @@ public String updateLeftover(
         statement.executeUpdate();
         connection.close();
 
-        System.out.println("Leftover updated with image path: " + imagePath);
+        //System.out.println("Leftover updated with image path: " + imagePath);
 
         return "redirect:/foodList?success=true";
 
