@@ -71,6 +71,8 @@ public class AcceptController {
                 while (resultSet.next()) {
                     // Create a new FoodRequestDetail object and populate it with data from the result set
                     FoodRequestDetail detail = new FoodRequestDetail();
+                    System.out.println("TESTTTTTT");
+                    
                     detail.setFoodid(resultSet.getInt("foodid"));
                     detail.setFoodname(resultSet.getString("foodname"));
                     detail.setPickupPlace(resultSet.getString("place_to_pickup"));
