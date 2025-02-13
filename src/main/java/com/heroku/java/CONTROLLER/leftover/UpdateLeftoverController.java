@@ -42,21 +42,21 @@ public String updateLeftover(
 
     System.out.println("Received POST request for updating leftover.");
 
-    String imagePath = leftover.getImagePath(); // Retain existing image path if no new image is uploaded
+    // String imagePath = leftover.getImagePath(); // Retain existing image path if no new image is uploaded
     try {
-        // Check if a new image is provided and save it to the filesystem
-        if (!imageFile.isEmpty()) {
-            String fileName = System.currentTimeMillis() + "_" + imageFile.getOriginalFilename();
-            Path uploadPath = Paths.get("src/main/resources/public/stylesheets/assets/leftover", fileName);
+        // // Check if a new image is provided and save it to the filesystem
+        // if (!imageFile.isEmpty()) {
+        //     String fileName = System.currentTimeMillis() + "_" + imageFile.getOriginalFilename();
+        //     Path uploadPath = Paths.get("src/main/resources/public/stylesheets/assets/leftover", fileName);
 
-            // Ensure the directory exists
-            Files.createDirectories(uploadPath.getParent());
-            Files.write(uploadPath, imageFile.getBytes());
+        //     // Ensure the directory exists
+        //     Files.createDirectories(uploadPath.getParent());
+        //     Files.write(uploadPath, imageFile.getBytes());
 
-            // Update imagePath for database storage
-            imagePath = "/stylesheets/assets/leftover/" + fileName;
-            leftover.setImagePath(imagePath); // Update LeftoverBean with the new image path
-        }
+        //     // Update imagePath for database storage
+        //     imagePath = "/stylesheets/assets/leftover/" + fileName;
+        //     leftover.setImagePath(imagePath); // Update LeftoverBean with the new image path
+        // }
 
         // Step 1: Update leftover in the database
         Connection connection = dataSource.getConnection();
