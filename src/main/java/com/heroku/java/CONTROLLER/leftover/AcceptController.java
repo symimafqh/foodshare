@@ -75,7 +75,7 @@ public class AcceptController {
                     detail.setFoodname(resultSet.getString("foodname"));
                     detail.setPickupPlace(resultSet.getString("place_to_pickup"));
                     detail.setPickupTime(resultSet.getString("pickup_time"));
-                    detail.setQuantity(resultSet.getInt("requestquantity"));
+                    detail.setQuantity(resultSet.getInt("quantityrequest"));
                     detail.setStudentName(resultSet.getString("studentName"));
                     detail.setStudentNumber(resultSet.getString("studentNumber"));
                     detail.setStatus(resultSet.getString("status"));
