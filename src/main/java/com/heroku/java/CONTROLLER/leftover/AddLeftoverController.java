@@ -98,6 +98,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -246,4 +247,30 @@ public class AddLeftoverController {
         }
         return numbers;
     }
+
+    // Get Mapping for Add Leftover Page
+    @GetMapping("/add_Leftover")
+    public String leftoverAdd(@RequestParam(name = "success", required = false) Boolean success, Model model,
+            HttpSession session) {
+        String cafeNumber = (String) session.getAttribute("cafeNumber");
+        System.out.println("Masuk dekat controller " + cafeNumber);
+        
+        try {
+            if (cafeNumber != null) {
+                // Create an empty Leftover bean for the form
+                LeftoverBean leftover = new LeftoverBean();
+                
+                // Adding the Leftover bean to the model
+                model.addAttribute("leftover", leftover);
+                
+                // Adding cafeNumber to the session to ensure we have it when the leftover is added
+                model.addAttribute("cafeNumber", cafeNumber);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "cafeteria_owner/leftover/add_leftover";
+    }
+
 }
