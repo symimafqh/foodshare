@@ -38,7 +38,70 @@
   <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
   <!-- <link rel="stylesheet" id="css-theme" th:href="../assets/css/themes/corporate.min.css"> -->
   <link rel="stylesheet" id="css-theme" th:href="@{stylesheets/assets/css/themes/flat.min.css}">
+  <style>
+    /* Modal styles */
+    .modal {
+      display: none;
+      /* Hidden by default */
+      position: fixed;
+      /* Stay in place */
+      z-index: 1;
+      /* Sit on top */
+      left: 0;
+      top: 0;
+      width: 100%;
+      /* Full width */
+      height: 100%;
+      /* Full height */
+      background-color: rgba(0, 0, 0, 0.5);
+      /* Semi-transparent background */
+    }
 
+    .modal-content {
+      background-color: #fff;
+      border-radius: 8px;
+      margin: 10% auto;
+      padding: 20px;
+      width: 60%;
+      /* Modal width */
+      max-width: 400px;
+      /* Max width */
+      text-align: center;
+    }
+
+    .modal h2 {
+      color: #4CAF50;
+      /* Green color for success */
+      font-size: 24px;
+    }
+
+    .modal p {
+      font-size: 16px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .modal button {
+      background-color: #4CAF50;
+      /* Green background */
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .modal button:hover {
+      background-color: #45a049;
+      /* Darker green on hover */
+    }
+
+    .modal button:focus {
+      outline: none;
+    }
+  </style>
 </head>
 
 <body>
@@ -420,18 +483,50 @@
   <!-- Page JS Code -->
   <script th:src="@{stylesheets/assets/js/pages/op_auth_signin.min.js}"></script>
 
-  <!-- Success Popup -->
+  <!-- Success Modal -->
+  <div id="successModal" class="modal">
+    <div class="modal-content">
+      <h2>Success!</h2>
+      <p>The leftover was successfully added.</p>
+      <button id="closeModalButton">OK</button>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
   <script type="text/javascript">
-    // Check if success is passed in the query parameters
     $(document).ready(function () {
+      // Check if the success parameter exists in the URL
       var success = new URLSearchParams(window.location.search).get('success');
 
       if (success && success === 'true') {
-        // Show success popup
-        alert("Leftover successfully added!");
+        // Show the modal
+        var modal = document.getElementById("successModal");
+        var closeButton = document.getElementById("closeModalButton");
+
+        // Display the modal
+        modal.style.display = "block";
+
+        // Close the modal when the user clicks the "OK" button
+        closeButton.onclick = function () {
+          modal.style.display = "none";
+          // Remove the 'success' parameter from the URL after modal is closed
+          var newUrl = window.location.href.split('?')[0]; // Remove query string
+          window.history.replaceState(null, null, newUrl); // Update URL without reloading the page
+        };
+
+        // Close the modal if the user clicks anywhere outside the modal content
+        window.onclick = function (event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+            var newUrl = window.location.href.split('?')[0]; // Remove query string
+            window.history.replaceState(null, null, newUrl); // Update URL without reloading the page
+          }
+        }
       }
     });
   </script>
+
 </body>
 
 </html>
