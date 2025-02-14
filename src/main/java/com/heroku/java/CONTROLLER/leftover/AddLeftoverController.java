@@ -186,11 +186,9 @@ public class AddLeftoverController {
 
             System.out.println("Leftover added with Cloudinary image path: " + imagePath);
 
-            if (!isNotificationSent(leftover.getFoodid())) {
+           
                 notifyStudents(leftover);
-                markAsSent(leftover.getFoodid());
-                System.out.println("dah send notification to students");
-            }
+               
 
             return "redirect:/dashboardCafe?success=true";
 
@@ -200,15 +198,6 @@ public class AddLeftoverController {
         }
     }
 
-    // Method to check if a notification has already been sent for this leftover
-    private boolean isNotificationSent(int leftoverId) {
-        return sentNotifications.contains(leftoverId);
-    }
-
-    // Method to mark a leftover as having been notified
-    private void markAsSent(int leftoverId) {
-        sentNotifications.add(leftoverId);
-    }
 
     private void notifyStudents(LeftoverBean leftover) {
         // Step 1: Get list of student phone numbers
