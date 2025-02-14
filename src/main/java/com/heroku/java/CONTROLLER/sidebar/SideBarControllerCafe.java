@@ -84,6 +84,7 @@ public class SideBarControllerCafe {
     public String editProfileCafe(@RequestParam(name = "success", required = false) Boolean success, Model model,
             HttpSession session) {
         String cafeNumber = (String) session.getAttribute("cafeNumber");
+        System.out.println("Masuk side bar controller" + cafeNumber);
         try {
             Connection connection = dataSource.getConnection();
             String sql = "SELECT * FROM public.cafeteria_owner where \"cafeNumber\"=?";
