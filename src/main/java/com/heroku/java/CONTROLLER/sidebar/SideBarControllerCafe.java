@@ -32,111 +32,112 @@ public class SideBarControllerCafe {
     public SideBarControllerCafe(DataSource dataSource) {
         this.dataSource = dataSource;
     }
-    //  @GetMapping("/cafeRegisterr")
-    // public String showSignupPage(Model model) {
-    //     // Create an empty StudentBean to bind form data to it
-    //     StudentBean newStudent = new StudentBean();
-    //     model.addAttribute("student", newStudent);
+     @GetMapping("/cafeRegisterr")
+    public String showSignupPage(Model model) {
+        // Create an empty StudentBean to bind form data to it
+        StudentBean newStudent = new StudentBean();
+        model.addAttribute("student", newStudent);
 
-    //     return "cafeteria_owner/sign-in/ownerRegister"; // Redirects to the signup page template
-    // }
+        return "cafeteria_owner/sign-in/ownerRegister"; // Redirects to the signup page template
+    }
 
     
     
 
-    // @GetMapping("/dashboardCafe")
-    // public String dashboardCafe(@RequestParam(name = "success", required = false) Boolean success, Model model,
-    //         HttpSession session) {
-    //     String cafeNumber = (String) session.getAttribute("cafeNumber");
+    @GetMapping("/dashboardCafe")
+    public String dashboardCafe(@RequestParam(name = "success", required = false) Boolean success, Model model,
+            HttpSession session) {
+        String cafeNumber = (String) session.getAttribute("cafeNumber");
 
-    //     System.out.println("Cafe Number" + cafeNumber);
-    //     try {
-    //         Connection connection = dataSource.getConnection();
-    //         String sql = "SELECT * FROM public.cafeteria_owner where \"cafeNumber\"=?";
-    //         final var statement = connection.prepareStatement(sql);
-    //         statement.setString(1, cafeNumber);
-    //         final var resultSet = statement.executeQuery();
-    //         if (resultSet.next()) {
-    //             String cafeName = resultSet.getString("cafeName");
-    //             String cafeEmail = resultSet.getString("cafeEmail");
-    //             String cafePassword = resultSet.getString("cafePassword");
+        System.out.println("Cafe Number" + cafeNumber);
+        try {
+            Connection connection = dataSource.getConnection();
+            String sql = "SELECT * FROM public.cafeteria_owner where \"cafeNumber\"=?";
+            final var statement = connection.prepareStatement(sql);
+            statement.setString(1, cafeNumber);
+            final var resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                String cafeName = resultSet.getString("cafeName");
+                String cafeEmail = resultSet.getString("cafeEmail");
+                String cafePassword = resultSet.getString("cafePassword");
 
-    //             CafeBean t = new CafeBean();
+                CafeBean t = new CafeBean();
 
-    //             t.setCafeNumber(cafeNumber);
-    //             t.setCafeName(cafeName);
-    //             t.setCafeEmail(cafeEmail);
-    //             t.setCafePassword(cafePassword);
+                t.setCafeNumber(cafeNumber);
+                t.setCafeName(cafeName);
+                t.setCafeEmail(cafeEmail);
+                t.setCafePassword(cafePassword);
 
-    //             model.addAttribute("t", t);
-    //             session.setAttribute("cafeName", cafeName);
-    //             connection.close();
-    //             System.out.println("Cafe Number" + cafeName);
-    //         }
-    //     } catch (Exception e) {
-    //         e.printStackTrace();
-    //     }
+                model.addAttribute("t", t);
+                session.setAttribute("cafeName", cafeName);
+                connection.close();
+                System.out.println("Cafe Number" + cafeName);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-    //     return "cafeteria_owner/dashboardCafe";
-    // }
+        return "cafeteria_owner/dashboardCafe";
+    }
 
-    // @GetMapping("/profileCafe_edit")
-    // public String editProfileCafe(@RequestParam(name = "success", required = false) Boolean success, Model model,
-    //         HttpSession session) {
-    //     String cafeNumber = (String) session.getAttribute("cafeNumber");
-    //     System.out.println("Masuk side bar controller" + cafeNumber);
-    //     try {
-    //         Connection connection = dataSource.getConnection();
-    //         String sql = "SELECT * FROM public.cafeteria_owner where \"cafeNumber\"=?";
-    //         final var statement = connection.prepareStatement(sql);
-    //         statement.setString(1, cafeNumber);
-    //         final var resultSet = statement.executeQuery();
-    //         if (resultSet.next()) {
-    //             String cafeName = resultSet.getString("cafeName");
-    //             String cafeEmail = resultSet.getString("cafeEmail");
-    //             String cafePassword = resultSet.getString("cafePassword");
+    @GetMapping("/profileCafe_edit")
+    public String editProfileCafe(@RequestParam(name = "success", required = false) Boolean success, Model model,
+            HttpSession session) {
+        String cafeNumber = (String) session.getAttribute("cafeNumber");
+        System.out.println("Masuk side bar controller" + cafeNumber);
+        try {
+            Connection connection = dataSource.getConnection();
+            String sql = "SELECT * FROM public.cafeteria_owner where \"cafeNumber\"=?";
+            final var statement = connection.prepareStatement(sql);
+            statement.setString(1, cafeNumber);
+            final var resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                String cafeName = resultSet.getString("cafeName");
+                String cafeEmail = resultSet.getString("cafeEmail");
+                String cafePassword = resultSet.getString("cafePassword");
 
-    //             CafeBean t = new CafeBean();
+                CafeBean t = new CafeBean();
 
-    //             t.setCafeNumber(cafeNumber);
-    //             t.setCafeName(cafeName);
-    //             t.setCafeEmail(cafeEmail);
-    //             t.setCafePassword(cafePassword);
+                t.setCafeNumber(cafeNumber);
+                t.setCafeName(cafeName);
+                t.setCafeEmail(cafeEmail);
+                t.setCafePassword(cafePassword);
 
-    //             model.addAttribute("t", t);
-    //             session.setAttribute("cafeName", cafeName);
-    //             connection.close();
-    //         }
-    //     } catch (Exception e) {
-    //         e.printStackTrace();
-    //     }
+                model.addAttribute("t", t);
+                session.setAttribute("cafeName", cafeName);
+                connection.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-    //     return "cafeteria_owner/profileCO/profileCafe_edit";
-    // }
+        return "cafeteria_owner/profileCO/profileCafe_edit";
+    }
 
-    // // Get Mapping for Add Leftover Page
-    // @GetMapping("/add_Leftover")
-    // public String leftoverAdd(@RequestParam(name = "success", required = false) Boolean success, Model model,
-    //         HttpSession session) {
-    //     String cafeNumber = (String) session.getAttribute("cafeNumber");
+    // Get Mapping for Add Leftover Page
+    @GetMapping("/add_Leftover")
+    public String leftoverAdd(@RequestParam(name = "success", required = false) Boolean success, Model model,
+            HttpSession session) {
+        String cafeNumber = (String) session.getAttribute("cafeNumber");
+        System.out.println("Masuk side bar controller lagi " + cafeNumber);
         
-    //     try {
-    //         if (cafeNumber != null) {
-    //             // Create an empty Leftover bean for the form
-    //             LeftoverBean leftover = new LeftoverBean();
+        try {
+            if (cafeNumber != null) {
+                // Create an empty Leftover bean for the form
+                LeftoverBean leftover = new LeftoverBean();
                 
-    //             // Adding the Leftover bean to the model
-    //             model.addAttribute("leftover", leftover);
+                // Adding the Leftover bean to the model
+                model.addAttribute("leftover", leftover);
                 
-    //             // Adding cafeNumber to the session to ensure we have it when the leftover is added
-    //             model.addAttribute("cafeNumber", cafeNumber);
-    //         }
-    //     } catch (Exception e) {
-    //         e.printStackTrace();
-    //     }
+                // Adding cafeNumber to the session to ensure we have it when the leftover is added
+                model.addAttribute("cafeNumber", cafeNumber);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-    //     return "cafeteria_owner/leftover/add_leftover";
-    // }
+        return "cafeteria_owner/leftover/add_leftover";
+    }
 
      // Get Mapping for Add Leftover Page
     
