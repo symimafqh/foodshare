@@ -419,6 +419,19 @@
 
   <!-- Page JS Code -->
   <script th:src="@{stylesheets/assets/js/pages/op_auth_signin.min.js}"></script>
+
+  <!-- Success Popup -->
+  <script type="text/javascript">
+    // Check if success is passed in the query parameters
+    $(document).ready(function () {
+      var success = new URLSearchParams(window.location.search).get('success');
+
+      if (success && success === 'true') {
+        // Show success popup
+        alert("Leftover successfully added!");
+      }
+    });
+  </script>
 </body>
 
 </html>
