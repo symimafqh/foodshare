@@ -189,6 +189,7 @@ public class AddLeftoverController {
             if (!isNotificationSent(leftover.getFoodid())) {
                 notifyStudents(leftover);
                 markAsSent(leftover.getFoodid());
+                System.out.println("dah send notification to students");
             }
 
             return "redirect:/dashboardCafe?success=true";
@@ -209,10 +210,11 @@ public class AddLeftoverController {
         sentNotifications.add(leftoverId);
     }
 
-    // Notify students about the new leftover
     private void notifyStudents(LeftoverBean leftover) {
-        // Example notification process (this part remains unchanged)
+        // Step 1: Get list of student phone numbers
         List<String> studentNumbers = getStudentPhoneNumbers();
+
+        // Step 2: Create the message to be sent
         String messageBody = "New leftover food available!\n" +
                 "Food Name: " + leftover.getFoodname() + "\n" +
                 "Quantity: " + leftover.getFoodquantity() + "\n" +
@@ -220,23 +222,24 @@ public class AddLeftoverController {
                 "Pickup Time: " + leftover.getPickupTime() + "\n" +
                 "Hurry up and reserve it before it's gone!";
 
+        // Step 3: Send the message to each student
         for (String studentNumber : studentNumbers) {
             try {
-                String chatId = studentNumber + "@c.us"; // WhatsApp chat ID
+                // Assuming you have a WhatsAppService that handles sending messages
+                String chatId = studentNumber + "@c.us"; // Construct the chat ID
                 String response = whatsAppService.sendMessage(chatId, messageBody);
                 System.out.println("Message sent to: " + studentNumber);
                 System.out.println("WhatsApp Response: " + response);
             } catch (Exception e) {
-                e.printStackTrace();
+                e.printStackTrace(); // Log the error
                 System.out.println("Failed to send message to: " + studentNumber);
             }
         }
     }
 
-    // Method to get student phone numbers from the database
     private List<String> getStudentPhoneNumbers() {
         List<String> numbers = new ArrayList<>();
-        try (Connection connection = dataSource.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) { // Use try-with-resources
             String sql = "SELECT studentPhoneNumber FROM public.student WHERE studentPhoneNumber IS NOT NULL";
             try (PreparedStatement statement = connection.prepareStatement(sql);
                  ResultSet resultSet = statement.executeQuery()) {
@@ -245,11 +248,13 @@ public class AddLeftoverController {
                     String phoneNumber = resultSet.getString("studentPhoneNumber");
                     if (phoneNumber != null && !phoneNumber.isEmpty()) {
                         numbers.add(phoneNumber);
+                        System.out.println(phoneNumber);
                     }
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Log the error
         }
         return numbers;
-    }}
+    }
+}
