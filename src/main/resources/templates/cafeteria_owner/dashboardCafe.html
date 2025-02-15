@@ -22,138 +22,37 @@
   <meta property="og:image" content="">
 
   <!-- Icons -->
-  <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
   <link rel="shortcut icon" th:href="@{stylesheets/assets/media/favicons/favicon.png}">
   <link rel="icon" type="image/png" sizes="192x192" th:href="@{stylesheets/assets/media/favicons/favicon-192x192.png}">
   <link rel="apple-touch-icon" sizes="180x180"
     th:href="@{stylesheets/assets/media/favicons/apple-touch-icon-180x180.png}">
-  <!-- END Icons -->
 
-  <!-- stylesheets -->
-
-  <!-- Fonts and Codebase framework -->
+  <!-- Stylesheets -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,400i,600,700&display=swap">
   <link rel="stylesheet" id="css-main" th:href="@{stylesheets/assets/css/codebase.min.css}">
-
-  <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
-  <!-- <link rel="stylesheet" id="css-theme" th:href="../assets/css/themes/corporate.min.css"> -->
   <link rel="stylesheet" id="css-theme" th:href="@{stylesheets/assets/css/themes/flat.min.css}">
-  <!-- <style>
-    /* Modal styles */
-    .modal {
-      display: none;
-      /* Hidden by default */
-      position: fixed;
-      /* Stay in place */
-      z-index: 1;
-      /* Sit on top */
-      left: 0;
-      top: 0;
-      width: 100%;
-      /* Full width */
-      height: 100%;
-      /* Full height */
-      background-color: rgba(0, 0, 0, 0.5);
-      /* Semi-transparent background */
-    }
-
-    .modal-content {
-      background-color: #fff;
-      border-radius: 8px;
-      margin: 10% auto;
-      padding: 20px;
-      width: 60%;
-      /* Modal width */
-      max-width: 400px;
-      /* Max width */
-      text-align: center;
-    }
-
-    .modal h2 {
-      color: #4CAF50;
-      /* Green color for success */
-      font-size: 24px;
-    }
-
-    .modal p {
-      font-size: 16px;
-      color: #333;
-      margin-bottom: 20px;
-    }
-
-    .modal button {
-      background-color: #4CAF50;
-      /* Green background */
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    .modal button:hover {
-      background-color: #45a049;
-      /* Darker green on hover */
-    }
-
-    .modal button:focus {
-      outline: none;
-    }
-  </style> -->
 </head>
 
 <body>
 
   <div id="page-container" class="sidebar-o enable-page-overlay side-scroll page-header-modern main-content-boxed">
-    <!-- Side Overlay-->
+    <!-- Side Overlay -->
     <aside id="side-overlay">
       <!-- Side Header -->
       <div class="content-header content-header-fullrow">
         <div class="content-header-section align-parent">
-          <!-- Close Side Overlay -->
-          <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
           <button type="button" class="btn btn-circle btn-dual-secondary align-v-r" data-toggle="layout"
             data-action="side_overlay_close">
             <i class="fa fa-times text-danger"></i>
           </button>
-          <!-- END Close Side Overlay -->
-
-          <!-- User Info -->
           <div class="content-header-item">
             <a class="img-link mr-5" href="be_pages_generic_profile.html">
               <img class="img-avatar img-avatar32" src="assets/media/avatars/avatar15.jpg" alt="">
             </a>
-            <a class="align-middle link-effect text-primary-dark font-w600" href="be_pages_generic_profile.html">John
-              Smith</a>
-          </div>
-          <!-- END User Info -->
-        </div>
-      </div>
-      <!-- END Side Header -->
-
-      <!-- Side Content -->
-      <div class="content-side">
-        <!-- Search -->
-        <div class="block pull-t pull-r-l">
-          <div class="block-content block-content-full block-content-sm bg-body-light">
-            <form action="be_pages_generic_search.html" method="post">
-              <div class="input-group">
-                <input type="text" class="form-control" id="side-overlay-search" name="side-overlay-search"
-                  placeholder="Search..">
-                <div class="input-group-append">
-                  <button type="submit" class="btn btn-secondary px-10">
-                    <i class="fa fa-search"></i>
-                  </button>
-                </div>
-              </div>
-            </form>
+            <a class="align-middle link-effect text-primary-dark font-w600" href="be_pages_generic_profile.html">John Smith</a>
           </div>
         </div>
-        <!-- END Search -->
       </div>
-      <!-- END Side Content -->
     </aside>
     <!-- END Side Overlay -->
 
@@ -162,47 +61,24 @@
       <div class="sidebar-content">
         <!-- Side Header -->
         <div class="content-header content-header-fullrow px-15">
-          <!-- Mini Mode -->
           <div class="content-header-section sidebar-mini-visible-b">
-            <!-- Logo -->
             <span class="content-header-item font-w700 font-size-xl float-left animated fadeIn">
               <span class="text-dual-primary-dark">c</span><span class="text-primary">b</span>
             </span>
-            <!-- END Logo -->
           </div>
-          <!-- END Mini Mode -->
-
-          <!-- Normal Mode -->
           <div class="content-header-section text-center align-parent sidebar-mini-hidden">
-            <!-- Close Sidebar, Visible only on mobile screens -->
-            <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
             <button type="button" class="btn btn-circle btn-dual-secondary d-lg-none align-v-r" data-toggle="layout"
               data-action="sidebar_close">
               <i class="fa fa-times text-danger"></i>
             </button>
-            <!-- END Close Sidebar -->
-
-            <!-- Logo -->
             <div class="content-header-item">
               <img th:src="@{stylesheets/assets/pictures/Foodshare.png}" style="width: 200px; height:45px;">
             </div>
-            <!-- END Logo -->
           </div>
-          <!-- END Normal Mode -->
         </div>
-        <!-- END Side Header -->
 
-        <!-- Sidebar Scrolling -->
         <div class="js-sidebar-scroll">
-          <!-- Side User -->
           <div class="content-side content-side-full content-side-user px-10 align-parent">
-            <!-- Visible only in mini mode -->
-            <div class="sidebar-mini-visible-b align-v animated fadeIn">
-              <img class="img-avatar img-avatar32" th:src="@{stylesheets/assets/media/avatars/avatar15.jpg}" alt="">
-            </div>
-            <!-- END Visible only in mini mode -->
-
-            <!-- Visible only in normal mode -->
             <div class="sidebar-mini-hidden-b text-center">
               <a class="img-link" href="">
                 <img class="img-avatar" th:src="@{stylesheets/assets/media/avatars/avatar15.jpg}" alt="">
@@ -212,216 +88,52 @@
                   <a class="link-effect text-dual-primary-dark font-size-sm font-w600 text-uppercase" href=""><span
                       class="d-none d-sm-inline-block" th:text="${session.cafeName}"></span></a>
                 </li>
-                <li class="list-inline-item">
-                  <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-                  <a class="link-effect text-dual-primary-dark" data-toggle="layout"
-                    data-action="sidebar_style_inverse_toggle" href="javascript:void(0)">
-                    <i class="si si-drop"></i>
-                  </a>
-                </li>
-                <li class="list-inline-item">
-                  <a class="link-effect text-dual-primary-dark" th:href="@{/logoutcafe}">
-                    <i class="si si-logout"></i>
-                  </a>
-                </li>
               </ul>
             </div>
-            <!-- END Visible only in normal mode -->
           </div>
-          <!-- END Side User -->
 
-         <!-- Side Navigation -->
+          <div class="content-side content-side-full">
+            <ul class="nav-main">
+              <li><a class="active" th:href="@{/dashboardCafe}"><i class="si si-cup"></i><span class="sidebar-mini-hide">DASHBOARD</span></a></li>
+              <li><a class="active" th:href="@{/profileCafe_edit}"><i class="si si-user"></i><span class="sidebar-mini-hide">PROFILE</span></a></li>
+              <li><a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-layers"></i><span class="sidebar-mini-hide">LEFTOVER</span></a>
+                <ul>
+                  <li><a th:href="@{/add_Leftover}">Add Leftover</a></li>
+                  <li><a th:href="@{/foodList}">List Leftover</a></li>
+                  <li><a th:href="@{/view_request}">Request List</a></li>
+                  <li><a th:href="@{/pickupStatus}">Pickup Status</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <!-- END Sidebar -->
 
-                    <div class="content-side content-side-full">
-                        <ul class="nav-main">
-                            <li><a class="active" th:href="@{/dashboardCafe}"><i class="si si-cup"></i><span
-                                  class="sidebar-mini-hide">DASHBOARD</span></a></li>
-                            <li><a class="active" th:href="@{/profileCafe_edit}"><i class="si si-user"></i><span
-                                  class="sidebar-mini-hide">PROFILE</span></a>
-                            </li>
-                            <li><a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-layers"></i><span
-                                  class="sidebar-mini-hide">LEFTOVER</span></a>
-                              <ul>
-                                <li><a th:href="@{/add_Leftover}">Add Leftover</a></li>
-                                <li><a th:href="@{/foodList}">List Leftover</a></li>
-                                <li><a th:href="@{/view_request}">Request List</a></li>
-                                <li><a th:href="@{/pickupStatus}">Pickup Status</a></li>
-                              </ul>
-                            </li>
-                            <li><a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-layers"></i><span
-                                  class="sidebar-mini-hide">ORDERS</span></a>
-                              <ul>
-                                <li><a th:href="@{/viewBookings}">Incomming Order</a></li>
-              
-                              </ul>
-                            </li>
-              
-                          </ul>
-                    </div>
-                    <!-- END Side Navigation -->
-                </div>
-                <!-- END Sidebar Scrolling -->
-            </div>
-            <!-- Sidebar Content -->
-        </nav>
-        <!-- END Sidebar -->
-
-    <!-- Header -->
     <header id="page-header">
-      <!-- Header Content -->
       <div class="content-header">
-        <!-- Left Section -->
         <div class="content-header-section">
-          <!-- Toggle Sidebar -->
-          <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-          <button type="button" class="btn btn-circle btn-dual-secondary" data-toggle="layout"
-            data-action="sidebar_toggle">
+          <button type="button" class="btn btn-circle btn-dual-secondary" data-toggle="layout" data-action="sidebar_toggle">
             <i class="fa fa-navicon"></i>
           </button>
-          <!-- END Toggle Sidebar -->
-
-          <!-- Open Search Section -->
-          <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-          <button type="button" class="btn btn-circle btn-dual-secondary" data-toggle="layout"
-            data-action="header_search_on">
-            <i class="fa fa-search"></i>
-          </button>
-          <!-- END Open Search Section -->
-        </div>
-        <!-- END Left Section -->
-
-        <!-- Right Section -->
-        <div class="content-header-section">
-          <!-- User Dropdown -->
-          <div class="btn-group" role="group">
-            <button type="button" class="btn btn-rounded btn-dual-secondary" id="page-header-user-dropdown"
-              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fa fa-user d-sm-none"></i>
-              <span class="d-none d-sm-inline-block" th:text="${session.cafeName}"></span>
-              <i class="fa fa-angle-down ml-5"></i>
-            </button>
-            <div class="dropdown-menu dropdown-menu-right min-width-200" aria-labelledby="page-header-user-dropdown">
-              <h5 class="h6 text-center py-10 mb-5 border-b text-uppercase">User</h5>
-              <a class="dropdown-item" th:href="@{/edit_profile}">
-                <i class="si si-user mr-5"></i> Profile
-              </a>
-              <div class="dropdown-divider"></div>
-
-              <!-- END Side Overlay -->
-
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" th:href="@{/logoutCafe}">
-                <i class="si si-logout mr-5"></i> Sign Out
-              </a>
-            </div>
-          </div>
-          <!-- END User Dropdown -->
-        </div>
-        <!-- END Right Section -->
-      </div>
-      <!-- END Header Content -->
-
-      <!-- Header Search -->
-      <div id="page-header-search" class="overlay-header">
-        <div class="content-header content-header-fullrow">
-          <form action="be_pages_generic_search.html" method="post">
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <!-- Close Search Section -->
-                <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-                <button type="button" class="btn btn-secondary" data-toggle="layout" data-action="header_search_off">
-                  <i class="fa fa-times"></i>
-                </button>
-                <!-- END Close Search Section -->
-              </div>
-              <input type="text" class="form-control" placeholder="Search or hit ESC.." id="page-header-search-input"
-                name="page-header-search-input">
-              <div class="input-group-append">
-                <button type="submit" class="btn btn-secondary">
-                  <i class="fa fa-search"></i>
-                </button>
-              </div>
-            </div>
-          </form>
         </div>
       </div>
-      <!-- END Header Search -->
-
-      <!-- Header Loader -->
-      <!-- Please check out the Activity page under Elements category to see examples of showing/hiding it -->
-      <div id="page-header-loader" class="overlay-header bg-primary">
-        <div class="content-header content-header-fullrow text-center">
-          <div class="content-header-item">
-            <i class="fa fa-sun-o fa-spin text-white"></i>
-          </div>
-        </div>
-      </div>
-      <!-- END Header Loader -->
     </header>
-    <!-- END Header -->
 
     <main id="main-container">
-      <!-- Page Content -->
-      <!-- Page Content -->
       <div class="content">
-        <!-- Statistics -->
         <div class="content-heading">
           <div class="dropdown float-right">
             <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" id="ecom-dashboard-stats-drop"
-              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Today
-            </button>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="ecom-dashboard-stats-drop">
-              <a class="dropdown-item active" href="javascript:void(0)">
-                <i class="fa fa-fw fa-calendar mr-5"></i>Today
-              </a>
-              <a class="dropdown-item" href="javascript:void(0)">
-                <i class="fa fa-fw fa-calendar mr-5"></i>This Week
-              </a>
-              <a class="dropdown-item" href="javascript:void(0)">
-                <i class="fa fa-fw fa-calendar mr-5"></i>This Month
-              </a>
-              <a class="dropdown-item" href="javascript:void(0)">
-                <i class="fa fa-fw fa-calendar mr-5"></i>This Year
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="javascript:void(0)">
-                <i class="fa fa-fw fa-circle-o mr-5"></i>All Time
-              </a>
-            </div>
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Today</button>
           </div>
-          Statistics <small class="d-none d-sm-inline">Awesome!</small>
         </div>
 
         <div class="row gutters-tiny">
-          <!-- Earnings -->
-          <!-- <div class="col-md-6 col-xl-3">
-            <div class="block block-rounded block-transparent bg-gd-elegance">
-              <div class="block-content block-content-full block-sticky-options">
-                <div class="block-options">
-                  <div class="block-options-item">
-                    <i class="fa fa-area-chart text-white-op"></i>
-                  </div>
-                </div>
-                <div class="py-20 text-center">
-                  <div class="font-size-h2 font-w700 mb-0 text-white" data-toggle="countTo" data-to="2420"
-                    data-before="$">0</div>
-                  <div class="font-size-sm font-w600 text-uppercase text-white-op">Earnings</div>
-                </div>
-              </div>
-            </div>
-          </div> -->
-          <!-- END Earnings -->
-
-          <!-- Orders -->
           <div class="col-md-6 col-xl-3">
             <div class="block block-rounded block-transparent bg-gd-dusk">
               <div class="block-content block-content-full block-sticky-options">
-                <div class="block-options">
-                  <div class="block-options-item">
-                    <i class="fa fa-archive text-white-op"></i>
-                  </div>
-                </div>
                 <div class="py-20 text-center">
                   <div class="font-size-h2 font-w700 mb-0 text-white" data-toggle="countTo" data-to="35">0</div>
                   <div class="font-size-sm font-w600 text-uppercase text-white-op">Request</div>
@@ -429,30 +141,10 @@
               </div>
             </div>
           </div>
-          <!-- END Orders -->
-
-          <!-- New Customers -->
-          <div class="col-md-6 col-xl-3">
-            <div class="block block-rounded block-transparent bg-gd-sea">
-              <div class="block-content block-content-full block-sticky-options">
-                <div class="block-options">
-                  <div class="block-options-item">
-                    <i class="fa fa-users text-white-op"></i>
-                  </div>
-                </div>
-                <div class="py-20 text-center">
-                  <div class="font-size-h2 font-w700 mb-0 text-white" data-toggle="countTo" data-to="15">0</div>
-                  <div class="font-size-sm font-w600 text-uppercase text-white-op">Order</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- END New Customers -->
-
-
+        </div>
+      </div>
     </main>
 
-    <!-- Footer -->
     <footer id="page-footer">
       <div class="content py-20 font-size-sm clearfix">
         <div class="float-right">
@@ -464,27 +156,10 @@
         </div>
       </div>
     </footer>
-    <!-- END Footer -->
+
   </div>
-  <!-- END Page Container -->
 
-  <script th:src="@{stylesheets/assets/js/codebase.core.min.js}"></script>
-
-  <!--
-        Codebase JS
-    
-        Custom functionality including Blocks/Layout API as well as other vital and optional helpers
-        webpack is putting everything together at assets/_js/main/app.js
-    -->
-  <script th:src="@{stylesheets/assets/js/codebase.app.min.js}"></script>
-
-  <!-- Page JS Plugins -->
-  <script th:src="@{stylesheets/assets/js/plugins/jquery-validation/jquery.validate.min.js}"></script>
-
-  <!-- Page JS Code -->
-  <script th:src="@{stylesheets/assets/js/pages/op_auth_signin.min.js}"></script>
-
-  <!-- Success Modal
+  <!-- Success Modal -->
   <div id="successModal" class="modal">
     <div class="modal-content">
       <h2>Success!</h2>
@@ -494,6 +169,8 @@
   </div>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script th:src="@{stylesheets/assets/js/codebase.core.min.js}"></script>
+  <script th:src="@{stylesheets/assets/js/codebase.app.min.js}"></script>
 
   <script type="text/javascript">
     $(document).ready(function () {
@@ -502,31 +179,27 @@
 
       if (success && success === 'true') {
         // Show the modal
-        var modal = document.getElementById("successModal");
-        var closeButton = document.getElementById("closeModalButton");
+        var modal = $("#successModal");
+        var closeButton = $("#closeModalButton");
 
-        // Display the modal
-        modal.style.display = "block";
+        modal.show();
 
-        // Close the modal when the user clicks the "OK" button
-        closeButton.onclick = function () {
-          modal.style.display = "none";
-          // Remove the 'success' parameter from the URL after modal is closed
+        closeButton.click(function () {
+          modal.hide();
           var newUrl = window.location.href.split('?')[0]; // Remove query string
           window.history.replaceState(null, null, newUrl); // Update URL without reloading the page
-        };
+        });
 
-        // Close the modal if the user clicks anywhere outside the modal content
-        window.onclick = function (event) {
-          if (event.target == modal) {
-            modal.style.display = "none";
+        $(window).click(function (event) {
+          if ($(event.target).is(modal)) {
+            modal.hide();
             var newUrl = window.location.href.split('?')[0]; // Remove query string
             window.history.replaceState(null, null, newUrl); // Update URL without reloading the page
           }
-        }
+        });
       }
     });
-  </script> -->
+  </script>
 
 </body>
 
