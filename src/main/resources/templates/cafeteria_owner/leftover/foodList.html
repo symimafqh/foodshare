@@ -415,22 +415,26 @@
         <!-- END Footer -->
     </div>
     <!-- END Page Container -->
-    <!-- Load jQuery -->
-    <script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
+ <!-- jQuery (needed by Bootstrap and Codebase) -->
+<script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
 
-    <!-- Load Bootstrap JS -->
-    <script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js}"></script>
+<!-- Bootstrap JS (needed for layout toggle and other components) -->
+<script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js}"></script>
 
-    <!-- Load Codebase core JS -->
-    <script th:src="@{stylesheets/assets/js/codebase.core.min.js}"></script>
+<!-- Codebase Core JS (includes sidebar functionality) -->
+<script th:src="@{stylesheets/assets/js/codebase.core.min.js}"></script>
 
-    <!-- Initialize the layout after everything is loaded -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Ensure the sidebar and layout are initialized after the page loads
-            Codebase.layout('init');
-        });
-    </script>
+<!-- Custom JS to Initialize Layout (to ensure sidebar works) -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        if (typeof Codebase !== "undefined" && Codebase.layout) {
+            Codebase.layout('init');  // Initialize Codebase Layout
+        } else {
+            console.error("Codebase JavaScript not loaded or initialized correctly.");
+        }
+    });
+</script>
+
 
 </body>
 
