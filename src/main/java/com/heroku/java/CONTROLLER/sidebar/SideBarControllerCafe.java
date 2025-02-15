@@ -11,13 +11,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.heroku.java.MODEL.booking.BookingBean;
 import com.heroku.java.MODEL.cafe.CafeBean;
+import com.heroku.java.MODEL.leftover.FoodRequestDetail;
 import com.heroku.java.MODEL.leftover.LeftoverBean;
+import com.heroku.java.MODEL.pickup.PickupStatusBean;
 import com.heroku.java.MODEL.student.StudentBean;
 
 import jakarta.servlet.http.HttpSession;
 
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -145,6 +150,8 @@ public class SideBarControllerCafe {
         // Retrieve the cafeNumber from the session
         String cafeNumber = (String) session.getAttribute("cafeNumber");
         List<LeftoverBean> foodList = new ArrayList<>();
+
+        System.out.println("Masuk side bar controller lagi " + cafeNumber);
     
         // Check if cafeNumber is null or empty
         if (cafeNumber == null || cafeNumber.isEmpty()) {
@@ -182,6 +189,154 @@ public class SideBarControllerCafe {
         // Add the food list to the model for rendering in the view
         model.addAttribute("foodList", foodList);
         return "cafeteria_owner/leftover/foodList"; // Return the view name
+    }
+
+     @GetMapping("/view_request")
+    public String listFoodRequest(Model model, HttpSession session) {
+
+        // Retrieve the cafeNumber from the session
+        String cafeNumber = (String) session.getAttribute("cafeNumber");
+        System.out.println("Masuk side bar controller lagi " + cafeNumber);
+    
+        List<FoodRequestDetail> foodRequestDetails = new ArrayList<>();
+    
+        // Check if cafeNumber is null or empty
+        if (cafeNumber == null || cafeNumber.isEmpty()) {
+            return "redirect:/error"; // Redirect if no cafeNumber is available
+        }
+    
+        try (Connection connection = dataSource.getConnection()) {
+            // Prepare the SQL statement to fetch food items along with student details for the specific cafe
+            String sql = "SELECT l.\"foodid\", l.\"foodname\",l.\"place_to_pickup\",l.\"pickup_time\", r.\"quantityrequest\", s.\"studentName\", s.\"studentNumber\", r.\"status\" " +
+            "FROM public.leftover l " +
+            "JOIN public.request r ON l.\"foodid\" = r.\"foodid\" " +
+            "JOIN public.student s ON r.\"studentNumber\" = s.\"studentNumber\" " +
+            "WHERE l.\"cafeNumber\" = ?";
+
+    
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                // Set the cafeNumber parameter in the query
+                statement.setString(1, cafeNumber);
+    
+                ResultSet resultSet = statement.executeQuery(); // Execute the query
+                while (resultSet.next()) {
+                    // Create a new FoodRequestDetail object and populate it with data from the result set
+                    FoodRequestDetail detail = new FoodRequestDetail();
+                    System.out.println("TESTTTTTT");
+                    
+                    detail.setFoodid(resultSet.getInt("foodid"));
+                    detail.setFoodname(resultSet.getString("foodname"));
+                    detail.setPickupPlace(resultSet.getString("place_to_pickup"));
+                    detail.setPickupTime(resultSet.getString("pickup_time"));
+                    detail.setQuantity(resultSet.getInt("quantityrequest"));
+                    detail.setStudentName(resultSet.getString("studentName"));
+                    detail.setStudentNumber(resultSet.getString("studentNumber"));
+                    detail.setStatus(resultSet.getString("status"));
+    
+                    foodRequestDetails.add(detail); // Add the combined data to the list
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Log the exception for debugging
+            return "redirect:/error"; // Redirect in case of an error
+        }
+    
+        // Add the foodRequestDetails list to the model
+        model.addAttribute("foodRequestDetails", foodRequestDetails);
+        return "cafeteria_owner/leftover/accept_leftover"; // Return the view name to be rendered
+    }
+
+     @GetMapping("/viewBookings")
+    public String viewBookings(Model model, HttpSession session) {
+        // Retrieve the cafeNumber from the session
+        String cafeNumber = (String) session.getAttribute("cafeNumber");
+        List<BookingBean> bookings = new ArrayList<>();
+
+        // Check if cafeNumber is valid
+        if (cafeNumber == null || cafeNumber.isEmpty()) {
+            model.addAttribute("error", "No valid cafeNumber found in session.");
+            return "error_page"; // Redirect to an error page if cafeNumber is missing
+        }
+
+        try (Connection connection = dataSource.getConnection()) {
+            // SQL query to fetch orders specific to the cafe owner
+            String sql = "SELECT * FROM public.booking WHERE \"cafeNumber\" = ?";
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setString(1, cafeNumber); // Set the cafeNumber in the query
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    while (resultSet.next()) {
+                        BookingBean booking = new BookingBean();
+                        booking.setBookingID(resultSet.getInt("bookingID"));
+                        booking.setBookingmenu(resultSet.getString("bookingmenu"));
+                        booking.setBookingquantity(resultSet.getInt("bookingquantity"));
+                        booking.setBookingdate(resultSet.getDate("bookingdate"));
+                        booking.setCafeNumber(resultSet.getString("cafeNumber"));
+                        booking.setStudentNumber(resultSet.getString("studentNumber"));
+                        booking.setStatus(resultSet.getString("status"));
+                        bookings.add(booking);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        model.addAttribute("bookings", bookings);
+        return "cafeteria_owner/booking/accept_bookings"; // Name of the Thymeleaf HTML template
+    }
+
+    @GetMapping("/pickupStatus")
+    public String getPickupStatus(HttpSession session, Model model) {
+        // Retrieve the cafeteria number from the session
+        String cafeNumber = (String) session.getAttribute("cafeNumber");
+
+        if (cafeNumber == null) {
+            return "redirect:/login"; // Redirect if no cafeteria number is set in the session
+        }
+
+        try (Connection connection = dataSource.getConnection()) {
+            String sql = """
+                        SELECT r."requestID", r."studentNumber", r."cafeNumber", r.status AS requestStatus,
+                               r."quantityrequest", r.request_time,
+                               CASE
+                                   WHEN p.pickupid IS NOT NULL THEN 'Already Pickup'
+                                   ELSE 'Did Not Pickup'
+                               END AS pickupStatus
+                        FROM request r
+                        LEFT JOIN pickup p ON r.foodid = p.foodid AND r."studentNumber" = p."studentnumber"
+                        WHERE r."cafeNumber" = ? -- Filter by cafeteria number from the session
+                        ORDER BY r.request_time DESC
+                    """;
+
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setString(1, cafeNumber); // Set the cafeteria number from the session
+
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    List<PickupStatusBean> pickupStatusList = new ArrayList<>();
+
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                    while (resultSet.next()) {
+                        PickupStatusBean status = new PickupStatusBean();
+                        status.setRequestID(resultSet.getString("requestID"));
+                        status.setStudentNumber(resultSet.getString("studentNumber"));
+                        status.setCafeNumber(resultSet.getString("cafeNumber"));
+                        status.setRequestStatus(resultSet.getString("requestStatus"));
+                        status.setQuantityRequest(resultSet.getInt("quantityrequest"));
+                        LocalDateTime requestTime = resultSet.getTimestamp("request_time").toLocalDateTime();
+                        status.setRequestTime(requestTime);
+                        status.setFormattedRequestTime(requestTime.format(formatter)); // Add this
+                        status.setPickupStatus(resultSet.getString("pickupStatus"));
+
+                        pickupStatusList.add(status);
+                    }
+                    model.addAttribute("pickupStatusList", pickupStatusList);
+                    return "cafeteria_owner/leftover/pickupView";
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "redirect:/error";
+        }
     }
 
 }

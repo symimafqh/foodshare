@@ -33,58 +33,58 @@ public class FoodPickupViewController {
         this.whatsAppService = whatsAppService; // Inject WhatsApp service
     }
 
-    @GetMapping("/pickupStatus")
-    public String getPickupStatus(HttpSession session, Model model) {
-        // Retrieve the cafeteria number from the session
-        String cafeNumber = (String) session.getAttribute("cafeNumber");
+    // @GetMapping("/pickupStatus")
+    // public String getPickupStatus(HttpSession session, Model model) {
+    //     // Retrieve the cafeteria number from the session
+    //     String cafeNumber = (String) session.getAttribute("cafeNumber");
 
-        if (cafeNumber == null) {
-            return "redirect:/login"; // Redirect if no cafeteria number is set in the session
-        }
+    //     if (cafeNumber == null) {
+    //         return "redirect:/login"; // Redirect if no cafeteria number is set in the session
+    //     }
 
-        try (Connection connection = dataSource.getConnection()) {
-            String sql = """
-                        SELECT r."requestID", r."studentNumber", r."cafeNumber", r.status AS requestStatus,
-                               r."quantityrequest", r.request_time,
-                               CASE
-                                   WHEN p.pickupid IS NOT NULL THEN 'Already Pickup'
-                                   ELSE 'Did Not Pickup'
-                               END AS pickupStatus
-                        FROM request r
-                        LEFT JOIN pickup p ON r.foodid = p.foodid AND r."studentNumber" = p."studentnumber"
-                        WHERE r."cafeNumber" = ? -- Filter by cafeteria number from the session
-                        ORDER BY r.request_time DESC
-                    """;
+    //     try (Connection connection = dataSource.getConnection()) {
+    //         String sql = """
+    //                     SELECT r."requestID", r."studentNumber", r."cafeNumber", r.status AS requestStatus,
+    //                            r."quantityrequest", r.request_time,
+    //                            CASE
+    //                                WHEN p.pickupid IS NOT NULL THEN 'Already Pickup'
+    //                                ELSE 'Did Not Pickup'
+    //                            END AS pickupStatus
+    //                     FROM request r
+    //                     LEFT JOIN pickup p ON r.foodid = p.foodid AND r."studentNumber" = p."studentnumber"
+    //                     WHERE r."cafeNumber" = ? -- Filter by cafeteria number from the session
+    //                     ORDER BY r.request_time DESC
+    //                 """;
 
-            try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                statement.setString(1, cafeNumber); // Set the cafeteria number from the session
+    //         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+    //             statement.setString(1, cafeNumber); // Set the cafeteria number from the session
 
-                try (ResultSet resultSet = statement.executeQuery()) {
-                    List<PickupStatusBean> pickupStatusList = new ArrayList<>();
+    //             try (ResultSet resultSet = statement.executeQuery()) {
+    //                 List<PickupStatusBean> pickupStatusList = new ArrayList<>();
 
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                    while (resultSet.next()) {
-                        PickupStatusBean status = new PickupStatusBean();
-                        status.setRequestID(resultSet.getString("requestID"));
-                        status.setStudentNumber(resultSet.getString("studentNumber"));
-                        status.setCafeNumber(resultSet.getString("cafeNumber"));
-                        status.setRequestStatus(resultSet.getString("requestStatus"));
-                        status.setQuantityRequest(resultSet.getInt("quantityrequest"));
-                        LocalDateTime requestTime = resultSet.getTimestamp("request_time").toLocalDateTime();
-                        status.setRequestTime(requestTime);
-                        status.setFormattedRequestTime(requestTime.format(formatter)); // Add this
-                        status.setPickupStatus(resultSet.getString("pickupStatus"));
+    //                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    //                 while (resultSet.next()) {
+    //                     PickupStatusBean status = new PickupStatusBean();
+    //                     status.setRequestID(resultSet.getString("requestID"));
+    //                     status.setStudentNumber(resultSet.getString("studentNumber"));
+    //                     status.setCafeNumber(resultSet.getString("cafeNumber"));
+    //                     status.setRequestStatus(resultSet.getString("requestStatus"));
+    //                     status.setQuantityRequest(resultSet.getInt("quantityrequest"));
+    //                     LocalDateTime requestTime = resultSet.getTimestamp("request_time").toLocalDateTime();
+    //                     status.setRequestTime(requestTime);
+    //                     status.setFormattedRequestTime(requestTime.format(formatter)); // Add this
+    //                     status.setPickupStatus(resultSet.getString("pickupStatus"));
 
-                        pickupStatusList.add(status);
-                    }
-                    model.addAttribute("pickupStatusList", pickupStatusList);
-                    return "cafeteria_owner/leftover/pickupView";
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "redirect:/error";
-        }
-    }
+    //                     pickupStatusList.add(status);
+    //                 }
+    //                 model.addAttribute("pickupStatusList", pickupStatusList);
+    //                 return "cafeteria_owner/leftover/pickupView";
+    //             }
+    //         }
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //         return "redirect:/error";
+    //     }
+    // }
 
 }

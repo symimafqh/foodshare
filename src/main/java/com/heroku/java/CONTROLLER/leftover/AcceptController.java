@@ -42,58 +42,58 @@ public class AcceptController {
         this.whatsAppService = whatsAppService; // Inject WhatsApp service
     }
 
-    @GetMapping("/view_request")
-    public String listFoodRequest(Model model, HttpSession session) {
-        // Retrieve the cafeNumber from the session
-        String cafeNumber = (String) session.getAttribute("cafeNumber");
+    // @GetMapping("/view_request")
+    // public String listFoodRequest(Model model, HttpSession session) {
+    //     // Retrieve the cafeNumber from the session
+    //     String cafeNumber = (String) session.getAttribute("cafeNumber");
     
-        List<FoodRequestDetail> foodRequestDetails = new ArrayList<>();
+    //     List<FoodRequestDetail> foodRequestDetails = new ArrayList<>();
     
-        // Check if cafeNumber is null or empty
-        if (cafeNumber == null || cafeNumber.isEmpty()) {
-            return "redirect:/error"; // Redirect if no cafeNumber is available
-        }
+    //     // Check if cafeNumber is null or empty
+    //     if (cafeNumber == null || cafeNumber.isEmpty()) {
+    //         return "redirect:/error"; // Redirect if no cafeNumber is available
+    //     }
     
-        try (Connection connection = dataSource.getConnection()) {
-            // Prepare the SQL statement to fetch food items along with student details for the specific cafe
-            String sql = "SELECT l.\"foodid\", l.\"foodname\",l.\"place_to_pickup\",l.\"pickup_time\", r.\"quantityrequest\", s.\"studentName\", s.\"studentNumber\", r.\"status\" " +
-            "FROM public.leftover l " +
-            "JOIN public.request r ON l.\"foodid\" = r.\"foodid\" " +
-            "JOIN public.student s ON r.\"studentNumber\" = s.\"studentNumber\" " +
-            "WHERE l.\"cafeNumber\" = ?";
+    //     try (Connection connection = dataSource.getConnection()) {
+    //         // Prepare the SQL statement to fetch food items along with student details for the specific cafe
+    //         String sql = "SELECT l.\"foodid\", l.\"foodname\",l.\"place_to_pickup\",l.\"pickup_time\", r.\"quantityrequest\", s.\"studentName\", s.\"studentNumber\", r.\"status\" " +
+    //         "FROM public.leftover l " +
+    //         "JOIN public.request r ON l.\"foodid\" = r.\"foodid\" " +
+    //         "JOIN public.student s ON r.\"studentNumber\" = s.\"studentNumber\" " +
+    //         "WHERE l.\"cafeNumber\" = ?";
 
     
-            try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                // Set the cafeNumber parameter in the query
-                statement.setString(1, cafeNumber);
+    //         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+    //             // Set the cafeNumber parameter in the query
+    //             statement.setString(1, cafeNumber);
     
-                ResultSet resultSet = statement.executeQuery(); // Execute the query
-                while (resultSet.next()) {
-                    // Create a new FoodRequestDetail object and populate it with data from the result set
-                    FoodRequestDetail detail = new FoodRequestDetail();
-                    System.out.println("TESTTTTTT");
+    //             ResultSet resultSet = statement.executeQuery(); // Execute the query
+    //             while (resultSet.next()) {
+    //                 // Create a new FoodRequestDetail object and populate it with data from the result set
+    //                 FoodRequestDetail detail = new FoodRequestDetail();
+    //                 System.out.println("TESTTTTTT");
                     
-                    detail.setFoodid(resultSet.getInt("foodid"));
-                    detail.setFoodname(resultSet.getString("foodname"));
-                    detail.setPickupPlace(resultSet.getString("place_to_pickup"));
-                    detail.setPickupTime(resultSet.getString("pickup_time"));
-                    detail.setQuantity(resultSet.getInt("quantityrequest"));
-                    detail.setStudentName(resultSet.getString("studentName"));
-                    detail.setStudentNumber(resultSet.getString("studentNumber"));
-                    detail.setStatus(resultSet.getString("status"));
+    //                 detail.setFoodid(resultSet.getInt("foodid"));
+    //                 detail.setFoodname(resultSet.getString("foodname"));
+    //                 detail.setPickupPlace(resultSet.getString("place_to_pickup"));
+    //                 detail.setPickupTime(resultSet.getString("pickup_time"));
+    //                 detail.setQuantity(resultSet.getInt("quantityrequest"));
+    //                 detail.setStudentName(resultSet.getString("studentName"));
+    //                 detail.setStudentNumber(resultSet.getString("studentNumber"));
+    //                 detail.setStatus(resultSet.getString("status"));
     
-                    foodRequestDetails.add(detail); // Add the combined data to the list
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace(); // Log the exception for debugging
-            return "redirect:/error"; // Redirect in case of an error
-        }
+    //                 foodRequestDetails.add(detail); // Add the combined data to the list
+    //             }
+    //         }
+    //     } catch (Exception e) {
+    //         e.printStackTrace(); // Log the exception for debugging
+    //         return "redirect:/error"; // Redirect in case of an error
+    //     }
     
-        // Add the foodRequestDetails list to the model
-        model.addAttribute("foodRequestDetails", foodRequestDetails);
-        return "cafeteria_owner/leftover/accept_leftover"; // Return the view name to be rendered
-    }
+    //     // Add the foodRequestDetails list to the model
+    //     model.addAttribute("foodRequestDetails", foodRequestDetails);
+    //     return "cafeteria_owner/leftover/accept_leftover"; // Return the view name to be rendered
+    // }
 //--------------------------------------------------------approved-------------------------------------
     @PostMapping("/accept")
     private String acceptFood(@RequestParam("foodid") int foodId, FoodRequestDetail fr) {

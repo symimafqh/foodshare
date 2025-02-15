@@ -32,44 +32,44 @@ private final DataSource dataSource;
         this.whatsAppService = whatsAppService; // Inject WhatsApp service
     }
 
-    @GetMapping("/viewBookings")
-    public String viewBookings(Model model, HttpSession session) {
-        // Retrieve the cafeNumber from the session
-        String cafeNumber = (String) session.getAttribute("cafeNumber");
-        List<BookingBean> bookings = new ArrayList<>();
+    // @GetMapping("/viewBookings")
+    // public String viewBookings(Model model, HttpSession session) {
+    //     // Retrieve the cafeNumber from the session
+    //     String cafeNumber = (String) session.getAttribute("cafeNumber");
+    //     List<BookingBean> bookings = new ArrayList<>();
 
-        // Check if cafeNumber is valid
-        if (cafeNumber == null || cafeNumber.isEmpty()) {
-            model.addAttribute("error", "No valid cafeNumber found in session.");
-            return "error_page"; // Redirect to an error page if cafeNumber is missing
-        }
+    //     // Check if cafeNumber is valid
+    //     if (cafeNumber == null || cafeNumber.isEmpty()) {
+    //         model.addAttribute("error", "No valid cafeNumber found in session.");
+    //         return "error_page"; // Redirect to an error page if cafeNumber is missing
+    //     }
 
-        try (Connection connection = dataSource.getConnection()) {
-            // SQL query to fetch orders specific to the cafe owner
-            String sql = "SELECT * FROM public.booking WHERE \"cafeNumber\" = ?";
-            try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                statement.setString(1, cafeNumber); // Set the cafeNumber in the query
-                try (ResultSet resultSet = statement.executeQuery()) {
-                    while (resultSet.next()) {
-                        BookingBean booking = new BookingBean();
-                        booking.setBookingID(resultSet.getInt("bookingID"));
-                        booking.setBookingmenu(resultSet.getString("bookingmenu"));
-                        booking.setBookingquantity(resultSet.getInt("bookingquantity"));
-                        booking.setBookingdate(resultSet.getDate("bookingdate"));
-                        booking.setCafeNumber(resultSet.getString("cafeNumber"));
-                        booking.setStudentNumber(resultSet.getString("studentNumber"));
-                        booking.setStatus(resultSet.getString("status"));
-                        bookings.add(booking);
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    //     try (Connection connection = dataSource.getConnection()) {
+    //         // SQL query to fetch orders specific to the cafe owner
+    //         String sql = "SELECT * FROM public.booking WHERE \"cafeNumber\" = ?";
+    //         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+    //             statement.setString(1, cafeNumber); // Set the cafeNumber in the query
+    //             try (ResultSet resultSet = statement.executeQuery()) {
+    //                 while (resultSet.next()) {
+    //                     BookingBean booking = new BookingBean();
+    //                     booking.setBookingID(resultSet.getInt("bookingID"));
+    //                     booking.setBookingmenu(resultSet.getString("bookingmenu"));
+    //                     booking.setBookingquantity(resultSet.getInt("bookingquantity"));
+    //                     booking.setBookingdate(resultSet.getDate("bookingdate"));
+    //                     booking.setCafeNumber(resultSet.getString("cafeNumber"));
+    //                     booking.setStudentNumber(resultSet.getString("studentNumber"));
+    //                     booking.setStatus(resultSet.getString("status"));
+    //                     bookings.add(booking);
+    //                 }
+    //             }
+    //         }
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //     }
 
-        model.addAttribute("bookings", bookings);
-        return "cafeteria_owner/booking/accept_bookings"; // Name of the Thymeleaf HTML template
-    }
+    //     model.addAttribute("bookings", bookings);
+    //     return "cafeteria_owner/booking/accept_bookings"; // Name of the Thymeleaf HTML template
+    // }
 
     @PostMapping("/approveOrder")
     public String approveOrder(@RequestParam("bookingID") int bookingID) {
