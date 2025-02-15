@@ -67,49 +67,49 @@ public class FoodController {
     // return "cafeteria_owner/leftover/foodList"; // Return the view name
     // }
 
-    @GetMapping("/foodList")
-    public String listFoodItems(Model model, HttpSession session) {
-        // Retrieve the cafeNumber from the session
-        String cafeNumber = (String) session.getAttribute("cafeNumber");
-        List<LeftoverBean> foodList = new ArrayList<>();
+    // @GetMapping("/foodList")
+    // public String listFoodItems(Model model, HttpSession session) {
+    //     // Retrieve the cafeNumber from the session
+    //     String cafeNumber = (String) session.getAttribute("cafeNumber");
+    //     List<LeftoverBean> foodList = new ArrayList<>();
     
-        // Check if cafeNumber is null or empty
-        if (cafeNumber == null || cafeNumber.isEmpty()) {
-            return "redirect:/error"; // Redirect if no cafeNumber is available
-        }
+    //     // Check if cafeNumber is null or empty
+    //     if (cafeNumber == null || cafeNumber.isEmpty()) {
+    //         return "redirect:/error"; // Redirect if no cafeNumber is available
+    //     }
     
-        try (Connection connection = dataSource.getConnection()) {
-            // SQL query to fetch food items for the specific cafe and today’s date
-            String sql = "SELECT * FROM public.leftover WHERE \"cafeNumber\" = ? AND DATE(\"created_at\") = CURRENT_DATE";
+    //     try (Connection connection = dataSource.getConnection()) {
+    //         // SQL query to fetch food items for the specific cafe and today’s date
+    //         String sql = "SELECT * FROM public.leftover WHERE \"cafeNumber\" = ? AND DATE(\"created_at\") = CURRENT_DATE";
             
-            try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                statement.setString(1, cafeNumber); // Set the cafeNumber parameter
+    //         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+    //             statement.setString(1, cafeNumber); // Set the cafeNumber parameter
     
-                ResultSet resultSet = statement.executeQuery(); // Execute the query
-                while (resultSet.next()) {
-                    // Create a new LeftoverBean and populate it with data from the result set
-                    LeftoverBean food = new LeftoverBean();
-                    food.setFoodid(resultSet.getInt("foodid"));
-                    food.setFoodname(resultSet.getString("foodname"));
-                    food.setInitialQuantity(resultSet.getInt("initial_quantity"));
-                    food.setFoodquantity(resultSet.getInt("foodquantity"));
-                    food.setPickupPlace(resultSet.getString("place_to_pickup"));
-                    food.setPickupTime(resultSet.getString("pickup_time"));
-                    food.setImagePath(resultSet.getString("image_path"));
-                    foodList.add(food); // Add the food item to the list
+    //             ResultSet resultSet = statement.executeQuery(); // Execute the query
+    //             while (resultSet.next()) {
+    //                 // Create a new LeftoverBean and populate it with data from the result set
+    //                 LeftoverBean food = new LeftoverBean();
+    //                 food.setFoodid(resultSet.getInt("foodid"));
+    //                 food.setFoodname(resultSet.getString("foodname"));
+    //                 food.setInitialQuantity(resultSet.getInt("initial_quantity"));
+    //                 food.setFoodquantity(resultSet.getInt("foodquantity"));
+    //                 food.setPickupPlace(resultSet.getString("place_to_pickup"));
+    //                 food.setPickupTime(resultSet.getString("pickup_time"));
+    //                 food.setImagePath(resultSet.getString("image_path"));
+    //                 foodList.add(food); // Add the food item to the list
 
-                    System.out.println("Initial Quantity: " + food.getInitialQuantity());
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace(); // Log the exception for debugging
-            return "redirect:/error"; // Redirect in case of an error
-        }
+    //                 System.out.println("Initial Quantity: " + food.getInitialQuantity());
+    //             }
+    //         }
+    //     } catch (Exception e) {
+    //         e.printStackTrace(); // Log the exception for debugging
+    //         return "redirect:/error"; // Redirect in case of an error
+    //     }
     
-        // Add the food list to the model for rendering in the view
-        model.addAttribute("foodList", foodList);
-        return "cafeteria_owner/leftover/foodList"; // Return the view name
-    }
+    //     // Add the food list to the model for rendering in the view
+    //     model.addAttribute("foodList", foodList);
+    //     return "cafeteria_owner/leftover/foodList"; // Return the view name
+    // }
 
     @GetMapping("/foodDetails")
     public String viewFoodDetails(@RequestParam("foodid") int foodID, Model model, HttpSession session) {

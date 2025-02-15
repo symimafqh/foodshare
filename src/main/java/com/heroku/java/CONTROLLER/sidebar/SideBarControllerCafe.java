@@ -18,6 +18,9 @@ import com.heroku.java.MODEL.student.StudentBean;
 import jakarta.servlet.http.HttpSession;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.sql.DataSource;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -41,8 +44,6 @@ public class SideBarControllerCafe {
         return "cafeteria_owner/sign-in/ownerRegister"; // Redirects to the signup page template
     }
 
-    
-    
 
     @GetMapping("/dashboardCafe")
     public String dashboardCafe(@RequestParam(name = "success", required = false) Boolean success, Model model,
@@ -138,35 +139,49 @@ public class SideBarControllerCafe {
 
         return "cafeteria_owner/leftover/add_leftover";
     }
-
-     // Get Mapping for Add Leftover Page
     
-    // @GetMapping("/update_Leftover")
-    // public String updateLeftover(@RequestParam("foodid") String id, Model model, HttpSession session) {
-
-    //     String foodid = (String) session.getAttribute("cafeNumber");
-    //     try {
-    //         Connection connection = dataSource.getConnection();
-    //         String sql = "SELECT * FROM public.leftover WHERE \"foodid\"=?";
-    //         final var statement = connection.prepareStatement(sql);
-    //         statement.setString(1, foodid);
-    //         final var resultSet = statement.executeQuery();
+    @GetMapping("/foodList")
+    public String listFoodItems(Model model, HttpSession session) {
+        // Retrieve the cafeNumber from the session
+        String cafeNumber = (String) session.getAttribute("cafeNumber");
+        List<LeftoverBean> foodList = new ArrayList<>();
+    
+        // Check if cafeNumber is null or empty
+        if (cafeNumber == null || cafeNumber.isEmpty()) {
+            return "redirect:/error"; // Redirect if no cafeNumber is available
+        }
+    
+        try (Connection connection = dataSource.getConnection()) {
+            // SQL query to fetch food items for the specific cafe and today’s date
+            String sql = "SELECT * FROM public.leftover WHERE \"cafeNumber\" = ? AND DATE(\"created_at\") = CURRENT_DATE";
             
-    //         if (resultSet.next()) {
-    //             LeftoverBean leftover = new LeftoverBean();
-    //             leftover.setFoodid(resultSet.getInt("foodid"));
-    //             leftover.setFoodname(resultSet.getString("foodname"));
-    //             leftover.setFoodquantity(resultSet.getInt("foodquantity"));
-    //             leftover.setFooddescription(resultSet.getString("fooddescription"));
-    //             leftover.setImagePath(resultSet.getString("image_path"));
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setString(1, cafeNumber); // Set the cafeNumber parameter
+    
+                ResultSet resultSet = statement.executeQuery(); // Execute the query
+                while (resultSet.next()) {
+                    // Create a new LeftoverBean and populate it with data from the result set
+                    LeftoverBean food = new LeftoverBean();
+                    food.setFoodid(resultSet.getInt("foodid"));
+                    food.setFoodname(resultSet.getString("foodname"));
+                    food.setInitialQuantity(resultSet.getInt("initial_quantity"));
+                    food.setFoodquantity(resultSet.getInt("foodquantity"));
+                    food.setPickupPlace(resultSet.getString("place_to_pickup"));
+                    food.setPickupTime(resultSet.getString("pickup_time"));
+                    food.setImagePath(resultSet.getString("image_path"));
+                    foodList.add(food); // Add the food item to the list
 
-    //             model.addAttribute("leftover", leftover);
-    //         }
-    //         connection.close();
-    //     } catch (Exception e) {
-    //         e.printStackTrace();
-    //     }
+                    System.out.println("Initial Quantity: " + food.getInitialQuantity());
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Log the exception for debugging
+            return "redirect:/error"; // Redirect in case of an error
+        }
+    
+        // Add the food list to the model for rendering in the view
+        model.addAttribute("foodList", foodList);
+        return "cafeteria_owner/leftover/foodList"; // Return the view name
+    }
 
-    //     return "cafeteria_owner/leftover/update_leftover"; // Update to your actual view path
-    // }
 }
