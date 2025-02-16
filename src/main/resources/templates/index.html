@@ -20,9 +20,9 @@
 
      <!-- Icons -->
     <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
-    <link rel="shortcut icon" th:href="@{stylesheets/assets/media/favicons/favicon.png}">
-    <link rel="icon" type="image/png" sizes="192x192" th:href="@{stylesheets/assets/media/favicons/favicon-192x192.png}">
-    <link rel="apple-touch-icon" sizes="180x180" th:href="@{stylesheets/assets/media/favicons/apple-touch-icon-180x180.png}">
+    <link rel="shortcut icon" th:href="@{stylesheets/assets/media/favicons/logo2.jpg}">
+    <link rel="icon" type="image/png" sizes="192x192" th:href="@{stylesheets/assets/media/favicons/logo2.jpg}">
+    <link rel="apple-touch-icon" sizes="180x180" th:href="@{stylesheets/assets/media/favicons/logo2.jpg}">
     <!-- END Icons -->
     
     <!-- stylesheets -->
@@ -111,127 +111,50 @@
   
 
       <!-- Header -->
-      <header id="page-header">
+      <header id="page-header" class="invisible" data-toggle="appear" data-class="animated fadeInDown">
         <!-- Header Content -->
         <div class="content-header">
-            <center>
-                <div><h1 class="h2 font-w700 mt-30 mb-10 ml-20">FoodShare: Connecting
-                    Surplus to Need, Reducing Food Waste System</h1></div>
-            </center>
-        </div>
-        <!-- END Header Content -->
-
-
-
-        <!-- Header Loader -->
-        <div id="page-header-search" class="overlay-header">
-          <div class="content-header content-header-fullrow">
-            <form action="be_pages_generic_search.html" method="post">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <!-- Close Search Section -->
-                  <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-                  <button type="button" class="btn btn-secondary" data-toggle="layout" data-action="header_search_off">
-                    <i class="fa fa-times"></i>
-                  </button>
-                  <!-- END Close Search Section -->
-                </div>
-                <input type="text" class="form-control" placeholder="Search or hit ESC.." id="page-header-search-input" name="page-header-search-input">
-                <div class="input-group-append">
-                  <button type="submit" class="btn btn-secondary">
-                    <i class="fa fa-search"></i>
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-        <!-- END Header Search -->
-
-        <!-- Header Loader -->
-        <!-- Please check out the Activity page under Elements category to see examples of showing/hiding it -->
-        <div id="page-header-loader" class="overlay-header bg-primary">
-          <div class="content-header content-header-fullrow text-center">
+          <!-- Left Section -->
+          <div class="content-header-section">
+            <!-- Logo -->
             <div class="content-header-item">
-              <i class="fa fa-sun-o fa-spin text-white"></i>
+              <a class="link-effect font-w700 mr-5" href="/">
+                <i class="si si-fire text-primary"></i>
+                <span class="font-size-h4 text-dual-pulse-light">Food</span><span class="font-size-h4 text-pulse-lighter">Share</span>
+              </a>
             </div>
+            <!-- END Logo -->
           </div>
-        </div>
-        <!-- END Header Loader -->
+          <!-- END Left Section -->
       </header>
       <!-- END Header -->
 
       <main id="main-container">
         <!-- Page Content -->
-        <div class="center" data-toggle="appear">
-            <h2 class="h4 font-w700 mt-30 mb-10 text-center">CHOOSE USER</h2>
-        </div>
-    
-        <div class="content text-center">
-            <div class="row justify-content-center invisible" data-toggle="appear">
-                <!-- ADMINISTRATOR -->
-                <!-- Uncomment and modify as needed
-                <div class="col-sm-4">
-                    <div class="block">
-                        <div class="block-content block-content-full">
-                            <div class="py-20 text-center">
-                                <div class="mb-20">
-                                    <a class="img-link" href="be_pages_generic_profile.html">
-                                        <img class="img-avatar" th:src="@{stylesheets/assets/media/avatars/avatar15.jpg}" alt="">
-                                    </a>
-                                </div>
-                                <div class="pt-20">
-                                    <a class="btn btn-rounded btn-alt-primary" th:href="@{/adminSignin}">
-                                        <i class="fa fa-user mr-5"></i> ADMINISTRATOR
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+           <!-- Hero -->
+           <div class="bg-white bg-pattern" style="background-image: url('assets/media/various/bg-pattern-inverse.png');">
+            <div class="d-flex align-items-center">
+              <div class="content content-full">
+                <div class="row no-gutters w-100 py-100 overflow-hidden">
+                  <div class="col-md-5 py-30 d-flex align-items-center invisible" data-toggle="appear">
+                    <div class="text-center text-md-left">
+                      
+                      <h1 class="font-w600 font-size-h2 mb-20">
+                        FoodShare: Connecting Surplus to Need, Reducing Food Waste
+                      </h1>
+                      <p class="font-size-lg nice-copy text-muted mb-30">
+                        FoodShare is a system to manage leftover food distribution and is beneficial in reducing the problem of food waste and food insecurity. This system is developed for the use of cafeteria owners and students at UiTM Jasin.
+                      </p>
                     </div>
+                  </div>
+                  <div class="col-md-7 py-30 d-none d-md-flex align-items-md-center justify-content-md-end invisible" data-toggle="appear" data-class="animated fadeInRight">
+                    <img class="img-fluid" th:src="@{assets/media/various/landingpage.jpg}">
+                  </div>
                 </div>
-                -->
-    
-                <!-- PENYELIA -->
-                <div class="col-sm-4">
-                    <div class="block">
-                        <div class="block-content block-content-full">
-                            <div class="py-20 text-center">
-                                <div class="mb-20">
-                                    <a class="img-link" href="be_pages_generic_profile.html">
-                                        <img class="img-avatar" th:src="@{stylesheets/assets/media/avatars/avatar15.jpg}" alt="">
-                                    </a>
-                                </div>
-                                <div class="pt-20">
-                                    <a class="btn btn-rounded btn-alt-info" th:href="@{/cafesignin}">
-                                        <i class="fa fa-users mr-5"></i> CAFETERIA OWNER
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-    
-                <!-- PELAJAR (STUDENT) -->
-                <div class="col-sm-4">
-                    <div class="block">
-                        <div class="block-content block-content-full">
-                            <div class="py-20 text-center">
-                                <div class="mb-20">
-                                    <a class="img-link" href="be_pages_generic_profile.html">
-                                        <img class="img-avatar" th:src="@{stylesheets/assets/media/avatars/avatar15.jpg}" alt="">
-                                    </a>
-                                </div>
-                                <div class="pt-20">
-                                    <a class="btn btn-rounded btn-alt-success" th:href="@{/signin}">
-                                        <i class="fa fa-graduation-cap mr-5"></i> STUDENT
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              </div>
             </div>
-        </div>
+          </div>
+          <!-- END Hero -->
         <!-- END Row -->
     </main>
     
