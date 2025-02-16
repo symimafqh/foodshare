@@ -30,86 +30,19 @@
     <!-- Fonts and Codebase framework -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,400i,600,700&display=swap">
     <link rel="stylesheet" id="css-main" th:href="@{stylesheets/assets/css/codebase.min.css}">
-    
-        <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
-    <!-- <link rel="stylesheet" id="css-theme" th:href="../assets/css/themes/corporate.min.css"> -->
+  
     <link rel="stylesheet" id="css-theme" th:href="@{stylesheets/assets/css/themes/flat.min.css}"> 
-    <!-- <link rel="stylesheet" id="css-theme" th:href="../assets/css/themes/earth.min.css"> 
-    <!-- <link rel="stylesheet" id="css-theme" th:href="../assets/css/themes/elegance.min.css">
-    <link rel="stylesheet" id="css-theme" th:href="../assets/css/themes/pulse.min.css"> -->
-    
-    <!-- <link rel="stylesheet" id="css-theme" th:href="../assets/css/themes/elegance.min.css"> -->
-    
-    <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
-    <!-- <link rel="stylesheet" id="css-theme" th:href="assets/css/themes/flat.min.css"> -->
-    <!-- END stylesheets -->
+
   </head>
   <body>
-    <!-- Page Container -->
-    <!--
-        Available classes for #page-container:
-
-    GENERIC
-
-        'enable-cookies'                            Remembers active color theme between pages (when set through color theme helper Template._uiHandleTheme())
-
-    SIDEBAR & SIDE OVERLAY
-
-        'sidebar-r'                                 Right Sidebar and left Side Overlay (default is left Sidebar and right Side Overlay)
-        'sidebar-mini'                              Mini hoverable Sidebar (screen width > 991px)
-        'sidebar-o'                                 Visible Sidebar by default (screen width > 991px)
-        'sidebar-o-xs'                              Visible Sidebar by default (screen width < 992px)
-        'sidebar-inverse'                           Dark themed sidebar
-
-        'side-overlay-hover'                        Hoverable Side Overlay (screen width > 991px)
-        'side-overlay-o'                            Visible Side Overlay by default
-
-        'enable-page-overlay'                       Enables a visible clickable Page Overlay (closes Side Overlay on click) when Side Overlay opens
-
-        'side-scroll'                               Enables custom scrolling on Sidebar and Side Overlay instead of native scrolling (screen width > 991px)
-
-    HEADER
-
-        ''                                          Static Header if no class is added
-        'page-header-fixed'                         Fixed Header
-
-    HEADER STYLE
-
-        ''                                          Classic Header style if no class is added
-        'page-header-modern'                        Modern Header style
-        'page-header-inverse'                       Dark themed Header (works only with classic Header style)
-        'page-header-glass'                         Light themed Header with transparency by default
-                                                    (absolute position, perfect for light images underneath - solid light background on scroll if the Header is also set as fixed)
-        'page-header-glass page-header-inverse'     Dark themed Header with transparency by default
-                                                    (absolute position, perfect for dark images underneath - solid dark background on scroll if the Header is also set as fixed)
-
-    MAIN CONTENT LAYOUT
-
-        ''                                          Full width Main Content if no class is added
-        'main-content-boxed'                        Full width Main Content with a specific maximum width (screen width > 1200px)
-        'main-content-narrow'                       Full width Main Content with a percentage width (screen width > 1200px)
-    -->
-
-      <!-- Side Overlay-->
+   
       <aside id="side-overlay">
        
       </aside>
       <!-- END Side Overlay -->
 
       <!-- Sidebar -->
-      <!--
-          Helper classes
-
-          Adding .sidebar-mini-hide to an element will make it invisible (opacity: 0) when the sidebar is in mini mode
-          Adding .sidebar-mini-show to an element will make it visible (opacity: 1) when the sidebar is in mini mode
-              If you would like to disable the transition, just add the .sidebar-mini-notrans along with one of the previous 2 classes
-
-          Adding .sidebar-mini-hidden to an element will hide it when the sidebar is in mini mode
-          Adding .sidebar-mini-visible to an element will show it only when the sidebar is in mini mode
-              - use .sidebar-mini-visible-b if you would like to be a block when visible (display: block)
-      -->
   
-
       <!-- Header -->
       <header id="page-header" class="invisible" data-toggle="appear" data-class="animated fadeInDown">
         <!-- Header Content -->
@@ -142,31 +75,28 @@
 
       <main id="main-container">
         <!-- Page Content -->
-           <!-- Hero -->
-           <div class="bg-white bg-pattern" >
+        <div class="bg-white bg-pattern">
             <div class="d-flex align-items-center">
-              <div class="content content-full">
-                <div class="row no-gutters w-100 py-100 overflow-hidden">
-                  <div class="col-md-5 py-30 d-flex align-items-center invisible" data-toggle="appear">
-                    <div class="text-center text-md-left">
-                        <img th:src="@{stylesheets/assets/pictures/2.png}" style="width: 300px; height:300px;">
-                      <h1 class="font-w600 font-size-h2 mb-20">
-                        FoodShare: Connecting Surplus to Need, Reducing Food Waste
-                      </h1>
-                      <p class="font-size-lg nice-copy text-muted mb-30">
-                        FoodShare is a system to manage leftover food distribution and is beneficial in reducing the problem of food waste and food insecurity. This system is developed for the use of cafeteria owners and students at UiTM Jasin.
-                      </p>
+                <div class="content content-full">
+                    <div class="row no-gutters w-100 py-100">
+                        <div class="col-md-5 py-30 d-flex align-items-center text-center text-md-left">
+                            <div>
+                                <img th:src="@{stylesheets/assets/pictures/2.png}" style="width: 250px; height: 250px;">
+                                <h1 class="font-w600 font-size-h2 mb-20">
+                                    FoodShare: Connecting Surplus to Need, Reducing Food Waste
+                                </h1>
+                                <p class="font-size-lg nice-copy text-muted mb-30">
+                                    FoodShare is a system to manage leftover food distribution and is beneficial in reducing the problem of food waste and food insecurity. This system is developed for the use of cafeteria owners and students at UiTM Jasin.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-7 py-30 d-none d-md-flex align-items-center justify-content-center">
+                            <img class="img-fluid shadow-lg" th:src="@{stylesheets/assets/pictures/landingPage3.png}" style="width: 100%; max-width: 600px; height: auto;">
+                        </div>
                     </div>
-                  </div>
-                  <div class="col-md-7 py-30 d-none d-md-flex align-items-md-center justify-content-md-end invisible" data-toggle="appear" data-class="animated fadeInRight">
-                    <img class="img-fluid shadow-lg" th:src="@{stylesheets/assets/pictures/landingPage3.png}" style="width: 100%; max-width: 500px; height: 500px;">
                 </div>
-                </div>
-              </div>
             </div>
-          </div>
-          <!-- END Hero -->
-        <!-- END Row -->
+        </div>
     </main>
     
 
