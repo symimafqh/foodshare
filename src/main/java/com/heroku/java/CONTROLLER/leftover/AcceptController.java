@@ -109,7 +109,7 @@ public class AcceptController {
 
             fr = getFoodRequestDetailById(foodId); // Ensure this method populates all fields
 
-            if (fr != null && fr.getFoodname() != null && fr.getFoodDescription() != null) {
+            if (fr != null && fr.getFoodname() != null && fr.getPickupPlace() != null && fr.getPickupTime() != null) {
                 notifyStudents(foodId, fr);
             } else {
                 System.out.println("Failed to fetch required food details.");
