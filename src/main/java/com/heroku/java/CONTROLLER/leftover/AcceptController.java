@@ -125,6 +125,7 @@ public class AcceptController {
     private void notifyStudents(@RequestParam("foodid") int foodId, FoodRequestDetail fr) {
         // Step 1: Get list of student phone numbers
         List<String> studentNumbers = getStudentPhoneNumbers(foodId);
+
         if (studentNumbers.isEmpty()) {
             System.out.println("No student phone numbers found for food ID: " + foodId);
             return;
@@ -200,31 +201,47 @@ public class AcceptController {
 }
     
 
-    private List<String> getStudentPhoneNumbers(int food) {
-        List<String> numbers = new ArrayList<>();
-        
-        String sql = "SELECT DISTINCT s.\"studentphonenumber\" " +
+private List<String> getStudentPhoneNumbers(int foodId) {
+    List<String> numbers = new ArrayList<>();
+    System.out.println("Fetching phone numbers for food ID: " + foodId);
+
+    String sql = "SELECT DISTINCT s.\"studentphonenumber\" " +
                  "FROM public.leftover l " +
                  "JOIN public.request r ON l.\"foodid\" = r.\"foodid\" " +
                  "JOIN public.student s ON r.\"studentNumber\" = s.\"studentNumber\" " +
                  "WHERE l.\"foodid\" = ?";  // Filter by foodId
 
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql);
-             ResultSet resultSet = statement.executeQuery()) {
-    
+    try (Connection connection = dataSource.getConnection();
+         PreparedStatement statement = connection.prepareStatement(sql)) {
+        
+        // Set the foodId parameter
+        statement.setInt(1, foodId); 
+        
+        // Execute the query and get the results
+        try (ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 String phoneNumber = resultSet.getString("studentphonenumber");
+                System.out.println("Retrieved phone number: " + phoneNumber);
+
+                // Ensure phone number is not null or empty
                 if (phoneNumber != null && !phoneNumber.isEmpty()) {
                     numbers.add(phoneNumber);
-                    System.out.println(phoneNumber); // Log the phone number
+                } else {
+                    System.out.println("Empty phone number found for food ID: " + foodId);
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace(); // Log the error
         }
-        return numbers;
+    } catch (Exception e) {
+        e.printStackTrace(); // Log any exception that occurs
     }
+
+    // Check if no phone numbers were found
+    if (numbers.isEmpty()) {
+        System.out.println("No phone numbers found for food ID: " + foodId);
+    }
+
+    return numbers;
+}
 
     //------------------------------------------------rejected----------------------------
     @PostMapping("/reject")
