@@ -158,7 +158,7 @@ public class FoodPickupController {
             statement.executeUpdate();
 
             // Step 1: Get the cafeteria number based on the foodId
-            String cafeNumber = getCafeNumberByFoodId(foodId);
+            String cafeNumber = getCafePhoneNumberByFoodId(foodId);
 
             if (cafeNumber != null) {
                 // Step 2: Notify the cafeteria
@@ -176,14 +176,16 @@ public class FoodPickupController {
     }
 
     // Retrieve cafeteria number by foodId
-    private String getCafeNumberByFoodId(int foodId) {
-        String cafeNumber = null;
+    private String getCafePhoneNumberByFoodId(int foodId) {
+        String cafePhoneNumber = null;
+
+        System.out.println ("cafe phoen number");
     
-        // SQL query to get the cafeNumber based on foodId
-        String querySql = "SELECT r.\"cafeNumber\" " +
-                "FROM public.request r " +
-                "JOIN public.leftover f ON r.foodid = f.foodid " +
-                "WHERE f.foodid = ?";
+        // SQL query to get the phone number based on foodId
+        String querySql = "SELECT c.\"phoneNumber\" " +
+                          "FROM public.request r " +
+                          "JOIN public.cafeteria_owner c ON r.\"cafeNumber\" = c.\"cafeNumber\" " +
+                          "WHERE r.\"foodid\" = ?";  // Join with cafeteria_owner and filter by foodId
     
         try (Connection connection = dataSource.getConnection()) {
             // Execute the query
@@ -191,14 +193,14 @@ public class FoodPickupController {
                 statement.setInt(1, foodId); // Set the foodId parameter
     
                 try (ResultSet resultSet = statement.executeQuery()) {
-                    // If result is found, extract cafeNumber
+                    // If result is found, extract phoneNumber
                     if (resultSet.next()) {
-                        cafeNumber = resultSet.getString("cafeNumber");
+                        cafePhoneNumber = resultSet.getString("phoneNumber");
     
-                        // Check if the cafe number doesn't start with '6'
-                        if (cafeNumber != null && !cafeNumber.startsWith("6")) {
+                        // Check if the phone number doesn't start with '6'
+                        if (cafePhoneNumber != null && !cafePhoneNumber.startsWith("6")) {
                             // Prepend '6' if it doesn't exist
-                            cafeNumber = "6" + cafeNumber;
+                            cafePhoneNumber = "6" + cafePhoneNumber;
                         }
                     }
                 }
@@ -207,14 +209,16 @@ public class FoodPickupController {
             e.printStackTrace(); // Log SQL errors
         }
     
-        return cafeNumber; // Return the modified cafeNumber (could be null if not found)
+        return cafePhoneNumber; // Return the modified cafePhoneNumber (could be null if not found)
     }
+    
     
 
     // Notify the cafeteria using WhatsApp
     private void notifyCafe(int foodId, String studentNumber, String cafeNumber, HttpSession session) {
         // Step 1: Retrieve student details
         StudentBean student = getStudentDetails(studentNumber);
+        System.out.println("masuk notify cafe");
 
         if (student == null) {
             System.out.println("Student not found.");
