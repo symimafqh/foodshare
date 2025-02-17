@@ -108,6 +108,7 @@ public class AcceptController {
             System.out.println("Status updated to 'Accepted' for food ID: " + foodId);
 
             fr = getFoodRequestDetailById(foodId); // Ensure this method populates all fields
+
             if (fr != null && fr.getFoodname() != null && fr.getFoodDescription() != null) {
                 notifyStudents(foodId, fr);
             } else {
@@ -150,7 +151,7 @@ public class AcceptController {
         }
     }
 
-    public FoodRequestDetail getFoodRequestDetailById(int foodId) {
+    private FoodRequestDetail getFoodRequestDetailById(int foodId) {
         FoodRequestDetail fr = new FoodRequestDetail();
         String sql = "SELECT l.\"foodname\", l.\"place_to_pickup\", l.\"pickup_time\", l.\"cafeNumber\" " +
                      "FROM public.leftover l " +
