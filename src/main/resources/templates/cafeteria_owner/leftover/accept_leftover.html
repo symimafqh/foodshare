@@ -375,6 +375,26 @@
     </div>
     <!-- END Page Container -->
 
+    <style>
+        .submenu {
+          display: none;
+        }
+        
+        .submenu.show {
+          display: block;
+        }
+      </style>
+      
+      <script>
+        document.querySelectorAll('.nav-submenu').forEach(menu => {
+          menu.addEventListener('click', function() {
+            let submenu = this.nextElementSibling;
+            submenu.classList.toggle('show');
+          });
+        });
+      </script>
+      
+
     <!-- Page JS Plugins -->
     <script th:src="@{stylesheets/assets/js/plugins/jquery-validation/jquery.validate.min.js}"></script>
 
