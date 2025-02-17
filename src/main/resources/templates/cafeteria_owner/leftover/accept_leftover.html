@@ -178,9 +178,8 @@
                             <li><a class="active" th:href="@{/profileCafe_edit}"><i class="si si-user"></i><span
                                   class="sidebar-mini-hide">PROFILE</span></a>
                             </li>
-                            <li><a class="nav-submenu" data-toggle="nav-submenu"><i class="si si-layers"></i><span
-                                  class="sidebar-mini-hide">LEFTOVER</span></a>
-                              <ul>
+                            <a class="nav-submenu" data-toggle="collapse" href="#leftoverSubmenu"><i class="si si-layers"></i><span class="sidebar-mini-hide">LEFTOVER</span></a>
+                            <ul id="leftoverSubmenu" class="collapse">
                                 <li><a th:href="@{/add_Leftover}">Add Leftover</a></li>
                                 <li><a th:href="@{/foodList}">List Leftover</a></li>
                                 <li><a th:href="@{/view_request}">Request List</a></li>
