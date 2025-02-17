@@ -395,14 +395,18 @@
             </style>
 
             <script>
-                $(document).ready(function () {
-                    $(".nav-submenu").click(function () {
-                        // Find the corresponding submenu and toggle visibility
-                        $(this).next("ul").toggleClass("collapse");
+                document.addEventListener('DOMContentLoaded', function () {
+                    const submenus = document.querySelectorAll('.nav-submenu');
+
+                    submenus.forEach(function (menu) {
+                        menu.addEventListener('click', function () {
+                            const submenu = this.nextElementSibling;
+                            submenu.classList.toggle('show'); // Toggle visibility of the submenu
+                        });
                     });
                 });
-
             </script>
+
 
 
             <!-- Page JS Plugins -->
