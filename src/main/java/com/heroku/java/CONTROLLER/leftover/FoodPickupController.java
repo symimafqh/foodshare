@@ -126,7 +126,7 @@ public String getPickupForm(HttpSession session, Model model) {
             Timestamp timestamp = Timestamp.valueOf(formattedTime);
 
             // Fetch foodid based on studentNumber and foodName
-            String fetchFoodIdSQL = "SELECT f.foodid, FROM public.request r " +
+            String fetchFoodIdSQL = "SELECT f.foodid FROM public.request r " +
                     "JOIN public.leftover f ON r.foodid = f.foodid " +
                     "WHERE r.\"studentNumber\" = ? AND r.status = 'Accepted' " +
                     "AND f.foodname = ? AND f.created_at::date = CURRENT_DATE";
@@ -155,7 +155,7 @@ public String getPickupForm(HttpSession session, Model model) {
 
             statement.executeUpdate();
 
-            notifyCafe(leftover, session, cafeNumber);
+            //notifyCafe(leftover, session, cafeNumber);
 
         } catch (Exception e) {
             e.printStackTrace(); // Print stack trace for debugging
