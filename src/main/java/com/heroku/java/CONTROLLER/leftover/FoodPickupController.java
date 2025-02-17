@@ -233,7 +233,7 @@ public class FoodPickupController {
                 "Student Name: " + student.getStudentName() + "\n" +
                 "Student Number: " + student.getStudentNumber() + "\n" +
                 "Food Name: " + foodName + "\n" +
-                "Food has been picked up. Please confirm.";
+                "Food has been picked up.";
 
         // Step 4: Send notification using WhatsApp service
         try {

@@ -4,29 +4,28 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-  
+
     <title>FoodShare </title>
-  
+
     <meta name="description"
-      content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
+        content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
     <meta name="author" content="pixelcave">
     <meta name="robots" content="noindex, nofollow">
-  
+
     <!-- Open Graph Meta -->
     <meta property="og:title" content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework">
     <meta property="og:site_name" content="Codebase">
     <meta property="og:description"
-      content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
+        content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
     <meta property="og:type" content="website">
     <meta property="og:url" content="">
     <meta property="og:image" content="">
-  
+
     <!-- Icons -->
     <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
     <link rel="shortcut icon" th:href="@{stylesheets/assets/media/favicons/logo2.jpg}">
     <link rel="icon" type="image/png" sizes="250x250" th:href="@{stylesheets/assets/media/favicons/logo2.jpg}">
-    <link rel="apple-touch-icon" sizes="180x180"
-      th:href="@{stylesheets/assets/media/favicons/logo2.jpg}">
+    <link rel="apple-touch-icon" sizes="180x180" th:href="@{stylesheets/assets/media/favicons/logo2.jpg}">
     <!-- END Icons -->
 
     <!-- stylesheets -->
@@ -183,31 +182,31 @@
                         <div class="content-side content-side-full">
                             <ul class="nav-main">
                                 <li>
-                                  <a class="active" th:href="@{/dashboardStudent}"><i class="si si-cup"></i><span
-                                      class="sidebar-mini-hide">DASHBOARD</span></a>
+                                    <a class="active" th:href="@{/dashboardStudent}"><i class="si si-cup"></i><span
+                                            class="sidebar-mini-hide">DASHBOARD</span></a>
                                 </li>
                                 <li>
-                                  <a class="active" th:href="@{/edit_profile}"><i class="si si-user"></i><span
-                                      class="sidebar-mini-hide">PROFIL</span></a>
+                                    <a class="active" th:href="@{/edit_profile}"><i class="si si-user"></i><span
+                                            class="sidebar-mini-hide">PROFIL</span></a>
                                 </li>
-                                <li><a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-layers"></i><span
-                                      class="sidebar-mini-hide">LEFTOVER</span></a>
-                                  <ul>
-                                    <li><a th:href="@{/view_leftover}">View Leftover</a></li>
-                                    <li><a th:href="@{/pickupForm}">Pickup Leftover</a></li>
-                                    <li><a th:href="@{/requestHistory}">View History Request</a></li>
-                                  </ul>
+                                <li><a class="nav-submenu" data-toggle="nav-submenu" href="#"><i
+                                            class="si si-layers"></i><span class="sidebar-mini-hide">LEFTOVER</span></a>
+                                    <ul>
+                                        <li><a th:href="@{/view_leftover}">View Leftover</a></li>
+                                        <li><a th:href="@{/pickupForm}">Pickup Leftover</a></li>
+                                        <li><a th:href="@{/requestHistory}">View History Request</a></li>
+                                    </ul>
                                 </li>
-                                <li><a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-layers"></i><span
-                                      class="sidebar-mini-hide">ORDER</span></a>
-                                  <ul>
-                                    <li><a th:href="@{/add_Booking}">Create order</a></li>
-                                    <li><a th:href="@{/bookingHistory}">Order History</a></li>
-                                    
-                                  </ul>
+                                <li><a class="nav-submenu" data-toggle="nav-submenu" href="#"><i
+                                            class="si si-layers"></i><span class="sidebar-mini-hide">ORDER</span></a>
+                                    <ul>
+                                        <li><a th:href="@{/add_Booking}">Create order</a></li>
+                                        <li><a th:href="@{/bookingHistory}">Order History</a></li>
+
+                                    </ul>
                                 </li>
-                  
-                              </ul>
+
+                            </ul>
                         </div>
                         <!-- END Side Navigation -->
                         <!-- END Side Navigation -->
@@ -324,7 +323,7 @@
                         </h3>
                     </div>
                     <div class="block-content">
-                        <form th:action="@{/pickup_post}" method="POST" enctype="multipart/form-data">
+                        <form th:action="@{/pickup_post}" method="POST" enctype="multipart/form-data" id="pickupForm">
                             <div class="row items-push">
                                 <div class="col-lg-3">
                                     <p class="text-muted">
@@ -383,15 +382,19 @@
                                     <!-- Submit Button -->
                                     <div class="form-group row">
                                         <div class="col-12">
-                                            <button type="submit" class="btn btn-alt-primary">Submit Pickup
-                                                Evidence</button>
+                                            <button type="submit" class="btn btn-alt-primary" id="submitBtn">Submit
+                                                Pickup Evidence</button>
                                         </div>
                                     </div>
-                                    
-                                    
                                 </div>
                             </div>
                         </form>
+
+                        <!-- Success Message (hidden by default) -->
+                        <div id="successMessage" style="display:none; text-align:center; margin-top: 20px;">
+                            <p>Your pickup has been successfully submitted!</p>
+                        </div>
+
                     </div>
                 </div>
             </main>
@@ -454,6 +457,30 @@
                 }
             });
         </script>
+
+        <script>
+            // Disable the submit button and hide the form after submission
+            document.getElementById('submitBtn').addEventListener('click', function (event) {
+                // Prevent form submission from refreshing the page
+                event.preventDefault();
+
+                // Disable the submit button
+                this.disabled = true;
+                this.innerText = "Submitting..."; // Change button text to indicate submission
+
+                // Hide the form
+                document.getElementById('pickupForm').style.display = 'none'; // Hide the form
+
+                // Show the success message
+                document.getElementById('successMessage').style.display = 'block'; // Show success message
+
+                // Optionally, submit the form after a delay (if you need to call the server)
+                setTimeout(function () {
+                    document.getElementById('pickupForm').submit();  // Submit the form after a delay
+                }, 2000);  // Delay in milliseconds (2 seconds)
+            });
+        </script>
+
 </body>
 
 </html>
