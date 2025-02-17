@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.heroku.java.MODEL.leftover.FoodRequestDetail;
 import com.heroku.java.MODEL.leftover.LeftoverBean;
 import com.heroku.java.MODEL.pickup.PickupBean;
 import com.heroku.java.MODEL.student.StudentBean;
@@ -147,7 +148,7 @@ public class FoodPickupController {
             }
 
             // Insert into the pickup table
-            String sql = "INSERT INTO public.pickup (timepickup, imagepath, studentnumber, foodid) " +
+            String sql = "INSERT INTO public.pickup (\"timepickup\", \"imagepath\", \"studentnumber\", \"foodid\") " +
                     "VALUES (?, ?, ?, ?)";
             final var statement = connection.prepareStatement(sql);
             statement.setTimestamp(1, timestamp);
@@ -243,8 +244,10 @@ public class FoodPickupController {
 
     // Retrieve student details by student number
     private StudentBean getStudentDetails(String studentNumber) {
-        StudentBean student = null;
-        String querySql = "SELECT studentName, studentEmail FROM public.student WHERE studentNumber = ?";
+        StudentBean student = new StudentBean();
+        String querySql = "SELECT \"studentName\", \"studentEmail\" FROM public.student WHERE \"studentNumber\" = ?";
+
+        System.out.println("masuk get student details");
 
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(querySql)) {
@@ -271,6 +274,8 @@ public class FoodPickupController {
     private String getFoodNameByFoodId(int foodId) {
         String foodName = null;
         String querySql = "SELECT foodname FROM public.leftover WHERE foodid = ?";
+
+        System.out.println("masuk get food Name ");
 
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(querySql)) {
