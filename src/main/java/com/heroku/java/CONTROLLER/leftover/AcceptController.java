@@ -176,10 +176,11 @@ public class AcceptController {
         List<String> numbers = new ArrayList<>();
         
         String sql = "SELECT DISTINCT s.\"studentphonenumber\" " +
-                     "FROM public.leftover l " +
-                     "JOIN public.request r ON l.\"foodid\" = r.\"foodid\" " +
-                     "JOIN public.student s ON r.\"studentNumber\" = s.\"studentNumber\"";
-    
+                 "FROM public.leftover l " +
+                 "JOIN public.request r ON l.\"foodid\" = r.\"foodid\" " +
+                 "JOIN public.student s ON r.\"studentNumber\" = s.\"studentNumber\" " +
+                 "WHERE l.\"foodid\" = ?";  // Filter by foodId
+                 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql);
              ResultSet resultSet = statement.executeQuery()) {
