@@ -124,18 +124,21 @@ public class AcceptController {
     private void notifyStudents(@RequestParam("foodid") int foodId, FoodRequestDetail fr) {
         // Step 1: Get list of student phone numbers
         List<String> studentNumbers = getStudentPhoneNumbers(foodId);
-
+        if (studentNumbers.isEmpty()) {
+            System.out.println("No student phone numbers found for food ID: " + foodId);
+            return;
+        }
+    
         // Step 2: Create the message to be sent
         String messageBody = "Your leftover has been accepted!\n" +
-                "Food Name: " + fr.getFoodname() + "\n" +
-                "Pickup Place: " + fr.getPickupPlace() + "\n" +
-                "Pickup Time: " + fr.getPickupTime() + "\n" +
-                "You can pickup it follows the description";
-
+                             "Food Name: " + fr.getFoodname() + "\n" +
+                             "Pickup Place: " + fr.getPickupPlace() + "\n" +
+                             "Pickup Time: " + fr.getPickupTime() + "\n" +
+                             "You can pick it up as per the description.";
+    
         // Step 3: Send the message to each student
         for (String studentNumber : studentNumbers) {
             try {
-                // Assuming you have a WhatsAppService that handles sending messages
                 String chatId = studentNumber + "@c.us"; // Construct the chat ID
                 String response = whatsAppService.sendMessage(chatId, messageBody);
                 System.out.println("Message sent to: " + studentNumber);
@@ -146,15 +149,20 @@ public class AcceptController {
             }
         }
     }
+    
     public FoodRequestDetail getFoodRequestDetailById(int foodId) {
         FoodRequestDetail fr = new FoodRequestDetail();
-        String sql = "SELECT l.\"foodname\", l.\"place_to_pickup\",l.\"pickup_time\", l.\"cafeNumber\" " +
+        String sql = "SELECT l.\"foodname\", l.\"place_to_pickup\", l.\"pickup_time\", l.\"cafeNumber\" " +
                      "FROM public.leftover l " +
                      "WHERE l.\"foodid\" = ?";
+    
+        System.out.println("Fetching food details for food ID: " + foodId);
+    
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-             
+    
             statement.setInt(1, foodId);
+    
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     fr.setFoodid(foodId);
@@ -162,10 +170,13 @@ public class AcceptController {
                     fr.setPickupPlace(resultSet.getString("place_to_pickup"));
                     fr.setPickupTime(resultSet.getString("pickup_time"));
                     fr.setCafeNumber(resultSet.getString("cafeNumber"));
-                    // Populate other fields as necessary
+                    System.out.println("Food details retrieved for food ID: " + foodId);
+                } else {
+                    System.out.println("No details found for food ID: " + foodId);
                 }
             }
         } catch (SQLException e) {
+            System.out.println("Error executing SQL: " + e.getMessage());
             e.printStackTrace();
         }
         return fr;
@@ -180,7 +191,7 @@ public class AcceptController {
                  "JOIN public.request r ON l.\"foodid\" = r.\"foodid\" " +
                  "JOIN public.student s ON r.\"studentNumber\" = s.\"studentNumber\" " +
                  "WHERE l.\"foodid\" = ?";  // Filter by foodId
-                 
+
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql);
              ResultSet resultSet = statement.executeQuery()) {
@@ -200,7 +211,7 @@ public class AcceptController {
 
     //------------------------------------------------rejected----------------------------
     @PostMapping("/reject")
-private String rejectFood(@RequestParam("foodid") int foodId, FoodRequestDetail fr) {
+    private String rejectFood(@RequestParam("foodid") int foodId, FoodRequestDetail fr) {
     String updateSql = "UPDATE public.request SET \"status\" = 'Rejected' WHERE \"foodid\" = ?";
 
     try (Connection connection = dataSource.getConnection();
