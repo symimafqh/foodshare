@@ -4,33 +4,38 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-  
+
     <title>FoodShare </title>
-  
+
     <meta name="description"
-      content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
+        content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
     <meta name="author" content="pixelcave">
     <meta name="robots" content="noindex, nofollow">
-  
+
     <!-- Open Graph Meta -->
     <meta property="og:title" content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework">
     <meta property="og:site_name" content="Codebase">
     <meta property="og:description"
-      content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
+        content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
     <meta property="og:type" content="website">
     <meta property="og:url" content="">
     <meta property="og:image" content="">
-  
+
     <!-- Icons -->
     <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
     <link rel="shortcut icon" th:href="@{stylesheets/assets/media/favicons/logo2.jpg}">
     <link rel="icon" type="image/png" sizes="250x250" th:href="@{stylesheets/assets/media/favicons/logo2.jpg}">
-    <link rel="apple-touch-icon" sizes="180x180"
-      th:href="@{stylesheets/assets/media/favicons/logo2.jpg}">
+    <link rel="apple-touch-icon" sizes="180x180" th:href="@{stylesheets/assets/media/favicons/logo2.jpg}">
     <!-- END Icons -->
 
     <!-- stylesheets -->
 
+    <!-- Bootstrap JS (needed for layout toggle and other components) -->
+    <script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
+    <script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js}"></script>
+
+    <!-- Codebase Core JS (includes sidebar functionality) -->
+    <script th:src="@{stylesheets/assets/js/codebase.core.min.js}"></script>
     <!-- Fonts and Codebase framework -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,400i,600,700&display=swap">
     <link rel="stylesheet" id="css-main" th:href="@{stylesheets/assets/css/codebase.min.css}">
@@ -175,28 +180,28 @@
                     <div class="content-side content-side-full">
                         <ul class="nav-main">
                             <li><a class="active" th:href="@{/dashboardCafe}"><i class="si si-cup"></i><span
-                                  class="sidebar-mini-hide">DASHBOARD</span></a></li>
+                                        class="sidebar-mini-hide">DASHBOARD</span></a></li>
                             <li><a class="active" th:href="@{/profileCafe_edit}"><i class="si si-user"></i><span
-                                  class="sidebar-mini-hide">PROFILE</span></a>
+                                        class="sidebar-mini-hide">PROFILE</span></a>
                             </li>
-                            <li><a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-layers"></i><span
-                                  class="sidebar-mini-hide">LEFTOVER</span></a>
-                              <ul>
-                                <li><a th:href="@{/add_Leftover}">Add Leftover</a></li>
-                                <li><a th:href="@{/foodList}">List Leftover</a></li>
-                                <li><a th:href="@{/view_request}">Request List</a></li>
-                                <li><a th:href="@{/pickupStatus}">Pickup Status</a></li>
-                              </ul>
+                            <li><a class="nav-submenu" data-toggle="nav-submenu" href="#"><i
+                                        class="si si-layers"></i><span class="sidebar-mini-hide">LEFTOVER</span></a>
+                                <ul>
+                                    <li><a th:href="@{/add_Leftover}">Add Leftover</a></li>
+                                    <li><a th:href="@{/foodList}">List Leftover</a></li>
+                                    <li><a th:href="@{/view_request}">Request List</a></li>
+                                    <li><a th:href="@{/pickupStatus}">Pickup Status</a></li>
+                                </ul>
                             </li>
-                            <li><a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-layers"></i><span
-                                  class="sidebar-mini-hide">ORDERS</span></a>
-                              <ul>
-                                <li><a th:href="@{/viewBookings}">Incomming Order</a></li>
-              
-                              </ul>
+                            <li><a class="nav-submenu" data-toggle="nav-submenu" href="#"><i
+                                        class="si si-layers"></i><span class="sidebar-mini-hide">ORDERS</span></a>
+                                <ul>
+                                    <li><a th:href="@{/viewBookings}">Incomming Order</a></li>
+
+                                </ul>
                             </li>
-              
-                          </ul>
+
+                        </ul>
                     </div>
                     <!-- END Side Navigation -->
                 </div>
@@ -213,7 +218,8 @@
                 <div class="content-header-section">
                     <!-- Toggle Sidebar -->
                     <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-                    <button type="button" class="btn btn-circle btn-dual-secondary" data-toggle="layout" data-action="sidebar_toggle">
+                    <button type="button" class="btn btn-circle btn-dual-secondary" data-toggle="layout"
+                        data-action="sidebar_toggle">
                         <i class="fa fa-navicon"></i>
                     </button>
                     <!-- END Toggle Sidebar -->
@@ -392,7 +398,7 @@
                     document.getElementById('deleteFoodForm').submit();
                 }
             }
-        </script> 
+        </script>
 
         <!-- Footer -->
         <footer id="page-footer">
@@ -409,25 +415,21 @@
         <!-- END Footer -->
     </div>
     <!-- END Page Container -->
- <!-- jQuery (needed by Bootstrap and Codebase) -->
-<!-- <script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
+    <!-- jQuery (needed by Bootstrap and Codebase) -->
+    <!-- <script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>-->
 
-<!-- Bootstrap JS (needed for layout toggle and other components) -->
-<script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js}"></script>
 
-<!-- Codebase Core JS (includes sidebar functionality) -->
-<script th:src="@{stylesheets/assets/js/codebase.core.min.js}"></script>
 
-<!-- Custom JS to Initialize Layout (to ensure sidebar works) -->
- <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        if (typeof Codebase !== "undefined" && Codebase.layout) {
-            Codebase.layout('init');  // Initialize Codebase Layout
-        } else {
-            console.error("Codebase JavaScript not loaded or initialized correctly.");
-        }
-    });
-</script> 
+    <!-- Custom JS to Initialize Layout (to ensure sidebar works) -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            if (typeof Codebase !== "undefined" && Codebase.layout) {
+                Codebase.layout('init');  // Initialize Codebase Layout
+            } else {
+                console.error("Codebase JavaScript not loaded or initialized correctly.");
+            }
+        });
+    </script>
 
 
 </body>
