@@ -469,18 +469,18 @@
                 this.innerText = "Submitting..."; // Change button text to indicate submission
 
                 // Hide the form
-                document.getElementById('pickupForm').style.display = 'none'; // Hide the form
+                document.getElementById('pickupForm').style.display = 'none'; // Hide the form after submission
 
                 // Show the success message
                 document.getElementById('successMessage').style.display = 'block'; // Show success message
 
-                // Optionally, submit the form after a delay (if you need to call the server)
+                // Now submit the form after a slight delay
                 setTimeout(function () {
-                    document.getElementById('pickupForm').submit();  // Submit the form after a delay
-                }, 2000);  // Delay in milliseconds (2 seconds)
+                    // Manually submit the form after the DOM changes (hide form and show message)
+                    document.getElementById('pickupForm').submit();
+                }, 2000);  // Delay submission by 2 seconds (optional)
             });
         </script>
-
 </body>
 
 </html>
