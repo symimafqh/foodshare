@@ -149,7 +149,7 @@ public class AcceptController {
             }
         }
     }
-    
+
     public FoodRequestDetail getFoodRequestDetailById(int foodId) {
         FoodRequestDetail fr = new FoodRequestDetail();
         String sql = "SELECT l.\"foodname\", l.\"place_to_pickup\", l.\"pickup_time\", l.\"cafeNumber\" " +
@@ -165,22 +165,38 @@ public class AcceptController {
     
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
+                    String foodName = resultSet.getString("foodname");
+                String pickupPlace = resultSet.getString("place_to_pickup");
+                String pickupTime = resultSet.getString("pickup_time");
+                String cafeNumber = resultSet.getString("cafeNumber");
+
+                // Log the values retrieved
+                System.out.println("Food Name: " + foodName);
+                System.out.println("Pickup Place: " + pickupPlace);
+                System.out.println("Pickup Time: " + pickupTime);
+                System.out.println("Cafe Number: " + cafeNumber);
+
+                // Check if any values are null
+                if (foodName != null && pickupPlace != null && pickupTime != null && cafeNumber != null) {
                     fr.setFoodid(foodId);
-                    fr.setFoodname(resultSet.getString("foodname"));
-                    fr.setPickupPlace(resultSet.getString("place_to_pickup"));
-                    fr.setPickupTime(resultSet.getString("pickup_time"));
-                    fr.setCafeNumber(resultSet.getString("cafeNumber"));
+                    fr.setFoodname(foodName);
+                    fr.setPickupPlace(pickupPlace);
+                    fr.setPickupTime(pickupTime);
+                    fr.setCafeNumber(cafeNumber);
                     System.out.println("Food details retrieved for food ID: " + foodId);
                 } else {
-                    System.out.println("No details found for food ID: " + foodId);
+                    System.out.println("Some fields are null for food ID: " + foodId);
                 }
+            } else {
+                System.out.println("No details found for food ID: " + foodId);
             }
-        } catch (SQLException e) {
-            System.out.println("Error executing SQL: " + e.getMessage());
-            e.printStackTrace();
         }
-        return fr;
+    } catch (SQLException e) {
+        System.out.println("Error executing SQL: " + e.getMessage());
+        e.printStackTrace();
     }
+    return fr;
+}
     
 
     private List<String> getStudentPhoneNumbers(int food) {
