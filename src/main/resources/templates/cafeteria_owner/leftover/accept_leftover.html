@@ -4,29 +4,28 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-  
+
     <title>FoodShare </title>
-  
+
     <meta name="description"
-      content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
+        content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
     <meta name="author" content="pixelcave">
     <meta name="robots" content="noindex, nofollow">
-  
+
     <!-- Open Graph Meta -->
     <meta property="og:title" content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework">
     <meta property="og:site_name" content="Codebase">
     <meta property="og:description"
-      content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
+        content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
     <meta property="og:type" content="website">
     <meta property="og:url" content="">
     <meta property="og:image" content="">
-  
+
     <!-- Icons -->
     <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
     <link rel="shortcut icon" th:href="@{stylesheets/assets/media/favicons/logo2.jpg}">
     <link rel="icon" type="image/png" sizes="250x250" th:href="@{stylesheets/assets/media/favicons/logo2.jpg}">
-    <link rel="apple-touch-icon" sizes="180x180"
-      th:href="@{stylesheets/assets/media/favicons/logo2.jpg}">
+    <link rel="apple-touch-icon" sizes="180x180" th:href="@{stylesheets/assets/media/favicons/logo2.jpg}">
     <!-- END Icons -->
 
     <!-- stylesheets -->
@@ -35,11 +34,11 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,400i,600,700&display=swap">
     <link rel="stylesheet" id="css-main" th:href="@{stylesheets/assets/css/codebase.min.css}">
     <link rel="stylesheet" id="css-theme" th:href="@{stylesheets/assets/css/themes/flat.min.css}">
- 
+
 </head>
 
 <body>
-    
+
     <div id="page-container" class="sidebar-o enable-page-overlay side-scroll page-header-modern main-content-boxed">
         <!-- Side Overlay-->
         <aside id="side-overlay">
@@ -91,7 +90,7 @@
         </aside>
         <!-- END Side Overlay -->
 
-       
+
         <nav id="sidebar">
             <!-- Sidebar Content -->
             <div class="sidebar-content">
@@ -174,27 +173,28 @@
                     <div class="content-side content-side-full">
                         <ul class="nav-main">
                             <li><a class="active" th:href="@{/dashboardCafe}"><i class="si si-cup"></i><span
-                                  class="sidebar-mini-hide">DASHBOARD</span></a></li>
+                                        class="sidebar-mini-hide">DASHBOARD</span></a></li>
                             <li><a class="active" th:href="@{/profileCafe_edit}"><i class="si si-user"></i><span
-                                  class="sidebar-mini-hide">PROFILE</span></a>
+                                        class="sidebar-mini-hide">PROFILE</span></a>
                             </li>
-                            <a class="nav-submenu" data-toggle="collapse" href="#leftoverSubmenu"><i class="si si-layers"></i><span class="sidebar-mini-hide">LEFTOVER</span></a>
+                            <a class="nav-submenu" data-toggle="collapse" href="#leftoverSubmenu"><i
+                                    class="si si-layers"></i><span class="sidebar-mini-hide">LEFTOVER</span></a>
                             <ul id="leftoverSubmenu" class="collapse">
                                 <li><a th:href="@{/add_Leftover}">Add Leftover</a></li>
                                 <li><a th:href="@{/foodList}">List Leftover</a></li>
                                 <li><a th:href="@{/view_request}">Request List</a></li>
                                 <li><a th:href="@{/pickupStatus}">Pickup Status</a></li>
-                              </ul>
+                            </ul>
                             </li>
                             <li><a class="nav-submenu" data-toggle="nav-submenu"><i class="si si-layers"></i><span
-                                  class="sidebar-mini-hide">ORDERS</span></a>
-                              <ul>
-                                <li><a th:href="@{/viewBookings}">Incomming Order</a></li>
-              
-                              </ul>
+                                        class="sidebar-mini-hide">ORDERS</span></a>
+                                <ul>
+                                    <li><a th:href="@{/viewBookings}">Incomming Order</a></li>
+
+                                </ul>
                             </li>
-              
-                          </ul>
+
+                        </ul>
                     </div>
                     <!-- END Side Navigation -->
                 </div>
@@ -328,20 +328,28 @@
                                     <td th:text="${detail.studentNumber}"></td>
                                     <td th:text="${detail.quantity}"></td>
                                     <td>
-                                        <span th:if="${detail.status == 'Accepted'}" class="badge badge-success">Approved</span>
-                                        <span th:if="${detail.status == 'Pending'}" class="badge badge-warning">Pending</span>
-                                        <span th:if="${detail.status == 'Rejected'}" class="badge badge-danger">Rejected</span>
+                                        <span th:if="${detail.status == 'Accepted'}"
+                                            class="badge badge-success">Approved</span>
+                                        <span th:if="${detail.status == 'Pending'}"
+                                            class="badge badge-warning">Pending</span>
+                                        <span th:if="${detail.status == 'Rejected'}"
+                                            class="badge badge-danger">Rejected</span>
                                     </td>
-                                    <td th:if="${detail.status != 'Accepted' && detail.status != 'Rejected'}" class="text-center">
+                                    <td th:if="${detail.status != 'Accepted' && detail.status != 'Rejected'}"
+                                        class="text-center">
                                         <form th:action="@{/accept}" method="post" style="display: inline;">
                                             <input type="hidden" name="foodid" th:value="${detail.foodid}" />
-                                            <button type="submit" class="btn btn-sm btn-circle btn-outline-success mr-5 mb-5" title="Accept">
+                                            <button type="submit"
+                                                class="btn btn-sm btn-circle btn-outline-success mr-5 mb-5"
+                                                title="Accept">
                                                 <i class="fa fa-check"></i>
                                             </button>
                                         </form>
                                         <form th:action="@{/reject}" method="post" style="display: inline;">
                                             <input type="hidden" name="foodid" th:value="${detail.foodid}" />
-                                            <button type="submit" class="btn btn-sm btn-circle btn-outline-danger mr-5 mb-5" title="Reject">
+                                            <button type="submit"
+                                                class="btn btn-sm btn-circle btn-outline-danger mr-5 mb-5"
+                                                title="Reject">
                                                 <i class="fa fa-times"></i>
                                             </button>
                                         </form>
@@ -350,53 +358,55 @@
                                 </tr>
                             </tbody>
                         </table>
-                        
+
                     </div>
                 </div>
 
 
 
-        <script th:src="@{stylesheets/assets/js/codebase.core.min.js}"></script>
+                <script th:src="@{stylesheets/assets/js/codebase.core.min.js}"></script>
 
 
-        <!-- Footer -->
-        <footer id="page-footer">
-            <div class="content py-20 font-size-sm clearfix">
-                <div class="float-right">
-                    Developed <i class="fa fa-heart text-pulse"></i> by <a class="font-w600"
-                        href="https://1.envato.market/ydb" target="_blank">Syamimi Afiqah</a>
-                </div>
-                <div class="float-left">
-                    <a class="font-w600" href="" target="_blank">Foodshare</a> &copy; <span class="js-year-copy"></span>
-                </div>
+                <!-- Footer -->
+                <footer id="page-footer">
+                    <div class="content py-20 font-size-sm clearfix">
+                        <div class="float-right">
+                            Developed <i class="fa fa-heart text-pulse"></i> by <a class="font-w600"
+                                href="https://1.envato.market/ydb" target="_blank">Syamimi Afiqah</a>
+                        </div>
+                        <div class="float-left">
+                            <a class="font-w600" href="" target="_blank">Foodshare</a> &copy; <span
+                                class="js-year-copy"></span>
+                        </div>
+                    </div>
+                </footer>
+                <!-- END Footer -->
             </div>
-        </footer>
-        <!-- END Footer -->
-    </div>
-    <!-- END Page Container -->
+            <!-- END Page Container -->
 
-    <style>
-        .submenu {
-          display: none;
-        }
-        
-        .submenu.show {
-          display: block;
-        }
-      </style>
-      
-      <script>
-        document.querySelectorAll('.nav-submenu').forEach(menu => {
-          menu.addEventListener('click', function() {
-            let submenu = this.nextElementSibling;
-            submenu.classList.toggle('show');
-          });
-        });
-      </script>
-      
+            <style>
+                .submenu {
+                    display: none;
+                }
 
-    <!-- Page JS Plugins -->
-    <script th:src="@{stylesheets/assets/js/plugins/jquery-validation/jquery.validate.min.js}"></script>
+                .submenu.show {
+                    display: block;
+                }
+            </style>
+
+            <script>
+                $(document).ready(function () {
+                    $(".nav-submenu").click(function () {
+                        // Find the corresponding submenu and toggle visibility
+                        $(this).next("ul").toggleClass("collapse");
+                    });
+                });
+
+            </script>
+
+
+            <!-- Page JS Plugins -->
+            <script th:src="@{stylesheets/assets/js/plugins/jquery-validation/jquery.validate.min.js}"></script>
 
 </body>
 
