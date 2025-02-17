@@ -106,7 +106,6 @@ public class FoodPickupController {
             @RequestParam("evidenceimage") MultipartFile evidenceImage,
             @RequestParam("foodname") String foodName,
             @RequestParam("foodquantity") int foodQuantity,
-            @RequestParam("confirmation") String confirmation,
             HttpSession session, Model model) {
 
         String imagePath = "";
